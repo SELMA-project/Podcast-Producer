@@ -15,6 +15,7 @@ struct Podcast_ProducerApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .frame(minWidth: 1024, minHeight: 1024*9/16)
         }
     }
 }
