@@ -10,7 +10,7 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @State private var selectedTab = 0
+    @State private var selectedTab = 1
     
     var body: some View {
         NavigationView {
@@ -21,7 +21,7 @@ struct ContentView: View {
                     Text("Collect View")
                 }
                 if selectedTab == 1 {
-                    Text("Edit View")
+                    MainEditView()
                 }
                 if selectedTab == 2 {
                     Text("Publish View")
