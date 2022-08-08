@@ -15,7 +15,18 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             Sidebar()
-            Text("Main")
+            
+            Group {
+                if selectedTab == 0 {
+                    Text("Collect View")
+                }
+                if selectedTab == 1 {
+                    Text("Edit View")
+                }
+                if selectedTab == 2 {
+                    Text("Publish View")
+                }
+            }
                 .toolbar {
                     ToolbarItem(placement: .navigation) {
                         Button(action: toggleSidebar, label: {
