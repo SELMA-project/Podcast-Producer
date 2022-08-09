@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    
+    @StateObject var episodeViewModel = EpisodeViewModel()
     @Environment(\.managedObjectContext) private var viewContext
     @State private var selectedTab = 1
     
@@ -46,6 +48,7 @@ struct ContentView: View {
                     
                 }
         }
+        .environmentObject(episodeViewModel)
     }
     
     private func toggleSidebar() { // 2
@@ -87,6 +90,7 @@ struct Sidebar: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContentView()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

@@ -13,6 +13,8 @@ struct Podcast_ProducerApp: App {
 
     var body: some Scene {
         WindowGroup {
+            //TestView()
+            
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .frame(minWidth: 1024, minHeight: 1024*9/16)

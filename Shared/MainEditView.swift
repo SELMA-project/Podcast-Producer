@@ -9,12 +9,8 @@ import SwiftUI
 
 struct MainEditView: View {
     
-    @State var titleText: String = "Boletim de Notícias (05/08/22) – Segunda edição"
-    @State var teaserText: String = "Rússia e Ucrânia acusam-se mutuamente de um bombardeio à usina nuclear de Zaporíjia, a maior da Europa. Especialistas afirmam que uma inspeção técnica é urgente e necessária a fim de evitar possíveis acidentes. Ouça esse e outros destaques desta sexta-feira, na segunda edição do Boletim de Notícias da DW Brasil."
-    @State var welcomeText: String = "Olá, hoje é sexta-feira, 5 de agosto de 2022. Eu sou Guilherme Becker e esta é a segunda edição do dia do Boletim de Notícias da DW Brasil."
-    @State var headLineIntroductionText: String = "Confira nesta edição:"
-    
-    @State var selectedStoryNumber: Int = 1
+    @EnvironmentObject var episodeViewModel: EpisodeViewModel
+    @State var selectedStoryNumber: Int = 0
     
     func incrementStoryNumber() {
         selectedStoryNumber = min(selectedStoryNumber+1, 5)
@@ -29,21 +25,21 @@ struct MainEditView: View {
         Form {
             
             Section("Episode title") {
-                TextField("Teaser", text: $teaserText, axis:. vertical)
+                TextField("Teaser", text: $episodeViewModel.chosenEpisode.cmsTitle, axis:. vertical)
                     .lineLimit(3, reservesSpace: true)
             }
             
             Section("Episode teaser") {
-                TextField("Teaser", text: $teaserText, axis:. vertical)
+                TextField("Teaser", text: $episodeViewModel.chosenEpisode.cmsTeaser, axis:. vertical)
                     .lineLimit(3, reservesSpace: true)
             }
             
             Section("Welcome text") {
-                TextField("Welcome text", text: $welcomeText, axis: .vertical)
+                TextField("Welcome text", text: $episodeViewModel.chosenEpisode.welcomeText, axis: .vertical)
             }
             
-            Section("Headline introductiont") {
-                TextField("Headline introduction", text: $headLineIntroductionText, axis: .vertical)
+            Section("Headline introduction") {
+                TextField("Headline introduction", text: $episodeViewModel.chosenEpisode.headlineIntroduction, axis: .vertical)
             }
             
             
@@ -53,7 +49,7 @@ struct MainEditView: View {
 //                        Text("\($0)")
 //                    }
 //                }
-                Stepper(value: $selectedStoryNumber, in: 1...5) {
+                Stepper(value: $selectedStoryNumber, in: 0...4) {
                      Text("Story number: \(selectedStoryNumber)")
                  }
             }
