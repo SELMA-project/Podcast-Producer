@@ -25,54 +25,42 @@ struct MainEditView: View {
     }
     
     var body: some View {
+
         Form {
             
-            Section("Episode description") {
-                TextField("Title", text: $titleText)
-                TextEditor(text: $teaserText)
+            Section("Episode title") {
+                TextField("Teaser", text: $teaserText, axis:. vertical)
+                    .lineLimit(3, reservesSpace: true)
             }
             
-            Section("Episode content") {
-                TextEditor(text: $welcomeText)
-                TextField("", text: $headLineIntroductionText)
+            Section("Episode teaser") {
+                TextField("Teaser", text: $teaserText, axis:. vertical)
+                    .lineLimit(3, reservesSpace: true)
             }
-
-
-//            Group {
-//                HStack {
-//                    VStack(alignment: .leading) {
-//                        Text("Welcome")
-//                        TextEditor(text: $teaserText)
-//                    }
-//                    VStack(alignment: .leading) {
-//                        Text("Introduction")
-//                        TextEditor(text: $introductionText)
-//                    }
-//                }
-//
             
-            Section("Story") {
-                HStack {
-                    Picker("Select story", selection: $selectedStoryNumber) {
-                        ForEach([1, 2, 3, 4, 5], id: \.self) {
-                             Text("\($0)")
-                         }
-                    }.frame(width: 150)
-                    Spacer()
-                }
-                StoryEditView(storyNumber: selectedStoryNumber)
+            Section("Welcome text") {
+                TextField("Welcome text", text: $welcomeText, axis: .vertical)
             }
-//                Stepper {
-//                    Text("Story \(selectedStoryNumber)")
-//                } onIncrement: {
-//                    incrementStoryNumber()
-//                } onDecrement: {
-//                    decrementStoryNumber()
+            
+            Section("Headline introductiont") {
+                TextField("Headline introduction", text: $headLineIntroductionText, axis: .vertical)
+            }
+            
+            
+            Section("Select story") {
+//                Picker("Select story", selection: $selectedStoryNumber) {
+//                    ForEach([1, 2, 3, 4, 5], id: \.self) {
+//                        Text("\($0)")
+//                    }
 //                }
-//
-//
-//            }
-                
+                Stepper(value: $selectedStoryNumber, in: 1...5) {
+                     Text("Story number: \(selectedStoryNumber)")
+                 }
+            }
+            
+            StoryEditView(storyNumber: selectedStoryNumber)
+ 
+                    
         }.padding()
     }
 }

@@ -32,9 +32,15 @@ Mas o acesso ao local da usina é bastante complicado por se tratar de uma zona 
 """
     
     var body: some View {
-        TextField("Headline", text: $storyHeadline)
-        TextEditor(text: $storyText)
-            .layoutPriority(1)
+        
+        Section("Story headline") {
+            TextField("Headline", text: $storyHeadline)
+        }
+        
+        Section("Story text") {
+            TextField("Story text", text: $storyText, axis: .vertical)
+                .lineLimit(10)
+        }
 
         
     }
