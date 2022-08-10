@@ -41,6 +41,7 @@ struct ContentView: View {
                 }
             }
         }
+ 
         .environmentObject(episodeViewModel)
     }
     
@@ -57,12 +58,12 @@ struct ContentView: View {
 
 struct Sidebar: View {
     
+    @EnvironmentObject var episodeViewModel: EpisodeViewModel
+    @State private var chosenEpisode: Episode?
+    
     var body: some View {
-        List {
-            Text("Fri, Feb 4th pm")
-            Text("Fri, Feb 4th am")
-            Text("Thu, Feb 3rd pm")
-            Text("Thu, Feb 3rd am")
+        List(episodeViewModel.availableEpisodes, selection: $chosenEpisode) {episode in
+            NavigationLink(episode.timeSlot, value: episode)
         }
         .listStyle(.sidebar)
         .toolbar {

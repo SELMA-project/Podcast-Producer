@@ -15,25 +15,42 @@ struct Team: Identifiable, Hashable {
 }
 
 struct TestView: View {
-    @State private var teams = [Team(name: "AFC Richmond", players: ["Dani", "Jamie", "Row"])]
 
-    @State private var selectedTeam: Team?
-    @State private var selectedPlayer: String?
+    @StateObject var episodeViewModel = EpisodeViewModel()
 
     var body: some View {
-        NavigationSplitView {
-            List(teams, selection: $selectedTeam) { team in
-                Text(team.name).tag(team)
+//        NavigationStack {
+//            List(episodeViewModel.chosenEpisode.stories, id: \.headline) {story in
+//                NavigationLink(value: episodeViewModel.chosenEpisode.stories.firstIndex(where: {$0.headline == story.headline})) {
+//                    Text(story.headline)
+//                }
+//            }.navigationDestination(for: Int.self) { i in
+//                Text("Detail \(i)")
+//            }
+//        }
+        
+        NavigationStack {
+            List(episodeViewModel.chosenEpisode.stories, id: \.headline) {story in
+                NavigationLink(value: episodeViewModel.chosenEpisode.stories.firstIndex(where: {$0.headline == story.headline})) {
+                    Text(story.headline)
+                }
+            }.navigationDestination(for: Int.self) { i in
+                Text("Detail \(i)")
             }
-            .navigationSplitViewColumnWidth(250)
-        } content: {
-            List(selectedTeam?.players ?? [], id: \.self, selection: $selectedPlayer) { player in
-                Text(player)
-            }
-        } detail: {
-            Text(selectedPlayer ?? "Please choose a player.")
         }
-        .navigationSplitViewStyle(.prominentDetail)
+        
+        
+//        NavigationStack {
+//            List(1..<50) { i in
+//                NavigationLink(value: i) {
+//                    Label("Row \(i)", systemImage: "\(i).circle")
+//                }
+//            }
+//            .navigationDestination(for: Int.self) { i in
+//                Text("Detail \(i)")
+//            }
+//            .navigationTitle("Navigation")
+//        }
     }
 }
 struct TestView_Previews: PreviewProvider {

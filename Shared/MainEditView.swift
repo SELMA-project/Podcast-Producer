@@ -20,45 +20,47 @@ struct MainEditView: View {
         selectedStoryNumber = max(selectedStoryNumber-1, 1)
     }
     
+    @State private var path: [String] = []
+    
     var body: some View {
+        
+        NavigationStack(path: $path) {
+            
+            Form {
+                Section("Episode title") {
+                    TextField("Teaser", text: $episodeViewModel.chosenEpisode.cmsTitle, axis:. vertical)
+                        .lineLimit(3, reservesSpace: true)
+                }
+                
+                Section("Episode teaser") {
+                    TextField("Teaser", text: $episodeViewModel.chosenEpisode.cmsTeaser, axis:. vertical)
+                        .lineLimit(3, reservesSpace: true)
+                }
+                
+                Section("Welcome text") {
+                    TextField("Welcome text", text: $episodeViewModel.chosenEpisode.welcomeText, axis: .vertical)
+                }
+                
+                Section("Headline introduction") {
+                    TextField("Headline introduction", text: $episodeViewModel.chosenEpisode.headlineIntroduction, axis: .vertical)
+                }
+                
+                Section("Stories") {
+                    ForEach(episodeViewModel.chosenEpisode.stories, id: \.headline) {story in
+                        NavigationLink(value: story.headline) {
+                            Text(story.headline)
+                        }
+                    }
+                }
 
-        Form {
-            
-            Section("Episode title") {
-                TextField("Teaser", text: $episodeViewModel.chosenEpisode.cmsTitle, axis:. vertical)
-                    .lineLimit(3, reservesSpace: true)
             }
-            
-            Section("Episode teaser") {
-                TextField("Teaser", text: $episodeViewModel.chosenEpisode.cmsTeaser, axis:. vertical)
-                    .lineLimit(3, reservesSpace: true)
+            .navigationDestination(for: String.self) { i in
+                Text("Detail \(i)")
             }
-            
-            Section("Welcome text") {
-                TextField("Welcome text", text: $episodeViewModel.chosenEpisode.welcomeText, axis: .vertical)
-            }
-            
-            Section("Headline introduction") {
-                TextField("Headline introduction", text: $episodeViewModel.chosenEpisode.headlineIntroduction, axis: .vertical)
-            }
-            
-            
-            Section("Select story") {
-//                Picker("Select story", selection: $selectedStoryNumber) {
-//                    ForEach([1, 2, 3, 4, 5], id: \.self) {
-//                        Text("\($0)")
-//                    }
-//                }
-                Stepper(value: $selectedStoryNumber, in: 0...4) {
-                     Text("Story number: \(selectedStoryNumber)")
-                 }
-            }
-            
-            StoryEditView(storyNumber: selectedStoryNumber)
- 
-                    
-        }.padding()
+        }
+        .padding()
     }
+    
 }
 
 struct MainEditView_Previews: PreviewProvider {

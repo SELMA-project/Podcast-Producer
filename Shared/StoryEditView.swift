@@ -14,7 +14,7 @@ struct StoryEditView: View {
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
         
     var body: some View {
-        
+
         Section("Story headline") {
             TextField("Headline", text: $episodeViewModel.chosenEpisode.stories[storyNumber].headline)
         }
@@ -22,9 +22,7 @@ struct StoryEditView: View {
         Section("Story text") {
             TextField("Story text", text: $episodeViewModel.chosenEpisode.stories[storyNumber].storyText, axis: .vertical)
                 .lineLimit(10)
-        }
-
-        
+        }        
     }
 }
 

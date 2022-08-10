@@ -90,7 +90,9 @@ O conflito dos últimos três dias foi o pior entre israelenses e militantes pal
                               welcomeText: "Olá, hoje é segunda-feira, 08 de agosto de 2022. Eu sou Philip Verminnen e esta é a segunda edição do dia do Boletim de Notícias da DW Brasil.",
                               headlineIntroduction: "Confira nesta edição:",
                               stories: stories,
-                              epilogue: "Mais notícias você encontra no nosso site. Acesse dw.com/brasil")
+                              epilogue: "Mais notícias você encontra no nosso site. Acesse dw.com/brasil",
+                              timeSlot: "August 8th pm"
+        )
         
         return episode
     }
