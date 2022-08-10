@@ -15,9 +15,9 @@ struct ContentView: View {
     @State private var selectedTab = 1
     
     var body: some View {
-        NavigationView {
+        NavigationSplitView {
             Sidebar()
-            
+        } detail: {
             Group {
                 if selectedTab == 0 {
                     Text("Collect View")
@@ -29,34 +29,27 @@ struct ContentView: View {
                     Text("Publish View")
                 }
             }
-                .toolbar {
-                    ToolbarItem(placement: .navigation) {
-                        Button(action: toggleSidebar, label: {
-                            Image(systemName: "sidebar.leading")
-                        })
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Picker(selection: $selectedTab, label: Text("Picker")) {
+                        Text("Collect").tag(0)
+                        Text("Edit").tag(1)
+                        Text("Publish").tag(2)
                     }
-                    
-                    ToolbarItem(placement: .principal) {
-                        Picker(selection: $selectedTab, label: Text("Picker")) {
-                            Text("Collect").tag(0)
-                            Text("Edit").tag(1)
-                            Text("Publish").tag(2)
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
-                        .labelsHidden()
-                    }
-                    
+                    .pickerStyle(SegmentedPickerStyle())
+                    .labelsHidden()
                 }
+            }
         }
         .environmentObject(episodeViewModel)
     }
     
-    private func toggleSidebar() { // 2
-#if os(iOS)
-#else
-        NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
-#endif
-    }
+//    private func toggleSidebar() { // 2
+//#if os(iOS)
+//#else
+//        NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
+//#endif
+//    }
     
     
 }
