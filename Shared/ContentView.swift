@@ -12,45 +12,34 @@ struct ContentView: View {
     
     @StateObject var episodeViewModel = EpisodeViewModel()
     @Environment(\.managedObjectContext) private var viewContext
-    @State private var selectedTab = 1
     
     var body: some View {
         NavigationSplitView {
             Sidebar()
         } detail: {
-            Group {
-                if selectedTab == 0 {
-                    Text("Collect View")
-                }
-                if selectedTab == 1 {
-                    MainEditView()
-                }
-                if selectedTab == 2 {
-                    Text("Publish View")
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-
-                    Button {
-                        print("Render button pressed")
-                    } label: {
-                        Image(systemName: "square.and.arrow.down")
+            MainEditView()
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        
+                        Button {
+                            print("Render button pressed")
+                        } label: {
+                            //Image(systemName: "square.and.arrow.down")
+                            Text("Create Audio")
+                        }
                     }
-
                 }
-            }
         }
- 
+
         .environmentObject(episodeViewModel)
     }
     
-//    private func toggleSidebar() { // 2
-//#if os(iOS)
-//#else
-//        NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
-//#endif
-//    }
+    //    private func toggleSidebar() { // 2
+    //#if os(iOS)
+    //#else
+    //        NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
+    //#endif
+    //    }
     
     
 }
@@ -63,28 +52,32 @@ struct Sidebar: View {
     
     var body: some View {
         List(selection: $chosenEpisode) {
-            Section("Latest on GitHub") {
-                ForEach(episodeViewModel.availableEpisodes) {episode in
-                    NavigationLink(episode.timeSlot, value: episode)
-                }
-            }
-            Section("Locally created") {
+            ForEach(episodeViewModel.availableEpisodes) {episode in
+                NavigationLink(episode.timeSlot, value: episode)
             }
         }
         .listStyle(.sidebar)
         .toolbar {
-            ToolbarItemGroup {
-                Spacer()
-                Button(action: addEntry, label : {
+            ToolbarItemGroup(placement: .bottomBar, content: {
+                
+                Button(action: githubSync) {
+                    Image(systemName: "arrow.triangle.2.circlepath")
+                }
+                
+                Button(action: addEntry) {
                     Image(systemName: "plus")
-                })
-            }
+                }
+            })
         }
     }
     
     private func addEntry() {
         print("Added entry")
     }
+                       
+   private func githubSync() {
+       print("Synchronize with Github")
+   }
 }
 
 
