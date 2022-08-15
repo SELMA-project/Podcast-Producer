@@ -29,6 +29,8 @@
 		C1756ABB28A1198D00FE9F2B /* MainEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756AB928A1198D00FE9F2B /* MainEditView.swift */; };
 		C1756ABD28A13D3700FE9F2B /* StoryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */; };
 		C1756ABE28A13D3700FE9F2B /* StoryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */; };
+		C1BA7EBE28AA92270090573B /* AudioRenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BA7EBD28AA92270090573B /* AudioRenderView.swift */; };
+		C1BA7EBF28AA92270090573B /* AudioRenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BA7EBD28AA92270090573B /* AudioRenderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,7 @@
 		C1543A1128A2AACC00427ED0 /* ExampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleData.swift; sourceTree = "<group>"; };
 		C1756AB928A1198D00FE9F2B /* MainEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEditView.swift; sourceTree = "<group>"; };
 		C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryEditView.swift; sourceTree = "<group>"; };
+		C1BA7EBD28AA92270090573B /* AudioRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRenderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,7 @@
 				C1491F5927AD472600A72AEB /* ContentView.swift */,
 				C1756AB928A1198D00FE9F2B /* MainEditView.swift */,
 				C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */,
+				C1BA7EBD28AA92270090573B /* AudioRenderView.swift */,
 				C158EDFD28AA32B9002EFF7B /* Episode Data */,
 				C1543A0828A2652200427ED0 /* TestView.swift */,
 				C1491F5B27AD472700A72AEB /* Assets.xcassets */,
@@ -218,6 +222,7 @@
 			files = (
 				C1543A0928A2652200427ED0 /* TestView.swift in Sources */,
 				C1756ABD28A13D3700FE9F2B /* StoryEditView.swift in Sources */,
+				C1BA7EBE28AA92270090573B /* AudioRenderView.swift in Sources */,
 				C1491F6B27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */,
 				C1491F6F27AD472700A72AEB /* Persistence.swift in Sources */,
 				C1756ABA28A1198D00FE9F2B /* MainEditView.swift in Sources */,
@@ -235,6 +240,7 @@
 			files = (
 				C1543A0A28A2652200427ED0 /* TestView.swift in Sources */,
 				C1756ABE28A13D3700FE9F2B /* StoryEditView.swift in Sources */,
+				C1BA7EBF28AA92270090573B /* AudioRenderView.swift in Sources */,
 				C1491F6C27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */,
 				C1491F7027AD472700A72AEB /* Persistence.swift in Sources */,
 				C1756ABB28A1198D00FE9F2B /* MainEditView.swift in Sources */,

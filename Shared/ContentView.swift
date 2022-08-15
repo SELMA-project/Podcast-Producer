@@ -22,11 +22,9 @@ struct ContentView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         
-                        Button {
-                            print("Render button pressed")
-                        } label: {
-                            //Image(systemName: "square.and.arrow.down")
-                            Text("Create Audio")
+                        // present Audio Render View
+                        NavigationLink("Create Audio") {
+                            AudioRenderView(episodeViewModel: episodeViewModel)
                         }
                     }
                 }
