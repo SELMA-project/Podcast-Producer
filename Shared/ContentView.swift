@@ -80,6 +80,7 @@ struct Sidebar: View {
                 }
             })
         }
+        .navigationTitle("Episodes")
     }
     
     private func addEntry() {
