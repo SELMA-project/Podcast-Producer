@@ -29,12 +29,12 @@ struct MainEditView: View {
             Form {
                 Section("Episode title") {
                     TextField("Teaser", text: $episodeViewModel.chosenEpisode.cmsTitle, axis:. vertical)
-                        .lineLimit(3, reservesSpace: true)
+                        .lineLimit(3, reservesSpace: false)
                 }
                 
                 Section("Episode teaser") {
                     TextField("Teaser", text: $episodeViewModel.chosenEpisode.cmsTeaser, axis:. vertical)
-                        .lineLimit(3, reservesSpace: true)
+                        .lineLimit(3, reservesSpace: false)
                 }
                 
                 Section("Welcome text") {

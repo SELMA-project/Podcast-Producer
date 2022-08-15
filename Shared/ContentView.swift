@@ -30,14 +30,14 @@ struct ContentView: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Picker(selection: $selectedTab, label: Text("Picker")) {
-                        Text("Collect").tag(0)
-                        Text("Edit").tag(1)
-                        Text("Publish").tag(2)
+                ToolbarItem(placement: .navigationBarTrailing) {
+
+                    Button {
+                        print("Render button pressed")
+                    } label: {
+                        Image(systemName: "square.and.arrow.down")
                     }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .labelsHidden()
+
                 }
             }
         }
