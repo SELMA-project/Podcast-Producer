@@ -12,13 +12,13 @@ struct ContentView: View {
     
     @StateObject var episodeViewModel = EpisodeViewModel()
     @Environment(\.managedObjectContext) private var viewContext
-    @State private var chosenEpisode: Episode?
     
     var body: some View {
+        
         NavigationSplitView {
-            Sidebar(chosenEpisode: $chosenEpisode)
+            Sidebar(episodeViewModel: episodeViewModel)
         } detail: {
-            MainEditView(chosenEpisode: $chosenEpisode)
+            MainEditView(episodeViewModel: episodeViewModel)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         
@@ -31,31 +31,40 @@ struct ContentView: View {
                     }
                 }
         }
-
-        .environmentObject(episodeViewModel)
     }
-    
-    //    private func toggleSidebar() { // 2
-    //#if os(iOS)
-    //#else
-    //        NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
-    //#endif
-    //    }
-    
-    
+
 }
 
 
 struct Sidebar: View {
     
-    @EnvironmentObject var episodeViewModel: EpisodeViewModel
-    //@State private var chosenEpisode: Episode?
-    @Binding var chosenEpisode: Episode?
+    @ObservedObject var episodeViewModel: EpisodeViewModel
+    
+    // stores selection. needs to be optional!
+    @State private var chosenEpisodeIndex: Int?
+    
+    init(episodeViewModel: EpisodeViewModel) {
+        self.episodeViewModel = episodeViewModel
+        
+        // init chosenEpisodeIndex @State with episodeViewModel
+        _chosenEpisodeIndex = State(initialValue: episodeViewModel.chosenEpisodeIndex)
+    }
     
     var body: some View {
-        List(selection: $chosenEpisode) {
-            ForEach(episodeViewModel.availableEpisodes) {episode in
-                NavigationLink(episode.timeSlot, value: episode)
+        
+        // Binding used for List selection. Linked to chosenEpisodeIndex
+        let chosenEpisodeIndexBinding = Binding {
+            self.chosenEpisodeIndex
+        } set: { newValue in
+            self.chosenEpisodeIndex = newValue
+            
+            // update viewmodel based on selection
+            episodeViewModel.chosenEpisodeIndex = newValue ?? 0
+        }
+        
+        List(selection: chosenEpisodeIndexBinding) {
+            ForEach(0..<episodeViewModel.availableEpisodes.count, id: \.self) {episodeIndex in
+                NavigationLink(episodeViewModel.availableEpisodes[episodeIndex].timeSlot, value: episodeIndex)
             }
         }
         .listStyle(.sidebar)
