@@ -8,7 +8,7 @@
 import Foundation
 
 extension Episode {
-    static func episode0() -> Episode {
+    static var episode0: Episode {
         
         let story1 = Story(usedInIntroduction: true,
                            headline: "Pobreza atingiu em 2021 quase um quarto dos moradores de regiões metropolitanas",

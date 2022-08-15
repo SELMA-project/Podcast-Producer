@@ -79,13 +79,11 @@
 			isa = PBXGroup;
 			children = (
 				C1491F5827AD472600A72AEB /* Podcast_ProducerApp.swift */,
-				C1491F5927AD472600A72AEB /* ContentView.swift */,
 				C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */,
-				C1543A0E28A2A69C00427ED0 /* Episode.swift */,
-				C1543A1128A2AACC00427ED0 /* ExampleData.swift */,
+				C1491F5927AD472600A72AEB /* ContentView.swift */,
 				C1756AB928A1198D00FE9F2B /* MainEditView.swift */,
 				C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */,
-				C1491F5A27AD472600A72AEB /* Persistence.swift */,
+				C158EDFD28AA32B9002EFF7B /* Episode Data */,
 				C1543A0828A2652200427ED0 /* TestView.swift */,
 				C1491F5B27AD472700A72AEB /* Assets.xcassets */,
 				C1491F5627AD472600A72AEB /* Podcast_Producer.xcdatamodeld */,
@@ -108,6 +106,16 @@
 				C1491F6827AD472700A72AEB /* macOS.entitlements */,
 			);
 			path = macOS;
+			sourceTree = "<group>";
+		};
+		C158EDFD28AA32B9002EFF7B /* Episode Data */ = {
+			isa = PBXGroup;
+			children = (
+				C1543A0E28A2A69C00427ED0 /* Episode.swift */,
+				C1543A1128A2AACC00427ED0 /* ExampleData.swift */,
+				C1491F5A27AD472600A72AEB /* Persistence.swift */,
+			);
+			path = "Episode Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

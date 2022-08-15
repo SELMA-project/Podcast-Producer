@@ -12,12 +12,13 @@ struct ContentView: View {
     
     @StateObject var episodeViewModel = EpisodeViewModel()
     @Environment(\.managedObjectContext) private var viewContext
+    @State private var chosenEpisode: Episode?
     
     var body: some View {
         NavigationSplitView {
-            Sidebar()
+            Sidebar(chosenEpisode: $chosenEpisode)
         } detail: {
-            MainEditView()
+            MainEditView(chosenEpisode: $chosenEpisode)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         
@@ -48,7 +49,8 @@ struct ContentView: View {
 struct Sidebar: View {
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
-    @State private var chosenEpisode: Episode?
+    //@State private var chosenEpisode: Episode?
+    @Binding var chosenEpisode: Episode?
     
     var body: some View {
         List(selection: $chosenEpisode) {

@@ -14,7 +14,7 @@ class EpisodeViewModel: ObservableObject {
     
     init() {
         // episde0 from example data
-        let episode0 = Episode.episode0()
+        let episode0 = Episode.episode0
         
         // derive episode 1 from e0
         var episode1 = episode0
