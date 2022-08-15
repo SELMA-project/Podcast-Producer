@@ -12,8 +12,7 @@ struct MainEditView: View {
     @Binding var chosenEpisode: Episode?
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
-    @State var selectedStoryNumber: Int = 0
-    @State private var path: [String] = []
+    @State private var path: [Int] = []
     
     var body: some View {
         
@@ -41,16 +40,16 @@ struct MainEditView: View {
                     }
                     
                     Section("Stories") {
-                        ForEach(myChosenEpisode.wrappedValue.stories, id: \.headline) {story in
-                            NavigationLink(value: story.headline) {
-                                Text(story.headline)
+                        ForEach(0...myChosenEpisode.wrappedValue.stories.count-1, id:\.self) {storyNumber in
+                            NavigationLink(value: storyNumber) {
+                                Text(myChosenEpisode.wrappedValue.stories[storyNumber].headline)
                             }
                         }
                     }
                     
                 }
-                .navigationDestination(for: String.self) { i in
-                    Text("Detail \(i)")
+                .navigationDestination(for: Int.self) { storyNumber in
+                    StoryEditView(episode: myChosenEpisode, storyNumber: storyNumber)
                 }
                 
             } else {

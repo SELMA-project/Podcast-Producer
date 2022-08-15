@@ -9,18 +9,17 @@ import SwiftUI
 
 struct StoryEditView: View {
     
-    var storyNumber: Int = 1
-    
-    @EnvironmentObject var episodeViewModel: EpisodeViewModel
+    @Binding var episode: Episode
+    var storyNumber: Int = 0
         
     var body: some View {
 
         Section("Story headline") {
-            TextField("Headline", text: $episodeViewModel.chosenEpisode.stories[storyNumber].headline)
+            TextField("Headline", text: $episode.stories[storyNumber].headline)
         }
         
         Section("Story text") {
-            TextField("Story text", text: $episodeViewModel.chosenEpisode.stories[storyNumber].storyText, axis: .vertical)
+            TextField("Story text", text: $episode.stories[storyNumber].storyText, axis: .vertical)
                 .lineLimit(10)
         }        
     }
@@ -28,6 +27,6 @@ struct StoryEditView: View {
 
 struct StoryEditView_Previews: PreviewProvider {
     static var previews: some View {
-        StoryEditView()
+        StoryEditView(episode: .constant(Episode.episode0))
     }
 }
