@@ -62,8 +62,14 @@ struct Sidebar: View {
     @State private var chosenEpisode: Episode?
     
     var body: some View {
-        List(episodeViewModel.availableEpisodes, selection: $chosenEpisode) {episode in
-            NavigationLink(episode.timeSlot, value: episode)
+        List(selection: $chosenEpisode) {
+            Section("Latest on GitHub") {
+                ForEach(episodeViewModel.availableEpisodes) {episode in
+                    NavigationLink(episode.timeSlot, value: episode)
+                }
+            }
+            Section("Locally created") {
+            }
         }
         .listStyle(.sidebar)
         .toolbar {
