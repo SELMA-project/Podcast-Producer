@@ -10,9 +10,17 @@ import SwiftUI
 struct AudioRenderView: View {
     
     @ObservedObject var episodeViewModel: EpisodeViewModel
+    @StateObject var selmaViewModel = SelmaViewModel()
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Button("Render!") {
+                Task {
+                    await selmaViewModel.testRender()
+                }
+            }
+            Text(selmaViewModel.statusMessage)
+        }
     }
 }
 
