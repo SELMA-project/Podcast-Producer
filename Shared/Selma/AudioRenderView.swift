@@ -14,10 +14,15 @@ struct AudioRenderView: View {
     
     var body: some View {
         VStack {
-            Button("Render!") {
-                Task {
-                    await selmaViewModel.testRender()
+            HStack {
+                Button("Render!") {
+                    Task {
+                        await selmaViewModel.testRender()
+                    }
                 }
+                Button("Play") {
+                    selmaViewModel.playAudio()
+                }.disabled(selmaViewModel.audioData == nil)
             }
             Text(selmaViewModel.statusMessage)
         }

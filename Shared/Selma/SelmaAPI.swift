@@ -30,6 +30,8 @@ class SelmaAPI {
         
         if let url = uc0endPoint.url {
             
+            //print("TTS URL: \(url.absoluteString)")
+            
             do {
                 (data, _) = try await URLSession.shared.data(from: url)
             } catch {

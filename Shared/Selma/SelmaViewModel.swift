@@ -32,10 +32,15 @@ import Foundation
 //
 //    return endTime - startTime
 
+import AVFoundation
+
 @MainActor
 class SelmaViewModel: ObservableObject {
     
     @Published var statusMessage: String = ""
+    
+    var audioData: Data?
+    var audioPlayer: AVAudioPlayer?
     
     func testRender() async {
         
@@ -44,17 +49,28 @@ class SelmaViewModel: ObservableObject {
         
         self.statusMessage = "Rendering audio..."
         
-        let data = await SelmaAPI.shared.renderAudio(speakerName: speakerName, text: text)
+        audioData = await SelmaAPI.shared.renderAudio(speakerName: speakerName, text: text)
         
         var message = "Error while rendering audio on the server."
-        if let data = data {
+        if let data = audioData {
             message = "Data received: \(data.description)"
         }
         
         self.statusMessage = message
     }
     
+    func playAudio() {
+        
+        guard let audioData = self.audioData else {return}
 
+        do {
+            audioPlayer = try AVAudioPlayer(data: audioData)
+            audioPlayer?.play()
+        } catch {
+            self.statusMessage = "Could not play audio."
+        }
+        
+    }
     
 }
 
