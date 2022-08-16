@@ -13,18 +13,38 @@ struct AudioRenderView: View {
     @StateObject var selmaViewModel = SelmaViewModel()
     
     var body: some View {
-        VStack {
-            HStack {
-                Button("Render!") {
+        
+        VStack(alignment: .leading) {
+            Text("Status")
+                .font(.headline)
+ 
+            Text(selmaViewModel.statusMessage)
+ 
+            Text("Text")
+                .padding(.top)
+                .font(.headline)
+                
+            ScrollView(.vertical) {
+                VStack(alignment: .leading, spacing: 20) {
+                    ForEach(episodeViewModel.episodeStructure) {audioSegment in
+                        audioSegment.segmentIdentifer != .headlines ? Text(audioSegment.text) : Text(" * " + audioSegment.text)
+                    }
+                }
+            }
+            Spacer()
+        }
+        .padding()
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button("Render") {
                     Task {
                         await selmaViewModel.testRender()
                     }
                 }
-                Button("Play") {
-                    selmaViewModel.playAudio()
-                }.disabled(selmaViewModel.audioData == nil)
             }
-            Text(selmaViewModel.statusMessage)
+        }
+        .onAppear {
+            episodeViewModel.buildEpisodeStructure()
         }
     }
 }
