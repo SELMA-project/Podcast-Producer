@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SegmentIdentifier: CaseIterable {
+enum SegmentIdentifier: String, CaseIterable  {
     case welcomeText
     case headlineIntroduction
     case headlines
@@ -24,7 +24,7 @@ struct AudioSegment: Identifiable {
     var text: String
 }
 
-
+@MainActor
 class EpisodeViewModel: ObservableObject {
     
     @Published var chosenEpisodeIndex: Int = 0
@@ -52,43 +52,43 @@ class EpisodeViewModel: ObservableObject {
         availableEpisodes = [episode0, episode1, episode2]
     }
     
-    /// After building an Episode Structure, this function will return the individual segments until non are left
-    func nextSegment() -> AudioSegment? {
-    
-        // return nil if no segments are available (any more)
-        guard episodeStructure.count > 0 else {return nil}
-        
-        // result -> default is nil
-        var nextSegment: AudioSegment?
-        
-        // which segment is currently active?
-        let activeSegmentIndex = episodeStructure.firstIndex { audioSegment in
-            return audioSegment.isActive
-        }
-                
-        // get next segment
-        if let activeSegmentIndex = activeSegmentIndex {
-            
-            // set current segment to inactive
-            episodeStructure[activeSegmentIndex].isActive = false
-            
-            // any segments left?
-            if activeSegmentIndex < episodeStructure.count - 1 {
-                
-                // get next index
-                let nextSegmentIndex = episodeStructure.index(after: activeSegmentIndex)
-                
-                // get associated index
-                nextSegment = episodeStructure[nextSegmentIndex]
-                
-                // set segment to active
-                nextSegment?.isActive = true
-            }
-        }
-        
-        return nextSegment
-    }
-    
+//    /// After building an Episode Structure, this function will return the individual segments until non are left
+//    func nextSegment() -> AudioSegment? {
+//
+//        // return nil if no segments are available (any more)
+//        guard episodeStructure.count > 0 else {return nil}
+//
+//        // result -> default is nil
+//        var nextSegment: AudioSegment?
+//
+//        // which segment is currently active?
+//        let activeSegmentIndex = episodeStructure.firstIndex { audioSegment in
+//            return audioSegment.isActive
+//        }
+//
+//        // get next segment
+//        if let activeSegmentIndex = activeSegmentIndex {
+//
+//            // set current segment to inactive
+//            episodeStructure[activeSegmentIndex].isActive = false
+//
+//            // any segments left?
+//            if activeSegmentIndex < episodeStructure.count - 1 {
+//
+//                // get next index
+//                let nextSegmentIndex = episodeStructure.index(after: activeSegmentIndex)
+//
+//                // get associated index
+//                nextSegment = episodeStructure[nextSegmentIndex]
+//
+//                // set segment segment to active
+//                nextSegment?.isActive = true
+//            }
+//        }
+//
+//        return nextSegment
+//    }
+//
     
     func buildEpisodeStructure() {
 
@@ -135,4 +135,39 @@ class EpisodeViewModel: ObservableObject {
         self.episodeStructure = structure
     }
 
+    
+    func playEpisodeStructure() async {
+  
+        let speakerName = "leila endruweit"
+        
+        for (index, audioSegment) in episodeStructure.enumerated() {
+            
+            print("Playing: \(index) -> \(audioSegment.segmentIdentifer.rawValue)")
+            
+            episodeStructure[index].isActive = true
+
+            // TODO: Change! Should be more elegant
+            for (i, _) in episodeStructure.enumerated() {
+                if i != index {
+                    episodeStructure[i].isActive = false
+                }
+            }
+            
+            // the text to render
+            let text = audioSegment.text
+            
+            // render audio
+            let data = await SelmaManager.shared.renderAudio(speakerName: speakerName, text: text)
+            
+            // play audio
+            if let data = data {
+                await SelmaManager.shared.playAudio(audioData: data)
+            } else {
+                print("No audio data returned.")
+            }
+            
+        }
+        
+    }
+    
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct AudioRenderView: View {
     
     @ObservedObject var episodeViewModel: EpisodeViewModel
-    @StateObject var selmaViewModel = SelmaViewModel()
+
     
     var body: some View {
         
@@ -18,7 +18,7 @@ struct AudioRenderView: View {
             Text("Status")
                 .font(.headline)
  
-            Text(selmaViewModel.statusMessage)
+            Text("Status message here.")
  
             Text("Text")
                 .padding(.top)
@@ -38,7 +38,8 @@ struct AudioRenderView: View {
             ToolbarItem(placement: .primaryAction) {
                 Button("Render") {
                     Task {
-                        await selmaViewModel.testRender()
+                        episodeViewModel.buildEpisodeStructure()
+                        await episodeViewModel.playEpisodeStructure()
                     }
                 }
             }

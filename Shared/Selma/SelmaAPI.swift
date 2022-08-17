@@ -8,10 +8,7 @@
 import Foundation
 
 class SelmaAPI {
-    
-    // singleton
-    static var shared = SelmaAPI()
-    
+        
     func renderAudio(speakerName: String, text: String) async -> Data? {
         
         // path on server
