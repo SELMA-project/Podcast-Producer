@@ -15,19 +15,13 @@ struct AudioRenderView: View {
     var body: some View {
         
         VStack(alignment: .leading) {
-            Text("Status")
-                .font(.headline)
- 
-            Text("Status message here.")
- 
-            Text("Text")
-                .padding(.top)
-                .font(.headline)
-                
             ScrollView(.vertical) {
                 VStack(alignment: .leading, spacing: 20) {
                     ForEach(episodeViewModel.episodeStructure) {audioSegment in
-                        audioSegment.segmentIdentifer != .headlines ? Text(audioSegment.text) : Text(" * " + audioSegment.text)
+                        Group {
+                            audioSegment.segmentIdentifer != .headlines ? Text(audioSegment.text) : Text(" * " + audioSegment.text)
+                        }
+                        .opacity(audioSegment.isActive ? 1.0 : 0.2)
                     }
                 }
             }
