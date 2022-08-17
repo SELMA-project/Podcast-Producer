@@ -8,11 +8,11 @@
 import Foundation
 
 enum SegmentIdentifier: String, CaseIterable  {
-    case welcomeText
-    case headlineIntroduction
-    case headlines
-    case stories
-    case epiloge
+    case welcomeText = "Welcome"
+    case headlineIntroduction = "Headline Introduction"
+    case headline = "Headline"
+    case story = "Story"
+    case epiloge = "Epiloge"
 }
 
 
@@ -21,6 +21,7 @@ struct AudioSegment: Identifiable {
     var segmentIdentifer: SegmentIdentifier
     var subIndex: Int = 0
     var isActive: Bool = false
+    var audioData: Data?
     var text: String
 }
 
@@ -32,6 +33,8 @@ class EpisodeViewModel: ObservableObject {
     
     // the entire episode in segments
     @Published var episodeStructure: [AudioSegment] = []
+    
+    var speakerName =  "leila endruweit"
     
     init() {
         // episde0 from example data
@@ -52,43 +55,6 @@ class EpisodeViewModel: ObservableObject {
         availableEpisodes = [episode0, episode1, episode2]
     }
     
-//    /// After building an Episode Structure, this function will return the individual segments until non are left
-//    func nextSegment() -> AudioSegment? {
-//
-//        // return nil if no segments are available (any more)
-//        guard episodeStructure.count > 0 else {return nil}
-//
-//        // result -> default is nil
-//        var nextSegment: AudioSegment?
-//
-//        // which segment is currently active?
-//        let activeSegmentIndex = episodeStructure.firstIndex { audioSegment in
-//            return audioSegment.isActive
-//        }
-//
-//        // get next segment
-//        if let activeSegmentIndex = activeSegmentIndex {
-//
-//            // set current segment to inactive
-//            episodeStructure[activeSegmentIndex].isActive = false
-//
-//            // any segments left?
-//            if activeSegmentIndex < episodeStructure.count - 1 {
-//
-//                // get next index
-//                let nextSegmentIndex = episodeStructure.index(after: activeSegmentIndex)
-//
-//                // get associated index
-//                nextSegment = episodeStructure[nextSegmentIndex]
-//
-//                // set segment segment to active
-//                nextSegment?.isActive = true
-//            }
-//        }
-//
-//        return nextSegment
-//    }
-//
     
     func buildEpisodeStructure() {
 
@@ -113,15 +79,15 @@ class EpisodeViewModel: ObservableObject {
                 newAudioSegments = [AudioSegment(segmentIdentifer: .welcomeText, text: chosenEpisode.welcomeText)]
             case .headlineIntroduction:
                 newAudioSegments = [AudioSegment(segmentIdentifer: .headlineIntroduction, text: chosenEpisode.headlineIntroduction)]
-            case .headlines:
+            case .headline:
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     if story.usedInIntroduction {
-                        newAudioSegments.append(AudioSegment(segmentIdentifer: .headlines, subIndex: index, text: story.headline))
+                        newAudioSegments.append(AudioSegment(segmentIdentifer: .headline, subIndex: index, text: story.headline))
                     }
                 }
-            case .stories:
+            case .story:
                 for (index, story) in chosenEpisode.stories.enumerated() {
-                    newAudioSegments.append(AudioSegment(segmentIdentifer: .stories, subIndex: index, text: story.storyText))
+                    newAudioSegments.append(AudioSegment(segmentIdentifer: .story, subIndex: index, text: story.storyText))
                 }
             case .epiloge:
                 newAudioSegments = [AudioSegment(segmentIdentifer: .epiloge, text: chosenEpisode.epilogue)]
@@ -136,10 +102,31 @@ class EpisodeViewModel: ObservableObject {
     }
 
     
+    func renderEpisodeStructure() async {
+        
+        for (index, audioSegment) in episodeStructure.enumerated() {
+            
+            print("Rendering: \(index) -> \(audioSegment.segmentIdentifer.rawValue)")
+            
+            // the text to render
+            let text = audioSegment.text
+            
+            // render audio
+            let data = await SelmaManager.shared.renderAudio(speakerName: speakerName, text: text)
+            
+            // store audio
+            if let data = data {
+                episodeStructure[index].audioData = data
+            } else {
+                print("No audio data returned.")
+            }
+            
+        }
+        
+    }
+    
     func playEpisodeStructure() async {
   
-        let speakerName = "leila endruweit"
-        
         for (index, audioSegment) in episodeStructure.enumerated() {
             
             print("Playing: \(index) -> \(audioSegment.segmentIdentifer.rawValue)")
