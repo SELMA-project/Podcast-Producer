@@ -20,7 +20,7 @@ struct AudioSegment: Identifiable {
     var id = UUID()
     var segmentIdentifer: SegmentIdentifier
     var subIndex: Int = 0
-    var isActive: Bool = false
+    var isPlaying: Bool = false
     var audioData: Data?
     var text: String
 }
@@ -105,7 +105,7 @@ class EpisodeViewModel: ObservableObject {
     func renderEpisodeStructure() async {
         
         for (index, audioSegment) in episodeStructure.enumerated() {
-            
+            print("Cancel status: \(Task.isCancelled)")
             print("Rendering: \(index) -> \(audioSegment.segmentIdentifer.rawValue)")
             
             // the text to render
@@ -131,12 +131,12 @@ class EpisodeViewModel: ObservableObject {
             
             print("Playing: \(index) -> \(audioSegment.segmentIdentifer.rawValue)")
             
-            episodeStructure[index].isActive = true
+            episodeStructure[index].isPlaying = true
 
             // TODO: Change! Should be more elegant
             for (i, _) in episodeStructure.enumerated() {
                 if i != index {
-                    episodeStructure[i].isActive = false
+                    episodeStructure[i].isPlaying = false
                 }
             }
             
@@ -153,6 +153,38 @@ class EpisodeViewModel: ObservableObject {
                 print("No audio data returned.")
             }
             
+        }
+        
+    }
+    
+    func playButtonPressed(forSegment audioSegment: AudioSegment) async {
+
+        // find index in array
+        let index = episodeStructure.firstIndex { segment in
+            segment.id == audioSegment.id
+        }
+        
+        guard let index = index else {return}
+        guard let audioData = audioSegment.audioData else {return}
+
+        // currently not playng, so we want to play
+        if audioSegment.isPlaying == false {
+            
+            // switch to 'playing'
+            episodeStructure[index].isPlaying = true
+            
+            // play
+            await SelmaManager.shared.playAudio(audioData: audioData)
+            
+            // when returning, switch to 'not playing'
+            episodeStructure[index].isPlaying = false
+            
+        } else { // segment is currently playing
+            
+            // switch to 'not playing'
+            episodeStructure[index].isPlaying = false
+            
+            //TODO: Implement switch audio off
         }
         
     }

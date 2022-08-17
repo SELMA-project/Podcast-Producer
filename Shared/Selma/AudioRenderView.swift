@@ -10,7 +10,7 @@ import SwiftUI
 struct AudioRenderView: View {
     
     @ObservedObject var episodeViewModel: EpisodeViewModel
-
+    
     var body: some View {
         List {
             ForEach(episodeViewModel.episodeStructure) {audioSegment in
@@ -27,26 +27,40 @@ struct AudioRenderView: View {
                     Spacer()
                     
                     // progress view or play button the right
-                    if audioSegment.audioData == nil {
-                        ProgressView()
-                    } else {
-                        Button {
-                            print("Play pressed")
-                        } label: {
-                            Image(systemName: "play.circle")
-                        }
-                    }
+                    PlayButton(episodeViewModel: episodeViewModel, audioSegment: audioSegment)
                 }
             }
         }
         .listStyle(PlainListStyle())
-        .onAppear {
-            Task {
-                episodeViewModel.buildEpisodeStructure()
-                await episodeViewModel.renderEpisodeStructure()
+        .task {
+            episodeViewModel.buildEpisodeStructure()
+            await episodeViewModel.renderEpisodeStructure()
+        }
+    }
+}
+
+struct PlayButton: View {
+
+    @ObservedObject var episodeViewModel: EpisodeViewModel
+    var audioSegment: AudioSegment
+
+    
+    var body: some View {
+
+        if audioSegment.audioData == nil {
+            ProgressView()
+        }
+        else {
+            Button {
+                Task {
+                    await episodeViewModel.playButtonPressed(forSegment: audioSegment)
+                }
+            } label: {
+                Image(systemName: audioSegment.isPlaying == true ? "pause.circle" : "play.circle")
             }
         }
     }
+    
 }
 
 //struct AudioRenderView: View {

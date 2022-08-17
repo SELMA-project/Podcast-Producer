@@ -32,7 +32,7 @@ class SelmaAPI {
             do {
                 (data, _) = try await URLSession.shared.data(from: url)
             } catch {
-                print("Download error: \(error)")
+                print("Download error.")
             }
         }
         
