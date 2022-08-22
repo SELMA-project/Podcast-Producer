@@ -137,7 +137,6 @@ class EpisodeViewModel: ObservableObject {
             // render audio if it does not yet exist
             var success = true
             if !fileExists(atURL: audioURL) {
-                print("File does not exist yet: \(audioURL)")
                 success = await SelmaManager.shared.renderAudio(speakerName: speakerName, text: text, toURL: audioURL)
             }
             
