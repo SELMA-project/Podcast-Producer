@@ -12,7 +12,7 @@ enum SegmentIdentifier: String, CaseIterable  {
     case headlineIntroduction = "Headline Introduction"
     case headline = "Headline"
     case story = "Story"
-    case epiloge = "Epiloge"
+    case epilogue = "Epilogue"
 }
 
 
@@ -159,32 +159,41 @@ class EpisodeViewModel: ObservableObject {
     
     func playButtonPressed(forSegment audioSegment: AudioSegment) async {
 
-        // find index in array
-        let index = episodeStructure.firstIndex { segment in
+        // find index of given audioSegment in array
+        let currentIndex = episodeStructure.firstIndex { segment in
             segment.id == audioSegment.id
         }
         
-        guard let index = index else {return}
+        // early return if no index was found (should not happen)
+        guard let currentIndex = currentIndex else {return}
+        
+        // early exit if not audio data is available (shout not happen)
         guard let audioData = audioSegment.audioData else {return}
 
+        // in any case, stop the currently played audio
+        SelmaManager.shared.stopAudio()
+        
         // currently not playng, so we want to play
         if audioSegment.isPlaying == false {
             
-            // switch to 'playing'
-            episodeStructure[index].isPlaying = true
+            // switch all audioSegments to 'off' - except the one with the current index
+            for (index, _) in episodeStructure.enumerated() {
+                episodeStructure[index].isPlaying = currentIndex == index ? true : false
+            }
             
-            // play
+            // switch to 'playing'
+            //episodeStructure[index].isPlaying = true
+            
+            // play segment
             await SelmaManager.shared.playAudio(audioData: audioData)
             
             // when returning, switch to 'not playing'
-            episodeStructure[index].isPlaying = false
+            episodeStructure[currentIndex].isPlaying = false
             
         } else { // segment is currently playing
             
             // switch to 'not playing'
-            episodeStructure[index].isPlaying = false
-            
-            //TODO: Implement switch audio off
+            episodeStructure[currentIndex].isPlaying = false
         }
         
     }

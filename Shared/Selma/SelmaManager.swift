@@ -88,6 +88,10 @@ class SelmaManager: NSObject, AVAudioPlayerDelegate {
 
     }
     
+    func stopAudio() {
+        audioPlayer?.stop()
+    }
+    
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         print("Did finish Playing")
         audioPlayerCheckedContinuation?.resume()
