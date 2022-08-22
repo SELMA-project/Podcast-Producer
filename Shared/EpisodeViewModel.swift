@@ -131,19 +131,21 @@ class EpisodeViewModel: ObservableObject {
             // the text to render
             let text = audioSegment.text
             
-            // render deatination
-            let documentsDirectory = getDocumentsDirectory()
-            let fileName = "\(audioSegment.id).wav"
-            let audioURL = documentsDirectory.appendingPathComponent(fileName)
+            // where should the rendered audio be stored?
+            let audioURL = storageURL(forAudioSegment: audioSegment)
             
-            // render audio
-            let success = await SelmaManager.shared.renderAudio(speakerName: speakerName, text: text, toURL: audioURL)
+            // render audio if it does not yet exist
+            var success = true
+            if !fileExists(atURL: audioURL) {
+                print("File does not exist yet: \(audioURL)")
+                success = await SelmaManager.shared.renderAudio(speakerName: speakerName, text: text, toURL: audioURL)
+            }
             
-            // store audio URK
+            // store audio URL
             if success {
                 episodeStructure[index].audioURL = audioURL
             } else {
-                print("No audio data returned.")
+                print("No audio data available.")
             }
             
         }
@@ -211,4 +213,16 @@ class EpisodeViewModel: ObservableObject {
         return paths[0]
     }
     
+    /// Should the rendered audio be stored?
+    private func storageURL(forAudioSegment audioSegment: AudioSegment) -> URL {
+
+        let documentsDirectory = getDocumentsDirectory()
+        let fileName = "\(audioSegment.id).wav"
+        let audioURL = documentsDirectory.appendingPathComponent(fileName)
+        return audioURL
+    }
+    
+    private func fileExists(atURL url:URL) -> Bool {
+        return FileManager.default.fileExists(atPath: url.path)
+    }
 }
