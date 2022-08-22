@@ -18,6 +18,7 @@ struct AudioRenderView: View {
                     // title and tubtitle on left
                     VStack(alignment: .leading) {
                         Text(audioSegment.segmentIdentifer.rawValue.capitalized)
+                            .font(.title3)
                         
                         Text(audioSegment.text)
                             .lineLimit(1)
@@ -57,48 +58,15 @@ struct PlayButton: View {
                 }
             } label: {
                 Image(systemName: audioSegment.isPlaying == true ? "pause.circle" : "play.circle")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 25, height: 25)
             }
         }
     }
     
 }
 
-//struct AudioRenderView: View {
-//
-//    @ObservedObject var episodeViewModel: EpisodeViewModel
-//
-//
-//    var body: some View {
-//
-//        VStack(alignment: .leading) {
-//            ScrollView(.vertical) {
-//                VStack(alignment: .leading, spacing: 20) {
-//                    ForEach(episodeViewModel.episodeStructure) {audioSegment in
-//                        Group {
-//                            audioSegment.segmentIdentifer != .headlines ? Text(audioSegment.text) : Text(" * " + audioSegment.text)
-//                        }
-//                        .opacity(audioSegment.isActive ? 1.0 : 0.2)
-//                    }
-//                }
-//            }
-//            Spacer()
-//        }
-//        .padding()
-//        .toolbar {
-//            ToolbarItem(placement: .primaryAction) {
-//                Button("Render") {
-//                    Task {
-//                        episodeViewModel.buildEpisodeStructure()
-//                        await episodeViewModel.playEpisodeStructure()
-//                    }
-//                }
-//            }
-//        }
-//        .onAppear {
-//            episodeViewModel.buildEpisodeStructure()
-//        }
-//    }
-//}
 
 struct AudioRenderView_Previews: PreviewProvider {
     static var previews: some View {

@@ -89,8 +89,8 @@ class EpisodeViewModel: ObservableObject {
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     newAudioSegments.append(AudioSegment(segmentIdentifer: .story, subIndex: index, text: story.storyText))
                 }
-            case .epiloge:
-                newAudioSegments = [AudioSegment(segmentIdentifer: .epiloge, text: chosenEpisode.epilogue)]
+            case .epilogue:
+                newAudioSegments = [AudioSegment(segmentIdentifer: .epilogue, text: chosenEpisode.epilogue)]
             }
             
             // add the new segment(s) to structure
