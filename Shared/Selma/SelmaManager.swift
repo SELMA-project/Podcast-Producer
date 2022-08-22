@@ -72,6 +72,9 @@ class SelmaManager: NSObject, AVAudioPlayerDelegate {
     
     func playAudio(audioData: Data) async {
         
+        // in case that we have an outstanding checkedContinuationm, resume it
+        audioPlayerCheckedContinuation?.resume()
+        
         return await withCheckedContinuation({ continuation in
             
             audioPlayerCheckedContinuation = continuation
@@ -96,6 +99,7 @@ class SelmaManager: NSObject, AVAudioPlayerDelegate {
         print("Did finish Playing")
         audioPlayerCheckedContinuation?.resume()
     }
+    
 }
 
 
