@@ -11,6 +11,13 @@ struct AudioRenderView: View {
     
     @ObservedObject var episodeViewModel: EpisodeViewModel
     
+    // if at least one audioSegment has audioData, a download is possible
+    var downloadIsPossible: Bool {
+        episodeViewModel.episodeStructure.reduce(false) {
+            return $0 || $1.audioURL != nil
+        }
+    }
+    
     var body: some View {
         List {
             ForEach(episodeViewModel.episodeStructure) {audioSegment in
@@ -37,6 +44,15 @@ struct AudioRenderView: View {
             episodeViewModel.buildEpisodeStructure()
             await episodeViewModel.renderEpisodeStructure()
         }
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    episodeViewModel.downloadAudio()
+                } label: {
+                    Image(systemName: "square.and.arrow.down")
+                }.disabled(!downloadIsPossible)
+            }
+        }
     }
 }
 
@@ -48,7 +64,7 @@ struct PlayButton: View {
     
     var body: some View {
 
-        if audioSegment.audioData == nil {
+        if audioSegment.audioURL == nil {
             ProgressView()
         }
         else {

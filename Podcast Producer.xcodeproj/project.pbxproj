@@ -29,6 +29,10 @@
 		C1756ABB28A1198D00FE9F2B /* MainEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756AB928A1198D00FE9F2B /* MainEditView.swift */; };
 		C1756ABD28A13D3700FE9F2B /* StoryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */; };
 		C1756ABE28A13D3700FE9F2B /* StoryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */; };
+		C189696028B371D7005108E7 /* leilatest.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C189695F28B371D7005108E7 /* leilatest.mp3 */; };
+		C189696128B371D7005108E7 /* leilatest.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C189695F28B371D7005108E7 /* leilatest.mp3 */; };
+		C189696428B3774C005108E7 /* leilatest.caf in Resources */ = {isa = PBXBuildFile; fileRef = C189696328B3774C005108E7 /* leilatest.caf */; };
+		C189696528B3774C005108E7 /* leilatest.caf in Resources */ = {isa = PBXBuildFile; fileRef = C189696328B3774C005108E7 /* leilatest.caf */; };
 		C1BA7EBE28AA92270090573B /* AudioRenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BA7EBD28AA92270090573B /* AudioRenderView.swift */; };
 		C1BA7EBF28AA92270090573B /* AudioRenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BA7EBD28AA92270090573B /* AudioRenderView.swift */; };
 		C1BA7EC128AA93280090573B /* SelmaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BA7EC028AA93280090573B /* SelmaManager.swift */; };
@@ -52,6 +56,8 @@
 		C1543A1128A2AACC00427ED0 /* ExampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleData.swift; sourceTree = "<group>"; };
 		C1756AB928A1198D00FE9F2B /* MainEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEditView.swift; sourceTree = "<group>"; };
 		C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryEditView.swift; sourceTree = "<group>"; };
+		C189695F28B371D7005108E7 /* leilatest.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = leilatest.mp3; sourceTree = "<group>"; };
+		C189696328B3774C005108E7 /* leilatest.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = leilatest.caf; sourceTree = "<group>"; };
 		C1BA7EBD28AA92270090573B /* AudioRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRenderView.swift; sourceTree = "<group>"; };
 		C1BA7EC028AA93280090573B /* SelmaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelmaManager.swift; sourceTree = "<group>"; };
 		C1BA7EC728AB82300090573B /* SelmaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelmaAPI.swift; sourceTree = "<group>"; };
@@ -93,6 +99,7 @@
 				C1756AB928A1198D00FE9F2B /* MainEditView.swift */,
 				C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */,
 				C1BA7EC628AA9E510090573B /* Selma */,
+				C189696228B371E1005108E7 /* Audio */,
 				C158EDFD28AA32B9002EFF7B /* Episode Data */,
 				C1543A0828A2652200427ED0 /* TestView.swift */,
 				C1491F5B27AD472700A72AEB /* Assets.xcassets */,
@@ -126,6 +133,15 @@
 				C1491F5A27AD472600A72AEB /* Persistence.swift */,
 			);
 			path = "Episode Data";
+			sourceTree = "<group>";
+		};
+		C189696228B371E1005108E7 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				C189696328B3774C005108E7 /* leilatest.caf */,
+				C189695F28B371D7005108E7 /* leilatest.mp3 */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 		C1BA7EC628AA9E510090573B /* Selma */ = {
@@ -217,6 +233,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C189696028B371D7005108E7 /* leilatest.mp3 in Resources */,
+				C189696428B3774C005108E7 /* leilatest.caf in Resources */,
 				C1491F7127AD472700A72AEB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -225,6 +243,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C189696128B371D7005108E7 /* leilatest.mp3 in Resources */,
+				C189696528B3774C005108E7 /* leilatest.caf in Resources */,
 				C1491F7227AD472700A72AEB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

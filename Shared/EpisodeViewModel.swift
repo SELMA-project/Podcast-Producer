@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CryptoKit
 
 enum SegmentIdentifier: String, CaseIterable  {
     case welcomeText = "Welcome"
@@ -17,12 +18,31 @@ enum SegmentIdentifier: String, CaseIterable  {
 
 
 struct AudioSegment: Identifiable {
-    var id = UUID()
+    var id: String {
+        //return "audio_\(self.hashValue)"
+        let textToBeHashed = "\(segmentIdentifer.rawValue)-\(text)"
+        let textAsData = Data(textToBeHashed.utf8)
+        let hashed = SHA256.hash(data: textAsData)
+        let hashString = hashed.compactMap { String(format: "%02x", $0) }.joined()
+        return hashString
+    }
     var segmentIdentifer: SegmentIdentifier
     var subIndex: Int = 0
     var isPlaying: Bool = false
-    var audioData: Data?
+    //var audioData: Data?
+    var audioURL: URL?
     var text: String
+    
+//    func hash(into hasher: inout Hasher) {
+//        hasher.combine(self.segmentIdentifer.rawValue)
+//        hasher.combine(text)
+//    }
+//
+//    var hashValue: Int {
+//        var hasher = Hasher()
+//        self.hash(into: &hasher)
+//        return hasher.finalize()
+//    }
 }
 
 @MainActor
@@ -111,12 +131,17 @@ class EpisodeViewModel: ObservableObject {
             // the text to render
             let text = audioSegment.text
             
-            // render audio
-            let data = await SelmaManager.shared.renderAudio(speakerName: speakerName, text: text)
+            // render deatination
+            let documentsDirectory = getDocumentsDirectory()
+            let fileName = "\(audioSegment.id).wav"
+            let audioURL = documentsDirectory.appendingPathComponent(fileName)
             
-            // store audio
-            if let data = data {
-                episodeStructure[index].audioData = data
+            // render audio
+            let success = await SelmaManager.shared.renderAudio(speakerName: speakerName, text: text, toURL: audioURL)
+            
+            // store audio URK
+            if success {
+                episodeStructure[index].audioURL = audioURL
             } else {
                 print("No audio data returned.")
             }
@@ -125,37 +150,6 @@ class EpisodeViewModel: ObservableObject {
         
     }
     
-    func playEpisodeStructure() async {
-  
-        for (index, audioSegment) in episodeStructure.enumerated() {
-            
-            print("Playing: \(index) -> \(audioSegment.segmentIdentifer.rawValue)")
-            
-            episodeStructure[index].isPlaying = true
-
-            // TODO: Change! Should be more elegant
-            for (i, _) in episodeStructure.enumerated() {
-                if i != index {
-                    episodeStructure[i].isPlaying = false
-                }
-            }
-            
-            // the text to render
-            let text = audioSegment.text
-            
-            // render audio
-            let data = await SelmaManager.shared.renderAudio(speakerName: speakerName, text: text)
-            
-            // play audio
-            if let data = data {
-                await SelmaManager.shared.playAudio(audioData: data)
-            } else {
-                print("No audio data returned.")
-            }
-            
-        }
-        
-    }
     
     func playButtonPressed(forSegment audioSegment: AudioSegment) async {
 
@@ -167,8 +161,8 @@ class EpisodeViewModel: ObservableObject {
         // early return if no index was found (should not happen)
         guard let currentIndex = currentIndex else {return}
         
-        // early exit if not audio data is available (shout not happen)
-        guard let audioData = audioSegment.audioData else {return}
+        // early exit if not audio data is available (should not happen)
+        guard let audioUrl = audioSegment.audioURL else {return}
 
         // in any case, stop the currently played audio
         SelmaManager.shared.stopAudio()
@@ -185,7 +179,7 @@ class EpisodeViewModel: ObservableObject {
             //episodeStructure[index].isPlaying = true
             
             // play segment
-            await SelmaManager.shared.playAudio(audioData: audioData)
+            await SelmaManager.shared.playAudio(audioUrl: audioUrl)
             
             // when returning, switch to 'not playing'
             episodeStructure[currentIndex].isPlaying = false
@@ -196,6 +190,25 @@ class EpisodeViewModel: ObservableObject {
             episodeStructure[currentIndex].isPlaying = false
         }
         
+    }
+    
+    func downloadAudio() {
+        print("Download audio pressed")
+        
+        guard let audioURL = episodeStructure[0].audioURL else {return}
+        
+        let processedAudioURL = SelmaManager.shared.createDownloadableAudio(audioUrl: audioURL)
+        if let fileUrl = processedAudioURL {
+            print("Audio file saved here: \(fileUrl)")
+        }
+    }
+    
+    private func getDocumentsDirectory() -> URL {
+        // find all possible documents directories for this user
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+
+        // just send back the first one, which ought to be the only one
+        return paths[0]
     }
     
 }
