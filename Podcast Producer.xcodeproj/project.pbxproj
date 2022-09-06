@@ -25,6 +25,12 @@
 		C1543A1028A2A69C00427ED0 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1543A0E28A2A69C00427ED0 /* Episode.swift */; };
 		C1543A1228A2AACC00427ED0 /* ExampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1543A1128A2AACC00427ED0 /* ExampleData.swift */; };
 		C1543A1328A2AACC00427ED0 /* ExampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1543A1128A2AACC00427ED0 /* ExampleData.swift */; };
+		C163C78228C769B600DE6819 /* background-01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C163C78128C769B600DE6819 /* background-01.mp3 */; };
+		C163C78328C769B600DE6819 /* background-01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C163C78128C769B600DE6819 /* background-01.mp3 */; };
+		C163C78528C769C100DE6819 /* intro-01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C163C78428C769C100DE6819 /* intro-01.mp3 */; };
+		C163C78628C769C100DE6819 /* intro-01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C163C78428C769C100DE6819 /* intro-01.mp3 */; };
+		C163C78828C771E800DE6819 /* intro-01-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C163C78728C771AB00DE6819 /* intro-01-CAF.caf */; };
+		C163C78928C771E900DE6819 /* intro-01-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C163C78728C771AB00DE6819 /* intro-01-CAF.caf */; };
 		C1756ABA28A1198D00FE9F2B /* MainEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756AB928A1198D00FE9F2B /* MainEditView.swift */; };
 		C1756ABB28A1198D00FE9F2B /* MainEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756AB928A1198D00FE9F2B /* MainEditView.swift */; };
 		C1756ABD28A13D3700FE9F2B /* StoryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */; };
@@ -54,6 +60,9 @@
 		C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewModel.swift; sourceTree = "<group>"; };
 		C1543A0E28A2A69C00427ED0 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		C1543A1128A2AACC00427ED0 /* ExampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleData.swift; sourceTree = "<group>"; };
+		C163C78128C769B600DE6819 /* background-01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "background-01.mp3"; sourceTree = "<group>"; };
+		C163C78428C769C100DE6819 /* intro-01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "intro-01.mp3"; sourceTree = "<group>"; };
+		C163C78728C771AB00DE6819 /* intro-01-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "intro-01-CAF.caf"; sourceTree = "<group>"; };
 		C1756AB928A1198D00FE9F2B /* MainEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEditView.swift; sourceTree = "<group>"; };
 		C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryEditView.swift; sourceTree = "<group>"; };
 		C189695F28B371D7005108E7 /* leilatest.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = leilatest.mp3; sourceTree = "<group>"; };
@@ -138,6 +147,9 @@
 		C189696228B371E1005108E7 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				C163C78728C771AB00DE6819 /* intro-01-CAF.caf */,
+				C163C78428C769C100DE6819 /* intro-01.mp3 */,
+				C163C78128C769B600DE6819 /* background-01.mp3 */,
 				C189696328B3774C005108E7 /* leilatest.caf */,
 				C189695F28B371D7005108E7 /* leilatest.mp3 */,
 			);
@@ -234,8 +246,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C189696028B371D7005108E7 /* leilatest.mp3 in Resources */,
+				C163C78228C769B600DE6819 /* background-01.mp3 in Resources */,
 				C189696428B3774C005108E7 /* leilatest.caf in Resources */,
+				C163C78528C769C100DE6819 /* intro-01.mp3 in Resources */,
 				C1491F7127AD472700A72AEB /* Assets.xcassets in Resources */,
+				C163C78828C771E800DE6819 /* intro-01-CAF.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,8 +259,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C189696128B371D7005108E7 /* leilatest.mp3 in Resources */,
+				C163C78328C769B600DE6819 /* background-01.mp3 in Resources */,
 				C189696528B3774C005108E7 /* leilatest.caf in Resources */,
+				C163C78628C769C100DE6819 /* intro-01.mp3 in Resources */,
 				C1491F7227AD472700A72AEB /* Assets.xcassets in Resources */,
+				C163C78928C771E900DE6819 /* intro-01-CAF.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

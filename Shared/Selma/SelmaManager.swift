@@ -107,44 +107,63 @@ class SelmaManager: NSObject, AVAudioPlayerDelegate {
         audioPlayerCheckedContinuation = nil
     }
     
-    func createDownloadableAudio(audioUrl: URL) -> URL? {
-        
-        audioEngine = AVAudioEngine()
-        guard let audioEngine = audioEngine else {return nil}
+    
+    private func avAudioFile(forResource resource: String, withExtension ex: String) -> AVAudioFile {
         
         let sourceFile: AVAudioFile
-        let format: AVAudioFormat
         do {
-            //let sourceFileURL = Bundle.main.url(forResource: "leilatest", withExtension: "caf")!
-            sourceFile = try AVAudioFile(forReading: audioUrl)
-            format = sourceFile.processingFormat
+            let sourceFileURL = Bundle.main.url(forResource: resource, withExtension: ex)!
+            sourceFile = try AVAudioFile(forReading: sourceFileURL)
+            //format = sourceFile.processingFormat
         } catch {
             fatalError("Unable to load the source audio file: \(error.localizedDescription).")
         }
         
-        let player = AVAudioPlayerNode()
-        let reverb = AVAudioUnitReverb()
+        return sourceFile
+    }
+    
+    func createDownloadableAudio(audioUrl: URL) -> URL? {
+        
+        audioEngine = AVAudioEngine()
+        guard let audioEngine = audioEngine else {return nil}
 
-        audioEngine.attach(player)
-        audioEngine.attach(reverb)
-
-        // Set the desired reverb parameters.
-        reverb.loadFactoryPreset(.mediumHall)
-        reverb.wetDryMix = 50
-
-        // Connect the nodes.
-        audioEngine.connect(player, to: reverb, format: format)
-        audioEngine.connect(reverb, to: audioEngine.mainMixerNode, format: format)
-        audioEngine.connect(reverb, to: audioEngine.mainMixerNode, format: format)
-
-        // Schedule the source file.
-        player.scheduleFile(sourceFile, at: nil)
-
+        // speech audio file
+        let speechSourceFile = avAudioFile(forResource: "leilatest", withExtension: "caf")
+        let speechFormat = speechSourceFile.processingFormat
+        
+        // speech player
+        let speechPlayer = AVAudioPlayerNode()
+        speechPlayer.volume = 1.0
+        
+        // connect speech player to node
+        audioEngine.attach(speechPlayer)
+        audioEngine.connect(speechPlayer, to: audioEngine.mainMixerNode, format: speechFormat)
+        
+        
+        // music audio file
+        let musicSourceFile = avAudioFile(forResource: "intro-01-CAF", withExtension: "caf")
+        let musicFormat = musicSourceFile.processingFormat
+        
+        // music player
+        let musicPlayer = AVAudioPlayerNode()
+        musicPlayer.volume = 0.5
+        
+        // connect speech player to node
+        audioEngine.attach(musicPlayer)
+        audioEngine.connect(musicPlayer, to: audioEngine.mainMixerNode, format: musicFormat)
+        
+    
+        // Schedule the speech file.
+        speechPlayer.scheduleFile(speechSourceFile, at: nil)
+        
+        // Schedule the music file.
+        musicPlayer.scheduleFile(musicSourceFile, at: nil)
+        
         
         do {
             // The maximum number of frames the engine renders in any single render call.
             let maxFrames: AVAudioFrameCount = 4096
-            try audioEngine.enableManualRenderingMode(.offline, format: format,
+            try audioEngine.enableManualRenderingMode(.offline, format: speechFormat,
                                                  maximumFrameCount: maxFrames)
         } catch {
             fatalError("Enabling manual rendering mode failed: \(error).")
@@ -153,7 +172,8 @@ class SelmaManager: NSObject, AVAudioPlayerDelegate {
         
         do {
             try audioEngine.start()
-            player.play()
+            speechPlayer.play()
+            musicPlayer.play()
         } catch {
             fatalError("Unable to start audio engine: \(error).")
         }
@@ -166,15 +186,15 @@ class SelmaManager: NSObject, AVAudioPlayerDelegate {
         do {
             let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
             let outputURL = documentsURL.appendingPathComponent("leila-processed.caf")
-            outputFile = try AVAudioFile(forWriting: outputURL, settings: sourceFile.fileFormat.settings)
+            outputFile = try AVAudioFile(forWriting: outputURL, settings: speechSourceFile.fileFormat.settings)
         } catch {
             fatalError("Unable to open output audio file: \(error).")
         }
         
         
-        while audioEngine.manualRenderingSampleTime < sourceFile.length {
+        while audioEngine.manualRenderingSampleTime < speechSourceFile.length {
             do {
-                let frameCount = sourceFile.length - audioEngine.manualRenderingSampleTime
+                let frameCount = speechSourceFile.length - audioEngine.manualRenderingSampleTime
                 let framesToRender = min(AVAudioFrameCount(frameCount), buffer.frameCapacity)
                 
                 let status = try audioEngine.renderOffline(framesToRender, to: buffer)
@@ -207,7 +227,7 @@ class SelmaManager: NSObject, AVAudioPlayerDelegate {
         }
 
         // Stop the player node and engine.
-        player.stop()
+        speechPlayer.stop()
         audioEngine.stop()
         
         // return URL

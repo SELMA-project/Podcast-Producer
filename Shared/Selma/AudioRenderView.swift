@@ -22,7 +22,7 @@ struct AudioRenderView: View {
         List {
             ForEach(episodeViewModel.episodeStructure) {audioSegment in
                 HStack {
-                    // title and tubtitle on left
+                    // title and subtitle on left
                     VStack(alignment: .leading) {
                         Text(audioSegment.segmentIdentifer.rawValue.capitalized)
                             .font(.title3)
