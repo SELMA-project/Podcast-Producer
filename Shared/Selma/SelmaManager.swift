@@ -198,6 +198,15 @@ class SelmaManager: NSObject, AVAudioPlayerDelegate {
                 let framesToRender = min(AVAudioFrameCount(frameCount), buffer.frameCapacity)
                 
                 let status = try audioEngine.renderOffline(framesToRender, to: buffer)
+
+//                // control music volume based on time
+//                let timeInSec = Double(audioEngine.manualRenderingSampleTime)/speechFormat.sampleRate
+//                if Int(timeInSec) % 2 == 0 {
+//                    musicPlayer.volume = 0.3
+//                } else {
+//                    musicPlayer.volume = 1.0
+//                }
+//                print("\(timeInSec)")
                 
                 switch status {
                     
