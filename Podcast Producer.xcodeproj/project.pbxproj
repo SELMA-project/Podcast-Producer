@@ -35,6 +35,24 @@
 		C1756ABB28A1198D00FE9F2B /* MainEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756AB928A1198D00FE9F2B /* MainEditView.swift */; };
 		C1756ABD28A13D3700FE9F2B /* StoryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */; };
 		C1756ABE28A13D3700FE9F2B /* StoryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */; };
+		C1871E7528CB8A9200A2C137 /* 00-intro-start-aac.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1871E7328CB8A9200A2C137 /* 00-intro-start-aac.m4a */; };
+		C1871E7628CB8A9200A2C137 /* 00-intro-start-aac.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1871E7328CB8A9200A2C137 /* 00-intro-start-aac.m4a */; };
+		C1871E7728CB8A9200A2C137 /* leilatest-aac.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1871E7428CB8A9200A2C137 /* leilatest-aac.m4a */; };
+		C1871E7828CB8A9200A2C137 /* leilatest-aac.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1871E7428CB8A9200A2C137 /* leilatest-aac.m4a */; };
+		C1871E9528CB8C6D00A2C137 /* 04-outro-start-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E8E28CB8C6C00A2C137 /* 04-outro-start-CAF.caf */; };
+		C1871E9628CB8C6D00A2C137 /* 04-outro-start-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E8E28CB8C6C00A2C137 /* 04-outro-start-CAF.caf */; };
+		C1871E9728CB8C6D00A2C137 /* 00-intro-start-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E8F28CB8C6C00A2C137 /* 00-intro-start-CAF.caf */; };
+		C1871E9828CB8C6D00A2C137 /* 00-intro-start-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E8F28CB8C6C00A2C137 /* 00-intro-start-CAF.caf */; };
+		C1871E9928CB8C6D00A2C137 /* 02-intro-end-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E9028CB8C6C00A2C137 /* 02-intro-end-CAF.caf */; };
+		C1871E9A28CB8C6D00A2C137 /* 02-intro-end-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E9028CB8C6C00A2C137 /* 02-intro-end-CAF.caf */; };
+		C1871E9B28CB8C6D00A2C137 /* 06-outro-end-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E9128CB8C6C00A2C137 /* 06-outro-end-CAF.caf */; };
+		C1871E9C28CB8C6D00A2C137 /* 06-outro-end-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E9128CB8C6C00A2C137 /* 06-outro-end-CAF.caf */; };
+		C1871E9D28CB8C6D00A2C137 /* 03-sting-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E9228CB8C6C00A2C137 /* 03-sting-CAF.caf */; };
+		C1871E9E28CB8C6D00A2C137 /* 03-sting-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E9228CB8C6C00A2C137 /* 03-sting-CAF.caf */; };
+		C1871E9F28CB8C6D00A2C137 /* 01-intro-middle-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E9328CB8C6C00A2C137 /* 01-intro-middle-CAF.caf */; };
+		C1871EA028CB8C6D00A2C137 /* 01-intro-middle-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E9328CB8C6C00A2C137 /* 01-intro-middle-CAF.caf */; };
+		C1871EA128CB8C6D00A2C137 /* 05-outro-middle-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E9428CB8C6D00A2C137 /* 05-outro-middle-CAF.caf */; };
+		C1871EA228CB8C6D00A2C137 /* 05-outro-middle-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E9428CB8C6D00A2C137 /* 05-outro-middle-CAF.caf */; };
 		C189696028B371D7005108E7 /* leilatest.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C189695F28B371D7005108E7 /* leilatest.mp3 */; };
 		C189696128B371D7005108E7 /* leilatest.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C189695F28B371D7005108E7 /* leilatest.mp3 */; };
 		C189696428B3774C005108E7 /* leilatest.caf in Resources */ = {isa = PBXBuildFile; fileRef = C189696328B3774C005108E7 /* leilatest.caf */; };
@@ -65,6 +83,16 @@
 		C163C78728C771AB00DE6819 /* intro-01-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "intro-01-CAF.caf"; sourceTree = "<group>"; };
 		C1756AB928A1198D00FE9F2B /* MainEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEditView.swift; sourceTree = "<group>"; };
 		C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryEditView.swift; sourceTree = "<group>"; };
+		C1871E7228CB8A3500A2C137 /* 00-intro-start.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "00-intro-start.m4a"; sourceTree = "<group>"; };
+		C1871E7328CB8A9200A2C137 /* 00-intro-start-aac.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "00-intro-start-aac.m4a"; sourceTree = "<group>"; };
+		C1871E7428CB8A9200A2C137 /* leilatest-aac.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "leilatest-aac.m4a"; sourceTree = "<group>"; };
+		C1871E8E28CB8C6C00A2C137 /* 04-outro-start-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "04-outro-start-CAF.caf"; sourceTree = "<group>"; };
+		C1871E8F28CB8C6C00A2C137 /* 00-intro-start-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "00-intro-start-CAF.caf"; sourceTree = "<group>"; };
+		C1871E9028CB8C6C00A2C137 /* 02-intro-end-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "02-intro-end-CAF.caf"; sourceTree = "<group>"; };
+		C1871E9128CB8C6C00A2C137 /* 06-outro-end-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "06-outro-end-CAF.caf"; sourceTree = "<group>"; };
+		C1871E9228CB8C6C00A2C137 /* 03-sting-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "03-sting-CAF.caf"; sourceTree = "<group>"; };
+		C1871E9328CB8C6C00A2C137 /* 01-intro-middle-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "01-intro-middle-CAF.caf"; sourceTree = "<group>"; };
+		C1871E9428CB8C6D00A2C137 /* 05-outro-middle-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "05-outro-middle-CAF.caf"; sourceTree = "<group>"; };
 		C189695F28B371D7005108E7 /* leilatest.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = leilatest.mp3; sourceTree = "<group>"; };
 		C189696328B3774C005108E7 /* leilatest.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = leilatest.caf; sourceTree = "<group>"; };
 		C1BA7EBD28AA92270090573B /* AudioRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRenderView.swift; sourceTree = "<group>"; };
@@ -147,6 +175,16 @@
 		C189696228B371E1005108E7 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				C1871E8F28CB8C6C00A2C137 /* 00-intro-start-CAF.caf */,
+				C1871E9328CB8C6C00A2C137 /* 01-intro-middle-CAF.caf */,
+				C1871E9028CB8C6C00A2C137 /* 02-intro-end-CAF.caf */,
+				C1871E9228CB8C6C00A2C137 /* 03-sting-CAF.caf */,
+				C1871E8E28CB8C6C00A2C137 /* 04-outro-start-CAF.caf */,
+				C1871E9428CB8C6D00A2C137 /* 05-outro-middle-CAF.caf */,
+				C1871E9128CB8C6C00A2C137 /* 06-outro-end-CAF.caf */,
+				C1871E7328CB8A9200A2C137 /* 00-intro-start-aac.m4a */,
+				C1871E7428CB8A9200A2C137 /* leilatest-aac.m4a */,
+				C1871E7228CB8A3500A2C137 /* 00-intro-start.m4a */,
 				C163C78728C771AB00DE6819 /* intro-01-CAF.caf */,
 				C163C78428C769C100DE6819 /* intro-01.mp3 */,
 				C163C78128C769B600DE6819 /* background-01.mp3 */,
@@ -246,11 +284,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				C189696028B371D7005108E7 /* leilatest.mp3 in Resources */,
+				C1871E9528CB8C6D00A2C137 /* 04-outro-start-CAF.caf in Resources */,
+				C1871E9F28CB8C6D00A2C137 /* 01-intro-middle-CAF.caf in Resources */,
 				C163C78228C769B600DE6819 /* background-01.mp3 in Resources */,
+				C1871E9B28CB8C6D00A2C137 /* 06-outro-end-CAF.caf in Resources */,
+				C1871E7728CB8A9200A2C137 /* leilatest-aac.m4a in Resources */,
 				C189696428B3774C005108E7 /* leilatest.caf in Resources */,
+				C1871E9D28CB8C6D00A2C137 /* 03-sting-CAF.caf in Resources */,
 				C163C78528C769C100DE6819 /* intro-01.mp3 in Resources */,
+				C1871E7528CB8A9200A2C137 /* 00-intro-start-aac.m4a in Resources */,
+				C1871E9728CB8C6D00A2C137 /* 00-intro-start-CAF.caf in Resources */,
+				C1871E9928CB8C6D00A2C137 /* 02-intro-end-CAF.caf in Resources */,
 				C1491F7127AD472700A72AEB /* Assets.xcassets in Resources */,
 				C163C78828C771E800DE6819 /* intro-01-CAF.caf in Resources */,
+				C1871EA128CB8C6D00A2C137 /* 05-outro-middle-CAF.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,11 +306,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				C189696128B371D7005108E7 /* leilatest.mp3 in Resources */,
+				C1871E9628CB8C6D00A2C137 /* 04-outro-start-CAF.caf in Resources */,
+				C1871EA028CB8C6D00A2C137 /* 01-intro-middle-CAF.caf in Resources */,
 				C163C78328C769B600DE6819 /* background-01.mp3 in Resources */,
+				C1871E9C28CB8C6D00A2C137 /* 06-outro-end-CAF.caf in Resources */,
+				C1871E7828CB8A9200A2C137 /* leilatest-aac.m4a in Resources */,
 				C189696528B3774C005108E7 /* leilatest.caf in Resources */,
+				C1871E9E28CB8C6D00A2C137 /* 03-sting-CAF.caf in Resources */,
 				C163C78628C769C100DE6819 /* intro-01.mp3 in Resources */,
+				C1871E7628CB8A9200A2C137 /* 00-intro-start-aac.m4a in Resources */,
+				C1871E9828CB8C6D00A2C137 /* 00-intro-start-CAF.caf in Resources */,
+				C1871E9A28CB8C6D00A2C137 /* 02-intro-end-CAF.caf in Resources */,
 				C1491F7227AD472700A72AEB /* Assets.xcassets in Resources */,
 				C163C78928C771E900DE6819 /* intro-01-CAF.caf in Resources */,
+				C1871EA228CB8C6D00A2C137 /* 05-outro-middle-CAF.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
