@@ -138,7 +138,7 @@ class EpisodeViewModel: ObservableObject {
             // render audio if it does not yet exist
             var success = true
             if !fileExists(atURL: audioURL) {
-                success = await SelmaManager.shared.renderAudio(speakerName: speakerName, text: text, toURL: audioURL)
+                success = await AudioManager.shared.synthesizeAudio(speakerName: speakerName, text: text, toURL: audioURL)
             }
             
             // store audio URL
@@ -167,7 +167,7 @@ class EpisodeViewModel: ObservableObject {
         guard let audioUrl = audioSegment.audioURL else {return}
 
         // in any case, stop the currently played audio
-        SelmaManager.shared.stopAudio()
+        AudioManager.shared.stopAudio()
         
         // currently not playng, so we want to play
         if audioSegment.isPlaying == false {
@@ -181,7 +181,7 @@ class EpisodeViewModel: ObservableObject {
             //episodeStructure[index].isPlaying = true
             
             // play segment
-            await SelmaManager.shared.playAudio(audioUrl: audioUrl)
+            await AudioManager.shared.playAudio(audioUrl: audioUrl)
             
             // when returning, switch to 'not playing'
             episodeStructure[currentIndex].isPlaying = false
@@ -199,7 +199,7 @@ class EpisodeViewModel: ObservableObject {
         
         guard let audioURL = episodeStructure[0].audioURL else {return}
         
-        let processedAudioURL = SelmaManager.shared.createDownloadableAudio(audioUrl: audioURL)
+        let processedAudioURL = AudioManager.shared.createDownloadableAudio(audioUrl: audioURL)
         if let fileUrl = processedAudioURL {
             print("Audio file saved here: \(fileUrl)")
         }

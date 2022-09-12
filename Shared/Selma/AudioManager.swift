@@ -1,5 +1,5 @@
 //
-//  SelmaAPI.swift
+//  AudioManager.swift
 //  Podcast Producer
 //
 //  Created by Andy Giefer on 15.08.22.
@@ -7,38 +7,13 @@
 
 import Foundation
 
-
-//def doTTS(text, filename):
-//
-//    startTime = time.perf_counter()
-//
-//    #text = "Olá, hoje é quinta-feira, três de setembro de 2020."
-//    speaker = "leila endruweit"
-//    ip = "87.110.211.231" # "194.57.216.166"
-//    port = "10100" #"80"
-//
-//    #api_url = f"http://{ip}:{port}/api/tts?text={urllib.parse.quote(text)}&speaker_id={urllib.parse.quote(speaker)}"
-//    #api_url = f"http://{ip}:{port}/tts/api/tts?text={urllib.parse.quote(text)}&speaker_id={urllib.parse.quote(speaker)}"
-//    api_url = f"http://{ip}:{port}/x:selmaproject:tts:777:5002/api/tts?text={urllib.parse.quote(text)}&speaker_id={urllib.parse.quote(speaker)}"
-//
-//    print(api_url)
-//
-//    req = requests.get(api_url)
-//
-//    with open(f"{filename}.wav",'wb') as f:
-//        f.write(req.content)
-//
-//    endTime = time.perf_counter()
-//
-//    return endTime - startTime
-
 import AVFoundation
 
 
-class SelmaManager: NSObject, AVAudioPlayerDelegate {
+class AudioManager: NSObject, AVAudioPlayerDelegate {
     
     // singleton
-    static var shared = SelmaManager()
+    static var shared = AudioManager()
     
     // Selma API
     let selmaAPI = SelmaAPI()
@@ -50,7 +25,7 @@ class SelmaManager: NSObject, AVAudioPlayerDelegate {
         super.init()
     }
     
-    func renderAudio(speakerName: String?, text: String?, toURL fileURL: URL) async -> Bool {
+    func synthesizeAudio(speakerName: String?, text: String?, toURL fileURL: URL) async -> Bool {
         
         var success = false
         let speakerName = speakerName ?? "leila endruweit"
