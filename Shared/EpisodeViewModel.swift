@@ -57,6 +57,7 @@ class EpisodeViewModel: ObservableObject {
     var speakerName =  "leila endruweit"
     
     init() {
+                
         // episde0 from example data
         let episode0 = Episode.episode0
         

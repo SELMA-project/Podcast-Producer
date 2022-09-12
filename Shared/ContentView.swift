@@ -28,6 +28,8 @@ struct ContentView: View {
                         }
                     }
                 }
+        }.onAppear {
+            //SelmaManager.shared.deleteContentsOfDocumentDirectory()
         }
     }
 

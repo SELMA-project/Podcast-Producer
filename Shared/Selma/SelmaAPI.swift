@@ -12,7 +12,8 @@ class SelmaAPI {
     func renderAudio(speakerName: String, text: String) async -> Data? {
         
         // path on server
-        let path = "/x:selmaproject:tts:777:5002/api/tts"
+        //let path = "/x:selmaproject:tts:777:5002/api/tts"
+        let path = "/x:selmaproject:tts:888:5002/api/tts"
         
         // query parameters
         let textQueryItem = URLQueryItem(name: "text", value: text)

@@ -244,6 +244,22 @@ class SelmaManager: NSObject, AVAudioPlayerDelegate {
 
     }
     
+    func deleteContentsOfDocumentDirectory() {
+        let documentsFolderURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        do {
+            let items = try FileManager.default.contentsOfDirectory(at: documentsFolderURL, includingPropertiesForKeys: nil)
+
+            for itemURL in items {
+                try FileManager.default.removeItem(at: itemURL)
+                print("Removed: \(itemURL.absoluteString)")
+            }
+        } catch {
+            // failed to read directory – bad permissions, perhaps?
+            print("\(error)")
+        }
+    }
+    
 }
 
 
