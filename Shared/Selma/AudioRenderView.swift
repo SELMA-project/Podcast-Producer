@@ -11,7 +11,7 @@ struct AudioRenderView: View {
     
     @ObservedObject var episodeViewModel: EpisodeViewModel
     
-    // if at least one audioSegment has audioData, a download is possible
+    // if at least one episodeSegment has audioData, a download is possible
     var downloadIsPossible: Bool {
         episodeViewModel.episodeStructure.reduce(false) {
             return $0 || $1.audioURL != nil
@@ -20,14 +20,14 @@ struct AudioRenderView: View {
     
     var body: some View {
         List {
-            ForEach(episodeViewModel.episodeStructure) {audioSegment in
+            ForEach(episodeViewModel.episodeStructure) {episodeSegment in
                 HStack {
                     // title and subtitle on left
                     VStack(alignment: .leading) {
-                        Text(audioSegment.segmentIdentifer.rawValue.capitalized)
+                        Text(episodeSegment.segmentIdentifer.rawValue.capitalized)
                             .font(.title3)
                         
-                        Text(audioSegment.text)
+                        Text(episodeSegment.text)
                             .lineLimit(1)
                             .font(.caption)
                     }
@@ -35,7 +35,7 @@ struct AudioRenderView: View {
                     Spacer()
                     
                     // progress view or play button the right
-                    PlayButton(episodeViewModel: episodeViewModel, audioSegment: audioSegment)
+                    PlayButton(episodeViewModel: episodeViewModel, episodeSegment: episodeSegment)
                 }
             }
         }
@@ -59,21 +59,21 @@ struct AudioRenderView: View {
 struct PlayButton: View {
 
     @ObservedObject var episodeViewModel: EpisodeViewModel
-    var audioSegment: AudioSegment
+    var episodeSegment: EpisodeSegment
 
     
     var body: some View {
 
-        if audioSegment.audioURL == nil {
+        if episodeSegment.audioURL == nil {
             ProgressView()
         }
         else {
             Button {
                 Task {
-                    await episodeViewModel.playButtonPressed(forSegment: audioSegment)
+                    await episodeViewModel.playButtonPressed(forSegment: episodeSegment)
                 }
             } label: {
-                Image(systemName: audioSegment.isPlaying == true ? "pause.circle" : "play.circle")
+                Image(systemName: episodeSegment.isPlaying == true ? "pause.circle" : "play.circle")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 25, height: 25)

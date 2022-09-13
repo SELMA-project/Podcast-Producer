@@ -35,6 +35,8 @@
 		C1756ABB28A1198D00FE9F2B /* MainEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756AB928A1198D00FE9F2B /* MainEditView.swift */; };
 		C1756ABD28A13D3700FE9F2B /* StoryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */; };
 		C1756ABE28A13D3700FE9F2B /* StoryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */; };
+		C176AB0E28CF7A3B00E2804D /* AudioEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C176AB0D28CF7A3B00E2804D /* AudioEpisode.swift */; };
+		C176AB0F28CF7A3B00E2804D /* AudioEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C176AB0D28CF7A3B00E2804D /* AudioEpisode.swift */; };
 		C1871E7528CB8A9200A2C137 /* 00-intro-start-aac.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1871E7328CB8A9200A2C137 /* 00-intro-start-aac.m4a */; };
 		C1871E7628CB8A9200A2C137 /* 00-intro-start-aac.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1871E7328CB8A9200A2C137 /* 00-intro-start-aac.m4a */; };
 		C1871E7728CB8A9200A2C137 /* leilatest-aac.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1871E7428CB8A9200A2C137 /* leilatest-aac.m4a */; };
@@ -83,6 +85,7 @@
 		C163C78728C771AB00DE6819 /* intro-01-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "intro-01-CAF.caf"; sourceTree = "<group>"; };
 		C1756AB928A1198D00FE9F2B /* MainEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEditView.swift; sourceTree = "<group>"; };
 		C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryEditView.swift; sourceTree = "<group>"; };
+		C176AB0D28CF7A3B00E2804D /* AudioEpisode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEpisode.swift; sourceTree = "<group>"; };
 		C1871E7228CB8A3500A2C137 /* 00-intro-start.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "00-intro-start.m4a"; sourceTree = "<group>"; };
 		C1871E7328CB8A9200A2C137 /* 00-intro-start-aac.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "00-intro-start-aac.m4a"; sourceTree = "<group>"; };
 		C1871E7428CB8A9200A2C137 /* leilatest-aac.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "leilatest-aac.m4a"; sourceTree = "<group>"; };
@@ -199,6 +202,7 @@
 			children = (
 				C1BA7EBD28AA92270090573B /* AudioRenderView.swift */,
 				C1BA7EC028AA93280090573B /* AudioManager.swift */,
+				C176AB0D28CF7A3B00E2804D /* AudioEpisode.swift */,
 				C1BA7EC728AB82300090573B /* SelmaAPI.swift */,
 			);
 			path = Selma;
@@ -334,6 +338,7 @@
 				C1756ABD28A13D3700FE9F2B /* StoryEditView.swift in Sources */,
 				C1BA7EBE28AA92270090573B /* AudioRenderView.swift in Sources */,
 				C1491F6B27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */,
+				C176AB0E28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
 				C1491F6F27AD472700A72AEB /* Persistence.swift in Sources */,
 				C1756ABA28A1198D00FE9F2B /* MainEditView.swift in Sources */,
 				C1491F6927AD472700A72AEB /* Podcast_Producer.xcdatamodeld in Sources */,
@@ -354,6 +359,7 @@
 				C1756ABE28A13D3700FE9F2B /* StoryEditView.swift in Sources */,
 				C1BA7EBF28AA92270090573B /* AudioRenderView.swift in Sources */,
 				C1491F6C27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */,
+				C176AB0F28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
 				C1491F7027AD472700A72AEB /* Persistence.swift in Sources */,
 				C1756ABB28A1198D00FE9F2B /* MainEditView.swift in Sources */,
 				C1491F6A27AD472700A72AEB /* Podcast_Producer.xcdatamodeld in Sources */,

@@ -17,7 +17,7 @@ enum SegmentIdentifier: String, CaseIterable  {
 }
 
 
-struct AudioSegment: Identifiable {
+struct EpisodeSegment: Identifiable {
     var id: String {
         //return "audio_\(self.hashValue)"
         let textToBeHashed = "\(segmentIdentifer.rawValue)-\(text)"
@@ -52,7 +52,7 @@ class EpisodeViewModel: ObservableObject {
     @Published var availableEpisodes: [Episode]
     
     // the entire episode in segments
-    @Published var episodeStructure: [AudioSegment] = []
+    @Published var episodeStructure: [EpisodeSegment] = []
     
     var speakerName =  "leila endruweit"
     
@@ -80,7 +80,7 @@ class EpisodeViewModel: ObservableObject {
     func buildEpisodeStructure() {
 
         // result
-        var structure = [AudioSegment]()
+        var structure = [EpisodeSegment]()
         
         // episode to build
         let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
@@ -88,34 +88,34 @@ class EpisodeViewModel: ObservableObject {
         // array of all ids
         let allIdentifiers = SegmentIdentifier.allCases
         
-        var newAudioSegments: [AudioSegment]
+        var newEpisodeSegments: [EpisodeSegment]
         
         for segmentIdentifier in allIdentifiers {
             
             // reset
-            newAudioSegments = []
+            newEpisodeSegments = []
             
             switch segmentIdentifier {
             case .welcomeText:
-                newAudioSegments = [AudioSegment(segmentIdentifer: .welcomeText, text: chosenEpisode.welcomeText)]
+                newEpisodeSegments = [EpisodeSegment(segmentIdentifer: .welcomeText, text: chosenEpisode.welcomeText)]
             case .headlineIntroduction:
-                newAudioSegments = [AudioSegment(segmentIdentifer: .headlineIntroduction, text: chosenEpisode.headlineIntroduction)]
+                newEpisodeSegments = [EpisodeSegment(segmentIdentifer: .headlineIntroduction, text: chosenEpisode.headlineIntroduction)]
             case .headline:
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     if story.usedInIntroduction {
-                        newAudioSegments.append(AudioSegment(segmentIdentifer: .headline, subIndex: index, text: story.headline))
+                        newEpisodeSegments.append(EpisodeSegment(segmentIdentifer: .headline, subIndex: index, text: story.headline))
                     }
                 }
             case .story:
                 for (index, story) in chosenEpisode.stories.enumerated() {
-                    newAudioSegments.append(AudioSegment(segmentIdentifer: .story, subIndex: index, text: story.storyText))
+                    newEpisodeSegments.append(EpisodeSegment(segmentIdentifer: .story, subIndex: index, text: story.storyText))
                 }
             case .epilogue:
-                newAudioSegments = [AudioSegment(segmentIdentifer: .epilogue, text: chosenEpisode.epilogue)]
+                newEpisodeSegments = [EpisodeSegment(segmentIdentifer: .epilogue, text: chosenEpisode.epilogue)]
             }
             
             // add the new segment(s) to structure
-            structure.append(contentsOf: newAudioSegments)
+            structure.append(contentsOf: newEpisodeSegments)
         }
         
         // pusblish
@@ -153,7 +153,7 @@ class EpisodeViewModel: ObservableObject {
     }
     
     
-    func playButtonPressed(forSegment audioSegment: AudioSegment) async {
+    func playButtonPressed(forSegment audioSegment: EpisodeSegment) async {
 
         // find index of given audioSegment in array
         let currentIndex = episodeStructure.firstIndex { segment in
@@ -196,13 +196,17 @@ class EpisodeViewModel: ObservableObject {
     
     func downloadAudio() {
         print("Download audio pressed")
+  
+        let outputUrl = AudioManager.shared.createAudioEpisode()
+        print("Audio file saved here: \(outputUrl)")
         
-        guard let audioURL = episodeStructure[0].audioURL else {return}
         
-        let processedAudioURL = AudioManager.shared.createDownloadableAudio(audioUrl: audioURL)
-        if let fileUrl = processedAudioURL {
-            print("Audio file saved here: \(fileUrl)")
-        }
+//        guard let audioURL = episodeStructure[0].audioURL else {return}
+//
+//        let processedAudioURL = AudioManager.shared.createDownloadableAudio(audioUrl: audioURL)
+//        if let fileUrl = processedAudioURL {
+//            print("Audio file saved here: \(fileUrl)")
+//        }
     }
     
     private func getDocumentsDirectory() -> URL {
@@ -214,7 +218,7 @@ class EpisodeViewModel: ObservableObject {
     }
     
     /// Should the rendered audio be stored?
-    private func storageURL(forAudioSegment audioSegment: AudioSegment) -> URL {
+    private func storageURL(forAudioSegment audioSegment: EpisodeSegment) -> URL {
 
         let documentsDirectory = getDocumentsDirectory()
         let fileName = "\(audioSegment.id).wav"
