@@ -107,20 +107,21 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         
         // add first segment
         segmentId = audioEpisode.addSegment()
-        let introStartFile = Bundle.main.url(forResource: "00-intro-start-CAF.caf", withExtension: nil)!
+        //let introStartFile = Bundle.main.url(forResource: "00-intro-start-CAF.caf", withExtension: nil)!
+        let introStartFile = Bundle.main.url(forResource: "00-intro-start-aac.m4a", withExtension: nil)!
         audioEpisode.addAudioTrack(toSegmentId: segmentId, url: introStartFile, volume: 1.0, delay: 0.0, fadeIn: 0.0, fadeOut: 0.0)
         
         // add second segment
         segmentId = audioEpisode.addSegment()
-        
+
         let speechFile = Bundle.main.url(forResource: "leilatest.caf", withExtension: nil)!
         audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechFile, volume: 1.0, delay: 0.0, fadeIn: 0.0, fadeOut: 0.0)
- 
+
         let backgroundMusicFile = Bundle.main.url(forResource: "01-intro-middle-CAF.caf", withExtension: nil)!
         audioEpisode.addAudioTrack(toSegmentId: segmentId, url: backgroundMusicFile, volume: 0.5, delay: 0.0, fadeIn: 0.0, fadeOut: 0.0)
         
         // render episode
-        let url = audioEpisode.render()
+        let url = audioEpisode.render(outputfileName: "output")
         
         return url
     }

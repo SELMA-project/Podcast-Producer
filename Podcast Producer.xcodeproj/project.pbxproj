@@ -86,7 +86,6 @@
 		C1756AB928A1198D00FE9F2B /* MainEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEditView.swift; sourceTree = "<group>"; };
 		C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryEditView.swift; sourceTree = "<group>"; };
 		C176AB0D28CF7A3B00E2804D /* AudioEpisode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEpisode.swift; sourceTree = "<group>"; };
-		C1871E7228CB8A3500A2C137 /* 00-intro-start.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "00-intro-start.m4a"; sourceTree = "<group>"; };
 		C1871E7328CB8A9200A2C137 /* 00-intro-start-aac.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "00-intro-start-aac.m4a"; sourceTree = "<group>"; };
 		C1871E7428CB8A9200A2C137 /* leilatest-aac.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "leilatest-aac.m4a"; sourceTree = "<group>"; };
 		C1871E8E28CB8C6C00A2C137 /* 04-outro-start-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "04-outro-start-CAF.caf"; sourceTree = "<group>"; };
@@ -187,7 +186,6 @@
 				C1871E9128CB8C6C00A2C137 /* 06-outro-end-CAF.caf */,
 				C1871E7328CB8A9200A2C137 /* 00-intro-start-aac.m4a */,
 				C1871E7428CB8A9200A2C137 /* leilatest-aac.m4a */,
-				C1871E7228CB8A3500A2C137 /* 00-intro-start.m4a */,
 				C163C78728C771AB00DE6819 /* intro-01-CAF.caf */,
 				C163C78428C769C100DE6819 /* intro-01.mp3 */,
 				C163C78128C769B600DE6819 /* background-01.mp3 */,

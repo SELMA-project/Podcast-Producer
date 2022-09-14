@@ -49,6 +49,8 @@ struct AudioSegmentTrack {
         } catch {
             fatalError("Unable to load the source audio file: \(error.localizedDescription).")
         }
+        
+        print(sourceFile.processingFormat)
     }
     
     
@@ -79,7 +81,7 @@ struct AudioSegment {
 struct AudioEpisode {
     
     /// Number of parallel audio tracks
-    var outputSamplingRate: Double = 44100
+    var outputSamplingRate: Double = 48000
     
     var audioEngine = AVAudioEngine()
     
@@ -93,7 +95,7 @@ struct AudioEpisode {
         return segments.endIndex - 1
     }
     
-    func addAudioTrack(toSegmentId segmentId: Int, url: URL, volume: Float?, delay: Double?, fadeIn: Double?, fadeOut: Double?) {
+    mutating func addAudioTrack(toSegmentId segmentId: Int, url: URL, volume: Float?, delay: Double?, fadeIn: Double?, fadeOut: Double?) {
         
         if segmentId >= segments.endIndex {
             fatalError("Cannot add an audio track to non-existing segment with id \(segmentId)")
@@ -104,6 +106,9 @@ struct AudioEpisode {
         
         // add track
         segment.addTrack(url: url, volume: volume, delay: delay, fadeIn: fadeIn, fadeOut: fadeOut)
+        
+        // replace old segment with updated segment
+        segments[segmentId] = segment
         
         // duration
         let segmentDuration = segment.calculateDuration()
@@ -142,18 +147,11 @@ struct AudioEpisode {
         return episodeDuration
     }
     
-    func render() -> URL {
-        
-        // temporary reference
-        let referenceFileUrl = Bundle.main.url(forResource: "leilatest.caf", withExtension: nil)!
-        let referenceAudioFile = try! AVAudioFile(forReading: referenceFileUrl)
-        
-        // we need as many player nodes as we have parallel tracks
-        //let numberOfPlayers = numberOfParallelTracks()
-                
+    func render(outputfileName: String) -> URL {
+                        
         var startTimeOfCurrentSegment: Double = 0.0
         
-        // staore all audio players here
+        // store all audio players here
         var playerNodes = [AVAudioPlayerNode]()
         
         // go throuch each segment
@@ -188,12 +186,13 @@ struct AudioEpisode {
             }
         }
         
+        // the audio format to use
+        let outputFormat: AVAudioFormat = AVAudioFormat(standardFormatWithSampleRate: outputSamplingRate, channels: 2)!
         
-        // setup engines for ma ual rendering
+        // setup engines for manual rendering
         do {
             // The maximum number of frames the engine renders in any single render call.
             let maxFrames: AVAudioFrameCount = 4096
-            let outputFormat: AVAudioFormat = AVAudioFormat(standardFormatWithSampleRate: outputSamplingRate, channels: 1)!
             try audioEngine.enableManualRenderingMode(.offline, format: outputFormat, maximumFrameCount: maxFrames)
         } catch {
             fatalError("Enabling manual rendering mode failed: \(error).")
@@ -219,12 +218,22 @@ struct AudioEpisode {
                                       frameCapacity: audioEngine.manualRenderingMaximumFrameCount)!
 
 
+        // we ar erendering the output ionto this file
+        var outputFile: AVAudioFile?
         
-        var outputFile: AVAudioFile
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let outputURL = documentsURL.appendingPathComponent("\(outputfileName).m4a")
+        
+        // Audio File settings
+        let settings = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: Int(outputSamplingRate),
+            AVNumberOfChannelsKey: Int(2),
+            AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue
+        ]
+        
         do {
-            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let outputURL = documentsURL.appendingPathComponent("output.caf")
-            outputFile = try AVAudioFile(forWriting: outputURL, settings: referenceAudioFile.fileFormat.settings)
+            outputFile = try AVAudioFile(forWriting: outputURL, settings: settings)
         } catch {
             fatalError("Unable to open output audio file: \(error).")
         }
@@ -232,7 +241,7 @@ struct AudioEpisode {
         
         // how many samples does the episode have?
         let episodeDuration = calculateDuration()
-        let episodeSampleLength = Int64(floor(episodeDuration/outputSamplingRate))
+        let episodeSampleLength = Int64(floor(episodeDuration*outputSamplingRate))
         
         while audioEngine.manualRenderingSampleTime < episodeSampleLength {
             do {
@@ -254,7 +263,7 @@ struct AudioEpisode {
                     
                 case .success:
                     // The data rendered successfully. Write it to the output file.
-                    try outputFile.write(from: buffer)
+                    try outputFile?.write(from: buffer)
                     
                 case .insufficientDataFromInputNode:
                     // Applicable only when using the input node as one of the sources.
@@ -276,6 +285,9 @@ struct AudioEpisode {
                 fatalError("The manual rendering failed: \(error).")
             }
         }
+        // implicitely close the file
+        // https://stackoverflow.com/questions/52184148/render-audio-file-offline-using-avaudioengine
+        outputFile = nil
         
         // stop all audio players
         for playerNode in playerNodes {
@@ -286,7 +298,7 @@ struct AudioEpisode {
         audioEngine.stop()
         
         // return URL
-        return outputFile.url
+        return outputURL
         
     }
     
