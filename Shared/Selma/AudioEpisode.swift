@@ -21,6 +21,10 @@ struct AudioSegmentTrack {
         return sourceFile.processingFormat.sampleRate
     }
     
+    var length: AVAudioFramePosition {
+        return sourceFile.length
+    }
+    
     var startAudioTime: AVAudioTime {
         let numberOfSamplesEquivalentToDelay = Int64(floor(delay/sampleRate))
         let audioTime = AVAudioTime(sampleTime: numberOfSamplesEquivalentToDelay, atRate: sampleRate)
@@ -162,7 +166,7 @@ struct AudioEpisode {
                 
                 // create player
                 let playerNode = AVAudioPlayerNode()
-                
+                                
                 // store it for later
                 playerNodes.append(playerNode)
                 
@@ -177,13 +181,22 @@ struct AudioEpisode {
                 
                 // schedule player's playback
                 let playerStartTime = startTimeOfCurrentSegment + track.delay
-                let startSampleTime = Int64(floor(playerStartTime / track.sampleRate))
-                let startAudioTime = AVAudioTime(sampleTime: startSampleTime, atRate: track.sampleRate)
-                playerNode.scheduleFile(track.sourceFile, at: startAudioTime)
+                let startSampleTime = Int64(floor(playerStartTime * outputSamplingRate))
+                let startAudioTime = AVAudioTime(sampleTime: startSampleTime, atRate: outputSamplingRate)
+                //playerNode.scheduleFile(track.sourceFile, at: startAudioTime)
+                playerNode.scheduleSegment(track.sourceFile, startingFrame: 0, frameCount: UInt32(track.length), at: startAudioTime)
                 
-                // calculate startTime of next Segment
-                startTimeOfCurrentSegment += segment.calculateDuration()
+                print("\n\(segment)")
+                print("\(track)")
+                print("playerStartTime: \(playerStartTime)")
+                print("Track length: \(track.length)")
+                print("track.sampleRate: \(track.sampleRate)")
+                print("startSampleTime: \(startSampleTime)")
+                print("startAudioTime: \(startAudioTime)")
             }
+            
+            // calculate startTime of next Segment
+            startTimeOfCurrentSegment += segment.calculateDuration()
         }
         
         // the audio format to use
@@ -200,12 +213,22 @@ struct AudioEpisode {
         
         // start engines and players
         do {
+            // prepare audio engine
+            audioEngine.prepare()
+            
             // start engine
             try audioEngine.start()
             
             // start all players
+            var referenceSampleTime: AVAudioFramePosition?
             for playerNode in playerNodes {
-                playerNode.play()
+                
+                if referenceSampleTime == nil {
+                    referenceSampleTime = playerNode.lastRenderTime?.sampleTime
+                }
+                
+                let playerStart = AVAudioTime(sampleTime: referenceSampleTime!, atRate: outputSamplingRate)
+                playerNode.play(at: playerStart)
             }
 
         } catch {
