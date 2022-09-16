@@ -50,11 +50,13 @@ class EpisodeViewModel: ObservableObject {
     
     @Published var chosenEpisodeIndex: Int = 0
     @Published var availableEpisodes: [Episode]
+    @Published var episodeAvailable: Bool = false
     
     // the entire episode in segments
     @Published var episodeStructure: [EpisodeSegment] = []
     
     var speakerName =  "leila endruweit"
+    var episodeUrl: URL = Bundle.main.url(forResource: "no-audio.m4a", withExtension: nil)!
     
     init() {
                 
@@ -197,9 +199,12 @@ class EpisodeViewModel: ObservableObject {
     func downloadAudio() {
         print("Download audio pressed")
   
-        let outputUrl = AudioManager.shared.createAudioEpisode()
-        print("Audio file saved here: \(outputUrl)")
+        // create entire episode
+        episodeUrl = AudioManager.shared.createAudioEpisode()
+        print("Audio file saved here: \(String(describing: episodeUrl))")
         
+        // publish existance of the new audio URL in viemodel
+        episodeAvailable = true
         
 //        guard let audioURL = episodeStructure[0].audioURL else {return}
 //

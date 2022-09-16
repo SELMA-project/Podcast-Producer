@@ -20,7 +20,7 @@ struct ContentView: View {
         } detail: {
             MainEditView(episodeViewModel: episodeViewModel)
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
+                    ToolbarItem(placement: .primaryAction) {
                         
                         // present Audio Render View
                         NavigationLink("Create Audio") {
@@ -69,7 +69,7 @@ struct Sidebar: View {
         }
         .listStyle(.sidebar)
         .toolbar {
-            ToolbarItemGroup(placement: .bottomBar, content: {
+            ToolbarItemGroup(placement: .automatic, content: {
                 
                 Button(action: githubSync) {
                     Image(systemName: "arrow.triangle.2.circlepath")

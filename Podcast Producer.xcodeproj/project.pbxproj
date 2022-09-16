@@ -65,6 +65,8 @@
 		C1BA7EC228AA93280090573B /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BA7EC028AA93280090573B /* AudioManager.swift */; };
 		C1BA7EC828AB82300090573B /* SelmaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BA7EC728AB82300090573B /* SelmaAPI.swift */; };
 		C1BA7EC928AB82300090573B /* SelmaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BA7EC728AB82300090573B /* SelmaAPI.swift */; };
+		C1F5602728D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
+		C1F5602828D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +102,7 @@
 		C1BA7EBD28AA92270090573B /* AudioRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRenderView.swift; sourceTree = "<group>"; };
 		C1BA7EC028AA93280090573B /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		C1BA7EC728AB82300090573B /* SelmaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelmaAPI.swift; sourceTree = "<group>"; };
+		C1F5602628D4765900E573E2 /* no-audio.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "no-audio.m4a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +180,7 @@
 		C189696228B371E1005108E7 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				C1F5602628D4765900E573E2 /* no-audio.m4a */,
 				C1871E8F28CB8C6C00A2C137 /* 00-intro-start-CAF.caf */,
 				C1871E9328CB8C6C00A2C137 /* 01-intro-middle-CAF.caf */,
 				C1871E9028CB8C6C00A2C137 /* 02-intro-end-CAF.caf */,
@@ -293,6 +297,7 @@
 				C1871E7728CB8A9200A2C137 /* leilatest-AAC.m4a in Resources */,
 				C189696428B3774C005108E7 /* leilatest-CAF.caf in Resources */,
 				C1871E9D28CB8C6D00A2C137 /* 03-sting-CAF.caf in Resources */,
+				C1F5602728D4765900E573E2 /* no-audio.m4a in Resources */,
 				C163C78528C769C100DE6819 /* intro-01.mp3 in Resources */,
 				C1871E7528CB8A9200A2C137 /* 00-intro-start-aac.m4a in Resources */,
 				C1871E9728CB8C6D00A2C137 /* 00-intro-start-CAF.caf in Resources */,
@@ -315,6 +320,7 @@
 				C1871E7828CB8A9200A2C137 /* leilatest-AAC.m4a in Resources */,
 				C189696528B3774C005108E7 /* leilatest-CAF.caf in Resources */,
 				C1871E9E28CB8C6D00A2C137 /* 03-sting-CAF.caf in Resources */,
+				C1F5602828D4765900E573E2 /* no-audio.m4a in Resources */,
 				C163C78628C769C100DE6819 /* intro-01.mp3 in Resources */,
 				C1871E7628CB8A9200A2C137 /* 00-intro-start-aac.m4a in Resources */,
 				C1871E9828CB8C6D00A2C137 /* 00-intro-start-CAF.caf in Resources */,
@@ -554,6 +560,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
 				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -567,7 +574,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.artisticengines.Podcast-Producer";
 				PRODUCT_NAME = "Podcast Producer";
@@ -584,6 +591,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
 				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -597,7 +605,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.artisticengines.Podcast-Producer";
 				PRODUCT_NAME = "Podcast Producer";
