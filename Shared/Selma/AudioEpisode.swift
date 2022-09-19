@@ -7,38 +7,59 @@
 
 import AVFoundation
 
+/// Represents one audio track inside a segment
 struct AudioSegmentTrack {
     
+    /// the track's identifier
     var id: Int
+    
+    /// the URL of the audio file which the track plays
     var url: URL
+    
+    /// the track's volume
     var volume: Float
+    
+    /// initial playback delay in seconds
     var delay: Double
+    
+    /// the fade-in duration in seconds
     var fadeIn: Double
+    
+    /// the fade-out duration in seconds
     var fadeOut: Double
     
-    var sourceFile: AVAudioFile
-    var inputBuffer: AVAudioPCMBuffer
+    /// the track'S player node
     var playerNode: AVAudioPlayerNode
     
+    /// sample rate in samples per second
     var sampleRate: Double {
         return sourceFile.processingFormat.sampleRate
     }
     
+    /// the number of audio samples of the track's audio file
     var numberOfAudioSamples: AVAudioFramePosition {
         return sourceFile.length
     }
     
+    /// the audio file's processing format
     var processingFormat: AVAudioFormat {
         return sourceFile.processingFormat
     }
     
+    /// the  AVAudioTime relative to the track's segment start at which the pplayer starts playing (cooresponds to delay)
     var startAudioTime: AVAudioTime {
         let numberOfSamplesEquivalentToDelay = AVAudioFramePosition(delay*sampleRate)
         let audioTime = AVAudioTime(sampleTime: numberOfSamplesEquivalentToDelay, atRate: sampleRate)
         return audioTime
     }
+
+    /// the sample buffer
+    var inputBuffer: AVAudioPCMBuffer
     
-    /// Duration in seconds, including inital delay
+    /// stores the audio file
+    private var sourceFile: AVAudioFile
+    
+    /// duration in seconds, including inital delay
     func calculateDurationIncludingDelay() -> Double {
         let fileDuration = Double(numberOfAudioSamples) / sampleRate
         return delay + fileDuration
@@ -46,10 +67,11 @@ struct AudioSegmentTrack {
     
     init(id: Int, url: URL, volume: Float?, delay: Double?, fadeIn: Double?, fadeOut: Double?) {
 
+        // store id and url
         self.id = id
         self.url = url
         
-        // set defauls
+        // set defaults
         self.volume = volume ?? 1.0
         self.delay = delay ?? 0.0
         self.fadeIn = fadeIn ?? 0.3
@@ -83,11 +105,13 @@ struct AudioSegmentTrack {
     
 }
 
+/// Represents an Audio segment
 struct AudioSegment {
     
     var id: Int
     var tracks = [AudioSegmentTrack]()
     
+    /// Add a new track to the AudioSegment
     mutating func addTrack(url: URL, volume: Float?, delay: Double?, fadeIn: Double?, fadeOut: Double?) {
         
         // the tracks's id is the next index in the array
@@ -97,7 +121,8 @@ struct AudioSegment {
         tracks.append(newTrack)
     }
     
-    func calculateDuration() -> Double {
+    /// The duration of the enitre segment including all audio tracks
+    func calculateSegmentDuration() -> Double {
         
         var segmentDuration = 0.0
         
@@ -110,15 +135,17 @@ struct AudioSegment {
     }
 }
 
+/// Represents the entire Audio Episode
 struct AudioEpisode {
     
     /// Number of parallel audio tracks
     var outputSamplingRate: Double = 48000
     
-    var audioEngine = AVAudioEngine()
+    /// The Audio Engine
+    private var audioEngine = AVAudioEngine()
     
-    // stores sequence of segments
-    var segments = [AudioSegment]()
+    // Stores sequence of segments
+    private var segments = [AudioSegment]()
     
     /// Creates a new audio segment and return its index
     mutating func addSegment() -> Int {
@@ -133,6 +160,7 @@ struct AudioEpisode {
         return segmentId
     }
     
+    /// Adds an audio track to a segment with the given ID
     mutating func addAudioTrack(toSegmentId segmentId: Int, url: URL, volume: Float?, delay: Double?, fadeIn: Double?, fadeOut: Double?) {
         
         if segmentId >= segments.endIndex {
@@ -148,17 +176,18 @@ struct AudioEpisode {
         // replace old segment with updated segment
         segments[segmentId] = segment
         
-        // duration
-        let segmentDuration = segment.calculateDuration()
-//        print("The duration of segment \(segmentId) is: \(segmentDuration)")
+        // debug duration
+        // let segmentDuration = segment.calculateSegmentDuration()
+        // print("The duration of segment \(segmentId) is: \(segmentDuration)")
     }
     
+    /// The absolute start time of the audio track with respect to the Episode's start
     func startTimeOfTrack(withId trackId: Int, inSegmentWithId segmentId: Int) -> AVAudioTime {
         
         // sum up the duration of all previous Segments -> start of segment with <segmentId>
         var segmentStartInSeconds = 0.0
         for index in 0..<segmentId {
-            segmentStartInSeconds += segments[index].calculateDuration()
+            segmentStartInSeconds += segments[index].calculateSegmentDuration()
         }
         
         // add delay
@@ -180,19 +209,21 @@ struct AudioEpisode {
         return audioTime
     }
     
+    /// The duration in seconds of the entire episode
     func calculateEpisodeDuration() -> Double {
         
         var episodeDuration = 0.0
         
         for segment in segments {
             
-            let segmentDuration = segment.calculateDuration()
+            let segmentDuration = segment.calculateSegmentDuration()
             episodeDuration = max(episodeDuration, segmentDuration)
         }
  
         return episodeDuration
     }
     
+    /// Renders the entire episode
     func render(outputfileName: String) -> URL {
         
         // store all audio players here
@@ -219,7 +250,7 @@ struct AudioEpisode {
             }
         }
         
-        // the audio format to use
+        // the output audio format to use
         let outputFormat: AVAudioFormat = AVAudioFormat(standardFormatWithSampleRate: outputSamplingRate, channels: 2)!
         
         // setup engines for manual rendering
@@ -273,7 +304,7 @@ struct AudioEpisode {
                                       frameCapacity: audioEngine.manualRenderingMaximumFrameCount)!
 
         
-        // we ar erendering the output ionto this file
+        // we are rendering the output into this file
         var outputFile: AVAudioFile?
         
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -289,23 +320,27 @@ struct AudioEpisode {
             AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue
         ]
         
+        // opene output file for writing
         do {
             outputFile = try AVAudioFile(forWriting: outputURL, settings: settings)
         } catch {
             fatalError("Unable to open output audio file: \(error).")
         }
         
-        
         // how many samples does the episode have?
         let mixerOutputSampleRate = audioEngine.mainMixerNode.outputFormat(forBus: 0).sampleRate
         let episodeDuration = calculateEpisodeDuration()
-        let episodeSampleLength = AVAudioFramePosition(episodeDuration*mixerOutputSampleRate)
+        let episodeSampleLength = AVAudioFramePosition(episodeDuration * mixerOutputSampleRate)
         
+        // render audio chunks
         while audioEngine.manualRenderingSampleTime < episodeSampleLength {
             do {
+                
+                // how many frames do we render this time?
                 let frameCount = episodeSampleLength - audioEngine.manualRenderingSampleTime
                 let framesToRender = min(AVAudioFrameCount(frameCount), buffer.frameCapacity)
                 
+                // get status and act upon it
                 let status = try audioEngine.renderOffline(framesToRender, to: buffer)
                 
                 switch status {
