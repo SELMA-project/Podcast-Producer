@@ -107,17 +107,18 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         
         // add first segment
         segmentId = audioEpisode.addSegment()
-        let introStartFile = Bundle.main.url(forResource: "00-intro-start-CAF.caf", withExtension: nil)!
-        //let introStartFile = Bundle.main.url(forResource: "00-intro-start-aac.m4a", withExtension: nil)!
+        let introStartFile = Bundle.main.url(forResource: "00-intro-start-trimmed.caf", withExtension: nil)!
         audioEpisode.addAudioTrack(toSegmentId: segmentId, url: introStartFile, volume: 1.0, delay: 0.0, fadeIn: 0.0, fadeOut: 0.0)
-        
+
         // add second segment
         segmentId = audioEpisode.addSegment()
+        
+        // speech
+        let speechFile = Bundle.main.url(forResource: "leilatest-CAF.caf", withExtension: nil)!
+        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechFile, volume: 1.0, delay: 0.0, fadeIn: 0.0, fadeOut: 0.0)
 
-//        let speechFile = Bundle.main.url(forResource: "leilatest-CAF.caf", withExtension: nil)!
-//        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechFile, volume: 1.0, delay: 0.0, fadeIn: 0.0, fadeOut: 0.0)
-
-        let backgroundMusicFile = Bundle.main.url(forResource: "01-intro-middle-CAF.caf", withExtension: nil)!
+        // music
+        let backgroundMusicFile = Bundle.main.url(forResource: "01-intro-middle-trimmed.caf", withExtension: nil)!
         audioEpisode.addAudioTrack(toSegmentId: segmentId, url: backgroundMusicFile, volume: 0.5, delay: 0.0, fadeIn: 0.0, fadeOut: 0.0)
         
         // render episode
@@ -135,6 +136,8 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         // speech audio file
         let speechSourceFile = avAudioFile(forResource: "leilatest", withExtension: "caf")
         let speechFormat = speechSourceFile.processingFormat
+        print("fileFormat: \(speechSourceFile.fileFormat)")
+        print("processingFormat: \(speechSourceFile.processingFormat)")
         
         // speech player
         let speechPlayer = AVAudioPlayerNode()
