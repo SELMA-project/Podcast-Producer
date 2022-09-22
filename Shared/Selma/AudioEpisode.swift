@@ -109,15 +109,13 @@ struct AudioSegment {
     var tracks = [AudioSegmentTrack]()
     
     /// Add a new track to the AudioSegment
-    mutating func addTrack(url: URL, volume: Float, relativeStart: Double, fadeIn: Double, fadeOut: Double) -> AudioSegmentTrack {
+    mutating func addTrack(url: URL, volume: Float, relativeStart: Double, fadeIn: Double, fadeOut: Double) {
         
         // the tracks's id is the next index in the array
         let trackId = tracks.endIndex
         
         let newTrack = AudioSegmentTrack(id: trackId, url: url, volume: volume, relativeStart: relativeStart, fadeIn: fadeIn, fadeOut: fadeOut)
         tracks.append(newTrack)
-        
-        return newTrack
     }
     
     /// The duration of the enitre segment including all audio tracks
@@ -160,7 +158,7 @@ struct AudioEpisode {
     }
     
     /// Adds an audio track to a segment with the given ID
-    mutating func addAudioTrack(toSegmentId segmentId: Int, url: URL, delay: Double = 0.0, volume: Float = 1.0, fadeIn: Double = 0.1, fadeOut: Double = 0.1, appendToTrack previousTrack: AudioSegmentTrack? = nil) -> AudioSegmentTrack {
+    mutating func addAudioTrack(toSegmentId segmentId: Int, url: URL, delay: Double = 0.0, volume: Float = 1.0, fadeIn: Double = 0.1, fadeOut: Double = 0.1, appendToPreviousTrack: Bool) {
         
         if segmentId >= segments.endIndex {
             fatalError("Cannot add an audio track to non-existing segment with id \(segmentId)")
@@ -172,22 +170,23 @@ struct AudioEpisode {
         // the track should at least be delayed by <delay>
         var relativeStart = delay
 
-        // if we want to append the track to the end of all tracks already contained in the segment...
-        if let previousTrack {
+        // if we want to append the track to the end of of the previous track, determine its end time
+        var previousTrackEndTime = 0.0
+        if appendToPreviousTrack {
             // calculate when previous tracks ends
-            let previousTrackEndTime = previousTrack.calculateDurationIncludingRelativeStart()
-            
-            // add segment's duration to the relative start
-            relativeStart += previousTrackEndTime
+            if let previousTrack = segment.tracks.last {
+                previousTrackEndTime = previousTrack.calculateDurationIncludingRelativeStart()
+            }
         }
         
+        // add segment's duration to the relative start
+        relativeStart += previousTrackEndTime
+        
         // add track
-        let newTrack = segment.addTrack(url: url, volume: volume, relativeStart: relativeStart, fadeIn: fadeIn, fadeOut: fadeOut)
+        segment.addTrack(url: url, volume: volume, relativeStart: relativeStart, fadeIn: fadeIn, fadeOut: fadeOut)
         
         // replace old segment with updated segment
         segments[segmentId] = segment
-        
-        return newTrack
         
         // debug duration
         // let segmentDuration = segment.calculateSegmentDuration()

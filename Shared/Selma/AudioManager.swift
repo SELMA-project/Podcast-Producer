@@ -105,19 +105,13 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         
         // reference to recently created segment
         var segmentId: Int
-        
-        // reference to current music track
-        //var musicTrack: AudioSegmentTrack?
-        
-        // reference to current speech track
-        var speechTrack: AudioSegmentTrack?
-        
+                
         // add first segment S0
         segmentId = audioEpisode.addSegment()
         
         // in S0: music
         let introStartFile = Bundle.main.url(forResource: "00-intro-start-trimmed.caf", withExtension: nil)!
-        _ = audioEpisode.addAudioTrack(toSegmentId: segmentId, url: introStartFile, appendToTrack: nil)
+        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: introStartFile, appendToPreviousTrack: false)
         
         for (_, episodeSegment) in episodeStructure.enumerated() {
             
@@ -128,11 +122,11 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
 
                 // add music
                 let backgroundMusicFile = Bundle.main.url(forResource: "01-intro-middle-trimmed.caf", withExtension: nil)!
-                _ = audioEpisode.addAudioTrack(toSegmentId: segmentId, url: backgroundMusicFile, volume: 0.5)
+                audioEpisode.addAudioTrack(toSegmentId: segmentId, url: backgroundMusicFile, volume: 0.5, appendToPreviousTrack: false)
                 
                 // add speech
                 if let speechUrl = episodeSegment.audioURL {
-                    speechTrack = audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl, delay: 0.0)
+                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl, appendToPreviousTrack: false)
                 }
                 
 
@@ -142,7 +136,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
             if episodeSegment.segmentIdentifer == .headlineIntroduction {
                 // add speech
                 if let speechUrl = episodeSegment.audioURL {
-                    speechTrack = audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl, delay: 0.0, volume: 1.0, fadeIn: 0.0, fadeOut: 0.0, appendToTrack: speechTrack)
+                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl, appendToPreviousTrack: true)
                 }
             }
             
