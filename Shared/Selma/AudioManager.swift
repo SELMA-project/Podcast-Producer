@@ -140,6 +140,14 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
                 }
             }
             
+            // headlines added to S1
+            if episodeSegment.segmentIdentifer == .headline  {
+                // add speech
+                if let speechUrl = episodeSegment.audioURL {
+                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl, appendToPreviousTrack: true)
+                }
+            }
+            
             
         }
 
