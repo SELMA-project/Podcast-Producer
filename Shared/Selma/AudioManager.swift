@@ -98,7 +98,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     }
     
     /// Renders and Audio Episode and resturns its (local) URL
-    func createAudioEpisode() -> URL {
+    func createAudioEpisode(basedOnEpisodeStructure episodeStructure: [EpisodeSegment]) -> URL {
         
         // create entrie episode
         var audioEpisode = AudioEpisode()
@@ -106,23 +106,57 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         // reference to recently created segment
         var segmentId: Int
         
-        // add first segment S1
+        // reference to current music track
+        //var musicTrack: AudioSegmentTrack?
+        
+        // reference to current speech track
+        var speechTrack: AudioSegmentTrack?
+        
+        // add first segment S0
         segmentId = audioEpisode.addSegment()
         
-        // in S1: music
+        // in S0: music
         let introStartFile = Bundle.main.url(forResource: "00-intro-start-trimmed.caf", withExtension: nil)!
-        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: introStartFile, volume: 1.0, delay: 0.0, fadeIn: 0.0, fadeOut: 0.0)
-
-        // add second segment S2
-        segmentId = audioEpisode.addSegment()
+        _ = audioEpisode.addAudioTrack(toSegmentId: segmentId, url: introStartFile, appendToTrack: nil)
         
-        // in S2: speech
-        let speechFile = Bundle.main.url(forResource: "leilatest-CAF.caf", withExtension: nil)!
-        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechFile, volume: 1.0, delay: 0.0, fadeIn: 0.0, fadeOut: 0.0)
+        for (_, episodeSegment) in episodeStructure.enumerated() {
+            
+            if episodeSegment.segmentIdentifer == .welcomeText {
+                
+                // Start new segment S1: welcome
+                segmentId = audioEpisode.addSegment()
 
-        // in S2: music
-        let backgroundMusicFile = Bundle.main.url(forResource: "01-intro-middle-trimmed.caf", withExtension: nil)!
-        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: backgroundMusicFile, volume: 0.5, delay: 0.0, fadeIn: 0.0, fadeOut: 0.0)
+                // add music
+                let backgroundMusicFile = Bundle.main.url(forResource: "01-intro-middle-trimmed.caf", withExtension: nil)!
+                _ = audioEpisode.addAudioTrack(toSegmentId: segmentId, url: backgroundMusicFile, volume: 0.5)
+                
+                // add speech
+                if let speechUrl = episodeSegment.audioURL {
+                    speechTrack = audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl, delay: 0.0)
+                }
+                
+
+            }
+            
+            // headline intro added to S1
+            if episodeSegment.segmentIdentifer == .headlineIntroduction {
+                // add speech
+                if let speechUrl = episodeSegment.audioURL {
+                    speechTrack = audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl, delay: 0.0, volume: 1.0, fadeIn: 0.0, fadeOut: 0.0, appendToTrack: speechTrack)
+                }
+            }
+            
+            
+        }
+
+        
+//        // in S2: speech
+//        let speechFile = Bundle.main.url(forResource: "leilatest-CAF.caf", withExtension: nil)!
+//        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechFile, volume: 1.0, delay: 0.0, fadeIn: 0.0, fadeOut: 0.0)
+//
+//        // in S2: music
+//        let backgroundMusicFile = Bundle.main.url(forResource: "01-intro-middle-trimmed.caf", withExtension: nil)!
+//        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: backgroundMusicFile, volume: 0.5, delay: 0.0, fadeIn: 0.0, fadeOut: 0.0)
         
         // render episode
         let url = audioEpisode.render(outputfileName: "output")

@@ -20,7 +20,7 @@ struct AudioSegmentTrack {
     var volume: Float
     
     /// initial playback delay in seconds
-    var delay: Double
+    var relativeStart: Double
     
     /// the fade-in duration in seconds
     var fadeIn: Double
@@ -48,8 +48,8 @@ struct AudioSegmentTrack {
     
     /// the  AVAudioTime relative to the track's segment start at which the pplayer starts playing (cooresponds to delay)
     var startAudioTime: AVAudioTime {
-        let numberOfSamplesEquivalentToDelay = AVAudioFramePosition(delay*sampleRate)
-        let audioTime = AVAudioTime(sampleTime: numberOfSamplesEquivalentToDelay, atRate: sampleRate)
+        let numberOfSamplesEquivalentToRelativeStart = AVAudioFramePosition(relativeStart*sampleRate)
+        let audioTime = AVAudioTime(sampleTime: numberOfSamplesEquivalentToRelativeStart, atRate: sampleRate)
         return audioTime
     }
 
@@ -59,23 +59,23 @@ struct AudioSegmentTrack {
     /// stores the audio file
     private var sourceFile: AVAudioFile
     
-    /// duration in seconds, including inital delay
-    func calculateDurationIncludingDelay() -> Double {
+    /// duration in seconds, including delay introduced through relativeStart
+    func calculateDurationIncludingRelativeStart() -> Double {
         let fileDuration = Double(numberOfAudioSamples) / sampleRate
-        return delay + fileDuration
+        return relativeStart + fileDuration
     }
     
-    init(id: Int, url: URL, volume: Float?, delay: Double?, fadeIn: Double?, fadeOut: Double?) {
+    init(id: Int, url: URL, volume: Float, relativeStart: Double, fadeIn: Double, fadeOut: Double) {
 
         // store id and url
         self.id = id
         self.url = url
         
         // set defaults
-        self.volume = volume ?? 1.0
-        self.delay = delay ?? 0.0
-        self.fadeIn = fadeIn ?? 0.3
-        self.fadeOut = fadeOut ?? 0.3
+        self.volume = volume
+        self.relativeStart = relativeStart
+        self.fadeIn = fadeIn
+        self.fadeOut = fadeOut
         
         // create AVAudioFile from URL
         do {
@@ -96,10 +96,7 @@ struct AudioSegmentTrack {
         playerNode = AVAudioPlayerNode()
         
         // set player's initial volume
-        playerNode.volume = volume!
-
-        // debug
-//        print("New track. sourceFile.processingFormat: \(sourceFile.processingFormat) inputBuffer.format: \(inputBuffer.format) playerNode.outputFormat(0): \(playerNode.outputFormat(forBus: 0))")
+        playerNode.volume = volume
     }
     
     
@@ -112,13 +109,15 @@ struct AudioSegment {
     var tracks = [AudioSegmentTrack]()
     
     /// Add a new track to the AudioSegment
-    mutating func addTrack(url: URL, volume: Float?, delay: Double?, fadeIn: Double?, fadeOut: Double?) {
+    mutating func addTrack(url: URL, volume: Float, relativeStart: Double, fadeIn: Double, fadeOut: Double) -> AudioSegmentTrack {
         
         // the tracks's id is the next index in the array
         let trackId = tracks.endIndex
         
-        let newTrack = AudioSegmentTrack(id: trackId, url: url, volume: volume, delay: delay, fadeIn: fadeIn, fadeOut: fadeOut)
+        let newTrack = AudioSegmentTrack(id: trackId, url: url, volume: volume, relativeStart: relativeStart, fadeIn: fadeIn, fadeOut: fadeOut)
         tracks.append(newTrack)
+        
+        return newTrack
     }
     
     /// The duration of the enitre segment including all audio tracks
@@ -127,7 +126,7 @@ struct AudioSegment {
         var segmentDuration = 0.0
         
         for track in tracks {
-            let trackDuration = track.calculateDurationIncludingDelay()
+            let trackDuration = track.calculateDurationIncludingRelativeStart()
             segmentDuration = max(segmentDuration, trackDuration)
         }
         
@@ -161,7 +160,7 @@ struct AudioEpisode {
     }
     
     /// Adds an audio track to a segment with the given ID
-    mutating func addAudioTrack(toSegmentId segmentId: Int, url: URL, volume: Float?, delay: Double?, fadeIn: Double?, fadeOut: Double?) {
+    mutating func addAudioTrack(toSegmentId segmentId: Int, url: URL, delay: Double = 0.0, volume: Float = 1.0, fadeIn: Double = 0.1, fadeOut: Double = 0.1, appendToTrack previousTrack: AudioSegmentTrack? = nil) -> AudioSegmentTrack {
         
         if segmentId >= segments.endIndex {
             fatalError("Cannot add an audio track to non-existing segment with id \(segmentId)")
@@ -170,11 +169,25 @@ struct AudioEpisode {
         // retrieve affected segment
         var segment = segments[segmentId]
         
+        // the track should at least be delayed by <delay>
+        var relativeStart = delay
+
+        // if we want to append the track to the end of all tracks already contained in the segment...
+        if let previousTrack {
+            // calculate when previous tracks ends
+            let previousTrackEndTime = previousTrack.calculateDurationIncludingRelativeStart()
+            
+            // add segment's duration to the relative start
+            relativeStart += previousTrackEndTime
+        }
+        
         // add track
-        segment.addTrack(url: url, volume: volume, delay: delay, fadeIn: fadeIn, fadeOut: fadeOut)
+        let newTrack = segment.addTrack(url: url, volume: volume, relativeStart: relativeStart, fadeIn: fadeIn, fadeOut: fadeOut)
         
         // replace old segment with updated segment
         segments[segmentId] = segment
+        
+        return newTrack
         
         // debug duration
         // let segmentDuration = segment.calculateSegmentDuration()
@@ -190,10 +203,10 @@ struct AudioEpisode {
             segmentStartInSeconds += segments[index].calculateSegmentDuration()
         }
         
-        // add delay
+        // add relativeStart
         let relevantSegment = segments[segmentId]
         let relevantTrack = relevantSegment.tracks[trackId]
-        let trackDelay = relevantTrack.delay
+        let trackDelay = relevantTrack.relativeStart
         let trackStartInSeconds = segmentStartInSeconds + trackDelay
         
         // convert to AVAudioTime

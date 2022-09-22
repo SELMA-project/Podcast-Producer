@@ -200,7 +200,7 @@ class EpisodeViewModel: ObservableObject {
         print("Download audio pressed")
   
         // create entire episode
-        episodeUrl = AudioManager.shared.createAudioEpisode()
+        episodeUrl = AudioManager.shared.createAudioEpisode(basedOnEpisodeStructure: self.episodeStructure)
         print("Audio file saved here: \(String(describing: episodeUrl))")
         
         // publish existance of the new audio URL in viemodel
