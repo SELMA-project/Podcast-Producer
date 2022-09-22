@@ -28,6 +28,9 @@ struct AudioSegmentTrack {
     /// the fade-out duration in seconds
     var fadeOut: Double
     
+    /// determined whether this track runs in the background as a loop
+    var isLoopingBackgroundTrack: Bool
+    
     /// the track'S player node
     var playerNode: AVAudioPlayerNode
     
@@ -65,7 +68,7 @@ struct AudioSegmentTrack {
         return relativeStart + fileDuration
     }
     
-    init(id: Int, url: URL, volume: Float, relativeStart: Double, fadeIn: Double, fadeOut: Double) {
+    init(id: Int, url: URL, volume: Float, relativeStart: Double, fadeIn: Double, fadeOut: Double, isLoopingBackgroundTrack: Bool) {
 
         // store id and url
         self.id = id
@@ -76,6 +79,7 @@ struct AudioSegmentTrack {
         self.relativeStart = relativeStart
         self.fadeIn = fadeIn
         self.fadeOut = fadeOut
+        self.isLoopingBackgroundTrack = isLoopingBackgroundTrack
         
         // create AVAudioFile from URL
         do {
@@ -109,12 +113,12 @@ struct AudioSegment {
     var tracks = [AudioSegmentTrack]()
     
     /// Add a new track to the AudioSegment
-    mutating func addTrack(url: URL, volume: Float, relativeStart: Double, fadeIn: Double, fadeOut: Double) {
+    mutating func addTrack(url: URL, volume: Float, relativeStart: Double, fadeIn: Double, fadeOut: Double, isLoopingBackgroundTrack: Bool) {
         
         // the tracks's id is the next index in the array
         let trackId = tracks.endIndex
         
-        let newTrack = AudioSegmentTrack(id: trackId, url: url, volume: volume, relativeStart: relativeStart, fadeIn: fadeIn, fadeOut: fadeOut)
+        let newTrack = AudioSegmentTrack(id: trackId, url: url, volume: volume, relativeStart: relativeStart, fadeIn: fadeIn, fadeOut: fadeOut, isLoopingBackgroundTrack: isLoopingBackgroundTrack)
         tracks.append(newTrack)
     }
     
@@ -158,7 +162,7 @@ struct AudioEpisode {
     }
     
     /// Adds an audio track to a segment with the given ID
-    mutating func addAudioTrack(toSegmentId segmentId: Int, url: URL, delay: Double = 0.0, volume: Float = 1.0, fadeIn: Double = 0.1, fadeOut: Double = 0.1, appendToPreviousTrack: Bool) {
+    mutating func addAudioTrack(toSegmentId segmentId: Int, url: URL, delay: Double = 0.0, volume: Float = 1.0, fadeIn: Double = 0.1, fadeOut: Double = 0.1, isLoopingBackgroundTrack: Bool = false) {
         
         if segmentId >= segments.endIndex {
             fatalError("Cannot add an audio track to non-existing segment with id \(segmentId)")
@@ -170,20 +174,41 @@ struct AudioEpisode {
         // the track should at least be delayed by <delay>
         var relativeStart = delay
 
-        // if we want to append the track to the end of of the previous track, determine its end time
+        // by default, there was no previous track
         var previousTrackEndTime = 0.0
-        if appendToPreviousTrack {
-            // calculate when previous tracks ends
-            if let previousTrack = segment.tracks.last {
-                previousTrackEndTime = previousTrack.calculateDurationIncludingRelativeStart()
+        
+        // if this is not a backgroundTrack, we want to append the track to the end of of the previous track -> determine its end time
+        if !isLoopingBackgroundTrack {
+            
+            // start with the most recent track
+            var currentIndex = segment.tracks.endIndex - 1
+            
+            // go through previous tracks (most recent first) and find the last one that wasn't a looping background track
+            while currentIndex >= 0 {
+                
+                // potential track
+                let trackUnderTest = segment.tracks[currentIndex]
+                
+                // if it is _not_ a background track,
+                if !trackUnderTest.isLoopingBackgroundTrack {
+                    
+                    // get its end time
+                    previousTrackEndTime = trackUnderTest.calculateDurationIncludingRelativeStart()
+                    
+                    // break the loop
+                    break
+                }
+
+                // if we haven't found a suitable track yet, go to the next older one
+                currentIndex -= 1
             }
         }
         
         // add segment's duration to the relative start
         relativeStart += previousTrackEndTime
         
-        // add track
-        segment.addTrack(url: url, volume: volume, relativeStart: relativeStart, fadeIn: fadeIn, fadeOut: fadeOut)
+        // add track to the segment
+        segment.addTrack(url: url, volume: volume, relativeStart: relativeStart, fadeIn: fadeIn, fadeOut: fadeOut, isLoopingBackgroundTrack: isLoopingBackgroundTrack)
         
         // replace old segment with updated segment
         segments[segmentId] = segment

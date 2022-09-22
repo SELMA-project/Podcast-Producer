@@ -32,6 +32,7 @@ struct EpisodeSegment: Identifiable {
     //var audioData: Data?
     var audioURL: URL?
     var text: String
+    var highlightInSummary: Bool = false
     
 //    func hash(into hasher: inout Hasher) {
 //        hasher.combine(self.segmentIdentifer.rawValue)
@@ -105,7 +106,7 @@ class EpisodeViewModel: ObservableObject {
             case .headline:
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     if story.usedInIntroduction {
-                        newEpisodeSegments.append(EpisodeSegment(segmentIdentifer: .headline, subIndex: index, text: story.headline))
+                        newEpisodeSegments.append(EpisodeSegment(segmentIdentifer: .headline, subIndex: index, text: story.headline, highlightInSummary: story.usedInIntroduction))
                     }
                 }
             case .story:

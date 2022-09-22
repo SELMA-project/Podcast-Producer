@@ -111,7 +111,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         
         // in S0: music
         let introStartFile = Bundle.main.url(forResource: "00-intro-start-trimmed.caf", withExtension: nil)!
-        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: introStartFile, appendToPreviousTrack: false)
+        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: introStartFile)
         
         for (_, episodeSegment) in episodeStructure.enumerated() {
             
@@ -122,11 +122,11 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
 
                 // add music
                 let backgroundMusicFile = Bundle.main.url(forResource: "01-intro-middle-trimmed.caf", withExtension: nil)!
-                audioEpisode.addAudioTrack(toSegmentId: segmentId, url: backgroundMusicFile, volume: 0.5, appendToPreviousTrack: false)
+                audioEpisode.addAudioTrack(toSegmentId: segmentId, url: backgroundMusicFile, volume: 0.5, isLoopingBackgroundTrack: true)
                 
                 // add speech
                 if let speechUrl = episodeSegment.audioURL {
-                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl, appendToPreviousTrack: false)
+                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
                 }
                 
 
@@ -136,15 +136,19 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
             if episodeSegment.segmentIdentifer == .headlineIntroduction {
                 // add speech
                 if let speechUrl = episodeSegment.audioURL {
-                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl, appendToPreviousTrack: true)
+                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
                 }
             }
             
             // headlines added to S1
             if episodeSegment.segmentIdentifer == .headline  {
-                // add speech
-                if let speechUrl = episodeSegment.audioURL {
-                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl, appendToPreviousTrack: true)
+                
+                // only use the headlines that should be highlighted in summary
+                if episodeSegment.highlightInSummary == true {
+                    // add speech
+                    if let speechUrl = episodeSegment.audioURL {
+                        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
+                    }
                 }
             }
             
