@@ -128,8 +128,11 @@ struct AudioSegment {
         var segmentDuration = 0.0
         
         for track in tracks {
-            let trackDuration = track.calculateDurationIncludingRelativeStart()
-            segmentDuration = max(segmentDuration, trackDuration)
+            // only the non-background-tracks are considered for the segment's duration
+            if !track.isLoopingBackgroundTrack {
+                let trackDuration = track.calculateDurationIncludingRelativeStart()
+                segmentDuration = max(segmentDuration, trackDuration)
+            }
         }
         
         return segmentDuration
@@ -230,8 +233,8 @@ struct AudioEpisode {
         // add relativeStart
         let relevantSegment = segments[segmentId]
         let relevantTrack = relevantSegment.tracks[trackId]
-        let trackDelay = relevantTrack.relativeStart
-        let trackStartInSeconds = segmentStartInSeconds + trackDelay
+        let relativeStart = relevantTrack.relativeStart
+        let trackStartInSeconds = segmentStartInSeconds + relativeStart
         
         // convert to AVAudioTime
         let sampleRate = relevantTrack.sampleRate
@@ -239,8 +242,8 @@ struct AudioEpisode {
         let audioTime = AVAudioTime(sampleTime: samplePosition, atRate: sampleRate)
         
         // debug
-//        print("trackId: \(trackId) segmentId: \(segmentId) segmentStart: \(segmentStartInSeconds) trackDelay: \(trackDelay) trackStart: \(trackStartInSeconds)")
-//        print("sampleRate: \(sampleRate) samplePosition: \(samplePosition) audioTime: \(audioTime)")
+        print("trackId: \(trackId) segmentId: \(segmentId) segmentStart: \(segmentStartInSeconds) relativeStart: \(relativeStart) trackStart: \(trackStartInSeconds)")
+        print("sampleRate: \(sampleRate) samplePosition: \(samplePosition) audioTime: \(audioTime)")
         
         // return result
         return audioTime
@@ -254,7 +257,7 @@ struct AudioEpisode {
         for segment in segments {
             
             let segmentDuration = segment.calculateSegmentDuration()
-            episodeDuration = max(episodeDuration, segmentDuration)
+            episodeDuration += segmentDuration
         }
  
         return episodeDuration
@@ -280,10 +283,18 @@ struct AudioEpisode {
                 
                 // connect to mixer
                 audioEngine.connect(playerNode, to: audioEngine.mainMixerNode, format: track.processingFormat)
+
+                // set playback options
+                var options: AVAudioPlayerNodeBufferOptions = [AVAudioPlayerNodeBufferOptions.interrupts]
+                
+                if track.isLoopingBackgroundTrack {
+                    options = [AVAudioPlayerNodeBufferOptions.interrupts, AVAudioPlayerNodeBufferOptions.loops]
+                }
                 
                 // schedule player's playback
                 let startAudioTime = startTimeOfTrack(withId: track.id, inSegmentWithId: segment.id)
-                playerNode.scheduleBuffer(track.inputBuffer, at: startAudioTime)
+                playerNode.scheduleBuffer(track.inputBuffer, at: startAudioTime, options: options)
+
             }
         }
         
