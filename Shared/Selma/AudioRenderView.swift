@@ -27,17 +27,36 @@ struct AudioRenderView: View {
     
     var body: some View {
         
-        VStack {
-            HStack {
-                Button {
-                    Task {
-                        episodeViewModel.buildEpisodeStructure()
-                        await episodeViewModel.renderEpisodeStructure()
+        
+        
+        List {
+            ForEach(episodeViewModel.episodeStructure) {episodeSegment in
+                HStack {
+                    // title and subtitle on left
+                    VStack(alignment: .leading) {
+                        Text(episodeSegment.segmentIdentifer.rawValue.capitalized)
+                            .font(.title3)
+                        
+                        Text(episodeSegment.text)
+                            .lineLimit(1)
+                            .font(.caption)
                     }
-                } label: {
-                    Text("Synthesize")
+                    
+                    Spacer()
+                    
+                    // progress view or play button the right
+                    PlayButton(episodeViewModel: episodeViewModel, episodeSegment: episodeSegment)
                 }
-                
+            }
+        }
+        .listStyle(PlainListStyle())
+        
+        .task {
+            episodeViewModel.buildEpisodeStructure()
+            await episodeViewModel.renderEpisodeStructure()
+        }
+        .toolbar {
+            ToolbarItem {
                 Button {
                     Task {
                         episodeViewModel.buildAudio()
@@ -45,61 +64,26 @@ struct AudioRenderView: View {
                 } label: {
                     Text("Build")
                 }.disabled(!allAudioIsAvailable)
-                
+            }
+            
+            ToolbarItem {
                 ShareLink(item: episodeViewModel.episodeUrl) {
                     Text("Share")
                 }.disabled(episodeViewModel.episodeAvailable == false)
- 
-
             }
 
-            List {
-                ForEach(episodeViewModel.episodeStructure) {episodeSegment in
-                    HStack {
-                        // title and subtitle on left
-                        VStack(alignment: .leading) {
-                            Text(episodeSegment.segmentIdentifer.rawValue.capitalized)
-                                .font(.title3)
-                            
-                            Text(episodeSegment.text)
-                                .lineLimit(1)
-                                .font(.caption)
-                        }
-                        
-                        Spacer()
-                        
-                        // progress view or play button the right
-                        PlayButton(episodeViewModel: episodeViewModel, episodeSegment: episodeSegment)
-                    }
-                }
-            }
-            .listStyle(PlainListStyle())
         }
-
-//        .task {
-//            episodeViewModel.buildEpisodeStructure()
-//            await episodeViewModel.renderEpisodeStructure()
-//        }
-//        .toolbar {
-//            ToolbarItem {
-//                Button {
-//                    episodeViewModel.downloadAudio()
-//                } label: {
-//                    Image(systemName: "square.and.arrow.down")
-//                }.disabled(!downloadIsPossible)
-//            }
-//        }
     }
 }
 
 struct PlayButton: View {
-
+    
     @ObservedObject var episodeViewModel: EpisodeViewModel
     var episodeSegment: EpisodeSegment
-
+    
     
     var body: some View {
-
+        
         if episodeSegment.audioURL == nil {
             ProgressView()
         }
