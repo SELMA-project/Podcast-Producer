@@ -36,7 +36,7 @@ struct MainEditView: View {
                 }
                 
                 Section("Stories") {
-                    ForEach(0...episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].stories.count-1, id:\.self) {storyNumber in
+                    ForEach(0..<episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].stories.count, id:\.self) {storyNumber in
                         NavigationLink(value: storyNumber) {
                             Text(episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].stories[storyNumber].headline)
                         }

@@ -49,13 +49,37 @@ O Supremo Tribunal Federal decidiu nesta terça-feira manter a decisão do minis
 """
         )
         
+        // assemble all stories
         let stories = [story1, story2, story3, story4, story5]
+        
+        // prepare storage of processed stories
+        var processedStories = [Story]()
+        
+        // go through each story
+        for story in stories {
+            
+            // convert '.' to '\n
+            let storyText = story.storyText
+            let splitStoryText = storyText.components(separatedBy: ".")
+            let trimmedSplitStoryText = splitStoryText.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            let storyTextWithNewLines = trimmedSplitStoryText.joined(separator: ".\n\n")
+            
+            // create a new story by copying the original story
+            var processedStory = story
+            
+            // replace original text with new text
+            processedStory.storyText = storyTextWithNewLines
+            
+            // append to new list
+            processedStories.append(processedStory)
+        }
+        
         
         let episode = Episode(cmsTitle: "Boletim de Notícias (21/09/22) – 1 edição",
                               cmsTeaser: "Rússia anuncia mobilização parcial de 300 mil reservistas. Confira este e outros destaques desta quarta-feira.",
                               welcomeText: "Olá, hoje é quarta-feira, vinte e um de setembro de dois mil e vinte e dois. Eu sou Leila Endruweit e esse é o boletim de notícias da DW.",
                               headlineIntroduction: "Confira nesta edição:",
-                              stories: stories,
+                              stories: processedStories,
                               epilogue: "Mais notícias você ouve no fim da tarde, na segunda edição do boletim da DW.",
                               timeSlot: "September 21th am"
         )

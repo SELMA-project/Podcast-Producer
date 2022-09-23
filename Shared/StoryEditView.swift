@@ -11,7 +11,7 @@ struct StoryEditView: View {
 
     @ObservedObject var episodeViewModel: EpisodeViewModel
     var storyNumber: Int = 0
-    
+        
     var body: some View {
 //        Form {
 //            Section("Story headline") {
