@@ -46,6 +46,7 @@ struct EpisodeSegment: Identifiable {
 //    }
 }
 
+
 @MainActor
 class EpisodeViewModel: ObservableObject {
     
@@ -57,7 +58,8 @@ class EpisodeViewModel: ObservableObject {
     // the entire episode in segments
     @Published var episodeStructure: [EpisodeSegment] = []
     
-    var speakerName =  "leila endruweit"
+    var speakerName =  SelmaVoice(.leila).selmaName
+    
     var episodeUrl: URL = Bundle.main.url(forResource: "no-audio.m4a", withExtension: nil)!
     
     init() {
