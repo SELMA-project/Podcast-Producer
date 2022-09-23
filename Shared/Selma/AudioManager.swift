@@ -119,10 +119,6 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
             // welcome text in S1
             if episodeSegment.segmentIdentifer == .welcomeText {
                 
-                // add music
-                let backgroundMusicFile = Bundle.main.url(forResource: "01-intro-middle-trimmed.caf", withExtension: nil)!
-                audioEpisode.addAudioTrack(toSegmentId: segmentId, url: backgroundMusicFile, volume: 0.5, isLoopingBackgroundTrack: true)
-                
                 // add speech
                 if let speechUrl = episodeSegment.audioURL {
                     audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
@@ -151,9 +147,13 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
             }
         }
         
+        // add music once we know how long the segment is
+        let backgroundMusicFile = Bundle.main.url(forResource: "01-intro-middle-trimmed.caf", withExtension: nil)!
+        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: backgroundMusicFile, volume: 0.5, isLoopingBackgroundTrack: true)
+        
     }
     
-    // S2: sting
+    // S2: end of introduction
     private func createS2(episodeStructure: [EpisodeSegment], audioEpisode: inout AudioEpisode) {
         
         // add new segment
@@ -164,6 +164,76 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         audioEpisode.addAudioTrack(toSegmentId: segmentId, url: introEndFile)
     }
     
+    // S3: Stories
+    private func createS3(episodeStructure: [EpisodeSegment], audioEpisode: inout AudioEpisode) {
+        
+        // add new segment
+        let segmentId = audioEpisode.addSegment()
+        
+        // filter to restrict to stories
+        let storySegments = episodeStructure.filter({ $0.segmentIdentifer == .story })
+        
+        for (index, episodeSegment) in storySegments.enumerated() {
+            
+            // Add storys
+            if episodeSegment.segmentIdentifer == .story {
+                
+                // add speech
+                if let speechUrl = episodeSegment.audioURL {
+                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
+                }
+                
+                // add a sting at the end of each - except the last one
+                if index < storySegments.endIndex - 1 {
+                    let stingFile = Bundle.main.url(forResource: "03-string-trimmed.caf", withExtension: nil)!
+                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: stingFile)
+                }
+                
+            }
+        }
+
+    }
+    
+    // S4: Outro Start
+    private func createS4(episodeStructure: [EpisodeSegment], audioEpisode: inout AudioEpisode) {
+        
+        // add new segment
+        let segmentId = audioEpisode.addSegment()
+        
+        // outro start
+        let audioFile = Bundle.main.url(forResource: "07-outro-start-trimmed.caf", withExtension: nil)!
+        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioFile)
+    }
+    
+    // S5: Outro Middle
+    private func createS5(episodeStructure: [EpisodeSegment], audioEpisode: inout AudioEpisode) {
+        
+        // add new segment
+        let segmentId = audioEpisode.addSegment()
+        
+        // add epiloge speech
+        let episodeSegment = episodeStructure.filter({$0.segmentIdentifer == .epilogue})[0]
+        if let speechUrl = episodeSegment.audioURL {
+            audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
+        }
+        
+        // outro middle as background
+        let audioFile = Bundle.main.url(forResource: "08-outro-middle-trimmed.caf", withExtension: nil)!
+        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioFile, volume: 0.5, isLoopingBackgroundTrack: true)
+    }
+    
+    // S6: Outro end
+    private func createS6(episodeStructure: [EpisodeSegment], audioEpisode: inout AudioEpisode) {
+        
+        // add new segment
+        let segmentId = audioEpisode.addSegment()
+        
+        // outro start
+        let audioFile = Bundle.main.url(forResource: "09-outro-end-trimmed.caf", withExtension: nil)!
+        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioFile)
+    }
+    
+    
     /// Renders and Audio Episode and resturns its (local) URL
     func createAudioEpisode(basedOnEpisodeStructure episodeStructure: [EpisodeSegment]) -> URL {
         
@@ -173,6 +243,10 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         createS0(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
         createS1(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
         createS2(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
+        createS3(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
+        createS4(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
+        createS5(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
+        createS6(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
         
 //        // reference to recently created segment
 //        var segmentId: Int

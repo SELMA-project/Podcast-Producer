@@ -35,14 +35,10 @@ struct AudioSegmentTrack {
     var playerNode: AVAudioPlayerNode
     
     /// sample rate in samples per second
-    var sampleRate: Double {
-        return sourceFile.processingFormat.sampleRate
-    }
+    var sampleRate: Double
     
-    /// the number of audio samples of the track's audio file
-    var numberOfAudioSamples: AVAudioFramePosition {
-        return sourceFile.length
-    }
+    /// the number of audio samples to be played back
+    var numberOfAudioSamples: AVAudioFrameCount
     
     /// the audio file's processing format
     var processingFormat: AVAudioFormat {
@@ -60,7 +56,7 @@ struct AudioSegmentTrack {
     var inputBuffer: AVAudioPCMBuffer
     
     /// stores the audio file
-    private var sourceFile: AVAudioFile
+    var sourceFile: AVAudioFile
     
     /// duration in seconds, including delay introduced through relativeStart
     func calculateDurationIncludingRelativeStart() -> Double {
@@ -68,7 +64,7 @@ struct AudioSegmentTrack {
         return relativeStart + fileDuration
     }
     
-    init(id: Int, url: URL, volume: Float, relativeStart: Double, fadeIn: Double, fadeOut: Double, isLoopingBackgroundTrack: Bool) {
+    init(id: Int, url: URL, volume: Float, relativeStart: Double, fadeIn: Double, fadeOut: Double, isLoopingBackgroundTrack: Bool, duration: Double?) {
 
         // store id and url
         self.id = id
@@ -83,10 +79,22 @@ struct AudioSegmentTrack {
         
         // create AVAudioFile from URL
         do {
-            sourceFile = try AVAudioFile(forReading: url)
+            self.sourceFile = try AVAudioFile(forReading: url)
         } catch {
             fatalError("Unable to load the source audio file: \(error.localizedDescription).")
         }
+        
+        // the sourceFile determines the sample rate
+        self.sampleRate = sourceFile.processingFormat.sampleRate
+        
+        // by default the number of played back samples corresponds to the audio file'S length
+        self.numberOfAudioSamples = AVAudioFrameCount(sourceFile.length)
+        
+        // however, if we set an explicit duration, we use that
+        if let duration  {
+            self.numberOfAudioSamples = AVAudioFrameCount(self.sampleRate * duration)
+        }
+
         
         // read into Buffer
         do {
@@ -113,12 +121,12 @@ struct AudioSegment {
     var tracks = [AudioSegmentTrack]()
     
     /// Add a new track to the AudioSegment
-    mutating func addTrack(url: URL, volume: Float, relativeStart: Double, fadeIn: Double, fadeOut: Double, isLoopingBackgroundTrack: Bool) {
+    mutating func addTrack(url: URL, volume: Float, relativeStart: Double, fadeIn: Double, fadeOut: Double, isLoopingBackgroundTrack: Bool, duration: Double?) {
         
         // the tracks's id is the next index in the array
         let trackId = tracks.endIndex
         
-        let newTrack = AudioSegmentTrack(id: trackId, url: url, volume: volume, relativeStart: relativeStart, fadeIn: fadeIn, fadeOut: fadeOut, isLoopingBackgroundTrack: isLoopingBackgroundTrack)
+        let newTrack = AudioSegmentTrack(id: trackId, url: url, volume: volume, relativeStart: relativeStart, fadeIn: fadeIn, fadeOut: fadeOut, isLoopingBackgroundTrack: isLoopingBackgroundTrack, duration: duration)
         tracks.append(newTrack)
     }
     
@@ -180,6 +188,9 @@ struct AudioEpisode {
         // by default, there was no previous track
         var previousTrackEndTime = 0.0
         
+        // by default, the track duration is the entire file's playback time
+        var trackDuration: Double?
+        
         // if this is not a backgroundTrack, we want to append the track to the end of of the previous track -> determine its end time
         if !isLoopingBackgroundTrack {
             
@@ -207,11 +218,18 @@ struct AudioEpisode {
             }
         }
         
+        // if on the other hand this _is_ a looping background track...
+        if isLoopingBackgroundTrack {
+            
+            // the backgroudn track's duration is the current duration of the segment
+            trackDuration = segment.calculateSegmentDuration()
+        }
+        
         // add segment's duration to the relative start
         relativeStart += previousTrackEndTime
         
         // add track to the segment
-        segment.addTrack(url: url, volume: volume, relativeStart: relativeStart, fadeIn: fadeIn, fadeOut: fadeOut, isLoopingBackgroundTrack: isLoopingBackgroundTrack)
+        segment.addTrack(url: url, volume: volume, relativeStart: relativeStart, fadeIn: fadeIn, fadeOut: fadeOut, isLoopingBackgroundTrack: isLoopingBackgroundTrack, duration: trackDuration)
         
         // replace old segment with updated segment
         segments[segmentId] = segment
@@ -242,8 +260,8 @@ struct AudioEpisode {
         let audioTime = AVAudioTime(sampleTime: samplePosition, atRate: sampleRate)
         
         // debug
-        print("trackId: \(trackId) segmentId: \(segmentId) segmentStart: \(segmentStartInSeconds) relativeStart: \(relativeStart) trackStart: \(trackStartInSeconds)")
-        print("sampleRate: \(sampleRate) samplePosition: \(samplePosition) audioTime: \(audioTime)")
+//        print("trackId: \(trackId) segmentId: \(segmentId) segmentStart: \(segmentStartInSeconds) relativeStart: \(relativeStart) trackStart: \(trackStartInSeconds)")
+//        print("sampleRate: \(sampleRate) samplePosition: \(samplePosition) audioTime: \(audioTime)")
         
         // return result
         return audioTime
@@ -283,18 +301,11 @@ struct AudioEpisode {
                 
                 // connect to mixer
                 audioEngine.connect(playerNode, to: audioEngine.mainMixerNode, format: track.processingFormat)
-
-                // set playback options
-                var options: AVAudioPlayerNodeBufferOptions = [AVAudioPlayerNodeBufferOptions.interrupts]
-                
-                if track.isLoopingBackgroundTrack {
-                    options = [AVAudioPlayerNodeBufferOptions.interrupts, AVAudioPlayerNodeBufferOptions.loops]
-                }
                 
                 // schedule player's playback
                 let startAudioTime = startTimeOfTrack(withId: track.id, inSegmentWithId: segment.id)
-                playerNode.scheduleBuffer(track.inputBuffer, at: startAudioTime, options: options)
-
+                //playerNode.scheduleBuffer(track.inputBuffer, at: startAudioTime)
+                playerNode.scheduleSegment(track.sourceFile, startingFrame: 0, frameCount: track.numberOfAudioSamples, at: startAudioTime)
             }
         }
         

@@ -53,6 +53,7 @@ class EpisodeViewModel: ObservableObject {
     @Published var availableEpisodes: [Episode]
     @Published var episodeAvailable: Bool = false
     
+    
     // the entire episode in segments
     @Published var episodeStructure: [EpisodeSegment] = []
     
@@ -197,8 +198,8 @@ class EpisodeViewModel: ObservableObject {
         
     }
     
-    func downloadAudio() {
-        print("Download audio pressed")
+    func buildAudio() {
+        print("Build audio pressed")
   
         // create entire episode
         episodeUrl = AudioManager.shared.createAudioEpisode(basedOnEpisodeStructure: self.episodeStructure)

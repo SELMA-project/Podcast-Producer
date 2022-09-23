@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C11DBB5C28DDCC5E003E426D /* 03-string-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB5B28DDCC5E003E426D /* 03-string-trimmed.caf */; };
+		C11DBB5D28DDCC5E003E426D /* 03-string-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB5B28DDCC5E003E426D /* 03-string-trimmed.caf */; };
+		C11DBB6128DDDB77003E426D /* 09-outro-end-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB5E28DDDB77003E426D /* 09-outro-end-trimmed.caf */; };
+		C11DBB6228DDDB77003E426D /* 09-outro-end-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB5E28DDDB77003E426D /* 09-outro-end-trimmed.caf */; };
+		C11DBB6328DDDB77003E426D /* 07-outro-start-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB5F28DDDB77003E426D /* 07-outro-start-trimmed.caf */; };
+		C11DBB6428DDDB77003E426D /* 07-outro-start-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB5F28DDDB77003E426D /* 07-outro-start-trimmed.caf */; };
+		C11DBB6828DDDC1F003E426D /* 08-outro-middle-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB6728DDDC1F003E426D /* 08-outro-middle-trimmed.caf */; };
+		C11DBB6928DDDC1F003E426D /* 08-outro-middle-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB6728DDDC1F003E426D /* 08-outro-middle-trimmed.caf */; };
 		C13C775228D889D900C6C61B /* bip-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C13C775128D889D900C6C61B /* bip-CAF.caf */; };
 		C13C775328D889D900C6C61B /* bip-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C13C775128D889D900C6C61B /* bip-CAF.caf */; };
 		C13C775B28D8B42A00C6C61B /* 00-intro-start-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C13C775A28D8B42A00C6C61B /* 00-intro-start-trimmed.caf */; };
@@ -53,8 +61,6 @@
 		C1871E9628CB8C6D00A2C137 /* 04-outro-start-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E8E28CB8C6C00A2C137 /* 04-outro-start-CAF.caf */; };
 		C1871E9B28CB8C6D00A2C137 /* 06-outro-end-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E9128CB8C6C00A2C137 /* 06-outro-end-CAF.caf */; };
 		C1871E9C28CB8C6D00A2C137 /* 06-outro-end-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E9128CB8C6C00A2C137 /* 06-outro-end-CAF.caf */; };
-		C1871E9D28CB8C6D00A2C137 /* 03-sting-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E9228CB8C6C00A2C137 /* 03-sting-CAF.caf */; };
-		C1871E9E28CB8C6D00A2C137 /* 03-sting-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E9228CB8C6C00A2C137 /* 03-sting-CAF.caf */; };
 		C1871EA128CB8C6D00A2C137 /* 05-outro-middle-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E9428CB8C6D00A2C137 /* 05-outro-middle-CAF.caf */; };
 		C1871EA228CB8C6D00A2C137 /* 05-outro-middle-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C1871E9428CB8C6D00A2C137 /* 05-outro-middle-CAF.caf */; };
 		C189696028B371D7005108E7 /* leilatest-MP3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C189695F28B371D7005108E7 /* leilatest-MP3.mp3 */; };
@@ -72,6 +78,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C11DBB5B28DDCC5E003E426D /* 03-string-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "03-string-trimmed.caf"; sourceTree = "<group>"; };
+		C11DBB5E28DDDB77003E426D /* 09-outro-end-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "09-outro-end-trimmed.caf"; sourceTree = "<group>"; };
+		C11DBB5F28DDDB77003E426D /* 07-outro-start-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "07-outro-start-trimmed.caf"; sourceTree = "<group>"; };
+		C11DBB6728DDDC1F003E426D /* 08-outro-middle-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "08-outro-middle-trimmed.caf"; sourceTree = "<group>"; };
 		C13C775128D889D900C6C61B /* bip-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bip-CAF.caf"; sourceTree = "<group>"; };
 		C13C775A28D8B42A00C6C61B /* 00-intro-start-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "00-intro-start-trimmed.caf"; sourceTree = "<group>"; };
 		C13C775D28D8B4FF00C6C61B /* 02-intro-end-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "02-intro-end-trimmed.caf"; sourceTree = "<group>"; };
@@ -98,7 +108,6 @@
 		C1871E7428CB8A9200A2C137 /* leilatest-AAC.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "leilatest-AAC.m4a"; sourceTree = "<group>"; };
 		C1871E8E28CB8C6C00A2C137 /* 04-outro-start-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "04-outro-start-CAF.caf"; sourceTree = "<group>"; };
 		C1871E9128CB8C6C00A2C137 /* 06-outro-end-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "06-outro-end-CAF.caf"; sourceTree = "<group>"; };
-		C1871E9228CB8C6C00A2C137 /* 03-sting-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "03-sting-CAF.caf"; sourceTree = "<group>"; };
 		C1871E9428CB8C6D00A2C137 /* 05-outro-middle-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "05-outro-middle-CAF.caf"; sourceTree = "<group>"; };
 		C189695F28B371D7005108E7 /* leilatest-MP3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "leilatest-MP3.mp3"; sourceTree = "<group>"; };
 		C189696328B3774C005108E7 /* leilatest-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "leilatest-CAF.caf"; sourceTree = "<group>"; };
@@ -188,10 +197,13 @@
 				C13C775D28D8B4FF00C6C61B /* 02-intro-end-trimmed.caf */,
 				C13C775128D889D900C6C61B /* bip-CAF.caf */,
 				C1F5602628D4765900E573E2 /* no-audio.m4a */,
-				C1871E9228CB8C6C00A2C137 /* 03-sting-CAF.caf */,
+				C11DBB5B28DDCC5E003E426D /* 03-string-trimmed.caf */,
 				C1871E8E28CB8C6C00A2C137 /* 04-outro-start-CAF.caf */,
 				C1871E9428CB8C6D00A2C137 /* 05-outro-middle-CAF.caf */,
 				C1871E9128CB8C6C00A2C137 /* 06-outro-end-CAF.caf */,
+				C11DBB5F28DDDB77003E426D /* 07-outro-start-trimmed.caf */,
+				C11DBB6728DDDC1F003E426D /* 08-outro-middle-trimmed.caf */,
+				C11DBB5E28DDDB77003E426D /* 09-outro-end-trimmed.caf */,
 				C1871E7328CB8A9200A2C137 /* 00-intro-start-aac.m4a */,
 				C1871E7428CB8A9200A2C137 /* leilatest-AAC.m4a */,
 				C163C78728C771AB00DE6819 /* intro-01-CAF.caf */,
@@ -294,21 +306,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				C189696028B371D7005108E7 /* leilatest-MP3.mp3 in Resources */,
+				C11DBB5C28DDCC5E003E426D /* 03-string-trimmed.caf in Resources */,
 				C1871E9528CB8C6D00A2C137 /* 04-outro-start-CAF.caf in Resources */,
 				C163C78228C769B600DE6819 /* background-01.mp3 in Resources */,
 				C1871E9B28CB8C6D00A2C137 /* 06-outro-end-CAF.caf in Resources */,
 				C1871E7728CB8A9200A2C137 /* leilatest-AAC.m4a in Resources */,
 				C13C775B28D8B42A00C6C61B /* 00-intro-start-trimmed.caf in Resources */,
+				C11DBB6328DDDB77003E426D /* 07-outro-start-trimmed.caf in Resources */,
 				C189696428B3774C005108E7 /* leilatest-CAF.caf in Resources */,
-				C1871E9D28CB8C6D00A2C137 /* 03-sting-CAF.caf in Resources */,
 				C1F5602728D4765900E573E2 /* no-audio.m4a in Resources */,
 				C163C78528C769C100DE6819 /* intro-01.mp3 in Resources */,
 				C1871E7528CB8A9200A2C137 /* 00-intro-start-aac.m4a in Resources */,
+				C11DBB6828DDDC1F003E426D /* 08-outro-middle-trimmed.caf in Resources */,
 				C1491F7127AD472700A72AEB /* Assets.xcassets in Resources */,
 				C163C78828C771E800DE6819 /* intro-01-CAF.caf in Resources */,
 				C1871EA128CB8C6D00A2C137 /* 05-outro-middle-CAF.caf in Resources */,
 				C13C776128D8B52200C6C61B /* 01-intro-middle-trimmed.caf in Resources */,
 				C13C775E28D8B4FF00C6C61B /* 02-intro-end-trimmed.caf in Resources */,
+				C11DBB6128DDDB77003E426D /* 09-outro-end-trimmed.caf in Resources */,
 				C13C775228D889D900C6C61B /* bip-CAF.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -318,21 +333,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				C189696128B371D7005108E7 /* leilatest-MP3.mp3 in Resources */,
+				C11DBB5D28DDCC5E003E426D /* 03-string-trimmed.caf in Resources */,
 				C1871E9628CB8C6D00A2C137 /* 04-outro-start-CAF.caf in Resources */,
 				C163C78328C769B600DE6819 /* background-01.mp3 in Resources */,
 				C1871E9C28CB8C6D00A2C137 /* 06-outro-end-CAF.caf in Resources */,
 				C1871E7828CB8A9200A2C137 /* leilatest-AAC.m4a in Resources */,
 				C13C775C28D8B42A00C6C61B /* 00-intro-start-trimmed.caf in Resources */,
+				C11DBB6428DDDB77003E426D /* 07-outro-start-trimmed.caf in Resources */,
 				C189696528B3774C005108E7 /* leilatest-CAF.caf in Resources */,
-				C1871E9E28CB8C6D00A2C137 /* 03-sting-CAF.caf in Resources */,
 				C1F5602828D4765900E573E2 /* no-audio.m4a in Resources */,
 				C163C78628C769C100DE6819 /* intro-01.mp3 in Resources */,
 				C1871E7628CB8A9200A2C137 /* 00-intro-start-aac.m4a in Resources */,
+				C11DBB6928DDDC1F003E426D /* 08-outro-middle-trimmed.caf in Resources */,
 				C1491F7227AD472700A72AEB /* Assets.xcassets in Resources */,
 				C163C78928C771E900DE6819 /* intro-01-CAF.caf in Resources */,
 				C1871EA228CB8C6D00A2C137 /* 05-outro-middle-CAF.caf in Resources */,
 				C13C776228D8B52200C6C61B /* 01-intro-middle-trimmed.caf in Resources */,
 				C13C775F28D8B4FF00C6C61B /* 02-intro-end-trimmed.caf in Resources */,
+				C11DBB6228DDDB77003E426D /* 09-outro-end-trimmed.caf in Resources */,
 				C13C775328D889D900C6C61B /* bip-CAF.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

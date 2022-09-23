@@ -11,11 +11,18 @@ struct AudioRenderView: View {
     
     @ObservedObject var episodeViewModel: EpisodeViewModel
     
-    // if at least one episodeSegment has audioData, a download is possible
-    var downloadIsPossible: Bool {
-        episodeViewModel.episodeStructure.reduce(false) {
-            return $0 || $1.audioURL != nil
+    // observe whether all episodeSegments have audioData -> episode can be built
+    var allAudioIsAvailable: Bool {
+        
+        var allAudioIsAvailable = false
+        
+        if episodeViewModel.episodeStructure.count > 0 {
+            allAudioIsAvailable = episodeViewModel.episodeStructure.reduce(true) {
+                return $0 && $1.audioURL != nil
+            }
         }
+        
+        return allAudioIsAvailable
     }
     
     var body: some View {
@@ -33,11 +40,11 @@ struct AudioRenderView: View {
                 
                 Button {
                     Task {
-                        episodeViewModel.downloadAudio()
+                        episodeViewModel.buildAudio()
                     }
                 } label: {
                     Text("Build")
-                }
+                }.disabled(!allAudioIsAvailable)
                 
                 ShareLink(item: episodeViewModel.episodeUrl) {
                     Text("Share")
