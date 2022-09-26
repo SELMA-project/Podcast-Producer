@@ -17,48 +17,61 @@ import Foundation
 //        "renate krieger": 6,
 //        "roberto crescenti": 7
 
-struct SelmaVoice {
+struct SelmaVoice: Identifiable, Hashable {
+    var id: SelmaVoiceId
     var displayName: String
     var selmaName: String
     
-    enum SelmaVoiceId {
+    enum SelmaVoiceId: CaseIterable  {
         case leila, roberto, renate, alexandre, bruno, clarissa, marcio, philip
     }
     
-    init(_ voiceId: SelmaVoiceId) {
- 
+    static var allVoices: [SelmaVoice] {
+        
+        var voiceList = [SelmaVoice]()
+        
+        for voiceId in SelmaVoiceId.allCases {
+            voiceList.append(SelmaVoice(voiceId))
+        }
+        
+        return voiceList
+    }
     
+    init(_ voiceId: SelmaVoiceId) {
+        
+        id = voiceId
+ 
         switch voiceId {
         case .roberto:
-            displayName = "Roberto Crescenti"
+            displayName = "Roberto"
             selmaName = "roberto crescenti"
             
         case .leila:
-            displayName = "Leila Eindruweit"
+            displayName = "Leila"
             selmaName = "leila endruweit"
             
         case .renate:
-            displayName = "Renate Krieger"
+            displayName = "Renate"
             selmaName = "renate krieger"
 
         case .alexandre:
-            displayName = "Alexandre Schossler"
+            displayName = "Alexandre"
             selmaName = "alexandre schossler"
 
         case .bruno:
-            displayName = "Bruno Lupion"
+            displayName = "Bruno"
             selmaName = "bruno lupion"
 
         case .clarissa:
-            displayName = "clarissa nehere"
-            selmaName = "Clarissa Nehere"
+            displayName = "Clarissa"
+            selmaName = "clarissa nehere"
 
         case .marcio:
-            displayName = "Marcio Damascenoe"
+            displayName = "Marcio"
             selmaName = "marcio damascenoe"
 
         case .philip:
-            displayName = "Philip Verminnen"
+            displayName = "Philip"
             selmaName = "philip verminnen"
         }
         

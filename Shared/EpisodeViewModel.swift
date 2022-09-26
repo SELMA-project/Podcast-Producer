@@ -58,7 +58,7 @@ class EpisodeViewModel: ObservableObject {
     // the entire episode in segments
     @Published var episodeStructure: [EpisodeSegment] = []
     
-    var speakerName =  SelmaVoice(.leila).selmaName
+    @Published var speaker =  SelmaVoice(.leila)
     
     var episodeUrl: URL = Bundle.main.url(forResource: "no-audio.m4a", withExtension: nil)!
     
@@ -144,7 +144,7 @@ class EpisodeViewModel: ObservableObject {
             // render audio if it does not yet exist
             var success = true
             if !fileExists(atURL: audioURL) {
-                success = await AudioManager.shared.synthesizeAudio(speakerName: speakerName, text: text, toURL: audioURL)
+                success = await AudioManager.shared.synthesizeAudio(speakerName: speaker.selmaName, text: text, toURL: audioURL)
             }
             
             // store audio URL

@@ -10,13 +10,26 @@ import SwiftUI
 struct MainEditView: View {
         
     @ObservedObject var episodeViewModel: EpisodeViewModel
-    @State private var path: [Int] = []
+    @State private var path = NavigationPath() //: [Int] = []
+    @State private var chosenSpeaker = SelmaVoice(.leila)
+    
+    var speakers = [SelmaVoice(.leila), SelmaVoice(.roberto)]
+    @State private var chosenName = "Leila"
     
     var body: some View {
         
         NavigationStack(path: $path) {
             
             Form {
+                
+                Section("Speaker") {
+                    Picker("Voice", selection: $episodeViewModel.speaker) {
+                        ForEach(SelmaVoice.allVoices, id: \.self) {speaker in
+                            Text(speaker.displayName)
+                        }
+                    }
+                }
+                
                 Section("Episode title") {
                     TextField("Teaser", text: $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].cmsTitle, axis:. vertical)
                         .lineLimit(3, reservesSpace: false)
@@ -42,12 +55,11 @@ struct MainEditView: View {
                         }
                     }
                 }
-                
+
             }
             .navigationDestination(for: Int.self) { storyNumber in
                 StoryEditView(episodeViewModel: episodeViewModel, storyNumber: storyNumber)
             }
-            
         }
         .navigationTitle("Episode Editor")
         .padding()
