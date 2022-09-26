@@ -12,9 +12,9 @@ class SelmaAPI {
     func renderAudio(speakerName: String, text: String) async -> Data? {
         
         // path on server
-        //let path = "/x:selmaproject:tts:777:5002/api/tts"
-        let path = "/x:selmaproject:tts:888:5002/api/tts"
-        
+        let path = "/x:selmaproject:tts:777:5002/api/tts"
+        //let path = "/x:selmaproject:tts:888:5002/api/tts"
+
         // query parameters
         let textQueryItem = URLQueryItem(name: "text", value: text)
         let speakerQueryItem = URLQueryItem(name: "speaker_id", value: speakerName)
@@ -39,6 +39,24 @@ class SelmaAPI {
         
         return data
     }
+    
+    static func testRender()  {
+        
+        let speakerName = "leila endruweit"
+        //let text = "Olá, hoje é quarta-feira, vinte e um de setembro de dois mil e vinte e dois. Eu sou Leila Endruweit"
+        let text = "Setembro."
+        
+        let selmaApi = SelmaAPI()
+        
+        Task {
+            if let data = await selmaApi.renderAudio(speakerName: speakerName, text: text) {
+                print("Received data: \(data.count) bytes.")
+            } else {
+                print("No data received.")
+            }
+        }
+        
+    }
 }
 
 struct UC0Endpoint {
@@ -57,3 +75,4 @@ struct UC0Endpoint {
         return components.url
     }
 }
+

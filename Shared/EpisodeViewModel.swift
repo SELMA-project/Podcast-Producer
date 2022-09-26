@@ -58,12 +58,21 @@ class EpisodeViewModel: ObservableObject {
     // the entire episode in segments
     @Published var episodeStructure: [EpisodeSegment] = []
     
-    @Published var speaker =  SelmaVoice(.leila)
+    @Published var speaker = SelmaVoice(.leila) {
+        willSet(newValue) {
+            if newValue != speaker {
+                print("New speaker: \(speaker)")
+                removeAudio(inEpisodeStructure: episodeStructure)
+            }
+        }
+    }
     
     var episodeUrl: URL = Bundle.main.url(forResource: "no-audio.m4a", withExtension: nil)!
     
     init() {
-                
+        
+        //SelmaAPI.testRender()
+
         // episde0 from example data
         let episode0 = Episode.episode0
         
@@ -81,6 +90,8 @@ class EpisodeViewModel: ObservableObject {
         
         availableEpisodes = [episode0, episode1, episode2]
     }
+    
+
     
     
     func buildEpisodeStructure() {
@@ -237,5 +248,33 @@ class EpisodeViewModel: ObservableObject {
     
     private func fileExists(atURL url:URL) -> Bool {
         return FileManager.default.fileExists(atPath: url.path)
+    }
+    
+    /// Remove all rendered audio pointed to by the episode structure
+    private func removeAudio(inEpisodeStructure episodeStructure: [EpisodeSegment]) {
+        
+        var newEpisodeStructure = [EpisodeSegment]()
+        
+        for segment in episodeStructure {
+            
+            // make a copy
+            var newSegment = segment
+            
+            if let audioURL = newSegment.audioURL {
+                
+                // remove audio
+                try? FileManager.default.removeItem(at: audioURL)
+                
+                // set audio URL to nil
+                newSegment.audioURL = nil
+            }
+            
+            // store in new episode structure
+            newEpisodeStructure.append(newSegment)
+        }
+        
+        // update structure
+        self.episodeStructure = newEpisodeStructure
+        
     }
 }
