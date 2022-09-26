@@ -19,7 +19,6 @@ enum SegmentIdentifier: String, CaseIterable  {
 
 struct EpisodeSegment: Identifiable {
     var id: String {
-        //return "audio_\(self.hashValue)"
         let textToBeHashed = "\(segmentIdentifer.rawValue)-\(text)"
         let textAsData = Data(textToBeHashed.utf8)
         let hashed = SHA256.hash(data: textAsData)
@@ -29,21 +28,9 @@ struct EpisodeSegment: Identifiable {
     var segmentIdentifer: SegmentIdentifier
     var subIndex: Int = 0
     var isPlaying: Bool = false
-    //var audioData: Data?
     var audioURL: URL?
     var text: String
     var highlightInSummary: Bool = false
-    
-//    func hash(into hasher: inout Hasher) {
-//        hasher.combine(self.segmentIdentifer.rawValue)
-//        hasher.combine(text)
-//    }
-//
-//    var hashValue: Int {
-//        var hasher = Hasher()
-//        self.hash(into: &hasher)
-//        return hasher.finalize()
-//    }
 }
 
 
@@ -61,7 +48,7 @@ class EpisodeViewModel: ObservableObject {
     @Published var speaker = SelmaVoice(.leila) {
         willSet(newValue) {
             if newValue != speaker {
-                print("New speaker: \(speaker)")
+                //print("New speaker: \(speaker)")
                 removeAudio(inEpisodeStructure: episodeStructure)
             }
         }
@@ -114,7 +101,10 @@ class EpisodeViewModel: ObservableObject {
             
             switch segmentIdentifier {
             case .welcomeText:
-                newEpisodeSegments = [EpisodeSegment(segmentIdentifer: .welcomeText, text: chosenEpisode.welcomeText)]
+                let text = chosenEpisode.welcomeText
+                let textWithReplacedPlaceholders = replacePlaceholders(inText: text)
+                print("\n\(textWithReplacedPlaceholders)")
+                newEpisodeSegments = [EpisodeSegment(segmentIdentifer: .welcomeText, text: textWithReplacedPlaceholders)]
             case .headlineIntroduction:
                 newEpisodeSegments = [EpisodeSegment(segmentIdentifer: .headlineIntroduction, text: chosenEpisode.headlineIntroduction)]
             case .headline:
@@ -125,7 +115,8 @@ class EpisodeViewModel: ObservableObject {
                 }
             case .story:
                 for (index, story) in chosenEpisode.stories.enumerated() {
-                    newEpisodeSegments.append(EpisodeSegment(segmentIdentifer: .story, subIndex: index, text: story.storyText))
+                    let storyText = story.storyText
+                    newEpisodeSegments.append(EpisodeSegment(segmentIdentifer: .story, subIndex: index, text: storyText))
                 }
             case .epilogue:
                 newEpisodeSegments = [EpisodeSegment(segmentIdentifer: .epilogue, text: chosenEpisode.epilogue)]
@@ -138,6 +129,7 @@ class EpisodeViewModel: ObservableObject {
         // pusblish
         self.episodeStructure = structure
     }
+
 
     
     func renderEpisodeStructure() async {
@@ -276,5 +268,11 @@ class EpisodeViewModel: ObservableObject {
         // update structure
         self.episodeStructure = newEpisodeStructure
         
+    }
+    
+    /// Replaces all place holders
+    private func replacePlaceholders(inText text: String) -> String {
+        let newText = text.replacing("{speakerName}", with: speaker.fullName)
+        return newText
     }
 }

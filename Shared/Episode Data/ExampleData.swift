@@ -77,7 +77,7 @@ O Supremo Tribunal Federal decidiu nesta terça-feira manter a decisão do minis
         
         let episode = Episode(cmsTitle: "Boletim de Notícias (21/09/22) – 1 edição",
                               cmsTeaser: "Rússia anuncia mobilização parcial de 300 mil reservistas. Confira este e outros destaques desta quarta-feira.",
-                              welcomeText: "Olá, hoje é quarta-feira, vinte e um de setembro de dois mil e vinte e dois. Eu sou Leila Endruweit e esse é o boletim de notícias da DW.",
+                              welcomeText: "Olá, hoje é quarta-feira, vinte e um de setembro de dois mil e vinte e dois. Eu sou {speakerName} e esse é o boletim de notícias da DW.",
                               headlineIntroduction: "Confira nesta edição:",
                               stories: processedStories,
                               epilogue: "Mais notícias você ouve no fim da tarde, na segunda edição do boletim da DW.",

@@ -12,10 +12,7 @@ struct MainEditView: View {
     @ObservedObject var episodeViewModel: EpisodeViewModel
     @State private var path = NavigationPath() //: [Int] = []
     @State private var chosenSpeaker = SelmaVoice(.leila)
-    
-    var speakers = [SelmaVoice(.leila), SelmaVoice(.roberto)]
-    @State private var chosenName = "Leila"
-    
+        
     var body: some View {
         
         NavigationStack(path: $path) {
@@ -25,7 +22,7 @@ struct MainEditView: View {
                 Section("Speaker") {
                     Picker("Name", selection: $episodeViewModel.speaker) {
                         ForEach(SelmaVoice.allVoices, id: \.self) {speaker in
-                            Text(speaker.displayName)
+                            Text(speaker.shortName)
                         }
                     }
                 }

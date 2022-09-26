@@ -19,7 +19,8 @@ import Foundation
 
 struct SelmaVoice: Identifiable, Hashable {
     var id: SelmaVoiceId
-    var displayName: String
+    var shortName: String
+    var fullName: String
     var selmaName: String
     
     enum SelmaVoiceId: CaseIterable  {
@@ -43,35 +44,43 @@ struct SelmaVoice: Identifiable, Hashable {
  
         switch voiceId {
         case .roberto:
-            displayName = "Roberto"
+            shortName = "Roberto"
+            fullName = "Roberto Crescenti"
             selmaName = "roberto crescenti"
             
         case .leila:
-            displayName = "Leila"
+            shortName = "Leila"
+            fullName = "Leila Endruweit"
             selmaName = "leila endruweit"
             
         case .renate:
-            displayName = "Renate"
+            shortName = "Renate"
+            fullName = "Renate Krieger"
             selmaName = "renate krieger"
 
         case .alexandre:
-            displayName = "Alexandre"
+            shortName = "Alexandre"
+            fullName = "Alexandre Schossler"
             selmaName = "alexandre schossler"
 
         case .bruno:
-            displayName = "Bruno"
+            shortName = "Bruno"
+            fullName = "Bruno Lupion"
             selmaName = "bruno lupion"
 
         case .clarissa:
-            displayName = "Clarissa"
+            shortName = "Clarissa"
+            fullName = "Clarissa Nehere"
             selmaName = "clarissa nehere"
 
         case .marcio:
-            displayName = "Marcio"
+            shortName = "Marcio"
+            fullName = "Marcio Damascenoe"
             selmaName = "marcio damascenoe"
 
         case .philip:
-            displayName = "Philip"
+            shortName = "Philip"
+            fullName = "Philip Verminnen"
             selmaName = "philip verminnen"
         }
         
