@@ -23,7 +23,7 @@ struct MainEditView: View {
             Form {
                 
                 Section("Speaker") {
-                    Picker("Voice", selection: $episodeViewModel.speaker) {
+                    Picker("Name", selection: $episodeViewModel.speaker) {
                         ForEach(SelmaVoice.allVoices, id: \.self) {speaker in
                             Text(speaker.displayName)
                         }
