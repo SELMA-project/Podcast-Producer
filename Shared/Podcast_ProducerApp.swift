@@ -14,10 +14,10 @@ struct Podcast_ProducerApp: App {
     var body: some Scene {
         
         WindowGroup {
-            //TestView()
+            ScriptView()
 
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+//            ContentView()
+//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
