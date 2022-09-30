@@ -13,6 +13,7 @@ struct ScriptView: View {
         
         let parser = ScriptParser(name: "2022-09-26-e2.md")
         let scriptDate = parser.extractDatetime()
+        //let speakerName = parser.extractSpeaker()
         let teaserText = parser.extractTeaser()
         let introText = parser.extractIntro()
         let headlines = parser.extractHeadlines()
