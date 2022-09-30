@@ -11,15 +11,20 @@ struct ScriptView: View {
     
     var displayText: String {
         
-        let parser = ScriptParser(name: "2022-09-27-e1.md")
+        let parser = ScriptParser(name: "2022-09-19-e2.md")
         let teaserText = parser.extractTeaser()
         let introText = parser.extractIntro()
         let headlines = parser.extractHeadlines()
-        let storyText = parser.extractStory(storyNumber: 2)
+        let storyText = parser.extractStory(storyNumber: 6)
         let outroText = parser.extractOutro()
         
-        //let displayText = "\(teaserText)\n\n\(introText)\n\n\(storyText)\n\n\(outroText)"
-        let displayText = "\(introText)\n\n\(headlines)"
+        var displayText = ""
+        for headline in headlines {
+            displayText += headline.isHighlighted ? "**\(headline.text)**\n\n" : "\(headline.text)\n\n"
+        }
+        
+        displayText += "\(teaserText)\n\n\(introText)\n\n\(storyText)\n\n\(outroText)"
+        //let displayText = "\(introText)"
         
         return displayText
     }

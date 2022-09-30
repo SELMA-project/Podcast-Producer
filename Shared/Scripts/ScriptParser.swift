@@ -109,7 +109,7 @@ class ScriptParser {
                 let headlineEmphasisEnded = match.3.count > 0
                 
                 // debug
-                print("\(headlineEmphasisStarted) -> \(headlineText) -> \(headlineEmphasisEnded)")
+                //print("\(headlineEmphasisStarted) -> \(headlineText) -> \(headlineEmphasisEnded)")
                 
                 // create headline tuple
                 let isHighlighted = headlineEmphasisStarted || headlineEmphasisEnded
@@ -147,8 +147,8 @@ class ScriptParser {
     func extractStory(storyNumber: Int) -> String {
                 
         // define regex
-        let regex = /#+\s*[Ss]tory\s+\d\s*((\s|.)*?)\s+#+/
-        //let regex = #"#+\s*[Ss]tory\s+\d\s*((\s|.)*?)\s+#+"#
+        //let regex = /#+\s*[Ss]tory\s+\d\s*(\s|.*?)\s+#+/
+        let regex = try! Regex(#"#+\s*[Ss]tory\s+\#(storyNumber)\s*(\s|.*?)\s+#+"#)
         
         // default
         var capturedText = ""
@@ -156,7 +156,10 @@ class ScriptParser {
         do {
 
             if let match = try regex.firstMatch(in: scriptText) {
-                capturedText = String(match.1)
+                if let matchTuples = match.output.extractValues(as: (Substring, Substring).self) {
+                    capturedText = String(matchTuples.1)
+                }
+                //capturedText = String(match.1)
             }
         } catch {
             print(error)
