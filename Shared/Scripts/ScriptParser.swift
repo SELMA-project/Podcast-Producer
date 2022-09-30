@@ -159,12 +159,62 @@ class ScriptParser {
                 if let matchTuples = match.output.extractValues(as: (Substring, Substring).self) {
                     capturedText = String(matchTuples.1)
                 }
-                //capturedText = String(match.1)
             }
         } catch {
             print(error)
         }
         
         return capturedText
+    }
+    
+    //Boletim de Notícias (21/09/22) – 1 edição
+    func extractDatetime() -> Date? {
+        
+        // define regex
+        //let regex = /#+\s*[Oo]utro\s*(.*)\s*/
+        //let regex = /Boletim de Notícias \((?<day>\d+)\/(?<month>\d+)\/(?<year>\d+)\)\s*–?\s*([Ss]egunda)?\s+edição/
+        let regex = /Boletim de Notícias \((?<day>\d+)\/(?<month>\d+)\/(?<year>\d+)\)(.+)?/
+        
+        // default
+        var capturedDate: Date?
+        
+       do {
+
+            if let match = try regex.firstMatch(in: scriptText) {
+
+                let day = Int(match.day)
+                let month = Int(match.month)
+                let year = Int(match.year)
+
+                // if there is something after the date we have a 'pm' episode
+                var hour = 10 // default: am
+                if match.4 != nil {
+                    let suffix = String(match.4!).trimmingCharacters(in: .whitespacesAndNewlines)
+                    if suffix.count > 0 {
+                        hour = 14 // pm
+                    }
+                }
+
+                if let day, let month, let year {
+                    
+                    // add 2000 to year if necessary
+                    var fourDigitYear = 2000 + year
+                    if year >= 2000 {
+                        fourDigitYear = year
+                    }
+                    
+                    var calendar = Calendar.current
+                    calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+                    let components = DateComponents(year: fourDigitYear, month: month, day: day, hour: hour)
+                    capturedDate = calendar.date(from: components)!
+                }
+
+
+            }
+        } catch {
+            print(error)
+        }
+        
+        return capturedDate
     }
 }
