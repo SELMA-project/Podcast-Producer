@@ -27,12 +27,16 @@ struct SectionEditView: View {
                 Text(episodeSection.type.rawValue)
             }
             
-            Section("Headline") {
-                TextField("Name", text: $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].sections[sectionNumber].headline, axis: .vertical)
+            if episodeSection.type == .story {
+                Section("Headline") {
+                    TextField("Name", text: $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].sections[sectionNumber].headline, axis: .vertical)
+                }
             }
             
-            Section("Text") {
-                TextField("Name", text: $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].sections[sectionNumber].text, axis: .vertical)
+            if episodeSection.type != .headlines {
+                Section("Text") {
+                    TextField("Name", text: $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].sections[sectionNumber].text, axis: .vertical)
+                }
             }
             
         }

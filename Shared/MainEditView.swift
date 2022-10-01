@@ -7,6 +7,31 @@
 
 import SwiftUI
 
+struct StructureRow: View {
+    var section: EpisodeSection
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(section.name)
+                .font(.title3)
+            
+            switch section.type {
+            case .standard:
+                Text(section.text)
+                    .font(.caption)
+                    .lineLimit(1)
+            case .story:
+                Text(section.headline)
+                    .font(.caption)
+                    .lineLimit(1)
+            default:
+                EmptyView()
+            }
+            
+        }
+    }
+}
+
 struct MainEditView: View {
         
     @ObservedObject var episodeViewModel: EpisodeViewModel
@@ -30,7 +55,7 @@ struct MainEditView: View {
                 Section("Structure") {
                     ForEach(0..<episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].sections.count, id: \.self) {sectionNumber in
                         NavigationLink(value: sectionNumber) {
-                            Text(episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].sections[sectionNumber].name)
+                            StructureRow(section: episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].sections[sectionNumber])
                         }
                     }
                 }
@@ -65,10 +90,15 @@ struct MainEditView: View {
         }
         .navigationTitle("Episode Editor")
         .padding()
+        // somehow this avoid that in the simulator the path is incorrectly set
+        .onChange(of: path) { path in
+            print(path)
+        }
         
     }
     
 }
+
 
 
 struct MainEditViewOld: View {
