@@ -33,6 +33,10 @@ extension Episode {
         let headlines = parser.extractHeadlines()
         let outroText = parser.extractOutro()  ?? "<no outro found>"
         
+        // mark speakerName as token in introText
+        let speakerToken = "{\(speakerName)}"
+        let introTextWithSpeakerToken = introText.replacing(speakerName, with: speakerToken)
+        
         // extract stories
         var storyNumber = 1
         var stories = [Story]()
@@ -64,7 +68,7 @@ extension Episode {
         let timeSlot = scriptDate.formatted(date: .abbreviated, time: .shortened)
         
         // create episode
-        let episode = Episode(welcomeText: introText, stories: stories, epilogue: outroText, timeSlot: timeSlot)
+        let episode = Episode(welcomeText: introTextWithSpeakerToken, stories: stories, epilogue: outroText, timeSlot: timeSlot)
             
         return episode
     }
