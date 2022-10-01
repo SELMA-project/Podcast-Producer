@@ -62,16 +62,16 @@ struct Episode: Identifiable, Hashable {
         sections.append(section)
         
         // temp
-        if section.name == "introduction" {
+        if section.name.lowercased().starts(with: "introduction") {
             introductionText = section.text
         }
         
-        if section.name == "story" {
+        if section.name.lowercased().starts(with: "story") {
             let story = Story(usedInIntroduction: section.isHighlight, headline: section.headline, storyText: section.text)
             stories.append(story)
         }
         
-        if section.name == "epilog" {
+        if section.name.lowercased().starts(with: "epilog") {
             epilog = section.text
         }
     }
