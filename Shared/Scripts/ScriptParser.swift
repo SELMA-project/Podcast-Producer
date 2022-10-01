@@ -21,19 +21,58 @@ class ScriptParser {
         self.scriptText = try! String(contentsOf: scriptUrl)
     }
     
-    func extractTeaser() -> String {
+    static func test() {
+        
+        var fileNames = [String]()
+        fileNames.append("2022-09-19-e1.md")
+        fileNames.append("2022-09-19-e2.md")
+        fileNames.append("2022-09-20-e1.md")
+        fileNames.append("2022-09-20-e2.md")
+        fileNames.append("2022-09-21-e1.md")
+        fileNames.append("2022-09-21-e2.md")
+        fileNames.append("2022-09-22-e1.md")
+        fileNames.append("2022-09-22-e2.md")
+        fileNames.append("2022-09-26-e1.md")
+        fileNames.append("2022-09-26-e2.md")
+        fileNames.append("2022-09-27-e1.md")
+
+        for fileName in fileNames {
+            let parser = ScriptParser(name: fileName)
+            
+            let scriptDate = parser.extractDatetime()
+            let speakerName = parser.extractSpeaker()
+            let teaserText = parser.extractTeaser()
+            let introText = parser.extractIntro()
+            let headlines = parser.extractHeadlines()
+            let storyText = parser.extractStory(storyNumber: 1)
+            let outroText = parser.extractOutro()
+            
+            if scriptDate == nil {print("Missing scriptDate: \(fileName)")}
+            if speakerName == nil {print("Missing speakerName: \(fileName)")}
+            if teaserText == nil {print("Missing teaserText: \(fileName)")}
+            if introText == nil {print("Missing introText: \(fileName)")}
+            if headlines.count == 0 {print("Missing headlines: \(fileName)")}
+            if storyText == nil {print("Missing storyText: \(fileName)")}
+            if outroText == nil {print("Missing outroText: \(fileName)")}
+
+        }
+ 
+    }
+    
+    func extractTeaser() -> String? {
         
         // define regex
         
-        let regex = /#+\s*[Tt]easer\s*((\s|.)*?)\s+#+/
+        //let regex = /#+\s*[Tt]easer\s*((\s|.)*?)\s+#+/
+        let regex = /#+\s*teaser\s*(.*?)\s+#+/.dotMatchesNewlines().ignoresCase()
         
         // default
-        var capturedText = ""
+        var capturedText: String?
         
         do {
 
             if let match = try regex.firstMatch(in: scriptText) {
-                capturedText = String(match.1)
+                capturedText = String(match.1).trimmingCharacters(in: .whitespacesAndNewlines)
             }
         } catch {
             print(error)
@@ -42,19 +81,20 @@ class ScriptParser {
         return capturedText
     }
     
-    func extractIntro() -> String {
+    func extractIntro() -> String? {
         
         // define regex
         
-        let regex = /#+\s*[Ii]ntro\s*((\s|.)*?)\s+#+/
+        //let regex = /#+\s*[Ii]ntro\s*((\s|.)*?)\s+#+/
+        let regex = /#+\s*intro\s*(.*?)\s+#+/.dotMatchesNewlines().ignoresCase()
         
         // default
-        var capturedText = ""
+        var capturedText: String?
         
         do {
 
             if let match = try regex.firstMatch(in: scriptText) {
-                capturedText = String(match.1)
+                capturedText = String(match.1).trimmingCharacters(in: .whitespacesAndNewlines)
             }
         } catch {
             print(error)
@@ -67,7 +107,8 @@ class ScriptParser {
         
         // define regex
         
-        let regex = /Eu\ssou\s(?<name>.+)\se\sesta/
+        //let regex = /Eu\ssou\s(?<name>.+)\se\sest[ae]/
+        let regex = /#\s*intro.*Eu\ssou\s(?<name>.+?)\se/.dotMatchesNewlines().ignoresCase()
         
         // default
         var capturedText: String?
@@ -75,7 +116,7 @@ class ScriptParser {
         do {
 
             if let match = try regex.firstMatch(in: scriptText) {
-                capturedText = String(match.name)
+                capturedText = String(match.name).trimmingCharacters(in: .whitespacesAndNewlines)
             }
         } catch {
             print(error)
@@ -89,7 +130,8 @@ class ScriptParser {
         
         // define regex
         
-        let regex = /#+\s*[hH]eadlines\s*((\s|.)*?)\s+#+/
+        //let regex = /#+\s*[hH]eadlines\s*((\s|.)*?)\s+#+/
+        let regex = /#+\s*headlines\s*(.*?)\s+#+/.dotMatchesNewlines().ignoresCase()
         
         // default
         var capturedText = ""
@@ -97,7 +139,7 @@ class ScriptParser {
         do {
 
             if let match = try regex.firstMatch(in: scriptText) {
-                capturedText = String(match.1)
+                capturedText = String(match.1).trimmingCharacters(in: .whitespacesAndNewlines)
             }
         } catch {
             print(error)
@@ -145,18 +187,18 @@ class ScriptParser {
     }
     
     
-    func extractOutro() -> String {
+    func extractOutro() -> String? {
         
         // define regex
-        let regex = /#+\s*[Oo]utro\s*(.*)\s*/
+        let regex = /#+\s*outro\s+(.*)\s+/.dotMatchesNewlines().ignoresCase()
         
         // default
-        var capturedText = ""
+        var capturedText: String?
         
         do {
 
             if let match = try regex.firstMatch(in: scriptText) {
-                capturedText = String(match.1)
+                capturedText = String(match.1).trimmingCharacters(in: .whitespacesAndNewlines)
             }
         } catch {
             print(error)
@@ -165,20 +207,21 @@ class ScriptParser {
         return capturedText
     }
     
-    func extractStory(storyNumber: Int) -> String {
+    func extractStory(storyNumber: Int) -> String? {
                 
         // define regex
         //let regex = /#+\s*[Ss]tory\s+\d\s*(\s|.*?)\s+#+/
-        let regex = try! Regex(#"#+\s*[Ss]tory\s+\#(storyNumber)\s*(\s|.*?)\s+#+"#)
+        // let regex = try! Regex(#"#+\s*[Ss]tory\s+\#(storyNumber)\s*(\s|.*?)\s+#+"#)
+        let regex = try! Regex(#"#+\s*story\s*\#(storyNumber)(.*?)#"#).dotMatchesNewlines().ignoresCase()
         
         // default
-        var capturedText = ""
+        var capturedText: String?
         
         do {
 
             if let match = try regex.firstMatch(in: scriptText) {
                 if let matchTuples = match.output.extractValues(as: (Substring, Substring).self) {
-                    capturedText = String(matchTuples.1)
+                    capturedText = String(matchTuples.1).trimmingCharacters(in: .whitespacesAndNewlines)
                 }
             }
         } catch {

@@ -11,22 +11,27 @@ struct ScriptView: View {
     
     var displayText: String {
         
-        let parser = ScriptParser(name: "2022-09-26-e2.md")
+        let parser = ScriptParser(name: "2022-09-20-e2.md")
         let scriptDate = parser.extractDatetime()
         let speakerName = parser.extractSpeaker()
         let teaserText = parser.extractTeaser()
         let introText = parser.extractIntro()
         let headlines = parser.extractHeadlines()
-        let storyText = parser.extractStory(storyNumber: 6)
+        let storyText = parser.extractStory(storyNumber: 1)
         let outroText = parser.extractOutro()
         
-        var displayText = "\(String(describing: scriptDate))\n\n\(speakerName ?? "<no speaker>")\n\n"
+        var displayText = "\(String(describing: scriptDate))\n\n"
+        displayText += "\(speakerName ?? "<no speaker>")\n\n"
+        displayText += "\(teaserText ?? "<no teaser>")\n\n"
+        
         for headline in headlines {
             displayText += headline.isHighlighted ? "**\(headline.text)**\n\n" : "\(headline.text)\n\n"
         }
-        
-        displayText += "\(teaserText)\n\n\(introText)\n\n\(storyText)\n\n\(outroText)"
-        //let displayText = "\(introText)"
+    
+        displayText += "\(introText ?? "<no intro>")\n\n"
+        displayText += "\(storyText ?? "<no story>")\n\n"
+        displayText += "\(outroText ?? "<no outro>")"
+ 
         
         return displayText
     }
@@ -35,7 +40,11 @@ struct ScriptView: View {
     var body: some View {
         ScrollView {
             Text(displayText)
-        }.padding()
+        }
+        .padding()
+        .onAppear {
+            ScriptParser.test()
+        }
     }
 }
 
