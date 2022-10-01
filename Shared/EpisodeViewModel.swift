@@ -56,6 +56,9 @@ class EpisodeViewModel: ObservableObject {
     var episodeUrl: URL = Bundle.main.url(forResource: "no-audio.m4a", withExtension: nil)!
     
     init() {
+        
+        // test available scripts
+        ScriptParser.test()
 
         // build array of locallay available scripts
         let fileNames = ScriptParser.availableScriptNames()
