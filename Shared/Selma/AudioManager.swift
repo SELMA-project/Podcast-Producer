@@ -127,12 +127,12 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
             }
             
             // headline introduction added to S1
-            if episodeSegment.segmentIdentifer == .headlineIntroduction {
-                // add speech
-                if let speechUrl = episodeSegment.audioURL {
-                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
-                }
-            }
+//            if episodeSegment.segmentIdentifer == .headlineIntroduction {
+//                // add speech
+//                if let speechUrl = episodeSegment.audioURL {
+//                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
+//                }
+//            }
             
             // headlines added to S1
             if episodeSegment.segmentIdentifer == .headline  {
