@@ -34,7 +34,7 @@ struct AudioRenderView: View {
                 HStack {
                     // title and subtitle on left
                     VStack(alignment: .leading) {
-                        Text(episodeSegment.segmentIdentifer.rawValue.capitalized)
+                        Text(episodeSegment.blockIdentifier.rawValue.capitalized)
                             .font(.title3)
                         
                         Text(episodeSegment.text)
@@ -79,7 +79,7 @@ struct AudioRenderView: View {
 struct PlayButton: View {
     
     @ObservedObject var episodeViewModel: EpisodeViewModel
-    var episodeSegment: EpisodeSegment
+    var episodeSegment: BuildingBlock
     
     
     var body: some View {

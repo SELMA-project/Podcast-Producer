@@ -6,31 +6,6 @@
 //
 
 import Foundation
-import CryptoKit
-
-enum SegmentIdentifier: String, CaseIterable  {
-    case welcomeText = "Welcome"
-    case headline = "Headline"
-    case story = "Story"
-    case epilogue = "Epilogue"
-}
-
-
-struct EpisodeSegment: Identifiable {
-    var id: String {
-        let textToBeHashed = "\(segmentIdentifer.rawValue)-\(text)"
-        let textAsData = Data(textToBeHashed.utf8)
-        let hashed = SHA256.hash(data: textAsData)
-        let hashString = hashed.compactMap { String(format: "%02x", $0) }.joined()
-        return hashString
-    }
-    var segmentIdentifer: SegmentIdentifier
-    var subIndex: Int = 0
-    var isPlaying: Bool = false
-    var audioURL: URL?
-    var text: String
-    var highlightInSummary: Bool = false
-}
 
 
 @MainActor
@@ -42,7 +17,7 @@ class EpisodeViewModel: ObservableObject {
     
     
     // the entire episode in segments
-    @Published var episodeStructure: [EpisodeSegment] = []
+    @Published var episodeStructure: [BuildingBlock] = []
     
     @Published var speaker = SelmaVoice(.leila) {
         willSet(newValue) {
@@ -80,15 +55,15 @@ class EpisodeViewModel: ObservableObject {
     func buildEpisodeStructure() {
 
         // result
-        var structure = [EpisodeSegment]()
+        var structure = [BuildingBlock]()
         
         // episode to build
         let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
         
         // array of all ids
-        let allIdentifiers = SegmentIdentifier.allCases
+        let allIdentifiers = BlockIdentifier.allCases
         
-        var newEpisodeSegments: [EpisodeSegment]
+        var newEpisodeSegments: [BuildingBlock]
         
         for segmentIdentifier in allIdentifiers {
             
@@ -100,20 +75,20 @@ class EpisodeViewModel: ObservableObject {
                 let text = chosenEpisode.welcomeText
                 let textWithReplacedPlaceholders = replacePlaceholders(inText: text)
                 print("\n\(textWithReplacedPlaceholders)")
-                newEpisodeSegments = [EpisodeSegment(segmentIdentifer: .welcomeText, text: textWithReplacedPlaceholders)]
+                newEpisodeSegments = [BuildingBlock(blockIdentifier: .welcomeText, text: textWithReplacedPlaceholders)]
             case .headline:
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     if story.usedInIntroduction {
-                        newEpisodeSegments.append(EpisodeSegment(segmentIdentifer: .headline, subIndex: index, text: story.headline, highlightInSummary: story.usedInIntroduction))
+                        newEpisodeSegments.append(BuildingBlock(blockIdentifier: .headline, subIndex: index, text: story.headline, highlightInSummary: story.usedInIntroduction))
                     }
                 }
             case .story:
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     let storyText = story.storyText
-                    newEpisodeSegments.append(EpisodeSegment(segmentIdentifer: .story, subIndex: index, text: storyText))
+                    newEpisodeSegments.append(BuildingBlock(blockIdentifier: .story, subIndex: index, text: storyText))
                 }
             case .epilogue:
-                newEpisodeSegments = [EpisodeSegment(segmentIdentifer: .epilogue, text: chosenEpisode.epilogue)]
+                newEpisodeSegments = [BuildingBlock(blockIdentifier: .epilogue, text: chosenEpisode.epilogue)]
             }
             
             // add the new segment(s) to structure
@@ -130,7 +105,7 @@ class EpisodeViewModel: ObservableObject {
         
         for (index, audioSegment) in episodeStructure.enumerated() {
             print("Cancel status: \(Task.isCancelled)")
-            print("Rendering: \(index) -> \(audioSegment.segmentIdentifer.rawValue)")
+            print("Rendering: \(index) -> \(audioSegment.blockIdentifier.rawValue)")
             
             // the text to render
             let text = audioSegment.text
@@ -156,7 +131,7 @@ class EpisodeViewModel: ObservableObject {
     }
     
     
-    func playButtonPressed(forSegment audioSegment: EpisodeSegment) async {
+    func playButtonPressed(forSegment audioSegment: BuildingBlock) async {
 
         // find index of given audioSegment in array
         let currentIndex = episodeStructure.firstIndex { segment in
@@ -224,7 +199,7 @@ class EpisodeViewModel: ObservableObject {
     }
     
     /// Should the rendered audio be stored?
-    private func storageURL(forAudioSegment audioSegment: EpisodeSegment) -> URL {
+    private func storageURL(forAudioSegment audioSegment: BuildingBlock) -> URL {
 
         let documentsDirectory = getDocumentsDirectory()
         let fileName = "\(audioSegment.id).wav"
@@ -237,9 +212,9 @@ class EpisodeViewModel: ObservableObject {
     }
     
     /// Remove all rendered audio pointed to by the episode structure
-    private func removeAudio(inEpisodeStructure episodeStructure: [EpisodeSegment]) {
+    private func removeAudio(inEpisodeStructure episodeStructure: [BuildingBlock]) {
         
-        var newEpisodeStructure = [EpisodeSegment]()
+        var newEpisodeStructure = [BuildingBlock]()
         
         for segment in episodeStructure {
             

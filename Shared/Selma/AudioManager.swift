@@ -98,7 +98,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     }
     
     // S0: intro music
-    private func createS0(episodeStructure: [EpisodeSegment], audioEpisode: inout AudioEpisode) {
+    private func createS0(episodeStructure: [BuildingBlock], audioEpisode: inout AudioEpisode) {
         
         // add new segment
         let segmentId = audioEpisode.addSegment()
@@ -109,7 +109,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     }
     
     // S1: welcome and headlines
-    private func createS1(episodeStructure: [EpisodeSegment], audioEpisode: inout AudioEpisode) {
+    private func createS1(episodeStructure: [BuildingBlock], audioEpisode: inout AudioEpisode) {
         
         // add new segment
         let segmentId = audioEpisode.addSegment()
@@ -117,7 +117,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         for (_, episodeSegment) in episodeStructure.enumerated() {
             
             // welcome text in S1
-            if episodeSegment.segmentIdentifer == .welcomeText {
+            if episodeSegment.blockIdentifier == .welcomeText {
                 
                 // add speech
                 if let speechUrl = episodeSegment.audioURL {
@@ -127,7 +127,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
             }
             
             // headlines added to S1
-            if episodeSegment.segmentIdentifer == .headline  {
+            if episodeSegment.blockIdentifier == .headline  {
                 
                 // only use the headlines that should be highlighted in summary
                 if episodeSegment.highlightInSummary == true {
@@ -146,7 +146,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     }
     
     // S2: end of introduction
-    private func createS2(episodeStructure: [EpisodeSegment], audioEpisode: inout AudioEpisode) {
+    private func createS2(episodeStructure: [BuildingBlock], audioEpisode: inout AudioEpisode) {
         
         // add new segment
         let segmentId = audioEpisode.addSegment()
@@ -157,18 +157,18 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     }
     
     // S3: Stories
-    private func createS3(episodeStructure: [EpisodeSegment], audioEpisode: inout AudioEpisode) {
+    private func createS3(episodeStructure: [BuildingBlock], audioEpisode: inout AudioEpisode) {
         
         // add new segment
         let segmentId = audioEpisode.addSegment()
         
         // filter to restrict to stories
-        let storySegments = episodeStructure.filter({ $0.segmentIdentifer == .story })
+        let storySegments = episodeStructure.filter({ $0.blockIdentifier == .story })
         
         for (index, episodeSegment) in storySegments.enumerated() {
             
             // Add storys
-            if episodeSegment.segmentIdentifer == .story {
+            if episodeSegment.blockIdentifier == .story {
                 
                 // add speech
                 if let speechUrl = episodeSegment.audioURL {
@@ -187,7 +187,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     }
     
     // S4: Outro Start
-    private func createS4(episodeStructure: [EpisodeSegment], audioEpisode: inout AudioEpisode) {
+    private func createS4(episodeStructure: [BuildingBlock], audioEpisode: inout AudioEpisode) {
         
         // add new segment
         let segmentId = audioEpisode.addSegment()
@@ -198,13 +198,13 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     }
     
     // S5: Outro Middle
-    private func createS5(episodeStructure: [EpisodeSegment], audioEpisode: inout AudioEpisode) {
+    private func createS5(episodeStructure: [BuildingBlock], audioEpisode: inout AudioEpisode) {
         
         // add new segment
         let segmentId = audioEpisode.addSegment()
         
         // add epiloge speech
-        let episodeSegment = episodeStructure.filter({$0.segmentIdentifer == .epilogue})[0]
+        let episodeSegment = episodeStructure.filter({$0.blockIdentifier == .epilogue})[0]
         if let speechUrl = episodeSegment.audioURL {
             audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
         }
@@ -215,7 +215,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     }
     
     // S6: Outro end
-    private func createS6(episodeStructure: [EpisodeSegment], audioEpisode: inout AudioEpisode) {
+    private func createS6(episodeStructure: [BuildingBlock], audioEpisode: inout AudioEpisode) {
         
         // add new segment
         let segmentId = audioEpisode.addSegment()
@@ -227,7 +227,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     
     
     /// Renders and Audio Episode and resturns its (local) URL
-    func createAudioEpisode(basedOnEpisodeStructure episodeStructure: [EpisodeSegment]) -> URL {
+    func createAudioEpisode(basedOnEpisodeStructure episodeStructure: [BuildingBlock]) -> URL {
         
         // create entrie episode
         var audioEpisode = AudioEpisode()
