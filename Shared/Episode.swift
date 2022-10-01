@@ -7,8 +7,10 @@
 
 import Foundation
 
-enum EpisodeSectionType {
-    case standard, headlines, story
+enum EpisodeSectionType: String {
+    case standard = "Standard"
+    case headlines = "Headlines"
+    case story = "Story"
 }
 
 struct EpisodeSection: Identifiable, Hashable {
@@ -114,11 +116,11 @@ extension Episode {
         var episode = Episode(creationDate: scriptDate)
         
         // add introduction
-        let introductionSection = EpisodeSection(type: .standard, name: "introduction", text: introTextWithSpeakerToken)
+        let introductionSection = EpisodeSection(type: .standard, name: "Introduction", text: introTextWithSpeakerToken)
         episode.addSection(introductionSection)
 
         // next, we want the headlines to be read out
-        let headlineSection = EpisodeSection(type: .headlines, name: "headlines")
+        let headlineSection = EpisodeSection(type: .headlines, name: "Headlines")
         episode.addSection(headlineSection)
         
         // add stories
@@ -137,7 +139,7 @@ extension Episode {
                 let headline = headlines[headlineIndex]
                 
                 // add as story section
-                let storySection = EpisodeSection(type: .story, name: "story", headline: headline.text, isHighlight: headline.isHighlighted, text: storyText)
+                let storySection = EpisodeSection(type: .story, name: "Story \(storyNumber)", headline: headline.text, isHighlight: headline.isHighlighted, text: storyText)
                 episode.addSection(storySection)
 
             } else {
@@ -151,7 +153,7 @@ extension Episode {
         }
         
         // add epilog
-        let epilogSection = EpisodeSection(type: .standard, name: "epilog", text: outroText)
+        let epilogSection = EpisodeSection(type: .standard, name: "Epilog", text: outroText)
         episode.addSection(epilogSection)
         
         return episode
