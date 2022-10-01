@@ -26,24 +26,10 @@ struct MainEditView: View {
                         }
                     }
                 }
-                
-//                Section("Episode title") {
-//                    TextField("Teaser", text: $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].cmsTitle, axis:. vertical)
-//                        .lineLimit(3, reservesSpace: false)
-//                }
-//                
-//                Section("Episode teaser") {
-//                    TextField("Teaser", text:  $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].cmsTeaser, axis:. vertical)
-//                        .lineLimit(3, reservesSpace: false)
-//                }
-                
+                                
                 Section("Welcome text") {
                     TextField("Welcome text", text:  $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].welcomeText, axis: .vertical)
                 }
-                
-//                Section("Headline introduction") {
-//                    TextField("Headline introduction", text:  $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].headlineIntroduction, axis: .vertical)
-//                }
                 
                 Section("Stories") {
                     ForEach(0..<episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].stories.count, id:\.self) {storyNumber in

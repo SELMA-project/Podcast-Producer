@@ -10,7 +10,6 @@ import CryptoKit
 
 enum SegmentIdentifier: String, CaseIterable  {
     case welcomeText = "Welcome"
-    //case headlineIntroduction = "Headline Introduction"
     case headline = "Headline"
     case story = "Story"
     case epilogue = "Epilogue"
@@ -58,23 +57,6 @@ class EpisodeViewModel: ObservableObject {
     
     init() {
         
-        //SelmaAPI.testRender()
-
-//        // episde0 from example data
-//        let episode0 = Episode.episode0
-//
-//        // derive episode 1 from e0
-//        var episode1 = episode0
-//        episode1.timeSlot = "August 11th am"
-//        episode1.cmsTitle = "Boletim de Notícias (11/08/22) – Primera edição"
-//        episode1.id = UUID()
-//
-//        // derive episode 2 from e0
-//        var episode2 = episode0
-//        episode2.timeSlot = "August 11th pm"
-//        episode2.cmsTitle = "Boletim de Notícias (11/08/22) – Segunda edição"
-//        episode2.id = UUID()
-        
         let episode0 = Episode.buildFromScript("2022-09-27-e1.md")
         let episode1 = Episode.buildFromScript("2022-09-26-e2.md")
         let episode2 = Episode.buildFromScript("2022-09-26-e1.md")
@@ -108,8 +90,6 @@ class EpisodeViewModel: ObservableObject {
                 let textWithReplacedPlaceholders = replacePlaceholders(inText: text)
                 print("\n\(textWithReplacedPlaceholders)")
                 newEpisodeSegments = [EpisodeSegment(segmentIdentifer: .welcomeText, text: textWithReplacedPlaceholders)]
-//            case .headlineIntroduction:
-//                newEpisodeSegments = [EpisodeSegment(segmentIdentifer: .headlineIntroduction, text: chosenEpisode.headlineIntroduction)]
             case .headline:
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     if story.usedInIntroduction {

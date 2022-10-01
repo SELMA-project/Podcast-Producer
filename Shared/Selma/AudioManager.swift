@@ -126,14 +126,6 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
                 
             }
             
-            // headline introduction added to S1
-//            if episodeSegment.segmentIdentifer == .headlineIntroduction {
-//                // add speech
-//                if let speechUrl = episodeSegment.audioURL {
-//                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
-//                }
-//            }
-            
             // headlines added to S1
             if episodeSegment.segmentIdentifer == .headline  {
                 
@@ -247,71 +239,6 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         createS4(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
         createS5(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
         createS6(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
-        
-//        // reference to recently created segment
-//        var segmentId: Int
-//
-//        // add first segment S0
-//        segmentId = audioEpisode.addSegment()
-//
-//        // in S0: music
-//        let introStartFile = Bundle.main.url(forResource: "00-intro-start-trimmed.caf", withExtension: nil)!
-//        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: introStartFile)
-//
-//        for (_, episodeSegment) in episodeStructure.enumerated() {
-//
-//            // welcome text in S1
-//            if episodeSegment.segmentIdentifer == .welcomeText {
-//
-//                // Start new segment S1: welcome
-//                segmentId = audioEpisode.addSegment()
-//
-//                // add music
-//                let backgroundMusicFile = Bundle.main.url(forResource: "01-intro-middle-trimmed.caf", withExtension: nil)!
-//                audioEpisode.addAudioTrack(toSegmentId: segmentId, url: backgroundMusicFile, volume: 0.5, isLoopingBackgroundTrack: true)
-//
-//                // add speech
-//                if let speechUrl = episodeSegment.audioURL {
-//                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
-//                }
-//
-//
-//            }
-//
-//            // headline intro added to S1
-//            if episodeSegment.segmentIdentifer == .headlineIntroduction {
-//                // add speech
-//                if let speechUrl = episodeSegment.audioURL {
-//                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
-//                }
-//            }
-//
-//            // headlines added to S1
-//            if episodeSegment.segmentIdentifer == .headline  {
-//
-//                // only use the headlines that should be highlighted in summary
-//                if episodeSegment.highlightInSummary == true {
-//                    // add speech
-//                    if let speechUrl = episodeSegment.audioURL {
-//                        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
-//                    }
-//                }
-//            }
-//
-//            // intro end added to S2
-//            if episodeSegment.segmentIdentifer == .headline  {
-//
-//                // only use the headlines that should be highlighted in summary
-//                if episodeSegment.highlightInSummary == true {
-//                    // add speech
-//                    if let speechUrl = episodeSegment.audioURL {
-//                        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
-//                    }
-//                }
-//            }
-//
-//        }
-
         
         // render episode
         let url = audioEpisode.render(outputfileName: "output")

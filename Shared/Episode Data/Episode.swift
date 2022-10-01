@@ -9,10 +9,7 @@ import Foundation
 
 struct Episode: Identifiable, Hashable {
     var id: UUID = UUID()
-    //var cmsTitle: String
-    //var cmsTeaser: String
     var welcomeText: String
-    //var headlineIntroduction: String
     var stories: [Story]
     var epilogue: String
     var timeSlot: String
