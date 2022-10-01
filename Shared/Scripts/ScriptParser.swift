@@ -21,20 +21,26 @@ class ScriptParser {
         self.scriptText = try! String(contentsOf: scriptUrl)
     }
     
+    /// Returns an array of locallay available script names
+    static func availableScriptNames() -> [String] {
+        
+        var names = [String]()
+        
+        if let urls = Bundle.main.urls(forResourcesWithExtension: "md", subdirectory: nil) {
+            for url in urls {
+                let name = url.lastPathComponent
+                names.append(name)
+            }
+        }
+        
+        return names
+        
+    }
+    
     static func test() {
         
-        var fileNames = [String]()
-        fileNames.append("2022-09-19-e1.md")
-        fileNames.append("2022-09-19-e2.md")
-        fileNames.append("2022-09-20-e1.md")
-        fileNames.append("2022-09-20-e2.md")
-        fileNames.append("2022-09-21-e1.md")
-        fileNames.append("2022-09-21-e2.md")
-        fileNames.append("2022-09-22-e1.md")
-        fileNames.append("2022-09-22-e2.md")
-        fileNames.append("2022-09-26-e1.md")
-        fileNames.append("2022-09-26-e2.md")
-        fileNames.append("2022-09-27-e1.md")
+        // build array of locallay available scripts
+        let fileNames = ScriptParser.availableScriptNames()
 
         for fileName in fileNames {
             let parser = ScriptParser(name: fileName)
@@ -255,7 +261,7 @@ class ScriptParser {
                 if match.4 != nil {
                     let suffix = String(match.4!).trimmingCharacters(in: .whitespacesAndNewlines)
                     if suffix.count > 0 {
-                        hour = 14 // pm
+                        hour = 18 // pm
                     }
                 }
 
@@ -267,8 +273,8 @@ class ScriptParser {
                         fourDigitYear = year
                     }
                     
-                    var calendar = Calendar.current
-                    calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+                    let calendar = Calendar.current
+                    //calendar.timeZone = TimeZone(secondsFromGMT: 0)!
                     let components = DateComponents(year: fourDigitYear, month: month, day: day, hour: hour)
                     capturedDate = calendar.date(from: components)!
                 }

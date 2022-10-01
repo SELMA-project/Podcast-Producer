@@ -56,11 +56,19 @@ class EpisodeViewModel: ObservableObject {
     var episodeUrl: URL = Bundle.main.url(forResource: "no-audio.m4a", withExtension: nil)!
     
     init() {
+
+        // build array of locallay available scripts
+        let fileNames = ScriptParser.availableScriptNames()
         
-        let episode0 = Episode.buildFromScript("2022-09-27-e1.md")
-        let episode1 = Episode.buildFromScript("2022-09-26-e2.md")
-        let episode2 = Episode.buildFromScript("2022-09-26-e1.md")
-        availableEpisodes = [episode0, episode1, episode2]
+        // prepare result
+        availableEpisodes = [Episode]()
+        
+        // add episodes for each filename
+        for fileName in fileNames {
+            let episode = Episode.buildFromScript(fileName)
+            availableEpisodes.append(episode)
+        }
+
     }
     
 
