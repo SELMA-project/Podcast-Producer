@@ -114,7 +114,7 @@ class ScriptParser {
         // define regex
         
         //let regex = /Eu\ssou\s(?<name>.+)\se\sest[ae]/
-        let regex = /#\s*intro.*Eu\ssou\s(?<name>.+?)\se/.dotMatchesNewlines().ignoresCase()
+        let regex = /#\s*intro.*Eu\ssou\s(?<name>.+?)\se\s/.dotMatchesNewlines().ignoresCase()
         
         // default
         var capturedText: String?

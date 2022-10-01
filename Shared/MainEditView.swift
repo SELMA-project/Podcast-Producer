@@ -27,8 +27,8 @@ struct MainEditView: View {
                     }
                 }
                                 
-                Section("Welcome text") {
-                    TextField("Welcome text", text:  $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].welcomeText, axis: .vertical)
+                Section("Introduction") {
+                    TextField("Introduction", text:  $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].welcomeText, axis: .vertical)
                 }
                 
                 Section("Stories") {
@@ -37,6 +37,10 @@ struct MainEditView: View {
                             Text(episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].stories[storyNumber].headline)
                         }
                     }
+                }
+                
+                Section("Epilogue") {
+                    TextField("Epilogue", text:  $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].epilogue, axis: .vertical)
                 }
 
             }
