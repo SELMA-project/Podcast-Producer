@@ -9,14 +9,14 @@ import Foundation
 import CryptoKit
 
 enum BlockIdentifier: String, CaseIterable  {
-    case welcomeText = "Welcome"
+    case introduction = "Introduction"
     case headline = "Headline"
     case story = "Story"
     case epilogue = "Epilogue"
 }
 
 
-struct BuildingBlock: Identifiable {
+struct BuildingBlock: Identifiable, Hashable {
     var id: String {
         let textToBeHashed = "\(blockIdentifier.rawValue)-\(text)"
         let textAsData = Data(textToBeHashed.utf8)

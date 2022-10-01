@@ -117,7 +117,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         for (_, episodeSegment) in episodeStructure.enumerated() {
             
             // welcome text in S1
-            if episodeSegment.blockIdentifier == .welcomeText {
+            if episodeSegment.blockIdentifier == .introduction {
                 
                 // add speech
                 if let speechUrl = episodeSegment.audioURL {

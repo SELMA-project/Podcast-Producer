@@ -71,11 +71,11 @@ class EpisodeViewModel: ObservableObject {
             newEpisodeSegments = []
             
             switch segmentIdentifier {
-            case .welcomeText:
-                let text = chosenEpisode.welcomeText
+            case .introduction:
+                let text = chosenEpisode.introductionText
                 let textWithReplacedPlaceholders = replacePlaceholders(inText: text)
                 print("\n\(textWithReplacedPlaceholders)")
-                newEpisodeSegments = [BuildingBlock(blockIdentifier: .welcomeText, text: textWithReplacedPlaceholders)]
+                newEpisodeSegments = [BuildingBlock(blockIdentifier: .introduction, text: textWithReplacedPlaceholders)]
             case .headline:
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     if story.usedInIntroduction {
@@ -88,7 +88,7 @@ class EpisodeViewModel: ObservableObject {
                     newEpisodeSegments.append(BuildingBlock(blockIdentifier: .story, subIndex: index, text: storyText))
                 }
             case .epilogue:
-                newEpisodeSegments = [BuildingBlock(blockIdentifier: .epilogue, text: chosenEpisode.epilogue)]
+                newEpisodeSegments = [BuildingBlock(blockIdentifier: .epilogue, text: chosenEpisode.epilog)]
             }
             
             // add the new segment(s) to structure
