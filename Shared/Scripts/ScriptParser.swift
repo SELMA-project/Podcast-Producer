@@ -63,26 +63,26 @@ class ScriptParser {
         return capturedText
     }
     
-//    func extractSpeaker() -> String {
-//        
-//        // define regex
-//        
-//        let regex = /#+\s*[Ii]ntro\s*(\s|.)+[Ee]u sou (?<name>.+) e esta(\s|.)+\s+#+/
-//        
-//        // default
-//        var capturedText = ""
-//        
-//        do {
-//
-//            if let match = try regex.firstMatch(in: scriptText) {
-//                capturedText = String(match.name)
-//            }
-//        } catch {
-//            print(error)
-//        }
-//        
-//        return capturedText
-//    }
+    func extractSpeaker() -> String? {
+        
+        // define regex
+        
+        let regex = /Eu\ssou\s(?<name>.+)\se\sesta/
+        
+        // default
+        var capturedText: String?
+        
+        do {
+
+            if let match = try regex.firstMatch(in: scriptText) {
+                capturedText = String(match.name)
+            }
+        } catch {
+            print(error)
+        }
+        
+        return capturedText
+    }
     
 
     func extractHeadlines() -> [(isHighlighted: Bool, text: String)] {
