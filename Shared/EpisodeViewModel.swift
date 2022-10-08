@@ -61,39 +61,87 @@ class EpisodeViewModel: ObservableObject {
         let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
         
         // array of all ids
-        let allIdentifiers = BlockIdentifier.allCases
+        //let allIdentifiers = BlockIdentifier.allCases
         
-        var newEpisodeSegments: [BuildingBlock]
+        //var newEpisodeSegments: [BuildingBlock]
         
-        for segmentIdentifier in allIdentifiers {
+        for episodeSection in chosenEpisode.sections {
             
-            // reset
-            newEpisodeSegments = []
-            
-            switch segmentIdentifier {
-            case .introduction:
-                let text = chosenEpisode.introductionText
+            switch episodeSection.type {
+            case .standard:
+                let name = episodeSection.name
+                
+                // FIXME: this should become obsolete
+                // deduce block identifier form name
+                let blockIdentifier: BlockIdentifier
+                switch name {
+                
+                case "Introduction":
+                    blockIdentifier = .introduction
+                
+                case "Epilog":
+                    blockIdentifier = .epilogue
+                
+                default:
+                    blockIdentifier = .unknown
+                }
+                
+                let text = episodeSection.text
                 let textWithReplacedPlaceholders = replacePlaceholders(inText: text)
-                print("\n\(textWithReplacedPlaceholders)")
-                newEpisodeSegments = [BuildingBlock(blockIdentifier: .introduction, text: textWithReplacedPlaceholders)]
-            case .headline:
+                let buildingBlock = BuildingBlock(blockIdentifier: blockIdentifier, text: textWithReplacedPlaceholders)
+                structure.append(buildingBlock)
+                
+            case .headlines:
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     if story.usedInIntroduction {
-                        newEpisodeSegments.append(BuildingBlock(blockIdentifier: .headline, subIndex: index, text: story.headline, highlightInSummary: story.usedInIntroduction))
+                        let buildingBlock = BuildingBlock(blockIdentifier: .headline, subIndex: index, text: story.headline, highlightInSummary: story.usedInIntroduction)
+                        structure.append(buildingBlock)
                     }
                 }
-            case .story:
+
+            case .stories:
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     let storyText = story.storyText
-                    newEpisodeSegments.append(BuildingBlock(blockIdentifier: .story, subIndex: index, text: storyText))
+                    let buildingBlock = BuildingBlock(blockIdentifier: .story, subIndex: index, text: storyText)
+                    structure.append(buildingBlock)
                 }
-            case .epilogue:
-                newEpisodeSegments = [BuildingBlock(blockIdentifier: .epilogue, text: chosenEpisode.epilog)]
+                
             }
-            
-            // add the new segment(s) to structure
-            structure.append(contentsOf: newEpisodeSegments)
+        
         }
+        
+        
+//        for segmentIdentifier in allIdentifiers {
+//
+//            // reset
+//            newEpisodeSegments = []
+//
+//            switch segmentIdentifier {
+//            case .introduction:
+//                let text = chosenEpisode.introductionText
+//                let textWithReplacedPlaceholders = replacePlaceholders(inText: text)
+//                print("\n\(textWithReplacedPlaceholders)")
+//                newEpisodeSegments = [BuildingBlock(blockIdentifier: .introduction, text: textWithReplacedPlaceholders)]
+//            case .headline:
+//                for (index, story) in chosenEpisode.stories.enumerated() {
+//                    if story.usedInIntroduction {
+//                        newEpisodeSegments.append(BuildingBlock(blockIdentifier: .headline, subIndex: index, text: story.headline, highlightInSummary: story.usedInIntroduction))
+//                    }
+//                }
+//            case .story:
+//                for (index, story) in chosenEpisode.stories.enumerated() {
+//                    let storyText = story.storyText
+//                    newEpisodeSegments.append(BuildingBlock(blockIdentifier: .story, subIndex: index, text: storyText))
+//                }
+//            case .epilogue:
+//                newEpisodeSegments = [BuildingBlock(blockIdentifier: .epilogue, text: chosenEpisode.epilog)]
+//            default:
+//                break
+//            }
+//
+//            // add the new segment(s) to structure
+//            structure.append(contentsOf: newEpisodeSegments)
+//        }
         
         // pusblish
         self.episodeStructure = structure
@@ -189,6 +237,36 @@ class EpisodeViewModel: ObservableObject {
 //            print("Audio file saved here: \(fileUrl)")
 //        }
     }
+    
+    func updateEpisodeSection(_ updatedSection: EpisodeSection) {
+        
+        // which episode are we currently working with?
+        let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
+        
+        // get its sections
+        let sections = chosenEpisode.sections
+        
+        // create a new arraz of sections
+        var updatedSections = [EpisodeSection]()
+        
+        // go through each of the existing sections
+        for section in sections {
+            
+            // if we found the section that we want to update...
+            if section.id == updatedSection.id {
+                // add it the the new arraz of sections
+                updatedSections.append(updatedSection)
+            } else {
+                /// ... otherwise use the existing section
+                updatedSections.append(section)
+            }
+        }
+        
+        // publish
+        availableEpisodes[chosenEpisodeIndex].sections = updatedSections
+        
+    }
+    
     
     private func getDocumentsDirectory() -> URL {
         // find all possible documents directories for this user

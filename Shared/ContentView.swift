@@ -31,6 +31,7 @@ struct ContentView: View {
         }.onAppear {
             //AudioManager.shared.deleteContentsOfDocumentDirectory()
         }
+        .environmentObject(episodeViewModel)
     }
 
 }

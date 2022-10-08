@@ -10,7 +10,7 @@ import Foundation
 enum EpisodeSectionType: String {
     case standard = "Standard"
     case headlines = "Headlines"
-    case story = "Story"
+    case stories = "Stories"
 }
 
 struct EpisodeSection: Identifiable, Hashable {
@@ -31,27 +31,8 @@ struct Episode: Identifiable, Hashable {
     }
     
     var introductionText: String = "<introductionText>"
-//    {
-//        sections.filter{$0.name == "welcome"}[0].text ?? "<welcomeText>"
-//    }
     var stories: [Story] = [Story]()
-//    {
-//        let stories = sections.map { section in
-//            let story = Story(usedInIntroduction: section.isHighlight ?? false,
-//                              headline: section.headline ?? "<noHeadline>",
-//                              storyText: section.text ?? "<noText>")
-//            return story
-//        }
-//
-//        return stories
-//    }
-    
     var epilog: String = "<epilogText>"
-//    {
-//        sections.filter{$0.name == "epilog"}[0].text ?? "<epilogText>"
-//    }
-    
-
     
     // the order of all sections
     var sections = [EpisodeSection]()
@@ -123,9 +104,13 @@ extension Episode {
         let headlineSection = EpisodeSection(type: .headlines, name: "Headlines")
         episode.addSection(headlineSection)
         
-        // add stories
+        // add story section
+        let storySection = EpisodeSection(type: .stories, name: "Stories")
+        episode.addSection(storySection)
+        
+        // create stories
         var storyNumber = 1
-        //var stories = [Story]()
+        var stories = [Story]()
         while true {
             
             // get storyText. Sop if there are no more stories
@@ -138,10 +123,11 @@ extension Episode {
                 // matching headline
                 let headline = headlines[headlineIndex]
                 
-                // add as story section
-                let storySection = EpisodeSection(type: .story, name: "Story \(storyNumber)", headline: headline.text, isHighlight: headline.isHighlighted, text: storyText)
-                episode.addSection(storySection)
-
+                // create story
+                let story = Story(usedInIntroduction: headline.isHighlighted, headline: headline.text, storyText: storyText)
+                
+                // append to other stories
+                stories.append(story)
             } else {
                 print("Could not match story to headline in \(scriptFilename)")
                 break
@@ -149,8 +135,10 @@ extension Episode {
             
             // go to next story
             storyNumber += 1
-            
         }
+        
+        // add stories to episode
+        episode.stories = stories
         
         // add epilog
         let epilogSection = EpisodeSection(type: .standard, name: "Epilog", text: outroText)

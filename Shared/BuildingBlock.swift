@@ -13,6 +13,7 @@ enum BlockIdentifier: String, CaseIterable  {
     case headline = "Headline"
     case story = "Story"
     case epilogue = "Epilogue"
+    case unknown = "Unknown"
 }
 
 

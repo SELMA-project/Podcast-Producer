@@ -27,7 +27,7 @@ struct SectionEditView: View {
                 Text(episodeSection.type.rawValue)
             }
             
-            if episodeSection.type == .story {
+            if episodeSection.type == .stories {
                 Section("Headline") {
                     TextField("Name", text: $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].sections[sectionNumber].headline, axis: .vertical)
                 }
