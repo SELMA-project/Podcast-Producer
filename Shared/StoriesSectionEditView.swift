@@ -1,5 +1,5 @@
 //
-//  StandardSectionEditView.swift
+//  StoriesSectionEditView.swift
 //  Podcast Producer
 //
 //  Created by Andy on 08.10.22.
@@ -7,18 +7,19 @@
 
 import SwiftUI
 
-struct StandardSectionEditView: View {
-    
+struct StoriesSectionEditView: View {
     var section: EpisodeSection
     @State var name: String
-    @State var text: String
     
     @EnvironmentObject var viewModel: EpisodeViewModel
     
     init(section: EpisodeSection) {
         self.section = section
         _name = State(initialValue: section.name)
-        _text = State(initialValue: section.text)
+    }
+    
+    var stories: [Story] {
+        return viewModel.availableEpisodes[viewModel.chosenEpisodeIndex].stories
     }
     
     var body: some View {
@@ -34,31 +35,29 @@ struct StandardSectionEditView: View {
              viewModel.updateEpisodeSection(updatedSection)
          }
         
-        let textBinding = Binding {
-             self.text
-         } set: { newValue in
-             self.text = newValue
-             
-             // update section
-             var updatedSection = section // copy
-             updatedSection.text = newValue
-             viewModel.updateEpisodeSection(updatedSection)
-         }
         
         Form {
             Section("Name") {
                 TextField("Name", text: nameBinding)
             }
-            Section("Text") {
-                TextField("Text", text: textBinding, axis: .vertical)
+            Section("Stories") {
+                ForEach(stories) {story in
+                    NavigationLink(value: story) {
+                        Text(story.headline)
+                    }
+                }
             }
-        }.navigationTitle("Section Editor")
+        }
+        .navigationDestination(for: Story.self) { story in
+            StoryEditView(story: story)
+        }
+        .navigationTitle("Section Editor")
     }
 }
 
-struct StandardSectionEditView_Previews: PreviewProvider {
+struct StoriesSectionEditView_Previews: PreviewProvider {
     static var previews: some View {
         let section = EpisodeSection(type: .standard, name: "Introduction")
-        StandardSectionEditView(section: section)
+        StoriesSectionEditView(section: section)
     }
 }

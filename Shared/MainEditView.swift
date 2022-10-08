@@ -65,10 +65,13 @@ struct StoriesSectionView: View {
     
     var body: some View {
         Section(section.name) {
+            NavigationLink(value: section) {
+                Text("Configure stories")
+            }
             ForEach(0..<episodeStories.count, id:\.self) {storyNumber in
-                NavigationLink(value: storyNumber) {
+                //NavigationLink(value: storyNumber) {
                     Text(episodeStories[storyNumber].headline)
-                }
+                //}
             }
         }
     }
@@ -142,7 +145,13 @@ struct MainEditView: View {
         }
         .navigationDestination(for: EpisodeSection.self) { section in
             //SectionEditView(episodeViewModel: episodeViewModel, sectionNumber: sectionNumber)
-            StandardSectionEditView(section: section)
+            if section.type == .standard {
+                StandardSectionEditView(section: section)
+            }
+            
+            if section.type == .stories {
+                StoriesSectionEditView(section: section)
+            }
         }
 
     }
@@ -159,53 +168,53 @@ struct MainEditView: View {
 
 
 
-struct MainEditViewOld: View {
-    
-    @ObservedObject var episodeViewModel: EpisodeViewModel
-    @State private var path = NavigationPath() //: [Int] = []
-    @State private var chosenSpeaker = SelmaVoice(.leila)
-    
-    var body: some View {
-        
-        NavigationStack(path: $path) {
-            
-            Form {
-                
-                Section("Speaker") {
-                    Picker("Name", selection: $episodeViewModel.speaker) {
-                        ForEach(SelmaVoice.allVoices, id: \.self) {speaker in
-                            Text(speaker.shortName)
-                        }
-                    }
-                }
-                
-                Section("Introduction") {
-                    TextField("Introduction", text:  $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].introductionText, axis: .vertical)
-                }
-                
-                Section("Stories") {
-                    ForEach(0..<episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].stories.count, id:\.self) {storyNumber in
-                        NavigationLink(value: storyNumber) {
-                            Text(episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].stories[storyNumber].headline)
-                        }
-                    }
-                }
-                
-                Section("Epilog") {
-                    TextField("Epilogue", text:  $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].epilog, axis: .vertical)
-                }
-                
-            }
-            .navigationDestination(for: Int.self) { storyNumber in
-                StoryEditView(episodeViewModel: episodeViewModel, storyNumber: storyNumber)
-            }
-        }
-        .navigationTitle("Episode Editor")
-        .padding()
-        
-    }
-    
-}
+//struct MainEditViewOld: View {
+//    
+//    @ObservedObject var episodeViewModel: EpisodeViewModel
+//    @State private var path = NavigationPath() //: [Int] = []
+//    @State private var chosenSpeaker = SelmaVoice(.leila)
+//    
+//    var body: some View {
+//        
+//        NavigationStack(path: $path) {
+//            
+//            Form {
+//                
+//                Section("Speaker") {
+//                    Picker("Name", selection: $episodeViewModel.speaker) {
+//                        ForEach(SelmaVoice.allVoices, id: \.self) {speaker in
+//                            Text(speaker.shortName)
+//                        }
+//                    }
+//                }
+//                
+//                Section("Introduction") {
+//                    TextField("Introduction", text:  $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].introductionText, axis: .vertical)
+//                }
+//                
+//                Section("Stories") {
+//                    ForEach(0..<episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].stories.count, id:\.self) {storyNumber in
+//                        NavigationLink(value: storyNumber) {
+//                            Text(episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].stories[storyNumber].headline)
+//                        }
+//                    }
+//                }
+//                
+//                Section("Epilog") {
+//                    TextField("Epilogue", text:  $episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].epilog, axis: .vertical)
+//                }
+//                
+//            }
+//            .navigationDestination(for: Int.self) { storyNumber in
+//                StoryEditView(episodeViewModel: episodeViewModel, storyNumber: storyNumber)
+//            }
+//        }
+//        .navigationTitle("Episode Editor")
+//        .padding()
+//        
+//    }
+//    
+//}
 
 struct MainEditView_Previews: PreviewProvider {
     
