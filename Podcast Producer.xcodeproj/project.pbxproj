@@ -69,6 +69,8 @@
 		C14CEA2B28F1948A00B8DFC8 /* StandardSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */; };
 		C14CEA2D28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2C28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift */; };
 		C14CEA2E28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2C28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift */; };
+		C14CEA3028F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */; };
+		C14CEA3128F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */; };
 		C1543A0928A2652200427ED0 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1543A0828A2652200427ED0 /* TestView.swift */; };
 		C1543A0A28A2652200427ED0 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1543A0828A2652200427ED0 /* TestView.swift */; };
 		C1543A0C28A2A64300427ED0 /* EpisodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */; };
@@ -126,6 +128,7 @@
 		C1491F6827AD472700A72AEB /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardSectionEditView.swift; sourceTree = "<group>"; };
 		C14CEA2C28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesSectionEditView.swift; sourceTree = "<group>"; };
+		C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineSectionEditView.swift; sourceTree = "<group>"; };
 		C1543A0828A2652200427ED0 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewModel.swift; sourceTree = "<group>"; };
 		C1543A0E28A2A69C00427ED0 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
@@ -194,10 +197,11 @@
 				C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */,
 				C1491F5927AD472600A72AEB /* ContentView.swift */,
 				C1756AB928A1198D00FE9F2B /* MainEditView.swift */,
-				C13A712328E880A800BEE304 /* SectionEditView.swift */,
 				C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */,
+				C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */,
 				C14CEA2C28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift */,
 				C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */,
+				C13A712328E880A800BEE304 /* SectionEditView.swift */,
 				C1BA7EC628AA9E510090573B /* Selma */,
 				C189696228B371E1005108E7 /* Audio */,
 				C1262F6C28E3236400F3C725 /* Scripts */,
@@ -408,6 +412,7 @@
 				C1BA7EBE28AA92270090573B /* AudioRenderView.swift in Sources */,
 				C1491F6B27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */,
 				C176AB0E28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
+				C14CEA3028F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
 				C1491F6F27AD472700A72AEB /* Persistence.swift in Sources */,
 				C1756ABA28A1198D00FE9F2B /* MainEditView.swift in Sources */,
 				C1491F6927AD472700A72AEB /* Podcast_Producer.xcdatamodeld in Sources */,
@@ -435,6 +440,7 @@
 				C1BA7EBF28AA92270090573B /* AudioRenderView.swift in Sources */,
 				C1491F6C27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */,
 				C176AB0F28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
+				C14CEA3128F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
 				C1491F7027AD472700A72AEB /* Persistence.swift in Sources */,
 				C1756ABB28A1198D00FE9F2B /* MainEditView.swift in Sources */,
 				C1491F6A27AD472700A72AEB /* Podcast_Producer.xcdatamodeld in Sources */,

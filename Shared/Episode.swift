@@ -19,7 +19,7 @@ struct EpisodeSection: Identifiable, Hashable {
     var name: String
     var headline: String = "<sectionHeadline>"
     var isHighlight: Bool = false
-    var text: String = "<sectionText"
+    var text: String = "<sectionText>"
 }
 
 struct Episode: Identifiable, Hashable {
@@ -30,9 +30,8 @@ struct Episode: Identifiable, Hashable {
         return creationDate.formatted(date: .abbreviated, time: .shortened)
     }
     
-    var introductionText: String = "<introductionText>"
     var stories: [Story] = [Story]()
-    var epilog: String = "<epilogText>"
+    
     
     // the order of all sections
     var sections = [EpisodeSection]()
@@ -41,20 +40,6 @@ struct Episode: Identifiable, Hashable {
     mutating func addSection(_ section: EpisodeSection) {
         
         sections.append(section)
-        
-        // temp
-        if section.name.lowercased().starts(with: "introduction") {
-            introductionText = section.text
-        }
-        
-        if section.name.lowercased().starts(with: "story") {
-            let story = Story(usedInIntroduction: section.isHighlight, headline: section.headline, storyText: section.text)
-            stories.append(story)
-        }
-        
-        if section.name.lowercased().starts(with: "epilog") {
-            epilog = section.text
-        }
     }
     
     func generateBuildingBlocks() -> [BuildingBlock] {

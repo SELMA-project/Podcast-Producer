@@ -15,7 +15,6 @@ class EpisodeViewModel: ObservableObject {
     @Published var availableEpisodes: [Episode]
     @Published var episodeAvailable: Bool = false
     
-    
     // the entire episode in segments
     @Published var episodeStructure: [BuildingBlock] = []
     
