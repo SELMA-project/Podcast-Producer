@@ -15,7 +15,7 @@ struct EpisodeTemplate {
 
 extension EpisodeTemplate {
     
-    static func dwBrasil() -> EpisodeTemplate {
+    static func dwBrazil() -> EpisodeTemplate {
         
         let templateName = "DW Brasil (Morning)"
         let templateLanguage = LanguageManager.Language.brazilian

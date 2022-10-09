@@ -142,7 +142,7 @@ class EpisodeViewModel: ObservableObject {
 //            structure.append(contentsOf: newEpisodeSegments)
 //        }
         
-        // pusblish
+        // publish
         self.episodeStructure = structure
     }
 

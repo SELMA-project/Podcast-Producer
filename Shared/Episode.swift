@@ -65,6 +65,9 @@ extension Episode {
     /// Builds episode from local Markdown script
     static func buildFromScript(_ scriptFilename: String) -> Episode {
         
+        // use this template
+        let episodeTemplate = EpisodeTemplate.dwBrazil()
+        
         let parser = ScriptParser(name: scriptFilename)
         
         let scriptDate = parser.extractDatetime() ?? Date()
@@ -74,28 +77,23 @@ extension Episode {
         let outroText = parser.extractOutro()  ?? "<no outro found>"
         
         // mark speakerName as token in introText
-        let speakerToken = "{\(speakerName)}"
+        let speakerToken = "{speakerName}"
         let introTextWithSpeakerToken = introText.replacing(speakerName, with: speakerToken)
-        
-        // convert date to time slot
-        //let timeSlot = scriptDate.formatted(date: .abbreviated, time: .shortened)
-        
-        // create episode
-        //let episode = Episode(welcomeText: introTextWithSpeakerToken, stories: stories, epilogue: outroText, timeSlot: timeSlot)
         
         // start from here
         var episode = Episode(language: .brazilian, creationDate: scriptDate)
         
         // add introduction
-        let introductionSection = EpisodeSection(type: .standard, name: "Introduction", text: introTextWithSpeakerToken)
+        var introductionSection = episodeTemplate.episodeSections[0]
+        introductionSection.text = introTextWithSpeakerToken
         episode.addSection(introductionSection)
 
         // next, we want the headlines to be read out
-        let headlineSection = EpisodeSection(type: .headlines, name: "Headlines")
+        let headlineSection = episodeTemplate.episodeSections[1]
         episode.addSection(headlineSection)
         
         // add story section
-        let storySection = EpisodeSection(type: .stories, name: "Stories")
+        let storySection = episodeTemplate.episodeSections[2]
         episode.addSection(storySection)
         
         // create stories
@@ -131,7 +129,8 @@ extension Episode {
         episode.stories = stories
         
         // add epilog
-        let epilogSection = EpisodeSection(type: .standard, name: "Epilog", text: outroText)
+        var epilogSection = episodeTemplate.episodeSections[3]
+        epilogSection.text = outroText
         episode.addSection(epilogSection)
         
         return episode
