@@ -94,6 +94,10 @@ struct MainEditView: View {
         return episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].stories
     }
     
+    var episodeLanguage: String {
+        return episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].language.displayName
+    }
+    
     var body: some View {
         
         NavigationStack(path: $path) {
@@ -102,11 +106,16 @@ struct MainEditView: View {
             Form {
                 
                 Section("Speaker") {
+                    HStack {
+                        Text("Language")
+                        Spacer()
+                        Text(episodeLanguage)
+                    }
                     Picker("Name", selection: $episodeViewModel.speaker) {
                         ForEach(SelmaVoice.allVoices, id: \.self) {speaker in
                             Text(speaker.shortName)
                         }
-                    }
+                    }.pickerStyle(.menu)
                 }
                 
                 

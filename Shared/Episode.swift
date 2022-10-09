@@ -17,9 +17,7 @@ struct EpisodeSection: Identifiable, Hashable {
     var id: UUID = UUID()
     var type: EpisodeSectionType
     var name: String
-    //var headline: String = "<sectionHeadline>"
-    //var isHighlight: Bool = false
-    var text: String = "<sectionText>"
+    var text: String = ""
     var prefixAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     var mainAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     var suffixAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
@@ -27,6 +25,7 @@ struct EpisodeSection: Identifiable, Hashable {
 
 struct Episode: Identifiable, Hashable {
     var id: UUID = UUID()
+    var language: LanguageManager.Language
     var creationDate: Date
     
     var timeSlot: String {
@@ -50,6 +49,9 @@ struct Episode: Identifiable, Hashable {
     }
     
 }
+
+
+
 
 struct Story: Equatable, Identifiable, Hashable {
     var id: UUID = UUID()
@@ -82,7 +84,7 @@ extension Episode {
         //let episode = Episode(welcomeText: introTextWithSpeakerToken, stories: stories, epilogue: outroText, timeSlot: timeSlot)
         
         // start from here
-        var episode = Episode(creationDate: scriptDate)
+        var episode = Episode(language: .brasilian, creationDate: scriptDate)
         
         // add introduction
         let introductionSection = EpisodeSection(type: .standard, name: "Introduction", text: introTextWithSpeakerToken)

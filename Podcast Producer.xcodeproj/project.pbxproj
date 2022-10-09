@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C11A239B28F30B300022263B /* EpisodeTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11A239A28F30B300022263B /* EpisodeTemplate.swift */; };
+		C11A239C28F30B300022263B /* EpisodeTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11A239A28F30B300022263B /* EpisodeTemplate.swift */; };
+		C11A239F28F310F20022263B /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11A239E28F310F20022263B /* LanguageManager.swift */; };
+		C11A23A028F310F20022263B /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11A239E28F310F20022263B /* LanguageManager.swift */; };
 		C11DBB5C28DDCC5E003E426D /* 03-sting-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB5B28DDCC5E003E426D /* 03-sting-trimmed.caf */; };
 		C11DBB5D28DDCC5E003E426D /* 03-sting-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB5B28DDCC5E003E426D /* 03-sting-trimmed.caf */; };
 		C11DBB6128DDDB77003E426D /* 09-outro-end-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB5E28DDDB77003E426D /* 09-outro-end-trimmed.caf */; };
@@ -94,6 +98,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C11A239A28F30B300022263B /* EpisodeTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeTemplate.swift; sourceTree = "<group>"; };
+		C11A239E28F310F20022263B /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		C11DBB5B28DDCC5E003E426D /* 03-sting-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "03-sting-trimmed.caf"; sourceTree = "<group>"; };
 		C11DBB5E28DDDB77003E426D /* 09-outro-end-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "09-outro-end-trimmed.caf"; sourceTree = "<group>"; };
 		C11DBB5F28DDDB77003E426D /* 07-outro-start-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "07-outro-start-trimmed.caf"; sourceTree = "<group>"; };
@@ -169,6 +175,14 @@
 			path = Obsolete;
 			sourceTree = "<group>";
 		};
+		C11A239D28F310D70022263B /* Languages */ = {
+			isa = PBXGroup;
+			children = (
+				C11A239E28F310F20022263B /* LanguageManager.swift */,
+			);
+			path = Languages;
+			sourceTree = "<group>";
+		};
 		C1262F6C28E3236400F3C725 /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				C1491F5827AD472600A72AEB /* Podcast_ProducerApp.swift */,
+				C11A239A28F30B300022263B /* EpisodeTemplate.swift */,
 				C1543A0E28A2A69C00427ED0 /* Episode.swift */,
 				C13A711D28E85B5B00BEE304 /* BuildingBlock.swift */,
 				C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */,
@@ -209,6 +224,7 @@
 				C1756AB928A1198D00FE9F2B /* MainEditView.swift */,
 				C13A712328E880A800BEE304 /* SectionEditView.swift */,
 				C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */,
+				C11A239D28F310D70022263B /* Languages */,
 				C1BA7EC628AA9E510090573B /* Selma */,
 				C189696228B371E1005108E7 /* Audio */,
 				C11A239928F2E0F00022263B /* Obsolete */,
@@ -419,7 +435,9 @@
 				C13A711E28E85B5B00BEE304 /* BuildingBlock.swift in Sources */,
 				C1BA7EBE28AA92270090573B /* AudioRenderView.swift in Sources */,
 				C1491F6B27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */,
+				C11A239B28F30B300022263B /* EpisodeTemplate.swift in Sources */,
 				C176AB0E28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
+				C11A239F28F310F20022263B /* LanguageManager.swift in Sources */,
 				C14CEA3028F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
 				C1491F6F27AD472700A72AEB /* Persistence.swift in Sources */,
 				C1756ABA28A1198D00FE9F2B /* MainEditView.swift in Sources */,
@@ -447,7 +465,9 @@
 				C13A711F28E85B5B00BEE304 /* BuildingBlock.swift in Sources */,
 				C1BA7EBF28AA92270090573B /* AudioRenderView.swift in Sources */,
 				C1491F6C27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */,
+				C11A239C28F30B300022263B /* EpisodeTemplate.swift in Sources */,
 				C176AB0F28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
+				C11A23A028F310F20022263B /* LanguageManager.swift in Sources */,
 				C14CEA3128F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
 				C1491F7027AD472700A72AEB /* Persistence.swift in Sources */,
 				C1756ABB28A1198D00FE9F2B /* MainEditView.swift in Sources */,
