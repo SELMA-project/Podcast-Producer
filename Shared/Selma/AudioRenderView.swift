@@ -18,7 +18,7 @@ struct AudioRenderView: View {
         
         if episodeViewModel.episodeStructure.count > 0 {
             allAudioIsAvailable = episodeViewModel.episodeStructure.reduce(true) {
-                return $0 && $1.audioURL != nil
+                return $0 && $1.audioIsRendered
             }
         }
         
@@ -54,6 +54,7 @@ struct AudioRenderView: View {
         .task {
             episodeViewModel.buildEpisodeStructure()
             await episodeViewModel.renderEpisodeStructure()
+            //await episodeViewModel.buildAndRenderEpisodeStructure()
         }
         .toolbar {
             ToolbarItem {
@@ -84,7 +85,7 @@ struct PlayButton: View {
     
     var body: some View {
         
-        if episodeSegment.audioURL == nil {
+        if !episodeSegment.audioIsRendered {
             ProgressView()
         }
         else {

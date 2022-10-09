@@ -48,7 +48,87 @@ class EpisodeViewModel: ObservableObject {
 
     }
     
-
+    // WARNING: Probably obsolete
+//    func buildAndRenderEpisodeStructure() async {
+//        
+//        // result
+//        var structure = [BuildingBlock]()
+//        
+//        // episode to build
+//        let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
+//        
+//        for episodeSection in chosenEpisode.sections {
+//            
+//            switch episodeSection.type {
+//            case .standard:
+//                let name = episodeSection.name
+//                
+//                // FIXME: this should become obsolete
+//                // deduce block identifier form name
+//                let blockIdentifier: BlockIdentifier
+//                switch name {
+//                
+//                case "Introduction":
+//                    blockIdentifier = .introduction
+//                
+//                case "Epilog":
+//                    blockIdentifier = .epilogue
+//                
+//                default:
+//                    blockIdentifier = .unknown
+//                }
+//                
+//                // text from episode
+//                let text = episodeSection.text
+//                
+//                // replace place holders
+//                let textWithReplacedPlaceholders = replacePlaceholders(inText: text)
+//                
+//                // create building block
+//                let buildingBlock = BuildingBlock(blockIdentifier: blockIdentifier, text: textWithReplacedPlaceholders)
+//                
+//                // render audio -> this updates the buildingBlock's audioURL
+//                let updatedBuildingBlock = await renderAudioInBuildingBlock(buildingBlock)
+//                
+//                // store in structure
+//                structure.append(updatedBuildingBlock)
+//                
+//            case .headlines:
+//                for (index, story) in chosenEpisode.stories.enumerated() {
+//                    if story.usedInIntroduction {
+//                        
+//                        // create building block
+//                        let buildingBlock = BuildingBlock(blockIdentifier: .headline, subIndex: index, text: story.headline, highlightInSummary: story.usedInIntroduction)
+//                        
+//                        // render audio -> this updates the buildingBlock's audioURL
+//                        let updatedBuildingBlock = await renderAudioInBuildingBlock(buildingBlock)
+//                        
+//                        structure.append(updatedBuildingBlock)
+//                    }
+//                }
+//
+//            case .stories:
+//                for (index, story) in chosenEpisode.stories.enumerated() {
+//                    
+//                    // extract story text
+//                    let storyText = story.storyText
+//                    
+//                    // create building block
+//                    let buildingBlock = BuildingBlock(blockIdentifier: .story, subIndex: index, text: storyText)
+//                    
+//                    // render audio -> this updates the buildingBlock's audioURL
+//                    let updatedBuildingBlock = await renderAudioInBuildingBlock(buildingBlock)
+//                    
+//                    structure.append(updatedBuildingBlock)
+//                }
+//                
+//            }
+//        
+//        }
+//        
+//        // publish
+//        self.episodeStructure = structure
+//    }
     
     
     func buildEpisodeStructure() {
@@ -87,13 +167,16 @@ class EpisodeViewModel: ObservableObject {
                 
                 let text = episodeSection.text
                 let textWithReplacedPlaceholders = replacePlaceholders(inText: text)
-                let buildingBlock = BuildingBlock(blockIdentifier: blockIdentifier, text: textWithReplacedPlaceholders)
+                let proposedAudioUrl = episodeSection.proposedTextAudioURL
+                let buildingBlock = BuildingBlock(blockIdentifier: blockIdentifier, audioURL: proposedAudioUrl, text: textWithReplacedPlaceholders)
                 structure.append(buildingBlock)
                 
             case .headlines:
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     if story.usedInIntroduction {
-                        let buildingBlock = BuildingBlock(blockIdentifier: .headline, subIndex: index, text: story.headline, highlightInSummary: story.usedInIntroduction)
+                        let storyHeadline = story.headline
+                        let proposedHeadlineAudioUrl = story.proposedHeadlineAudioURL
+                        let buildingBlock = BuildingBlock(blockIdentifier: .headline, subIndex: index, audioURL: proposedHeadlineAudioUrl, text: storyHeadline, highlightInSummary: story.usedInIntroduction)
                         structure.append(buildingBlock)
                     }
                 }
@@ -101,7 +184,8 @@ class EpisodeViewModel: ObservableObject {
             case .stories:
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     let storyText = story.storyText
-                    let buildingBlock = BuildingBlock(blockIdentifier: .story, subIndex: index, text: storyText)
+                    let proposedTextAudioUrl = story.proposedTextAudioURL
+                    let buildingBlock = BuildingBlock(blockIdentifier: .story, subIndex: index, audioURL: proposedTextAudioUrl, text: storyText)
                     structure.append(buildingBlock)
                 }
                 
@@ -109,72 +193,61 @@ class EpisodeViewModel: ObservableObject {
         
         }
         
-        
-//        for segmentIdentifier in allIdentifiers {
-//
-//            // reset
-//            newEpisodeSegments = []
-//
-//            switch segmentIdentifier {
-//            case .introduction:
-//                let text = chosenEpisode.introductionText
-//                let textWithReplacedPlaceholders = replacePlaceholders(inText: text)
-//                print("\n\(textWithReplacedPlaceholders)")
-//                newEpisodeSegments = [BuildingBlock(blockIdentifier: .introduction, text: textWithReplacedPlaceholders)]
-//            case .headline:
-//                for (index, story) in chosenEpisode.stories.enumerated() {
-//                    if story.usedInIntroduction {
-//                        newEpisodeSegments.append(BuildingBlock(blockIdentifier: .headline, subIndex: index, text: story.headline, highlightInSummary: story.usedInIntroduction))
-//                    }
-//                }
-//            case .story:
-//                for (index, story) in chosenEpisode.stories.enumerated() {
-//                    let storyText = story.storyText
-//                    newEpisodeSegments.append(BuildingBlock(blockIdentifier: .story, subIndex: index, text: storyText))
-//                }
-//            case .epilogue:
-//                newEpisodeSegments = [BuildingBlock(blockIdentifier: .epilogue, text: chosenEpisode.epilog)]
-//            default:
-//                break
-//            }
-//
-//            // add the new segment(s) to structure
-//            structure.append(contentsOf: newEpisodeSegments)
-//        }
-        
         // publish
         self.episodeStructure = structure
     }
 
 
-    
     func renderEpisodeStructure() async {
         
         for (index, audioSegment) in episodeStructure.enumerated() {
             print("Cancel status: \(Task.isCancelled)")
             print("Rendering: \(index) -> \(audioSegment.blockIdentifier.rawValue)")
+  
+            // render audio -> this updates the audio segment's property 'audioISRendered'
+            let updatedAudioSegment = await renderAudioInBuildingBlock(audioSegment)
             
-            // the text to render
-            let text = audioSegment.text
-            
-            // where should the rendered audio be stored?
-            let audioURL = storageURL(forAudioSegment: audioSegment)
-            
-            // render audio if it does not yet exist
-            var success = true
-            if !fileExists(atURL: audioURL) {
-                success = await AudioManager.shared.synthesizeAudio(speakerName: speaker.selmaName, text: text, toURL: audioURL)
-            }
-            
-            // store audio URL
-            if success {
-                episodeStructure[index].audioURL = audioURL
-            } else {
-                print("No audio data available.")
-            }
-            
+            // replace original block
+            episodeStructure[index] = updatedAudioSegment
+                        
         }
         
+    }
+        
+    
+    /// Synthesizes audio for provided building block. If successful, the returned block  is marked with auddioISRendered = true
+    private func renderAudioInBuildingBlock(_ buildingBlock:  BuildingBlock) async -> BuildingBlock  {
+        
+        // copy original building block to be able to update the audioURL
+        var updatedBuildingBlock = buildingBlock
+
+        // where should the rendered audio be stored?
+        //let audioURL = storageURL(forAudioSegment: buildingBlock)
+        
+        // early exit if we don't have an audioURL (this should not happen, as the URL is proposed by the episode in buildEpisodeStructure()
+        guard let audioURL = buildingBlock.audioURL else {return updatedBuildingBlock}
+        
+        // the text to render
+        let text = buildingBlock.text
+        
+        // render audio if it does not yet exist
+        var success = true
+        if !fileExists(atURL: audioURL) {
+            success = await AudioManager.shared.synthesizeAudio(speakerName: speaker.selmaName, text: text, toURL: audioURL)
+        }
+        
+
+        
+        // mark block as rendered
+        if success {
+            //episodeStructure[index].audioURL = audioURL
+            //updatedBuildingBlock.audioURL = audioURL
+            updatedBuildingBlock.audioIsRendered = true
+        } else {
+            print("No audio data available.")
+        }
+        
+        return updatedBuildingBlock
     }
     
     
@@ -303,12 +376,13 @@ class EpisodeViewModel: ObservableObject {
     
     /// Should the rendered audio be stored?
     private func storageURL(forAudioSegment audioSegment: BuildingBlock) -> URL {
-
         let documentsDirectory = getDocumentsDirectory()
         let fileName = "\(audioSegment.id).wav"
         let audioURL = documentsDirectory.appendingPathComponent(fileName)
         return audioURL
     }
+    
+
     
     private func fileExists(atURL url:URL) -> Bool {
         return FileManager.default.fileExists(atPath: url.path)
@@ -329,8 +403,8 @@ class EpisodeViewModel: ObservableObject {
                 // remove audio
                 try? FileManager.default.removeItem(at: audioURL)
                 
-                // set audio URL to nil
-                newSegment.audioURL = nil
+                // mark audio as not rendered
+                newSegment.audioIsRendered = false
             }
             
             // store in new episode structure

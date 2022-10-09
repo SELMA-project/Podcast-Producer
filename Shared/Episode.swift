@@ -22,6 +22,13 @@ struct EpisodeSection: Identifiable, Hashable {
     var mainAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     var suffixAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     var separatorAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
+    
+    var proposedTextAudioURL: URL {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileName = "\(id.uuidString).wav"
+        let storageURL = documentsDirectory.appendingPathComponent(fileName)
+        return storageURL
+    }
 }
 
 struct Episode: Identifiable, Hashable {
@@ -59,6 +66,20 @@ struct Story: Equatable, Identifiable, Hashable {
     var usedInIntroduction: Bool
     var headline: String
     var storyText: String
+    
+    var proposedTextAudioURL: URL {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileName = "\(id.uuidString)_text.wav"
+        let storageURL = documentsDirectory.appendingPathComponent(fileName)
+        return storageURL
+    }
+    
+    var proposedHeadlineAudioURL: URL {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileName = "\(id.uuidString)_headline.wav"
+        let storageURL = documentsDirectory.appendingPathComponent(fileName)
+        return storageURL
+    }
 }
 
 extension Episode {

@@ -31,5 +31,6 @@ struct BuildingBlock: Identifiable, Hashable {
     var audioURL: URL?
     var text: String
     var highlightInSummary: Bool = false
+    var audioIsRendered = false
 }
 
