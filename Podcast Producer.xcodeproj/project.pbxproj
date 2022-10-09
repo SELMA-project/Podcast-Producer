@@ -159,6 +159,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C11A239928F2E0F00022263B /* Obsolete */ = {
+			isa = PBXGroup;
+			children = (
+				C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */,
+				C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */,
+				C14CEA2C28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift */,
+			);
+			path = Obsolete;
+			sourceTree = "<group>";
+		};
 		C1262F6C28E3236400F3C725 /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,12 +208,10 @@
 				C1491F5927AD472600A72AEB /* ContentView.swift */,
 				C1756AB928A1198D00FE9F2B /* MainEditView.swift */,
 				C13A712328E880A800BEE304 /* SectionEditView.swift */,
-				C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */,
-				C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */,
-				C14CEA2C28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift */,
 				C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */,
 				C1BA7EC628AA9E510090573B /* Selma */,
 				C189696228B371E1005108E7 /* Audio */,
+				C11A239928F2E0F00022263B /* Obsolete */,
 				C1262F6C28E3236400F3C725 /* Scripts */,
 				C158EDFD28AA32B9002EFF7B /* Episode Data */,
 				C1543A0828A2652200427ED0 /* TestView.swift */,

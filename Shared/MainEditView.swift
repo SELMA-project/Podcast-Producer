@@ -83,7 +83,7 @@ extension View {
 struct MainEditView: View {
     
     @ObservedObject var episodeViewModel: EpisodeViewModel
-    @State private var path:[EpisodeSection] = []// = NavigationPath() //: [Int] = []
+    @State private var path = NavigationPath() //: [Int] = []
     @State private var chosenSpeaker = SelmaVoice(.leila)
     
     var episodeSections: [EpisodeSection] {
@@ -124,15 +124,15 @@ struct MainEditView: View {
                 //SectionEditView(episodeViewModel: episodeViewModel, sectionNumber: sectionNumber)
                 
                 if section.type == .standard {
-                    StandardSectionEditView(section: section)
+                    SectionEditView(section: section)
                 }
                 
                 else if section.type == .stories {
-                    StoriesSectionEditView(section: section)
+                    SectionEditView(section: section)
                 }
                 
                 else if section.type == .headlines {
-                    HeadlineSectionEditView(section: section)
+                    SectionEditView(section: section)
                 }
                 
                 else {
