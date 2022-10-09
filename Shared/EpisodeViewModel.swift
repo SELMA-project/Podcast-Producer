@@ -237,7 +237,28 @@ class EpisodeViewModel: ObservableObject {
 //        }
     }
     
-    func updateEpisodeSection(_ updatedSection: EpisodeSection) {
+    private func indexOfEpisodeSection(withId relevantId: UUID) -> Int? {
+        
+        // which episode are we currently working with?
+        let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
+        
+        // get its sections
+        let sections = chosenEpisode.sections
+    
+        // find episode index for given id
+        let episodeIndex = sections.firstIndex(where:  {$0.id == relevantId})
+        
+        return episodeIndex
+    }
+    
+
+    
+    func updateEpisodeSection(sectionId: UUID,
+                              newName: String? = nil,
+                              newText: String? = nil,
+                              newPrefixAudioFile: AudioManager.AudioFile? = nil,
+                              newMainAudioFile: AudioManager.AudioFile? = nil,
+                              newSuffixAudioFile: AudioManager.AudioFile? = nil) {
         
         // which episode are we currently working with?
         let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
@@ -245,26 +266,55 @@ class EpisodeViewModel: ObservableObject {
         // get its sections
         let sections = chosenEpisode.sections
         
-        // create a new arraz of sections
-        var updatedSections = [EpisodeSection]()
-        
-        // go through each of the existing sections
-        for section in sections {
+        // get the section's index
+        if let episodeIndex = indexOfEpisodeSection(withId: sectionId) {
+            // the section itself
+            let section = sections[episodeIndex]
             
-            // if we found the section that we want to update...
-            if section.id == updatedSection.id {
-                // add it the the new arraz of sections
-                updatedSections.append(updatedSection)
-            } else {
-                /// ... otherwise use the existing section
-                updatedSections.append(section)
-            }
+            // copy ther section
+            var updatedSection = section
+            
+            // update properties if they exist
+            if let newName {updatedSection.name = newName}
+            if let newText {updatedSection.text = newText}
+            if let newPrefixAudioFile {updatedSection.prefixAudioFile = newPrefixAudioFile}
+            if let newMainAudioFile {updatedSection.mainAudioFile = newMainAudioFile}
+            if let newSuffixAudioFile {updatedSection.suffixAudioFile = newSuffixAudioFile}
+            
+            // write back to array of sections
+            availableEpisodes[chosenEpisodeIndex].sections[episodeIndex] = updatedSection
+            
         }
         
-        // publish
-        availableEpisodes[chosenEpisodeIndex].sections = updatedSections
+
+//        // which episode are we currently working with?
+//        let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
+//        
+//        // get its sections
+//        let sections = chosenEpisode.sections
+//        
+//        // create a new array of sections
+//        var updatedSections = [EpisodeSection]()
+//        
+//        // go through each of the existing sections
+//        for section in sections {
+//            
+//            // if we found the section that we want to update...
+//            if section.id == sectionId {
+//                // add it the the new array of sections
+//                updatedSections.append(updatedSection)
+//            } else {
+//                /// ... otherwise use the existing section
+//                updatedSections.append(section)
+//            }
+//        }
+//        
+//        // publish
+//        availableEpisodes[chosenEpisodeIndex].sections = updatedSections
         
     }
+    
+    
     
     
     private func getDocumentsDirectory() -> URL {

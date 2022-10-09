@@ -130,7 +130,7 @@ struct MainEditView: View {
         .padding()
         // somehow this avoid that in the simulator the path is incorrectly set
         .onChange(of: path) { path in
-            print(path)
+            //print(path)
         }
 
     }

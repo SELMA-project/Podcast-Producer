@@ -39,10 +39,8 @@ struct SectionEditView: View {
          } set: { newValue in
              self.name = newValue
              
-             // update section
-             var updatedSection = section // copy
-             updatedSection.name = newValue
-             viewModel.updateEpisodeSection(updatedSection)
+             // update section in viewModel
+             viewModel.updateEpisodeSection(sectionId: section.id, newName: newValue)
          }
         
         let textBinding = Binding {
@@ -50,11 +48,37 @@ struct SectionEditView: View {
          } set: { newValue in
              self.text = newValue
              
-             // update section
-             var updatedSection = section // copy
-             updatedSection.text = newValue
-             viewModel.updateEpisodeSection(updatedSection)
+             // update section in viewModel
+             viewModel.updateEpisodeSection(sectionId: section.id, newText: newValue)
          }
+        
+        let prefixAudioFileBinding = Binding {
+             self.prefixAudioFile
+         } set: { newValue in
+             self.prefixAudioFile = newValue
+             
+             // update section in viewModel
+             viewModel.updateEpisodeSection(sectionId: section.id, newPrefixAudioFile: newValue)
+         }
+        
+        let mainAudioFileBinding = Binding {
+             self.mainAudioFile
+         } set: { newValue in
+             self.mainAudioFile = newValue
+             
+             // update section in viewModel
+             viewModel.updateEpisodeSection(sectionId: section.id, newMainAudioFile: newValue)
+         }
+        
+        let suffixAudioFileBinding = Binding {
+             self.suffixAudioFile
+         } set: { newValue in
+             self.suffixAudioFile = newValue
+             
+             // update section in viewModel
+             viewModel.updateEpisodeSection(sectionId: section.id, newSuffixAudioFile: newValue)
+         }
+        
         
         Form {
             Section("Name") {
@@ -84,19 +108,19 @@ struct SectionEditView: View {
             }
             
             Section {
-                Picker("Before", selection: $prefixAudioFile) {
+                Picker("Before", selection: prefixAudioFileBinding) {
                     ForEach(AudioManager.availableAudioFiles(), id: \.self) {audioFile in
                         Text(audioFile.displayName).tag(audioFile)
                     }
                 }.pickerStyle(.menu)
                 
-                Picker("While", selection: $mainAudioFile) {
+                Picker("While", selection: mainAudioFileBinding) {
                     ForEach(AudioManager.availableAudioFiles(), id: \.self) {audioFile in
                         Text(audioFile.displayName).tag(audioFile)
                     }
                 }.pickerStyle(.menu)
 
-                Picker("After", selection: $suffixAudioFile) {
+                Picker("After", selection: suffixAudioFileBinding) {
                     ForEach(AudioManager.availableAudioFiles(), id: \.self) {audioFile in
                         Text(audioFile.displayName).tag(audioFile)
                     }
