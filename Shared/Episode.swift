@@ -20,9 +20,9 @@ struct EpisodeSection: Identifiable, Hashable {
     //var headline: String = "<sectionHeadline>"
     //var isHighlight: Bool = false
     var text: String = "<sectionText>"
-    var prefixAudioUrl: URL? = nil
-    var loopedAudioUrl: URL? = nil
-    var suffixAudioUrl: URL? = nil
+    var prefixAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
+    var mainAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
+    var suffixAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
 }
 
 struct Episode: Identifiable, Hashable {

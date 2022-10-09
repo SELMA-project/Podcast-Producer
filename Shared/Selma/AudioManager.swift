@@ -177,7 +177,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
                 
                 // add a sting at the end of each - except the last one
                 if index < storySegments.endIndex - 1 {
-                    let stingFile = Bundle.main.url(forResource: "03-string-trimmed.caf", withExtension: nil)!
+                    let stingFile = Bundle.main.url(forResource: "03-sting-trimmed.caf", withExtension: nil)!
                     audioEpisode.addAudioTrack(toSegmentId: segmentId, url: stingFile)
                 }
                 
@@ -268,18 +268,72 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
 
 extension AudioManager {
 
-    /// Returns all locally available audio files
-    static func availableAudioFiles() -> [URL] {
-
-        var audioUrls = [URL]()
-
-        for fileExtension in ["caf", "mp3", "m4a"] {
-            if let urlsForExtension = Bundle.main.urls(forResourcesWithExtension: fileExtension, subdirectory: nil) {
-                audioUrls.append(contentsOf: urlsForExtension)
-            }
+    struct AudioFile: Hashable {
+        var displayName: String
+        var bundlePath: String
+        var url: URL? {
+            Bundle.main.url(forResource: bundlePath, withExtension: nil)
         }
+    }
+    
+    /// Returns all locally available audio files
+    static func availableAudioFiles() -> [AudioFile] {
 
-        return audioUrls
+        var audioFiles = [AudioFile]()
+  
+        audioFiles.append(AudioFile(displayName: "None", bundlePath: ""))
+        
+        audioFiles.append(AudioFile(displayName: "Intro Start", bundlePath: "00-intro-start-trimmed.caf"))
+        audioFiles.append(AudioFile(displayName: "Intro Loop", bundlePath: "01-intro-middle-trimmed.caf"))
+        audioFiles.append(AudioFile(displayName: "Intro End", bundlePath: "02-intro-end-trimmed.caf"))
+        
+        audioFiles.append(AudioFile(displayName: "Sting", bundlePath: "03-sting-trimmed.caf"))
+        
+        audioFiles.append(AudioFile(displayName: "Outro Start", bundlePath: "07-outro-start-trimmed.caf"))
+        audioFiles.append(AudioFile(displayName: "Outro Loop", bundlePath: "08-outro-middle-trimmed.caf"))
+        audioFiles.append(AudioFile(displayName: "Outro End", bundlePath: "09-outro-end-trimmed.caf"))
+        
+        return audioFiles
     }
 
+    /// An array of the names of all available audio files
+    static func availableAudioFileNames() -> [String] {
+        
+        var audioFileNames = ["None"]
+        
+        // go through all Audio files
+        for audioFile in Self.availableAudioFiles() {
+            audioFileNames.append(audioFile.displayName)
+        }
+        
+        return audioFileNames
+    }
+    
+    /// Returns the URL for the given audi file name
+    static func urlForDisplayName(_ displayName: String) -> URL? {
+        
+        var url: URL?
+        
+        for audioFile in Self.availableAudioFiles() {
+            if displayName == audioFile.displayName {
+                url = audioFile.url
+            }
+        }
+        
+        return url
+    }
+    
+    static func audioFileForDisplayName(_ displayName: String) -> AudioFile {
+        
+        var wantedAudioFile = Self.availableAudioFiles()[0] // default is the first in the list
+        
+        for audioFile in Self.availableAudioFiles() {
+            if displayName == audioFile.displayName {
+                wantedAudioFile = audioFile
+            }
+        }
+        
+        return wantedAudioFile
+    }
+    
 }

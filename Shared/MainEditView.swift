@@ -121,23 +121,7 @@ struct MainEditView: View {
             }
             
             .navigationDestination(for: EpisodeSection.self) { section in
-                //SectionEditView(episodeViewModel: episodeViewModel, sectionNumber: sectionNumber)
-                
-                if section.type == .standard {
-                    SectionEditView(section: section)
-                }
-                
-                else if section.type == .stories {
-                    SectionEditView(section: section)
-                }
-                
-                else if section.type == .headlines {
-                    SectionEditView(section: section)
-                }
-                
-                else {
-                    Text(section.name)
-                }
+                SectionEditView(section: section)
             }
             .navigationTitle("Episode Editor")
             

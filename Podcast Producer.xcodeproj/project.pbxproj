@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C11DBB5C28DDCC5E003E426D /* 03-string-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB5B28DDCC5E003E426D /* 03-string-trimmed.caf */; };
-		C11DBB5D28DDCC5E003E426D /* 03-string-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB5B28DDCC5E003E426D /* 03-string-trimmed.caf */; };
+		C11DBB5C28DDCC5E003E426D /* 03-sting-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB5B28DDCC5E003E426D /* 03-sting-trimmed.caf */; };
+		C11DBB5D28DDCC5E003E426D /* 03-sting-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB5B28DDCC5E003E426D /* 03-sting-trimmed.caf */; };
 		C11DBB6128DDDB77003E426D /* 09-outro-end-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB5E28DDDB77003E426D /* 09-outro-end-trimmed.caf */; };
 		C11DBB6228DDDB77003E426D /* 09-outro-end-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB5E28DDDB77003E426D /* 09-outro-end-trimmed.caf */; };
 		C11DBB6328DDDB77003E426D /* 07-outro-start-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C11DBB5F28DDDB77003E426D /* 07-outro-start-trimmed.caf */; };
@@ -94,7 +94,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C11DBB5B28DDCC5E003E426D /* 03-string-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "03-string-trimmed.caf"; sourceTree = "<group>"; };
+		C11DBB5B28DDCC5E003E426D /* 03-sting-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "03-sting-trimmed.caf"; sourceTree = "<group>"; };
 		C11DBB5E28DDDB77003E426D /* 09-outro-end-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "09-outro-end-trimmed.caf"; sourceTree = "<group>"; };
 		C11DBB5F28DDDB77003E426D /* 07-outro-start-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "07-outro-start-trimmed.caf"; sourceTree = "<group>"; };
 		C11DBB6728DDDC1F003E426D /* 08-outro-middle-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "08-outro-middle-trimmed.caf"; sourceTree = "<group>"; };
@@ -252,7 +252,7 @@
 				C13C775A28D8B42A00C6C61B /* 00-intro-start-trimmed.caf */,
 				C13C776028D8B52200C6C61B /* 01-intro-middle-trimmed.caf */,
 				C13C775D28D8B4FF00C6C61B /* 02-intro-end-trimmed.caf */,
-				C11DBB5B28DDCC5E003E426D /* 03-string-trimmed.caf */,
+				C11DBB5B28DDCC5E003E426D /* 03-sting-trimmed.caf */,
 				C11DBB5F28DDDB77003E426D /* 07-outro-start-trimmed.caf */,
 				C11DBB6728DDDC1F003E426D /* 08-outro-middle-trimmed.caf */,
 				C11DBB5E28DDDB77003E426D /* 09-outro-end-trimmed.caf */,
@@ -353,7 +353,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C11DBB5C28DDCC5E003E426D /* 03-string-trimmed.caf in Resources */,
+				C11DBB5C28DDCC5E003E426D /* 03-sting-trimmed.caf in Resources */,
 				C13C775B28D8B42A00C6C61B /* 00-intro-start-trimmed.caf in Resources */,
 				C1262F7C28E3239F00F3C725 /* 2022-09-21-e1.md in Resources */,
 				C1262F7828E3239F00F3C725 /* 2022-09-26-e1.md in Resources */,
@@ -381,7 +381,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C11DBB5D28DDCC5E003E426D /* 03-string-trimmed.caf in Resources */,
+				C11DBB5D28DDCC5E003E426D /* 03-sting-trimmed.caf in Resources */,
 				C13C775C28D8B42A00C6C61B /* 00-intro-start-trimmed.caf in Resources */,
 				C1262F7D28E3239F00F3C725 /* 2022-09-21-e1.md in Resources */,
 				C1262F7928E3239F00F3C725 /* 2022-09-26-e1.md in Resources */,
