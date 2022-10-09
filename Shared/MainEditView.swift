@@ -19,63 +19,63 @@ extension View {
     }
 }
 
-struct StructureRow: View {
-    var section: EpisodeSection
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text(section.name)
-                .font(.title3)
-            
-            switch section.type {
-            case .standard:
-                Text(section.text)
-                    .font(.caption)
-                    .lineLimit(1)
-            case .stories:
-                Text(section.headline)
-                    .font(.caption)
-                    .lineLimit(1)
-            default:
-                EmptyView()
-            }
-            
-        }
-    }
-}
+//struct StructureRow: View {
+//    var section: EpisodeSection
+//
+//    var body: some View {
+//        VStack(alignment: .leading) {
+//            Text(section.name)
+//                .font(.title3)
+//
+//            switch section.type {
+//            case .standard:
+//                Text(section.text)
+//                    .font(.caption)
+//                    .lineLimit(1)
+//            case .stories:
+//                Text(section.headline)
+//                    .font(.caption)
+//                    .lineLimit(1)
+//            default:
+//                EmptyView()
+//            }
+//
+//        }
+//    }
+//}
 
-struct StandardSectionView: View {
-    
-    var section: EpisodeSection
-    
-    var body: some View {
-        Section(section.name) {
-            NavigationLink(value: section) {
-                Text(section.text)
-            }
-        }
-        
-    }
-}
+//struct StandardSectionView: View {
+//
+//    var section: EpisodeSection
+//
+//    var body: some View {
+//        Section(section.name) {
+//            NavigationLink(value: section) {
+//                Text(section.text)
+//            }
+//        }
+//
+//    }
+//}
 
-struct StoriesSectionView: View {
-    
-    var section: EpisodeSection
-    var episodeStories: [Story]
-    
-    var body: some View {
-        Section(section.name) {
-            NavigationLink(value: section) {
-                Text("Configure stories")
-            }
-            ForEach(0..<episodeStories.count, id:\.self) {storyNumber in
-                //NavigationLink(value: storyNumber) {
-                Text(episodeStories[storyNumber].headline)
-                //}
-            }
-        }
-    }
-}
+//struct StoriesSectionView: View {
+//
+//    var section: EpisodeSection
+//    var episodeStories: [Story]
+//
+//    var body: some View {
+//        Section(section.name) {
+//            NavigationLink(value: section) {
+//                Text("Configure stories")
+//            }
+//            ForEach(0..<episodeStories.count, id:\.self) {storyNumber in
+//                //NavigationLink(value: storyNumber) {
+//                Text(episodeStories[storyNumber].headline)
+//                //}
+//            }
+//        }
+//    }
+//}
 
 
 

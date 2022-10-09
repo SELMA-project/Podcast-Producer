@@ -17,9 +17,12 @@ struct EpisodeSection: Identifiable, Hashable {
     var id: UUID = UUID()
     var type: EpisodeSectionType
     var name: String
-    var headline: String = "<sectionHeadline>"
-    var isHighlight: Bool = false
+    //var headline: String = "<sectionHeadline>"
+    //var isHighlight: Bool = false
     var text: String = "<sectionText>"
+    var prefixAudioUrl: URL? = nil
+    var loopedAudioUrl: URL? = nil
+    var suffixAudioUrl: URL? = nil
 }
 
 struct Episode: Identifiable, Hashable {
