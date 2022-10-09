@@ -252,7 +252,7 @@ class EpisodeViewModel: ObservableObject {
     }
     
 
-    
+    /// Updates the currently chosen episode. The non-nil attributes of the episode's section, identified by *sectionId*, are updated.
     func updateEpisodeSection(sectionId: UUID,
                               newName: String? = nil,
                               newText: String? = nil,
@@ -285,32 +285,6 @@ class EpisodeViewModel: ObservableObject {
             availableEpisodes[chosenEpisodeIndex].sections[episodeIndex] = updatedSection
             
         }
-        
-
-//        // which episode are we currently working with?
-//        let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
-//        
-//        // get its sections
-//        let sections = chosenEpisode.sections
-//        
-//        // create a new array of sections
-//        var updatedSections = [EpisodeSection]()
-//        
-//        // go through each of the existing sections
-//        for section in sections {
-//            
-//            // if we found the section that we want to update...
-//            if section.id == sectionId {
-//                // add it the the new array of sections
-//                updatedSections.append(updatedSection)
-//            } else {
-//                /// ... otherwise use the existing section
-//                updatedSections.append(section)
-//            }
-//        }
-//        
-//        // publish
-//        availableEpisodes[chosenEpisodeIndex].sections = updatedSections
         
     }
     
