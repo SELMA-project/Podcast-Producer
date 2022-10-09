@@ -227,6 +227,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     
     
     /// Renders and Audio Episode and resturns its (local) URL
+    // TODO: create audio episodes directly based on the current Episode's sections.
     func createAudioEpisode(basedOnEpisodeStructure episodeStructure: [BuildingBlock]) -> URL {
         
         // create entrie episode
