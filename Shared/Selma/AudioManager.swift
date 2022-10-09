@@ -267,18 +267,19 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
 }
 
 extension AudioManager {
-    
+
     /// Returns all locally available audio files
     static func availableAudioFiles() -> [URL] {
-        
+
         var audioUrls = [URL]()
-        
-        for extension in ["caf", "mp3", "m4a"] {
-            let urlsForExtension = Bundle.main.urls(forResourcesWithExtension: extension, subdirectory: nil)
-            audioUrls.append(contentsOf: urlsForExtension)
+
+        for fileExtension in ["caf", "mp3", "m4a"] {
+            if let urlsForExtension = Bundle.main.urls(forResourcesWithExtension: fileExtension, subdirectory: nil) {
+                audioUrls.append(contentsOf: urlsForExtension)
+            }
         }
-        
+
         return audioUrls
     }
-    
+
 }
