@@ -258,7 +258,8 @@ class EpisodeViewModel: ObservableObject {
                               newText: String? = nil,
                               newPrefixAudioFile: AudioManager.AudioFile? = nil,
                               newMainAudioFile: AudioManager.AudioFile? = nil,
-                              newSuffixAudioFile: AudioManager.AudioFile? = nil) {
+                              newSuffixAudioFile: AudioManager.AudioFile? = nil,
+                              newSeparatorAudioFile: AudioManager.AudioFile? = nil) {
         
         // which episode are we currently working with?
         let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
@@ -280,6 +281,7 @@ class EpisodeViewModel: ObservableObject {
             if let newPrefixAudioFile {updatedSection.prefixAudioFile = newPrefixAudioFile}
             if let newMainAudioFile {updatedSection.mainAudioFile = newMainAudioFile}
             if let newSuffixAudioFile {updatedSection.suffixAudioFile = newSuffixAudioFile}
+            if let newSeparatorAudioFile {updatedSection.separatorAudioFile = newSeparatorAudioFile}
             
             // write back to array of sections
             availableEpisodes[chosenEpisodeIndex].sections[episodeIndex] = updatedSection

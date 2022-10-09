@@ -21,6 +21,7 @@ struct EpisodeSection: Identifiable, Hashable {
     var prefixAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     var mainAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     var suffixAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
+    var separatorAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
 }
 
 struct Episode: Identifiable, Hashable {

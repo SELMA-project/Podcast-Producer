@@ -15,6 +15,7 @@ struct SectionEditView: View {
     @State var prefixAudioFile: AudioManager.AudioFile
     @State var mainAudioFile: AudioManager.AudioFile
     @State var suffixAudioFile: AudioManager.AudioFile
+    @State var separatorAudioFile: AudioManager.AudioFile
     
     @EnvironmentObject var viewModel: EpisodeViewModel
     
@@ -26,10 +27,22 @@ struct SectionEditView: View {
         _prefixAudioFile = State(initialValue: section.prefixAudioFile)
         _mainAudioFile = State(initialValue: section.mainAudioFile)
         _suffixAudioFile = State(initialValue: section.suffixAudioFile)
+        _separatorAudioFile = State(initialValue: section.separatorAudioFile)
     }
     
     var stories: [Story] {
         return viewModel.availableEpisodes[viewModel.chosenEpisodeIndex].stories
+    }
+    
+    /// The text displayed under the audio section
+    var pickerExplainerText: LocalizedStringKey {
+        
+        var explainerText = "Audio that plays before, while and after the text is spoken."
+        if section.type == .headlines || section.type == .stories {
+            explainerText += "The *separator* is inserted between headlines and stories."
+        }
+        
+        return LocalizedStringKey(explainerText)
     }
     
     var body: some View {
@@ -79,6 +92,14 @@ struct SectionEditView: View {
              viewModel.updateEpisodeSection(sectionId: section.id, newSuffixAudioFile: newValue)
          }
         
+        let separatorAudioFileBinding = Binding {
+             self.separatorAudioFile
+         } set: { newValue in
+             self.separatorAudioFile = newValue
+             
+             // update section in viewModel
+             viewModel.updateEpisodeSection(sectionId: section.id, newSeparatorAudioFile: newValue)
+         }
         
         Form {
             Section("Name") {
@@ -125,10 +146,19 @@ struct SectionEditView: View {
                         Text(audioFile.displayName).tag(audioFile)
                     }
                 }.pickerStyle(.menu)
+                
+                if section.type == .headlines || section.type == .stories {
+                    Picker("Separator", selection: separatorAudioFileBinding) {
+                        ForEach(AudioManager.availableAudioFiles(), id: \.self) {audioFile in
+                            Text(audioFile.displayName).tag(audioFile)
+                        }
+                    }.pickerStyle(.menu)
+                }
+                
             } header: {
                 Text("Audio")
             } footer: {
-                Text("Audio that plays before, while and after the text is spoken")
+                Text(pickerExplainerText)
             }
             
         }
