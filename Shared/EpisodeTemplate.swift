@@ -18,7 +18,7 @@ extension EpisodeTemplate {
     static func dwBrasil() -> EpisodeTemplate {
         
         let templateName = "DW Brasil (Morning)"
-        let templateLanguage = LanguageManager.Language.brasilian
+        let templateLanguage = LanguageManager.Language.brazilian
         
         var sectionText: String
         var prefixAudioFile: AudioManager.AudioFile

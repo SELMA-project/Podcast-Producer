@@ -84,7 +84,7 @@ extension Episode {
         //let episode = Episode(welcomeText: introTextWithSpeakerToken, stories: stories, epilogue: outroText, timeSlot: timeSlot)
         
         // start from here
-        var episode = Episode(language: .brasilian, creationDate: scriptDate)
+        var episode = Episode(language: .brazilian, creationDate: scriptDate)
         
         // add introduction
         let introductionSection = EpisodeSection(type: .standard, name: "Introduction", text: introTextWithSpeakerToken)

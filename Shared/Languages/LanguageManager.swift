@@ -12,7 +12,7 @@ class LanguageManager {
     static var shared = LanguageManager()
     
     enum Language: String, CaseIterable {
-        case brasilian, english, german
+        case brazilian, english, german
         
         var displayName: String {
             return rawValue.capitalized
