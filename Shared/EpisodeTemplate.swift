@@ -30,7 +30,7 @@ extension EpisodeTemplate {
         sectionText = "Olá, hoje é {date}. Eu sou {speakerName} e você ouve a primeira edição do dia do boletim de notícias da DW Brasil. Confira nesta edição:"
         prefixAudioFile = AudioManager.audioFileForDisplayName("Intro Start")
         mainAudioFile = AudioManager.audioFileForDisplayName("Intro Main")
-        suffixAudioFile = AudioManager.audioFileForDisplayName("Intro End")
+        suffixAudioFile = AudioManager.audioFileForDisplayName("None")
         let section0 = EpisodeSection(type: .standard,
                                       name: "Introduction",
                                       text: sectionText,
@@ -39,7 +39,14 @@ extension EpisodeTemplate {
                                       suffixAudioFile: suffixAudioFile)
         
         // section 1 -> Headlines
-        let section1 = EpisodeSection(type: .headlines, name: "Headlines")
+        prefixAudioFile = AudioManager.audioFileForDisplayName("None")
+        mainAudioFile = AudioManager.audioFileForDisplayName("Intro Main")
+        suffixAudioFile = AudioManager.audioFileForDisplayName("Intro End")
+        let section1 = EpisodeSection(type: .headlines,
+                                      name: "Headlines",
+                                      prefixAudioFile: prefixAudioFile,
+                                      mainAudioFile: mainAudioFile,
+                                      suffixAudioFile: suffixAudioFile)
         
         // section 2 -> Stories
         separatorAudioFile = AudioManager.audioFileForDisplayName("Sting")

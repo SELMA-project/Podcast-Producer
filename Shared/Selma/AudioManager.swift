@@ -363,6 +363,9 @@ extension AudioManager {
         // contains id of current audio segment
         var segmentId: Int
         
+        // contains audioURL
+        var audioUrl: URL?
+        
         // get relevant episodeSection
         let episodeSection = episode.sections[sectionIndex]
         
@@ -371,52 +374,78 @@ extension AudioManager {
         
         // prefix audio
         segmentId = audioEpisode.addSegment()
-        addAudio(withURL: episodeSection.prefixAudioFile.url, toAudioEpisode: &audioEpisode, toSegmentWithId: segmentId)
+        audioUrl = episodeSection.prefixAudioFile.url
+        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
         
         // create main segment
         segmentId = audioEpisode.addSegment()
         
+        // add text audio
         switch episodeSection.type {
         case .standard:
             // add main text to new segment
-            addAudio(withURL: episodeSection.proposedTextAudioURL, toAudioEpisode: &audioEpisode, toSegmentWithId: segmentId)
+            audioUrl = episodeSection.proposedTextAudioURL
+            audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
             
         case .headlines:
-            // go through each story
-            for story in stories {
+            // filter stories used in headlines
+            let storiesUsedForHeadlines = stories.filter{$0.usedInIntroduction == true}
+            
+            // go through each headline story
+            for (storyIndex, story) in storiesUsedForHeadlines.enumerated() {
                 // headline audio
-                addAudio(withURL: story.proposedHeadlineAudioURL, toAudioEpisode: &audioEpisode, toSegmentWithId: segmentId)
+                audioUrl = story.proposedHeadlineAudioURL
+                audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
+                
+                // add separator, except for the last headline
+                if storyIndex < storiesUsedForHeadlines.count - 1 {
+                    audioUrl = episodeSection.separatorAudioFile.url
+                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
+                }
+                
             }
         case .stories:
             // go through each story
-            for story in stories {
+            for (storyIndex, story) in stories.enumerated() {
                 // story audio
-                addAudio(withURL: story.proposedTextAudioURL, toAudioEpisode: &audioEpisode, toSegmentWithId: segmentId)
+                audioUrl = story.proposedTextAudioURL
+                audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
+                
+                // add separator, except for the last story
+                if storyIndex < stories.count - 1 {
+                    audioUrl = episodeSection.separatorAudioFile.url
+                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
+                }
+                
             }
         }
         
+        // add background audio to the same segment
+        audioUrl = episodeSection.mainAudioFile.url
+        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl, delay: 0.0, volume: 0.5, fadeIn: 0.0, fadeOut: 0.0, isLoopingBackgroundTrack: true)
         
         // add suffix audio to a new segment
         segmentId = audioEpisode.addSegment()
-        addAudio(withURL: episodeSection.suffixAudioFile.url, toAudioEpisode: &audioEpisode, toSegmentWithId: segmentId)
+        audioUrl = episodeSection.suffixAudioFile.url
+        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
         
     }
     
     
     /// Adds audio to episode. Creates a new segment if *possibleSegmentId* is nil. Returns the segmentId that was used
-    private func addAudio(withURL audioUrl: URL?, toAudioEpisode audioEpisode: inout AudioEpisode, toSegmentWithId segmentId: Int) {
-                
-        // do we have an audioURL?
-        if let audioUrl {
-            
-            // do we have a file stored behind the URL?
-            if FileManager.default.fileExists(atPath: audioUrl.absoluteString) {
-                    
-                // add audio to episode
-                audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
-            }
-            
-        }
-    }
+//    private func addAudio(withURL audioUrl: URL?, toAudioEpisode audioEpisode: inout AudioEpisode, toSegmentWithId segmentId: Int) {
+//
+//        // do we have an audioURL?
+//        if let audioUrl {
+//
+//            // do we have a file stored behind the URL?
+//            if FileManager.default.fileExists(atPath: audioUrl.path(percentEncoded: false)) {
+//
+//                // add audio to episode
+//                audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
+//            }
+//
+//        }
+//    }
     
 }

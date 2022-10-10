@@ -173,10 +173,24 @@ struct AudioEpisode {
     }
     
     /// Adds an audio track to a segment with the given ID
-    mutating func addAudioTrack(toSegmentId segmentId: Int, url: URL, delay: Double = 0.0, volume: Float = 1.0, fadeIn: Double = 0.1, fadeOut: Double = 0.1, isLoopingBackgroundTrack: Bool = false) {
+    mutating func addAudioTrack(toSegmentId segmentId: Int, url: URL?, delay: Double = 0.0, volume: Float = 1.0, fadeIn: Double = 0.1, fadeOut: Double = 0.1, isLoopingBackgroundTrack: Bool = false) {
+        
+        // if no url is provided -> early exit
+        guard let url else {return}
         
         if segmentId >= segments.endIndex {
             fatalError("Cannot add an audio track to non-existing segment with id \(segmentId)")
+        }
+        
+        // only proceed if there is readl audio behind the url
+        var audioExists = false
+        if FileManager.default.fileExists(atPath: url.path(percentEncoded: false)) {
+            audioExists = true
+        }
+        
+        // early return if audio does not exist
+        if !audioExists {
+            return
         }
         
         // retrieve affected segment
