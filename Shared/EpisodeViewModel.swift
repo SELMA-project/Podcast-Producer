@@ -296,10 +296,12 @@ class EpisodeViewModel: ObservableObject {
         print("Build audio pressed")
   
         // create entire episode
-        episodeUrl = AudioManager.shared.createAudioEpisode(basedOnEpisodeStructure: self.episodeStructure)
+        //episodeUrl = AudioManager.shared.createAudioEpisode(basedOnBuildingBlocks: self.episodeStructure)
+        let episode = self.availableEpisodes[chosenEpisodeIndex]
+        episodeUrl = AudioManager.shared.createAudioEpisodeBasedOnEpisode(episode)
         print("Audio file saved here: \(String(describing: episodeUrl))")
         
-        // publish existance of the new audio URL in viemodel
+        // publish existance of the new audio URL in viewmodel
         episodeAvailable = true
         
 //        guard let audioURL = episodeStructure[0].audioURL else {return}

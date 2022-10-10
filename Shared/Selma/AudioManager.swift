@@ -228,7 +228,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     
     /// Renders and Audio Episode and resturns its (local) URL
     // TODO: create audio episodes directly based on the current Episode's sections.
-    func createAudioEpisode(basedOnEpisodeStructure episodeStructure: [BuildingBlock]) -> URL {
+    func createAudioEpisode(basedOnBuildingBlocks episodeStructure: [BuildingBlock]) -> URL {
         
         // create entrie episode
         var audioEpisode = AudioEpisode()
@@ -247,7 +247,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         return url
     }
     
-
+ 
     
     func deleteContentsOfDocumentDirectory() {
         let documentsFolderURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -285,13 +285,13 @@ extension AudioManager {
         audioFiles.append(AudioFile(displayName: "None", bundlePath: ""))
         
         audioFiles.append(AudioFile(displayName: "Intro Start", bundlePath: "00-intro-start-trimmed.caf"))
-        audioFiles.append(AudioFile(displayName: "Intro Loop", bundlePath: "01-intro-middle-trimmed.caf"))
+        audioFiles.append(AudioFile(displayName: "Intro Main", bundlePath: "01-intro-middle-trimmed.caf"))
         audioFiles.append(AudioFile(displayName: "Intro End", bundlePath: "02-intro-end-trimmed.caf"))
         
         audioFiles.append(AudioFile(displayName: "Sting", bundlePath: "03-sting-trimmed.caf"))
         
         audioFiles.append(AudioFile(displayName: "Outro Start", bundlePath: "07-outro-start-trimmed.caf"))
-        audioFiles.append(AudioFile(displayName: "Outro Loop", bundlePath: "08-outro-middle-trimmed.caf"))
+        audioFiles.append(AudioFile(displayName: "Outro Main", bundlePath: "08-outro-middle-trimmed.caf"))
         audioFiles.append(AudioFile(displayName: "Outro End", bundlePath: "09-outro-end-trimmed.caf"))
         
         return audioFiles
@@ -335,6 +335,88 @@ extension AudioManager {
         }
         
         return wantedAudioFile
+    }
+    
+}
+
+// MARK: -- Code where Audio Episode is created directly from episode data
+extension AudioManager {
+    
+    func createAudioEpisodeBasedOnEpisode(_ episode: Episode) -> URL {
+        
+        // create entrie episode
+        var audioEpisode = AudioEpisode()
+        
+        // go through episode sections and process them
+        for (sectionIndex, _) in episode.sections.enumerated() {
+            processSection(episode: episode, sectionIndex: sectionIndex, audioEpisode: &audioEpisode)
+        }
+        
+        // render episode
+        let url = audioEpisode.render(outputfileName: "output")
+        
+        return url
+    }
+    
+    private func processSection(episode: Episode, sectionIndex: Int, audioEpisode: inout AudioEpisode) {
+        
+        // contains id of current audio segment
+        var segmentId: Int
+        
+        // get relevant episodeSection
+        let episodeSection = episode.sections[sectionIndex]
+        
+        // extract stories for headlines and story section
+        let stories = episode.stories
+        
+        // prefix audio
+        segmentId = audioEpisode.addSegment()
+        addAudio(withURL: episodeSection.prefixAudioFile.url, toAudioEpisode: &audioEpisode, toSegmentWithId: segmentId)
+        
+        // create main segment
+        segmentId = audioEpisode.addSegment()
+        
+        switch episodeSection.type {
+        case .standard:
+            // add main text to new segment
+            addAudio(withURL: episodeSection.proposedTextAudioURL, toAudioEpisode: &audioEpisode, toSegmentWithId: segmentId)
+            
+        case .headlines:
+            // go through each story
+            for story in stories {
+                // headline audio
+                addAudio(withURL: story.proposedHeadlineAudioURL, toAudioEpisode: &audioEpisode, toSegmentWithId: segmentId)
+            }
+        case .stories:
+            // go through each story
+            for story in stories {
+                // story audio
+                addAudio(withURL: story.proposedTextAudioURL, toAudioEpisode: &audioEpisode, toSegmentWithId: segmentId)
+            }
+        }
+        
+        
+        // add suffix audio to a new segment
+        segmentId = audioEpisode.addSegment()
+        addAudio(withURL: episodeSection.suffixAudioFile.url, toAudioEpisode: &audioEpisode, toSegmentWithId: segmentId)
+        
+    }
+    
+    
+    /// Adds audio to episode. Creates a new segment if *possibleSegmentId* is nil. Returns the segmentId that was used
+    private func addAudio(withURL audioUrl: URL?, toAudioEpisode audioEpisode: inout AudioEpisode, toSegmentWithId segmentId: Int) {
+                
+        // do we have an audioURL?
+        if let audioUrl {
+            
+            // do we have a file stored behind the URL?
+            if FileManager.default.fileExists(atPath: audioUrl.absoluteString) {
+                    
+                // add audio to episode
+                audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
+            }
+            
+        }
     }
     
 }

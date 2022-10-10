@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CryptoKit
 
 enum EpisodeSectionType: String {
     case standard = "Standard"
@@ -24,9 +25,21 @@ struct EpisodeSection: Identifiable, Hashable {
     var separatorAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     
     var proposedTextAudioURL: URL {
+        
+        // where to store
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let fileName = "\(id.uuidString).wav"
+        
+        // mix type and text into hash
+        let textToBeHashed = "\(type.rawValue)-\(text)"
+        let textAsData = Data(textToBeHashed.utf8)
+        let hashed = SHA256.hash(data: textAsData)
+        let hashString = hashed.compactMap { String(format: "%02x", $0) }.joined()
+
+        // create URL
+        let fileName = "\(hashString).wav"
         let storageURL = documentsDirectory.appendingPathComponent(fileName)
+        
+        // return
         return storageURL
     }
 }
@@ -67,19 +80,44 @@ struct Story: Equatable, Identifiable, Hashable {
     var headline: String
     var storyText: String
     
-    var proposedTextAudioURL: URL {
+
+    var proposedHeadlineAudioURL: URL {
+        // where to store
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let fileName = "\(id.uuidString)_text.wav"
+        
+        // mix type and headline into hash
+        let textToBeHashed = "\(headline)"
+        let textAsData = Data(textToBeHashed.utf8)
+        let hashed = SHA256.hash(data: textAsData)
+        let hashString = hashed.compactMap { String(format: "%02x", $0) }.joined()
+
+        // create URL
+        let fileName = "\(hashString).wav"
         let storageURL = documentsDirectory.appendingPathComponent(fileName)
+        
+        // return
         return storageURL
     }
     
-    var proposedHeadlineAudioURL: URL {
+    var proposedTextAudioURL: URL {
+        
+        // where to store
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let fileName = "\(id.uuidString)_headline.wav"
+        
+        // mix type and storyText into hash
+        let textToBeHashed = "\(storyText)"
+        let textAsData = Data(textToBeHashed.utf8)
+        let hashed = SHA256.hash(data: textAsData)
+        let hashString = hashed.compactMap { String(format: "%02x", $0) }.joined()
+
+        // create URL
+        let fileName = "\(hashString).wav"
         let storageURL = documentsDirectory.appendingPathComponent(fileName)
+        
+        // return
         return storageURL
     }
+    
 }
 
 extension Episode {
