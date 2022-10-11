@@ -143,17 +143,17 @@ extension Episode {
         // start from here
         var episode = Episode(language: .brazilian, creationDate: scriptDate)
         
-        // add introduction
+        // add introduction & headlines
         var introductionSection = episodeTemplate.episodeSections[0]
         introductionSection.text = introTextWithSpeakerToken
         episode.addSection(introductionSection)
 
-        // next, we want the headlines to be read out
-        let headlineSection = episodeTemplate.episodeSections[1]
-        episode.addSection(headlineSection)
+//        // next, we want the headlines to be read out
+//        let headlineSection = episodeTemplate.episodeSections[1]
+//        episode.addSection(headlineSection)
         
         // add story section
-        let storySection = episodeTemplate.episodeSections[2]
+        let storySection = episodeTemplate.episodeSections[1]
         episode.addSection(storySection)
         
         // create stories
@@ -189,7 +189,7 @@ extension Episode {
         episode.stories = stories
         
         // add epilog
-        var epilogSection = episodeTemplate.episodeSections[3]
+        var epilogSection = episodeTemplate.episodeSections[2]
         epilogSection.text = outroText
         episode.addSection(epilogSection)
         

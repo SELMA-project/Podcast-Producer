@@ -145,6 +145,9 @@ class EpisodeViewModel: ObservableObject {
         //var newEpisodeSegments: [BuildingBlock]
         
         for episodeSection in chosenEpisode.sections {
+  
+            let text = episodeSection.text.trimmingCharacters(in: .whitespacesAndNewlines)
+            let textWithReplacedPlaceholders = replacePlaceholders(inText: text)
             
             switch episodeSection.type {
             case .standard:
@@ -165,13 +168,19 @@ class EpisodeViewModel: ObservableObject {
                     blockIdentifier = .unknown
                 }
                 
-                let text = episodeSection.text
-                let textWithReplacedPlaceholders = replacePlaceholders(inText: text)
                 let proposedAudioUrl = episodeSection.proposedTextAudioURL
                 let buildingBlock = BuildingBlock(blockIdentifier: blockIdentifier, audioURL: proposedAudioUrl, text: textWithReplacedPlaceholders)
                 structure.append(buildingBlock)
                 
             case .headlines:
+                
+                // add headlines text if present
+                if textWithReplacedPlaceholders.count > 0 {
+                    let proposedAudioUrl = episodeSection.proposedTextAudioURL
+                    let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: proposedAudioUrl, text: textWithReplacedPlaceholders)
+                    structure.append(buildingBlock)
+                }
+                
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     if story.usedInIntroduction {
                         let storyHeadline = story.headline
@@ -182,6 +191,14 @@ class EpisodeViewModel: ObservableObject {
                 }
 
             case .stories:
+                
+                // add headlines text if present
+                if textWithReplacedPlaceholders.count > 0 {
+                    let proposedAudioUrl = episodeSection.proposedTextAudioURL
+                    let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: proposedAudioUrl, text: textWithReplacedPlaceholders)
+                    structure.append(buildingBlock)
+                }
+                
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     let storyText = story.storyText
                     let proposedTextAudioUrl = story.proposedTextAudioURL

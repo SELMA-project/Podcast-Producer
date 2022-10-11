@@ -380,14 +380,20 @@ extension AudioManager {
         // create main segment
         segmentId = audioEpisode.addSegment()
         
+        // add main text to new segment
+        audioUrl = episodeSection.proposedTextAudioURL
+        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
+        
         // add text audio
         switch episodeSection.type {
         case .standard:
-            // add main text to new segment
-            audioUrl = episodeSection.proposedTextAudioURL
-            audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
+            break
+//            // add main text to new segment
+//            audioUrl = episodeSection.proposedTextAudioURL
+//            audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
             
         case .headlines:
+            
             // filter stories used in headlines
             let storiesUsedForHeadlines = stories.filter{$0.usedInIntroduction == true}
             

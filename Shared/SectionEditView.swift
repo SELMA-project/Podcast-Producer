@@ -16,6 +16,7 @@ struct SectionEditView: View {
     @State var mainAudioFile: AudioManager.AudioFile
     @State var suffixAudioFile: AudioManager.AudioFile
     @State var separatorAudioFile: AudioManager.AudioFile
+    @State var restrictHeadlinesToHighlights: Bool = true
     
     @EnvironmentObject var viewModel: EpisodeViewModel
     
@@ -106,15 +107,13 @@ struct SectionEditView: View {
                 TextField("Name", text: nameBinding)
             }
             
-            if section.type == .standard {
-                Section("Text") {
-                    TextField("Text", text: textBinding, axis: .vertical)
-                }
+            Section("Text") {
+                TextField("Text", text: textBinding, axis: .vertical)
             }
             
             if section.type == .headlines {
                 Section("Configuration") {
-                    Text("Use highights only")
+                    Toggle("Use highlights only", isOn: $restrictHeadlinesToHighlights)
                 }
             }
             
