@@ -343,6 +343,37 @@ class EpisodeViewModel: ObservableObject {
         return episodeIndex
     }
     
+    func updateEpisodeStory(storyId: UUID, newHeadline: String? = nil, newText: String? = nil) {
+        
+        // which episode are we currently working with?
+        let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
+        
+        // associated stories
+        let stories = chosenEpisode.stories
+        
+        // copy them
+        var updatedStories = stories
+        
+        // index for given storyId
+        if let storyIndex = stories.firstIndex(where:  {$0.id == storyId}) {
+            
+            // get a copy the story itself
+            var updatedStory = stories[storyIndex]
+            
+            // update properties if they exist
+            if let newHeadline {updatedStory.headline = newHeadline}
+            if let newText {updatedStory.storyText = newText}
+
+            // update array of stories
+            updatedStories[storyIndex] = updatedStory
+            
+            // update episode with new stories
+            availableEpisodes[chosenEpisodeIndex].stories = updatedStories
+            
+        }
+        
+    }
+    
 
     /// Updates the currently chosen episode. The non-nil attributes of the episode's section, identified by *sectionId*, are updated.
     func updateEpisodeSection(sectionId: UUID,
