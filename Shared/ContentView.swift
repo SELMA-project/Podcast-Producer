@@ -44,6 +44,9 @@ struct Sidebar: View {
     // stores selection. needs to be optional!
     @State private var chosenEpisodeIndex: Int?
     
+    // are we showing the EpisodeCreationSheet?
+    @State private var showingSheet = false
+    
     init(episodeViewModel: EpisodeViewModel) {
         self.episodeViewModel = episodeViewModel
         
@@ -71,26 +74,21 @@ struct Sidebar: View {
         .listStyle(.sidebar)
         .toolbar {
             ToolbarItemGroup(placement: .automatic, content: {
-                
-                Button(action: githubSync) {
-                    Image(systemName: "arrow.triangle.2.circlepath")
-                }
-                
-                Button(action: addEntry) {
+                Button {
+                    showingSheet.toggle()
+                } label: {
                     Image(systemName: "plus")
                 }
+
             })
+        }
+        .sheet(isPresented: $showingSheet) {
+            EpisodeCreationView()
         }
         .navigationTitle("Episodes")
     }
-    
-    private func addEntry() {
-        print("Added entry")
-    }
+
                        
-   private func githubSync() {
-       print("Synchronize with Github")
-   }
 }
 
 
