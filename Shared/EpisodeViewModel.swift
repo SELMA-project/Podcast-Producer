@@ -182,7 +182,7 @@ class EpisodeViewModel: ObservableObject {
                 }
                 
                 for (index, story) in chosenEpisode.stories.enumerated() {
-                    if story.usedInIntroduction {
+                    if story.usedInIntroduction || !chosenEpisode.restrictHeadlinesToHighLights {
                         let storyHeadline = story.headline
                         let proposedHeadlineAudioUrl = story.proposedHeadlineAudioURL
                         let buildingBlock = BuildingBlock(blockIdentifier: .headline, subIndex: index, audioURL: proposedHeadlineAudioUrl, text: storyHeadline, highlightInSummary: story.usedInIntroduction)

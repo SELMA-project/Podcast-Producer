@@ -16,7 +16,7 @@ struct SectionEditView: View {
     @State var mainAudioFile: AudioManager.AudioFile
     @State var suffixAudioFile: AudioManager.AudioFile
     @State var separatorAudioFile: AudioManager.AudioFile
-    @State var restrictHeadlinesToHighlights: Bool = true
+
     
     @EnvironmentObject var viewModel: EpisodeViewModel
     
@@ -102,6 +102,7 @@ struct SectionEditView: View {
              viewModel.updateEpisodeSection(sectionId: section.id, newSeparatorAudioFile: newValue)
          }
         
+            
         Form {
             Section("Name") {
                 TextField("Name", text: nameBinding)
@@ -113,7 +114,8 @@ struct SectionEditView: View {
             
             if section.type == .headlines {
                 Section("Configuration") {
-                    Toggle("Use highlights only", isOn: $restrictHeadlinesToHighlights)
+                    //Toggle("Use highlights only", isOn: $restrictHeadlinesToHighlights)
+                    Toggle("Use highlights only", isOn: $viewModel.availableEpisodes[viewModel.chosenEpisodeIndex].restrictHeadlinesToHighLights)
                 }
             }
             

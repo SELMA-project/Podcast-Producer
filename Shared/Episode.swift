@@ -48,6 +48,7 @@ struct Episode: Identifiable, Hashable {
     var id: UUID = UUID()
     var language: LanguageManager.Language
     var creationDate: Date
+    var restrictHeadlinesToHighLights: Bool
     
     var timeSlot: String {
         return creationDate.formatted(date: .abbreviated, time: .shortened)
@@ -141,7 +142,7 @@ extension Episode {
         let introTextWithSpeakerToken = introText.replacing(speakerName, with: speakerToken)
         
         // start from here
-        var episode = Episode(language: .brazilian, creationDate: scriptDate)
+        var episode = Episode(language: .brazilian, creationDate: scriptDate, restrictHeadlinesToHighLights: true)
         
         // add introduction & headlines
         var introductionSection = episodeTemplate.episodeSections[0]
