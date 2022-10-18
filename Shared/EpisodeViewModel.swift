@@ -343,7 +343,7 @@ class EpisodeViewModel: ObservableObject {
         return episodeIndex
     }
     
-    func updateEpisodeStory(storyId: UUID, newHeadline: String? = nil, newText: String? = nil) {
+    func updateEpisodeStory(storyId: UUID, newHeadline: String? = nil, newText: String? = nil, markAsHighlight: Bool? = nil) {
         
         // which episode are we currently working with?
         let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
@@ -363,7 +363,8 @@ class EpisodeViewModel: ObservableObject {
             // update properties if they exist
             if let newHeadline {updatedStory.headline = newHeadline}
             if let newText {updatedStory.storyText = newText}
-
+            if let markAsHighlight {updatedStory.usedInIntroduction = markAsHighlight}
+            
             // update array of stories
             updatedStories[storyIndex] = updatedStory
             

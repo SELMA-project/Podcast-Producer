@@ -12,6 +12,7 @@ struct StoryEditView: View {
     var story: Story
     @State var headlineText: String
     @State var storyText: String
+    @State var markAsHighlight: Bool
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
@@ -21,6 +22,7 @@ struct StoryEditView: View {
         self.story = story
         _headlineText = State(initialValue: story.headline)
         _storyText = State(initialValue: story.storyText)
+        _markAsHighlight = State(initialValue: story.usedInIntroduction)
     }
     
     
@@ -44,11 +46,26 @@ struct StoryEditView: View {
             episodeViewModel.updateEpisodeStory(storyId: story.id, newText: storyText)
         }
         
+        let markAsHighlightBinding = Binding {
+            self.markAsHighlight
+        } set: { newValue in
+            self.markAsHighlight = newValue
+            
+            // update section in viewModel
+            episodeViewModel.updateEpisodeStory(storyId: story.id, markAsHighlight: markAsHighlight)
+        }
+        
         Form {
+            
+            
             Section("Story headline") {
                 TextField("Headline", text: headlineBinding, axis: .vertical)
             }
-
+            
+            Section("Highlight") {
+                Toggle("Highlight story", isOn: markAsHighlightBinding)
+            }
+            
             Section("Story text") {
                 TextField("Story", text: storyTextBinding, axis: .vertical)
             }
@@ -60,34 +77,34 @@ struct StoryEditView: View {
 }
 
 //struct StoryEditViewOld: View {
-//    
+//
 //    var story: Story
 //    @State var headline: String
-//    
+//
 //    @EnvironmentObject var episodeViewModel: EpisodeViewModel
-//    
+//
 //    //@State private var path: [Story] = []
-//    
+//
 //    init(story: Story) {
 //        self.story = story
 //        _headline = State(initialValue: story.headline)
 //    }
-//    
-//    
+//
+//
 //    var body: some View {
-//        
+//
 //        Form {
 //            Section("Story headline") {
 //                TextField("Headline", text: $headline, axis: .vertical)
 //            }
-//            
+//
 ////            Section("Story text") {
 ////                TextField("Story text", text: $episode.stories[storyNumber].storyText, axis: .vertical)
 ////                //.lineLimit(10)
 ////            }
 //        }
 //        .navigationTitle("Story Editor")
-//        
+//
 //    }
 //}
 
