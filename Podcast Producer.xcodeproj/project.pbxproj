@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C110219F28FFFD93005AA554 /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110219E28FFFD93005AA554 /* SpeechManager.swift */; };
+		C11021A028FFFD93005AA554 /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110219E28FFFD93005AA554 /* SpeechManager.swift */; };
 		C11A239B28F30B300022263B /* EpisodeTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11A239A28F30B300022263B /* EpisodeTemplate.swift */; };
 		C11A239C28F30B300022263B /* EpisodeTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11A239A28F30B300022263B /* EpisodeTemplate.swift */; };
 		C11A239F28F310F20022263B /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11A239E28F310F20022263B /* LanguageManager.swift */; };
@@ -100,6 +102,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C110219E28FFFD93005AA554 /* SpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechManager.swift; sourceTree = "<group>"; };
 		C11A239A28F30B300022263B /* EpisodeTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeTemplate.swift; sourceTree = "<group>"; };
 		C11A239E28F310F20022263B /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		C11DBB5B28DDCC5E003E426D /* 03-sting-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "03-sting-trimmed.caf"; sourceTree = "<group>"; };
@@ -168,6 +171,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C11021A128FFFDAC005AA554 /* Speech */ = {
+			isa = PBXGroup;
+			children = (
+				C110219E28FFFD93005AA554 /* SpeechManager.swift */,
+			);
+			path = Speech;
+			sourceTree = "<group>";
+		};
 		C11A239928F2E0F00022263B /* Obsolete */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,7 +239,9 @@
 				C1756AB928A1198D00FE9F2B /* MainEditView.swift */,
 				C13A712328E880A800BEE304 /* SectionEditView.swift */,
 				C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */,
+				C1BA7EBD28AA92270090573B /* AudioRenderView.swift */,
 				C11A239D28F310D70022263B /* Languages */,
+				C11021A128FFFDAC005AA554 /* Speech */,
 				C1BA7EC628AA9E510090573B /* Selma */,
 				C189696228B371E1005108E7 /* Audio */,
 				C11A239928F2E0F00022263B /* Obsolete */,
@@ -285,7 +298,6 @@
 		C1BA7EC628AA9E510090573B /* Selma */ = {
 			isa = PBXGroup;
 			children = (
-				C1BA7EBD28AA92270090573B /* AudioRenderView.swift */,
 				C11DBB6A28DDEDA2003E426D /* SelmaVoice.swift */,
 				C1BA7EC028AA93280090573B /* AudioManager.swift */,
 				C176AB0D28CF7A3B00E2804D /* AudioEpisode.swift */,
@@ -443,6 +455,7 @@
 				C176AB0E28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
 				C11A239F28F310F20022263B /* LanguageManager.swift in Sources */,
 				C14CEA3028F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
+				C110219F28FFFD93005AA554 /* SpeechManager.swift in Sources */,
 				C1491F6F27AD472700A72AEB /* Persistence.swift in Sources */,
 				C1756ABA28A1198D00FE9F2B /* MainEditView.swift in Sources */,
 				C191062D28FEEBAA00B81231 /* EpisodeCreationView.swift in Sources */,
@@ -474,6 +487,7 @@
 				C176AB0F28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
 				C11A23A028F310F20022263B /* LanguageManager.swift in Sources */,
 				C14CEA3128F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
+				C11021A028FFFD93005AA554 /* SpeechManager.swift in Sources */,
 				C1491F7027AD472700A72AEB /* Persistence.swift in Sources */,
 				C1756ABB28A1198D00FE9F2B /* MainEditView.swift in Sources */,
 				C191062E28FEEBAA00B81231 /* EpisodeCreationView.swift in Sources */,
