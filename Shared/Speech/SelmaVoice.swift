@@ -22,8 +22,9 @@ struct SelmaVoice: Identifiable, Hashable {
     var shortName: String
     var fullName: String
     var selmaName: String
+    var language: String
     
-    enum SelmaVoiceId: CaseIterable  {
+    enum SelmaVoiceId: String, CaseIterable  {
         case leila, roberto, renate, alexandre, bruno, clarissa, marcio, philip
     }
     
@@ -47,41 +48,49 @@ struct SelmaVoice: Identifiable, Hashable {
             shortName = "Roberto"
             fullName = "Roberto Crescenti"
             selmaName = "roberto crescenti"
+            language = "pt-BR"
             
         case .leila:
             shortName = "Leila"
             fullName = "Leila Endruweit"
             selmaName = "leila endruweit"
+            language = "pt-BR"
             
         case .renate:
             shortName = "Renate"
             fullName = "Renate Krieger"
             selmaName = "renate krieger"
+            language = "pt-BR"
 
         case .alexandre:
             shortName = "Alexandre"
             fullName = "Alexandre Schossler"
             selmaName = "alexandre schossler"
+            language = "pt-BR"
 
         case .bruno:
             shortName = "Bruno"
             fullName = "Bruno Lupion"
             selmaName = "bruno lupion"
+            language = "pt-BR"
 
         case .clarissa:
             shortName = "Clarissa"
             fullName = "Clarissa Nehere"
             selmaName = "clarissa nehere"
+            language = "pt-BR"
 
         case .marcio:
             shortName = "Marcio"
             fullName = "Marcio Damascenoe"
             selmaName = "marcio damascenoe"
+            language = "pt-BR"
 
         case .philip:
             shortName = "Philip"
             fullName = "Philip Verminnen"
             selmaName = "philip verminnen"
+            language = "pt-BR"
         }
         
     }

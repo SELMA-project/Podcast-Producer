@@ -25,6 +25,10 @@ struct MainEditView: View {
     @State private var path = NavigationPath() //: [Int] = []
     @State private var chosenSpeaker = SelmaVoice(.leila)
     
+    @State var languageName: String = "Brazilian"
+    @State var journalistName: String = "Leila Endruweit"
+    @State var providerName: String = "SELMA"
+    
     var episodeSections: [EpisodeSection] {
         return episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].sections
     }
@@ -36,21 +40,40 @@ struct MainEditView: View {
     var episodeLanguage: String {
         return episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].language.displayName
     }
+
+
     
     var body: some View {
-        
+                
         NavigationStack(path: $path) {
-            
             
             Form {
                 
-                Section("Speaker") {
+                Section("General") {
+                    
                     HStack {
                         Text("Language")
                         Spacer()
-                        Text(episodeLanguage)
+                        TextField("Name", text: $languageName)
+                            .multilineTextAlignment(.trailing)
                     }
-                    Picker("Name", selection: $episodeViewModel.speaker) {
+                    
+                    HStack {
+                        Text("Narrator")
+                        Spacer()
+                        TextField("Name", text: $journalistName)
+                            .multilineTextAlignment(.trailing)
+                    }
+                }
+                
+                Section("Voice") {
+                    HStack {
+                        Text("Provider")
+                        Spacer()
+                        TextField("Name", text: $providerName)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    Picker("Identifier", selection: $episodeViewModel.speaker) {
                         ForEach(SelmaVoice.allVoices, id: \.self) {speaker in
                             Text(speaker.shortName)
                         }

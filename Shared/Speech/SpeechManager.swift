@@ -9,7 +9,7 @@ import AVFoundation
 import Foundation
 
 class SpeechManager {
-    
+        
     let synthesizer: AVSpeechSynthesizer
     var player: AVAudioPlayer?
     
@@ -33,6 +33,13 @@ class SpeechManager {
         let utterance = AVSpeechUtterance(string: phrase)
         utterance.voice = AVSpeechSynthesisVoice(language: "en")
         synthesizer.speak(utterance)
+    }
+    
+    func printSpeechVoices() {
+        let voices = AVSpeechSynthesisVoice.speechVoices()
+        for voice in voices {
+            print(voice)
+        }
     }
     
     func playFile() {
