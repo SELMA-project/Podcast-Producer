@@ -6,14 +6,16 @@
 //
 
 import Foundation
-
+import Combine
 
 @MainActor
 class EpisodeViewModel: ObservableObject {
     
     @Published var chosenEpisodeIndex: Int = 0
-    @Published var availableEpisodes: [Episode]
+    @Published var availableEpisodes: [Episode] = []
     @Published var episodeAvailable: Bool = false
+    
+    @Published var chosenEpisode: Episode = Episode.standard // default value to avoid making this optional
     
     // the entire episode in segments
     @Published var episodeStructure: [BuildingBlock] = []
@@ -29,7 +31,26 @@ class EpisodeViewModel: ObservableObject {
     
     var episodeUrl: URL = Bundle.main.url(forResource: "no-audio.m4a", withExtension: nil)!
     
+    // this is used in combine
+    private var subscriptions = Set<AnyCancellable>()
+    
     init() {
+        
+        // linking published properties via subscriptions
+        
+        // update $chosenEpisode when chosenEpisodeIndex changes
+        $chosenEpisodeIndex.sink { newEpisodeIndex in
+            if self.availableEpisodes.count > self.chosenEpisodeIndex {
+                self.chosenEpisode = self.availableEpisodes[self.chosenEpisodeIndex]
+            }
+        }.store(in: &subscriptions)
+        
+        // if $chosenEpisode changes, update this episode in the array of availableEpisodes
+        $chosenEpisode.sink { newEpisode in
+            if self.availableEpisodes.count > self.chosenEpisodeIndex {
+                self.availableEpisodes[self.chosenEpisodeIndex] = newEpisode
+            }
+        }.store(in: &subscriptions)
         
         // test available scripts
         ScriptParser.test()
@@ -46,6 +67,11 @@ class EpisodeViewModel: ObservableObject {
             availableEpisodes.append(episode)
         }
 
+        // chose first episode
+        chosenEpisodeIndex = 0
+        
+
+        
     }
     
     // WARNING: Probably obsolete

@@ -46,7 +46,12 @@ struct EpisodeSection: Identifiable, Hashable {
 
 struct Episode: Identifiable, Hashable {
     var id: UUID = UUID()
+    
     var language: LanguageManager.Language
+    var narrator: String
+    
+    var podcastVoice: PodcastVoice
+    
     var creationDate: Date
     var restrictHeadlinesToHighLights: Bool
     
@@ -55,7 +60,6 @@ struct Episode: Identifiable, Hashable {
     }
     
     var stories: [Story] = [Story]()
-    
     
     // the order of all sections
     var sections = [EpisodeSection]()
@@ -68,6 +72,12 @@ struct Episode: Identifiable, Hashable {
     
     func generateBuildingBlocks() -> [BuildingBlock] {
         return [BuildingBlock]()
+    }
+    
+    static var standard: Episode {
+        let podcastVoice = PodcastVoice.proposedVoiceForLocale("en-US")!
+        let episode = Episode(language: .english, narrator: "<no narrator>", podcastVoice: podcastVoice, creationDate: Date(), restrictHeadlinesToHighLights: true)
+        return episode
     }
     
 }
@@ -132,17 +142,19 @@ extension Episode {
         let parser = ScriptParser(name: scriptFilename)
         
         let scriptDate = parser.extractDatetime() ?? Date()
-        let speakerName = parser.extractSpeaker() ?? "<no speaker found>"
+        let narrator = parser.extractSpeaker() ?? "<no speaker found>"
         let introText = parser.extractIntro() ?? "<no intro found>"
         let headlines = parser.extractHeadlines()
         let outroText = parser.extractOutro()  ?? "<no outro found>"
         
         // mark speakerName as token in introText
         let speakerToken = "{speakerName}"
-        let introTextWithSpeakerToken = introText.replacing(speakerName, with: speakerToken)
+        let introTextWithSpeakerToken = introText.replacing(narrator, with: speakerToken)
         
         // start from here
-        var episode = Episode(language: .brazilian, creationDate: scriptDate, restrictHeadlinesToHighLights: true)
+        //var episode = Episode(language: .brazilian, creationDate: scriptDate, restrictHeadlinesToHighLights: true)
+        let podcastVoice = PodcastVoice.voiceForSelmaNarrator(narrator) ?? PodcastVoice.voiceForSelmaNarrator("Leila Endruweit")!
+        var episode = Episode(language: .brazilian, narrator: narrator, podcastVoice: podcastVoice, creationDate: scriptDate, restrictHeadlinesToHighLights: true)
         
         // add introduction & headlines
         var introductionSection = episodeTemplate.episodeSections[0]

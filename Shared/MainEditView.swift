@@ -23,10 +23,10 @@ struct MainEditView: View {
     
     @ObservedObject var episodeViewModel: EpisodeViewModel
     @State private var path = NavigationPath() //: [Int] = []
-    @State private var chosenSpeaker = SelmaVoice(.leila)
+    //@State private var chosenSpeaker = SelmaVoice(.leila)
     
     @State var languageName: String = "Brazilian"
-    @State var journalistName: String = "Leila Endruweit"
+    @State var narratorName: String = "Leila Endruweit"
     @State var providerName: String = "SELMA"
     
     var episodeSections: [EpisodeSection] {
@@ -41,8 +41,6 @@ struct MainEditView: View {
         return episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].language.displayName
     }
 
-
-    
     var body: some View {
                 
         NavigationStack(path: $path) {
@@ -61,7 +59,7 @@ struct MainEditView: View {
                     HStack {
                         Text("Narrator")
                         Spacer()
-                        TextField("Name", text: $journalistName)
+                        TextField("Name", text: $episodeViewModel.chosenEpisode.narrator)
                             .multilineTextAlignment(.trailing)
                     }
                 }

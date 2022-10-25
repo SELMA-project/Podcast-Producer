@@ -30,11 +30,11 @@ struct ContentView: View {
                 }
         }.onAppear {
             //AudioManager.shared.deleteContentsOfDocumentDirectory()
-            Task {
-                SpeechManager.shared.printSpeechVoices()
-                let url = await SpeechManager.shared.saveAVSpeechUtteranceToFile()
-                print("Speech is saved in \(String(describing: url))")
-            }
+            //Task {
+                //SpeechManager.shared.printSpeechVoices()
+                //let url = await SpeechManager.shared.saveAVSpeechUtteranceToFile()
+                //print("Speech is saved in \(String(describing: url))")
+            //}
         }
         .environmentObject(episodeViewModel)
     }
