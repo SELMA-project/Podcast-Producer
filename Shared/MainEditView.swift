@@ -42,10 +42,19 @@ struct MainEditView: View {
     }
     
     /// All voices that share the same provider and language
-    var relatedVoices: [PodcastVoice] {
-        let currentVoice = episodeViewModel.chosenEpisode.podcastVoice
-        let relatedVoices = currentVoice.relatedVoices()
-        return relatedVoices
+    var availableVoices: [PodcastVoice] {
+        let chosenEpisode = episodeViewModel.chosenEpisode
+        let episodeLanguage = chosenEpisode.language
+        let voiceProvider = chosenEpisode.podcastVoice.speechProvider
+        let availableVoices = PodcastVoice.availableVoices(forLanguage: episodeLanguage, forProvider: voiceProvider)
+        return availableVoices
+    }
+    
+    var availableProviders: [PodcastVoice.SpeechProvider] {
+        let chosenEpisode = episodeViewModel.chosenEpisode
+        let episodeLanguage = chosenEpisode.language
+        let availableProviders = PodcastVoice.availableProviders(forLanguage: episodeLanguage)
+        return availableProviders
     }
 
     var body: some View {
@@ -71,14 +80,14 @@ struct MainEditView: View {
                 }
                 
                 Section("Voice") {
-                    HStack {
-                        Text("Provider")
-                        Spacer()
-                        TextField("Name", text: $providerName)
-                            .multilineTextAlignment(.trailing)
-                    }
+                    Picker("Provider", selection: $episodeViewModel.chosenEpisode.podcastVoice.speechProvider) {
+                        ForEach(availableProviders, id: \.self) {provider in
+                            Text(provider.displayName)
+                        }
+                    }.pickerStyle(.menu)
+                    
                     Picker("Identifier", selection: $episodeViewModel.chosenEpisode.podcastVoice) {
-                        ForEach(relatedVoices, id: \.self) {voice in
+                        ForEach(availableVoices, id: \.self) {voice in
                             Text(voice.name)
                         }
                     }.pickerStyle(.menu)

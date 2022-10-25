@@ -144,6 +144,37 @@ struct PodcastVoice: Hashable {
         return returnedVoices
     }
     
+    /// Returns all providers for given language
+    static func availableProviders(forLanguage language: LanguageManager.Language) -> [SpeechProvider] {
+        
+        // init result
+        var providersForLanguage = [SpeechProvider]()
+        
+        for provider in SpeechProvider.allCases {
+            let availableVoices = Self.availableVoices(forLanguage: language, forProvider: provider)
+            if availableVoices.count > 0 {
+                providersForLanguage.append(provider)
+            }
+        }
+        
+        return providersForLanguage
+    }
+    
+    /// Returns all voices for given language and provider
+    static func availableVoices(forLanguage language: LanguageManager.Language, forProvider provider: SpeechProvider) -> [PodcastVoice] {
+        
+        // all voice sdharing the same speech provider
+        let voiceOfSameProvider = PodcastVoice.voicesForSpeechProvider(provider)
+        
+        // filter to find those voices sharing the same language
+        let relatedVoices = voiceOfSameProvider.filter {$0.language == language.isoCode}
+        
+        return relatedVoices
+    }
+
+
+    
+    
     var name: String {
         
         var voiceName: String
@@ -174,15 +205,5 @@ struct PodcastVoice: Hashable {
         return SelmaVoice(selmaVoiceId)
     }
     
-    /// Returns all voices that share the same provider and the same language
-    func relatedVoices() -> [PodcastVoice] {
-        
-        // all voice sdharing the same speech provider
-        let voiceOfSameProvider = PodcastVoice.voicesForSpeechProvider(speechProvider)
-        
-        // filter to find those voices sharing the same language
-        let relatedVoices = voiceOfSameProvider.filter {$0.language == language}
-        
-        return relatedVoices
-    }
+
 }
