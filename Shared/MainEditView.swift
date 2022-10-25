@@ -25,8 +25,8 @@ struct MainEditView: View {
     @State private var path = NavigationPath() //: [Int] = []
     //@State private var chosenSpeaker = SelmaVoice(.leila)
     
-    @State var languageName: String = "Brazilian"
-    @State var narratorName: String = "Leila Endruweit"
+    //@State var languageName: String = "Brazilian"
+    //@State var narratorName: String = "Leila Endruweit"
     @State var providerName: String = "SELMA"
     
     var episodeSections: [EpisodeSection] {
