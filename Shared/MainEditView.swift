@@ -40,6 +40,13 @@ struct MainEditView: View {
     var episodeLanguage: String {
         return episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].language.displayName
     }
+    
+    /// All voices that share the same provider and language
+    var relatedVoices: [PodcastVoice] {
+        let currentVoice = episodeViewModel.chosenEpisode.podcastVoice
+        let relatedVoices = currentVoice.relatedVoices()
+        return relatedVoices
+    }
 
     var body: some View {
                 
@@ -70,9 +77,9 @@ struct MainEditView: View {
                         TextField("Name", text: $providerName)
                             .multilineTextAlignment(.trailing)
                     }
-                    Picker("Identifier", selection: $episodeViewModel.speaker) {
-                        ForEach(SelmaVoice.allVoices, id: \.self) {speaker in
-                            Text(speaker.shortName)
+                    Picker("Identifier", selection: $episodeViewModel.chosenEpisode.podcastVoice) {
+                        ForEach(relatedVoices, id: \.self) {voice in
+                            Text(voice.name)
                         }
                     }.pickerStyle(.menu)
                 }

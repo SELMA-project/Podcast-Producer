@@ -8,22 +8,27 @@
 import Foundation
 import AVFoundation
 
-enum SpeechProvider {
-    case SELMA, Apple, EuroVOX
-}
 
 /// A wrapper to address verious Speecg Providers
 struct PodcastVoice: Hashable {
-    
+        
     var speechProvider: SpeechProvider
     var language: String
     var identifier: String
-    var name: String
+    
+    enum SpeechProvider: String, CaseIterable {
+        case SELMA, Apple, EuroVOX
+        
+        var displayName: String {
+            return rawValue
+        }
+        
+    }
 
     /// A default voice used for initialisation
     static var standard: PodcastVoice {
         let alexVoice = AVSpeechSynthesisVoice(identifier: AVSpeechSynthesisVoiceIdentifierAlex)!
-        let podcastVoice = PodcastVoice(speechProvider: .Apple, language: alexVoice.language, identifier: alexVoice.identifier, name: alexVoice.name)
+        let podcastVoice = PodcastVoice(speechProvider: .Apple, language: alexVoice.language, identifier: alexVoice.identifier)
         return podcastVoice
     }
     
@@ -42,7 +47,7 @@ struct PodcastVoice: Hashable {
         var podcastVoice: PodcastVoice?
         
         if let wantedVoice {
-            podcastVoice = PodcastVoice(speechProvider: .Apple, language: wantedVoice.language, identifier: wantedVoice.identifier, name: wantedVoice.name)
+            podcastVoice = PodcastVoice(speechProvider: .Apple, language: wantedVoice.language, identifier: wantedVoice.identifier)
         }
         
         return podcastVoice
@@ -64,7 +69,7 @@ struct PodcastVoice: Hashable {
         var podcastVoice: PodcastVoice?
         
         if let wantedVoice {
-            podcastVoice = PodcastVoice(speechProvider: .Apple, language: wantedVoice.language, identifier: wantedVoice.identifier, name: wantedVoice.name)
+            podcastVoice = PodcastVoice(speechProvider: .Apple, language: wantedVoice.language, identifier: wantedVoice.identifier)
         }
         
         return podcastVoice
@@ -85,7 +90,7 @@ struct PodcastVoice: Hashable {
         var podcastVoice: PodcastVoice?
         
         if let wantedVoice {
-            podcastVoice = PodcastVoice(speechProvider: .SELMA, language: wantedVoice.language, identifier: wantedVoice.id.rawValue, name: wantedVoice.fullName)
+            podcastVoice = PodcastVoice(speechProvider: .SELMA, language: wantedVoice.language, identifier: wantedVoice.id.rawValue)
         }
         
         return podcastVoice
@@ -116,7 +121,7 @@ struct PodcastVoice: Hashable {
         let nativeVoices = SelmaVoice.allVoices
         
         for nativeVoice in nativeVoices {
-            let voice = PodcastVoice(speechProvider: .SELMA, language: nativeVoice.language, identifier: nativeVoice.id.rawValue, name: nativeVoice.shortName)
+            let voice = PodcastVoice(speechProvider: .SELMA, language: nativeVoice.language, identifier: nativeVoice.id.rawValue)
             returnedVoices.append(voice)
         }
         
@@ -132,12 +137,29 @@ struct PodcastVoice: Hashable {
         let nativeVoices = AVSpeechSynthesisVoice.speechVoices()
         
         for nativeVoice in nativeVoices {
-            let voice = PodcastVoice(speechProvider: .Apple, language: nativeVoice.language, identifier: nativeVoice.identifier, name: nativeVoice.name)
+            let voice = PodcastVoice(speechProvider: .Apple, language: nativeVoice.language, identifier: nativeVoice.identifier)
             returnedVoices.append(voice)
         }
         
         return returnedVoices
     }
+    
+    var name: String {
+        
+        var voiceName: String
+        
+        switch(speechProvider) {
+        case .Apple:
+            voiceName = nativeAppleVoice()?.name ?? "<unknown>"
+        case .SELMA:
+            voiceName = nativeSelmaVoice()?.shortName ?? "<unknown>"
+        default: // TODO: implement EuropVOX and others
+            voiceName = "not implemented"
+        }
+        
+        return voiceName
+    }
+    
     
     /// Returns native Apple voice  for  PodcastVoice instance
     func nativeAppleVoice() -> AVSpeechSynthesisVoice? {
@@ -150,5 +172,17 @@ struct PodcastVoice: Hashable {
         guard self.speechProvider == .SELMA else {return nil}
         guard let selmaVoiceId = SelmaVoice.SelmaVoiceId(rawValue: identifier) else {return nil}
         return SelmaVoice(selmaVoiceId)
+    }
+    
+    /// Returns all voices that share the same provider and the same language
+    func relatedVoices() -> [PodcastVoice] {
+        
+        // all voice sdharing the same speech provider
+        let voiceOfSameProvider = PodcastVoice.voicesForSpeechProvider(speechProvider)
+        
+        // filter to find those voices sharing the same language
+        let relatedVoices = voiceOfSameProvider.filter {$0.language == language}
+        
+        return relatedVoices
     }
 }
