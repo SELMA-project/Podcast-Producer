@@ -20,15 +20,16 @@ class EpisodeViewModel: ObservableObject {
     // the entire episode in segments
     @Published var episodeStructure: [BuildingBlock] = []
     
-    @Published var speaker = SelmaVoice(.leila) {
-        willSet(newValue) {
-            if newValue != speaker {
-                //print("New speaker: \(speaker)")
-                removeAudio(inEpisodeStructure: episodeStructure)
-            }
-        }
-    }
-    
+    // TODO: replace removing Audio part
+//    @Published var speaker = SelmaVoice(.leila) {
+//        willSet(newValue) {
+//            if newValue != speaker {
+//                //print("New speaker: \(speaker)")
+//                removeAudio(inEpisodeStructure: episodeStructure)
+//            }
+//        }
+//    }
+//
     var episodeUrl: URL = Bundle.main.url(forResource: "no-audio.m4a", withExtension: nil)!
     
     // this is used in combine
@@ -271,10 +272,13 @@ class EpisodeViewModel: ObservableObject {
         // the text to render
         let text = buildingBlock.text
         
+        // the speaker identifier
+        let speakerIdentifier = chosenEpisode.podcastVoice.identifier
+        
         // render audio if it does not yet exist
         var success = true
         if !fileExists(atURL: audioURL) {
-            success = await AudioManager.shared.synthesizeAudio(speakerName: speaker.selmaName, text: text, toURL: audioURL)
+            success = await AudioManager.shared.synthesizeAudio(speakerName: speakerIdentifier, text: text, toURL: audioURL)
         }
         
 
@@ -493,7 +497,8 @@ class EpisodeViewModel: ObservableObject {
     
     /// Replaces all place holders
     private func replacePlaceholders(inText text: String) -> String {
-        let newText = text.replacing("{speakerName}", with: speaker.fullName)
+        let narratorName = chosenEpisode.podcastVoice.name
+        let newText = text.replacing("{speakerName}", with: narratorName)
         return newText
     }
 }
