@@ -20,12 +20,14 @@ struct PodcastVoice: Hashable {
     var identifier: String
     var name: String
 
+    /// A default voice used for initialisation
     static var standard: PodcastVoice {
         let alexVoice = AVSpeechSynthesisVoice(identifier: AVSpeechSynthesisVoiceIdentifierAlex)!
         let podcastVoice = PodcastVoice(speechProvider: .Apple, language: alexVoice.language, identifier: alexVoice.identifier, name: alexVoice.name)
         return podcastVoice
     }
     
+    /// Proposes a voice based on the given locale
     static func proposedVoiceForLocale(_ languageLocale: String) -> PodcastVoice? {
         
         var wantedVoice: AVSpeechSynthesisVoice?
@@ -47,7 +49,7 @@ struct PodcastVoice: Hashable {
     }
     
     
-    
+    /// Returns an Apple voice with the given name
     static func voiceForAppleName(_ name: String) -> PodcastVoice? {
         
         var wantedVoice: AVSpeechSynthesisVoice?
@@ -68,6 +70,7 @@ struct PodcastVoice: Hashable {
         return podcastVoice
     }
     
+    // Returns a SELMA voice for the given name
     static func voiceForSelmaNarrator(_ fullName: String) -> PodcastVoice? {
         
         var wantedVoice: SelmaVoice?
@@ -88,8 +91,8 @@ struct PodcastVoice: Hashable {
         return podcastVoice
     }
     
-    
-    static func voicesForSpeechSpeechSystem(_ speechProvider: SpeechProvider) -> [PodcastVoice] {
+    /// Retuns all voice for given provider
+    static func voicesForSpeechProvider(_ speechProvider: SpeechProvider) -> [PodcastVoice] {
         
         switch speechProvider {
         case .Apple: return Self.appleVoices()
@@ -104,6 +107,7 @@ struct PodcastVoice: Hashable {
         return []
     }
         
+    /// All available SELMA voices
     static func selmaVoices() -> [PodcastVoice] {
         
         // prepare result
@@ -119,6 +123,7 @@ struct PodcastVoice: Hashable {
         return returnedVoices
     }
     
+    /// All available Apple voices
     static func appleVoices() -> [PodcastVoice] {
         
         // prepare result
@@ -134,11 +139,13 @@ struct PodcastVoice: Hashable {
         return returnedVoices
     }
     
+    /// Returns native Apple voice  for  PodcastVoice instance
     func nativeAppleVoice() -> AVSpeechSynthesisVoice? {
         guard self.speechProvider == .Apple else {return nil}
         return AVSpeechSynthesisVoice(identifier: self.identifier)
     }
     
+    /// Returns native SELMA voice  for PodcastVoice instance
     func nativeSelmaVoice() -> SelmaVoice? {
         guard self.speechProvider == .SELMA else {return nil}
         guard let selmaVoiceId = SelmaVoice.SelmaVoiceId(rawValue: identifier) else {return nil}
