@@ -49,12 +49,11 @@ struct MainEditView: View {
                 
                 Section("General") {
                     
-                    HStack {
-                        Text("Language")
-                        Spacer()
-                        TextField("Name", text: $languageName)
-                            .multilineTextAlignment(.trailing)
-                    }
+                    Picker("Language", selection: $episodeViewModel.chosenEpisode.language) {
+                        ForEach(LanguageManager.Language.allCases, id: \.self) {language in
+                            Text(language.displayName)
+                        }
+                    }.pickerStyle(.menu)
                     
                     HStack {
                         Text("Narrator")

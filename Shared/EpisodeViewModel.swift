@@ -70,8 +70,6 @@ class EpisodeViewModel: ObservableObject {
         // chose first episode
         chosenEpisodeIndex = 0
         
-
-        
     }
     
     // WARNING: Probably obsolete
