@@ -19,18 +19,19 @@ struct EpisodeSection: Identifiable, Hashable {
     var type: EpisodeSectionType
     var name: String
     var text: String = ""
+    var textAudioURL: URL?
     var prefixAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     var mainAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     var suffixAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     var separatorAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     
-    var proposedTextAudioURL: URL {
+    func textAudioURL(forVoiceIdentifier voiceIndentifier: String) -> URL {
         
         // where to store
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         
         // mix type and text into hash
-        let textToBeHashed = "\(type.rawValue)-\(text)"
+        let textToBeHashed = "\(type.rawValue)-\(voiceIndentifier)-\(text)"
         let textAsData = Data(textToBeHashed.utf8)
         let hashed = SHA256.hash(data: textAsData)
         let hashString = hashed.compactMap { String(format: "%02x", $0) }.joined()
@@ -39,7 +40,7 @@ struct EpisodeSection: Identifiable, Hashable {
         let fileName = "\(hashString).wav"
         let storageURL = documentsDirectory.appendingPathComponent(fileName)
         
-        // return
+        // return result
         return storageURL
     }
 }

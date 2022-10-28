@@ -195,7 +195,7 @@ extension AudioManager {
     
     func createAudioEpisodeBasedOnEpisode(_ episode: Episode) -> URL {
         
-        // create entrie episode
+        // create entire episode
         var audioEpisode = AudioEpisode()
         
         // go through episode sections and process them
@@ -232,7 +232,8 @@ extension AudioManager {
         segmentId = audioEpisode.addSegment()
         
         // add main text to new segment
-        audioUrl = episodeSection.proposedTextAudioURL
+        let voiceIdentifier = episode.podcastVoice.identifier
+        audioUrl = episodeSection.textAudioURL(forVoiceIdentifier: voiceIdentifier)
         audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
         
         // add text audio

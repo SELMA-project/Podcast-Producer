@@ -169,6 +169,9 @@ class EpisodeViewModel: ObservableObject {
         
         //var newEpisodeSegments: [BuildingBlock]
         
+        // the speaker identifier
+        let voiceIdentifier = chosenEpisode.podcastVoice.identifier
+        
         for episodeSection in chosenEpisode.sections {
   
             let text = episodeSection.text.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -179,7 +182,7 @@ class EpisodeViewModel: ObservableObject {
                 let name = episodeSection.name
                 
                 // FIXME: this should become obsolete
-                // deduce block identifier form name
+                // deduce block identifier from name
                 let blockIdentifier: BlockIdentifier
                 switch name {
                 
@@ -193,16 +196,18 @@ class EpisodeViewModel: ObservableObject {
                     blockIdentifier = .unknown
                 }
                 
-                let proposedAudioUrl = episodeSection.proposedTextAudioURL
-                let buildingBlock = BuildingBlock(blockIdentifier: blockIdentifier, audioURL: proposedAudioUrl, text: textWithReplacedPlaceholders)
+                // get the section's audio URL based on the voice Id
+                let textAudioURL = episodeSection.textAudioURL(forVoiceIdentifier: voiceIdentifier)
+                
+                let buildingBlock = BuildingBlock(blockIdentifier: blockIdentifier, audioURL: textAudioURL, text: textWithReplacedPlaceholders)
                 structure.append(buildingBlock)
                 
             case .headlines:
                 
                 // add headlines text if present
                 if textWithReplacedPlaceholders.count > 0 {
-                    let proposedAudioUrl = episodeSection.proposedTextAudioURL
-                    let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: proposedAudioUrl, text: textWithReplacedPlaceholders)
+                    let textAudioURL = episodeSection.textAudioURL(forVoiceIdentifier: voiceIdentifier)
+                    let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: textAudioURL, text: textWithReplacedPlaceholders)
                     structure.append(buildingBlock)
                 }
                 
@@ -219,8 +224,8 @@ class EpisodeViewModel: ObservableObject {
                 
                 // add headlines text if present
                 if textWithReplacedPlaceholders.count > 0 {
-                    let proposedAudioUrl = episodeSection.proposedTextAudioURL
-                    let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: proposedAudioUrl, text: textWithReplacedPlaceholders)
+                    let textAudioURL = episodeSection.textAudioURL(forVoiceIdentifier: voiceIdentifier)
+                    let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: textAudioURL, text: textWithReplacedPlaceholders)
                     structure.append(buildingBlock)
                 }
                 
@@ -306,7 +311,7 @@ class EpisodeViewModel: ObservableObject {
         // early return if no index was found (should not happen)
         guard let currentIndex = currentIndex else {return}
         
-        // early exit if not audio data is available (should not happen)
+        // early exit if no audio data is available (should not happen)
         guard let audioUrl = audioSegment.audioURL else {return}
 
         // in any case, stop the currently played audio

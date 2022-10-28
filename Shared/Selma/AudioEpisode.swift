@@ -87,7 +87,7 @@ struct AudioSegmentTrack {
         // the sourceFile determines the sample rate
         self.sampleRate = sourceFile.processingFormat.sampleRate
         
-        // by default the number of played back samples corresponds to the audio file'S length
+        // by default the number of played back samples corresponds to the audio file's length
         self.numberOfAudioSamples = AVAudioFrameCount(sourceFile.length)
         
         // however, if we set an explicit duration, we use that

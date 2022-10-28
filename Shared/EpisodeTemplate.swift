@@ -38,7 +38,7 @@ extension EpisodeTemplate {
 //                                      mainAudioFile: mainAudioFile,
 //                                      suffixAudioFile: suffixAudioFile)
         
-        // section 0 -> Inbtroduction & Headlines
+        // section 0 -> Introduction & Headlines
         prefixAudioFile = AudioManager.audioFileForDisplayName("Intro Start")
         mainAudioFile = AudioManager.audioFileForDisplayName("Intro Main")
         suffixAudioFile = AudioManager.audioFileForDisplayName("Intro End")
