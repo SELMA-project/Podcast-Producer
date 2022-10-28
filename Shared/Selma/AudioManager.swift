@@ -25,13 +25,19 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         super.init()
     }
     
-    func synthesizeAudio(speakerName: String?, text: String?, toURL fileURL: URL) async -> Bool {
+    func synthesizeAudio(podcastVoice: PodcastVoice, text: String?, toURL fileURL: URL) async -> Bool {
+        
+        // TODO: extend for other voices
+        guard podcastVoice.speechProvider == .SELMA else {return false}
         
         var success = false
-        let speakerName = speakerName ?? "leila endruweit"
+        
+        let selmaVoice = podcastVoice.nativeSelmaVoice()
+        let selmaVoiceIdentifier = selmaVoice?.selmaName ?? "leila endruweit"
+        
         let text = text ?? "Olá, hoje é quinta-feira, três de setembro de 2020."
         
-        let audioData = await selmaAPI.renderAudio(speakerName: speakerName, text: text)
+        let audioData = await selmaAPI.renderAudio(speakerName: selmaVoiceIdentifier, text: text)
         
         if let data = audioData {            
             do {
@@ -233,7 +239,7 @@ extension AudioManager {
         
         // add main text to new segment
         let voiceIdentifier = episode.podcastVoice.identifier
-        audioUrl = episodeSection.textAudioURL(forVoiceIdentifier: voiceIdentifier)
+        audioUrl = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: episodeSection.text)
         audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
         
         // add text audio
@@ -254,7 +260,7 @@ extension AudioManager {
             // go through each headline story
             for (storyIndex, story) in storiesUsedForHeadlines.enumerated() {
                 // headline audio
-                audioUrl = story.proposedHeadlineAudioURL
+                audioUrl = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: story.headline)
                 audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
                 
                 // add separator, except for the last headline
@@ -268,7 +274,7 @@ extension AudioManager {
             // go through each story
             for (storyIndex, story) in stories.enumerated() {
                 // story audio
-                audioUrl = story.proposedTextAudioURL
+                audioUrl = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: story.storyText)
                 audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
                 
                 // add separator, except for the last story

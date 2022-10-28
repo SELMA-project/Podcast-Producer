@@ -319,8 +319,8 @@
 		C1F00B9E290BDA570031EBAA /* Episode */ = {
 			isa = PBXGroup;
 			children = (
-				C11A239A28F30B300022263B /* EpisodeTemplate.swift */,
 				C1543A0E28A2A69C00427ED0 /* Episode.swift */,
+				C11A239A28F30B300022263B /* EpisodeTemplate.swift */,
 				C13A711D28E85B5B00BEE304 /* BuildingBlock.swift */,
 			);
 			path = Episode;

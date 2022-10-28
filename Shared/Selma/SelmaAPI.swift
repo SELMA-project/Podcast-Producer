@@ -12,9 +12,9 @@ class SelmaAPI {
     func renderAudio(speakerName: String, text: String) async -> Data? {
         
         // path on server
-        let path = "/x:selmaproject:tts:777:5002/api/tts" // v1
+        //let path = "/x:selmaproject:tts:777:5002/api/tts" // v1
         //let path = "/x:selmaproject:tts:888:5002/api/tts" // v2, instable
-        //let path = "/y:selmaproject:tts:888:5002/api/tts" // v2 alternative
+        let path = "/y:selmaproject:tts:888:5002/api/tts" // v2 alternative
         
         
         // query parameters

@@ -31,6 +31,19 @@ struct BuildingBlock: Identifiable, Hashable {
     var audioURL: URL?
     var text: String
     var highlightInSummary: Bool = false
-    var audioIsRendered = false
+    
+    // audio is rendered if there exists a file at the expeded audioURL
+    var audioIsRendered: Bool {
+        
+        var isRendered = false
+        
+        if let audioURL {
+            if FileManager.default.fileExists(atPath: audioURL.path) {
+                isRendered = true
+            }
+        }
+        
+        return isRendered
+    }
 }
 

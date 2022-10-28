@@ -196,8 +196,8 @@ class EpisodeViewModel: ObservableObject {
                     blockIdentifier = .unknown
                 }
                 
-                // get the section's audio URL based on the voice Id
-                let textAudioURL = episodeSection.textAudioURL(forVoiceIdentifier: voiceIdentifier)
+                // get the section's audio URL based on the voice Id, the section type and the text
+                let textAudioURL = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: episodeSection.text)
                 
                 let buildingBlock = BuildingBlock(blockIdentifier: blockIdentifier, audioURL: textAudioURL, text: textWithReplacedPlaceholders)
                 structure.append(buildingBlock)
@@ -206,7 +206,7 @@ class EpisodeViewModel: ObservableObject {
                 
                 // add headlines text if present
                 if textWithReplacedPlaceholders.count > 0 {
-                    let textAudioURL = episodeSection.textAudioURL(forVoiceIdentifier: voiceIdentifier)
+                    let textAudioURL = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: episodeSection.text)
                     let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: textAudioURL, text: textWithReplacedPlaceholders)
                     structure.append(buildingBlock)
                 }
@@ -214,7 +214,7 @@ class EpisodeViewModel: ObservableObject {
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     if story.usedInIntroduction || !chosenEpisode.restrictHeadlinesToHighLights {
                         let storyHeadline = story.headline
-                        let proposedHeadlineAudioUrl = story.proposedHeadlineAudioURL
+                        let proposedHeadlineAudioUrl = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: storyHeadline)
                         let buildingBlock = BuildingBlock(blockIdentifier: .headline, subIndex: index, audioURL: proposedHeadlineAudioUrl, text: storyHeadline, highlightInSummary: story.usedInIntroduction)
                         structure.append(buildingBlock)
                     }
@@ -224,14 +224,14 @@ class EpisodeViewModel: ObservableObject {
                 
                 // add headlines text if present
                 if textWithReplacedPlaceholders.count > 0 {
-                    let textAudioURL = episodeSection.textAudioURL(forVoiceIdentifier: voiceIdentifier)
+                    let textAudioURL = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: episodeSection.text)
                     let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: textAudioURL, text: textWithReplacedPlaceholders)
                     structure.append(buildingBlock)
                 }
                 
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     let storyText = story.storyText
-                    let proposedTextAudioUrl = story.proposedTextAudioURL
+                    let proposedTextAudioUrl = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: storyText)
                     let buildingBlock = BuildingBlock(blockIdentifier: .story, subIndex: index, audioURL: proposedTextAudioUrl, text: storyText)
                     structure.append(buildingBlock)
                 }
@@ -278,24 +278,25 @@ class EpisodeViewModel: ObservableObject {
         let text = buildingBlock.text
         
         // the speaker identifier
-        let speakerIdentifier = chosenEpisode.podcastVoice.identifier
+        let podcastVoice = chosenEpisode.podcastVoice
         
         // render audio if it does not yet exist
         var success = true
         if !fileExists(atURL: audioURL) {
-            success = await AudioManager.shared.synthesizeAudio(speakerName: speakerIdentifier, text: text, toURL: audioURL)
+            success = await AudioManager.shared.synthesizeAudio(podcastVoice: podcastVoice, text: text, toURL: audioURL)
         }
         
-
-        
-        // mark block as rendered
-        if success {
-            //episodeStructure[index].audioURL = audioURL
-            //updatedBuildingBlock.audioURL = audioURL
-            updatedBuildingBlock.audioIsRendered = true
-        } else {
+        if !success {
             print("No audio data available.")
         }
+
+//        if success {
+//            //episodeStructure[index].audioURL = audioURL
+//            //updatedBuildingBlock.audioURL = audioURL
+//            //updatedBuildingBlock.audioIsRendered = true
+//        } else {
+//
+//        }
         
         return updatedBuildingBlock
     }
@@ -488,7 +489,7 @@ class EpisodeViewModel: ObservableObject {
                 try? FileManager.default.removeItem(at: audioURL)
                 
                 // mark audio as not rendered
-                newSegment.audioIsRendered = false
+                //newSegment.audioIsRendered = false
             }
             
             // store in new episode structure
