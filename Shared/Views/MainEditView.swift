@@ -21,7 +21,7 @@ extension View {
 
 struct MainEditView: View {
     
-    @ObservedObject var episodeViewModel: EpisodeViewModel
+    @EnvironmentObject var episodeViewModel: EpisodeViewModel
     @State private var path = NavigationPath() //: [Int] = []
     //@State private var chosenSpeaker = SelmaVoice(.leila)
     
@@ -123,6 +123,6 @@ struct MainEditView: View {
 struct MainEditView_Previews: PreviewProvider {
     
     static var previews: some View {
-        MainEditView(episodeViewModel: EpisodeViewModel())
+        MainEditView()
     }
 }

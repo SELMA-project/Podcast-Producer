@@ -18,13 +18,13 @@ struct ContentView: View {
         NavigationSplitView {
             Sidebar(episodeViewModel: episodeViewModel)
         } detail: {
-            MainEditView(episodeViewModel: episodeViewModel)
+            MainEditView()
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {
                         
                         // present Audio Render View
                         NavigationLink("Create Audio") {
-                            AudioRenderView(episodeViewModel: episodeViewModel)
+                            AudioRenderView()
                         }
                     }
                 }

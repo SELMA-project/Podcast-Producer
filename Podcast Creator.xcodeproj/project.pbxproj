@@ -235,16 +235,9 @@
 			isa = PBXGroup;
 			children = (
 				C1491F5827AD472600A72AEB /* Podcast_ProducerApp.swift */,
-				C11A239A28F30B300022263B /* EpisodeTemplate.swift */,
-				C1543A0E28A2A69C00427ED0 /* Episode.swift */,
-				C13A711D28E85B5B00BEE304 /* BuildingBlock.swift */,
+				C1F00B9E290BDA570031EBAA /* Episode */,
 				C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */,
-				C1491F5927AD472600A72AEB /* ContentView.swift */,
-				C191062C28FEEBAA00B81231 /* EpisodeCreationView.swift */,
-				C1756AB928A1198D00FE9F2B /* MainEditView.swift */,
-				C13A712328E880A800BEE304 /* SectionEditView.swift */,
-				C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */,
-				C1BA7EBD28AA92270090573B /* AudioRenderView.swift */,
+				C1F00B9D290BDA3F0031EBAA /* Views */,
 				C11A239D28F310D70022263B /* Languages */,
 				C11021A128FFFDAC005AA554 /* Speech */,
 				C1BA7EC628AA9E510090573B /* Selma */,
@@ -308,6 +301,29 @@
 				C1BA7EC728AB82300090573B /* SelmaAPI.swift */,
 			);
 			path = Selma;
+			sourceTree = "<group>";
+		};
+		C1F00B9D290BDA3F0031EBAA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C1491F5927AD472600A72AEB /* ContentView.swift */,
+				C191062C28FEEBAA00B81231 /* EpisodeCreationView.swift */,
+				C1756AB928A1198D00FE9F2B /* MainEditView.swift */,
+				C13A712328E880A800BEE304 /* SectionEditView.swift */,
+				C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */,
+				C1BA7EBD28AA92270090573B /* AudioRenderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C1F00B9E290BDA570031EBAA /* Episode */ = {
+			isa = PBXGroup;
+			children = (
+				C11A239A28F30B300022263B /* EpisodeTemplate.swift */,
+				C1543A0E28A2A69C00427ED0 /* Episode.swift */,
+				C13A711D28E85B5B00BEE304 /* BuildingBlock.swift */,
+			);
+			path = Episode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

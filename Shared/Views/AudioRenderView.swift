@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AudioRenderView: View {
     
-    @ObservedObject var episodeViewModel: EpisodeViewModel
+    @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
     // observe whether all episodeSegments have audioData -> episode can be built
     var allAudioIsAvailable: Bool {
@@ -107,6 +107,6 @@ struct PlayButton: View {
 
 struct AudioRenderView_Previews: PreviewProvider {
     static var previews: some View {
-        AudioRenderView(episodeViewModel: EpisodeViewModel())
+        AudioRenderView()
     }
 }
