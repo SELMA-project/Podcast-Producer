@@ -101,6 +101,8 @@
 		C1BA7EC228AA93280090573B /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BA7EC028AA93280090573B /* AudioManager.swift */; };
 		C1BA7EC828AB82300090573B /* SelmaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BA7EC728AB82300090573B /* SelmaAPI.swift */; };
 		C1BA7EC928AB82300090573B /* SelmaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BA7EC728AB82300090573B /* SelmaAPI.swift */; };
+		C1C97196290C2E66008DACB3 /* GithubCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C97195290C2E66008DACB3 /* GithubCreationView.swift */; };
+		C1C97197290C2E66008DACB3 /* GithubCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C97195290C2E66008DACB3 /* GithubCreationView.swift */; };
 		C1F5602728D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
 		C1F5602828D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
 /* End PBXBuildFile section */
@@ -156,6 +158,7 @@
 		C1BA7EBD28AA92270090573B /* AudioRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRenderView.swift; sourceTree = "<group>"; };
 		C1BA7EC028AA93280090573B /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		C1BA7EC728AB82300090573B /* SelmaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelmaAPI.swift; sourceTree = "<group>"; };
+		C1C97195290C2E66008DACB3 /* GithubCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubCreationView.swift; sourceTree = "<group>"; };
 		C1F5602628D4765900E573E2 /* no-audio.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "no-audio.m4a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -312,6 +315,7 @@
 				C1491F5927AD472600A72AEB /* ContentView.swift */,
 				C191062C28FEEBAA00B81231 /* EpisodeCreationView.swift */,
 				C14B1E6E290C2801000748FA /* TemplateCreationView.swift */,
+				C1C97195290C2E66008DACB3 /* GithubCreationView.swift */,
 				C1756AB928A1198D00FE9F2B /* MainEditView.swift */,
 				C13A712328E880A800BEE304 /* SectionEditView.swift */,
 				C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */,
@@ -494,6 +498,7 @@
 				C11DBB6B28DDEDA2003E426D /* SelmaVoice.swift in Sources */,
 				C14B1E6F290C2801000748FA /* TemplateCreationView.swift in Sources */,
 				C14CEA2D28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift in Sources */,
+				C1C97196290C2E66008DACB3 /* GithubCreationView.swift in Sources */,
 				C1262F8F28E323DF00F3C725 /* ScriptParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -528,6 +533,7 @@
 				C11DBB6C28DDEDA2003E426D /* SelmaVoice.swift in Sources */,
 				C14B1E70290C2801000748FA /* TemplateCreationView.swift in Sources */,
 				C14CEA2E28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift in Sources */,
+				C1C97197290C2E66008DACB3 /* GithubCreationView.swift in Sources */,
 				C1262F9028E323DF00F3C725 /* ScriptParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

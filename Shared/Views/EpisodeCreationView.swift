@@ -36,7 +36,7 @@ struct EpisodeCreationView: View {
                     TemplateCreationView()
 
                 case .github:
-                    Text("Github")
+                    GithubCreationView()
                     
                 case .translation:
                     Text("Translation")
