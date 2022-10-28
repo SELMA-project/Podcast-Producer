@@ -137,8 +137,8 @@
 		C1491F5927AD472600A72AEB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C1491F5A27AD472600A72AEB /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		C1491F5B27AD472700A72AEB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C1491F6027AD472700A72AEB /* Podcast Producer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Podcast Producer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C1491F6627AD472700A72AEB /* Podcast Producer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Podcast Producer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1491F6027AD472700A72AEB /* Podcast Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Podcast Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1491F6627AD472700A72AEB /* Podcast Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Podcast Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1491F6827AD472700A72AEB /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardSectionEditView.swift; sourceTree = "<group>"; };
 		C14CEA2C28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesSectionEditView.swift; sourceTree = "<group>"; };
@@ -262,8 +262,8 @@
 		C1491F6127AD472700A72AEB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C1491F6027AD472700A72AEB /* Podcast Producer.app */,
-				C1491F6627AD472700A72AEB /* Podcast Producer.app */,
+				C1491F6027AD472700A72AEB /* Podcast Creator.app */,
+				C1491F6627AD472700A72AEB /* Podcast Creator.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -313,9 +313,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C1491F5F27AD472700A72AEB /* Podcast Producer (iOS) */ = {
+		C1491F5F27AD472700A72AEB /* Podcast Creator (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C1491F7527AD472700A72AEB /* Build configuration list for PBXNativeTarget "Podcast Producer (iOS)" */;
+			buildConfigurationList = C1491F7527AD472700A72AEB /* Build configuration list for PBXNativeTarget "Podcast Creator (iOS)" */;
 			buildPhases = (
 				C1491F5C27AD472700A72AEB /* Sources */,
 				C1491F5D27AD472700A72AEB /* Frameworks */,
@@ -325,14 +325,14 @@
 			);
 			dependencies = (
 			);
-			name = "Podcast Producer (iOS)";
+			name = "Podcast Creator (iOS)";
 			productName = "Podcast Producer (iOS)";
-			productReference = C1491F6027AD472700A72AEB /* Podcast Producer.app */;
+			productReference = C1491F6027AD472700A72AEB /* Podcast Creator.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C1491F6527AD472700A72AEB /* Podcast Producer (macOS) */ = {
+		C1491F6527AD472700A72AEB /* Podcast Creator (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C1491F7827AD472700A72AEB /* Build configuration list for PBXNativeTarget "Podcast Producer (macOS)" */;
+			buildConfigurationList = C1491F7827AD472700A72AEB /* Build configuration list for PBXNativeTarget "Podcast Creator (macOS)" */;
 			buildPhases = (
 				C1491F6227AD472700A72AEB /* Sources */,
 				C1491F6327AD472700A72AEB /* Frameworks */,
@@ -342,9 +342,9 @@
 			);
 			dependencies = (
 			);
-			name = "Podcast Producer (macOS)";
+			name = "Podcast Creator (macOS)";
 			productName = "Podcast Producer (macOS)";
-			productReference = C1491F6627AD472700A72AEB /* Podcast Producer.app */;
+			productReference = C1491F6627AD472700A72AEB /* Podcast Creator.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -378,8 +378,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C1491F5F27AD472700A72AEB /* Podcast Producer (iOS) */,
-				C1491F6527AD472700A72AEB /* Podcast Producer (macOS) */,
+				C1491F5F27AD472700A72AEB /* Podcast Creator (iOS) */,
+				C1491F6527AD472700A72AEB /* Podcast Creator (macOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -648,7 +648,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.artisticengines.Podcast-Producer";
-				PRODUCT_NAME = "Podcast Producer";
+				PRODUCT_NAME = "Podcast Creator";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -678,7 +678,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.artisticengines.Podcast-Producer";
-				PRODUCT_NAME = "Podcast Producer";
+				PRODUCT_NAME = "Podcast Creator";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -711,7 +711,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.artisticengines.Podcast-Producer";
-				PRODUCT_NAME = "Podcast Producer";
+				PRODUCT_NAME = "Podcast Creator";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -742,7 +742,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.artisticengines.Podcast-Producer";
-				PRODUCT_NAME = "Podcast Producer";
+				PRODUCT_NAME = "Podcast Creator";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -761,7 +761,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C1491F7527AD472700A72AEB /* Build configuration list for PBXNativeTarget "Podcast Producer (iOS)" */ = {
+		C1491F7527AD472700A72AEB /* Build configuration list for PBXNativeTarget "Podcast Creator (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C1491F7627AD472700A72AEB /* Debug */,
@@ -770,7 +770,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C1491F7827AD472700A72AEB /* Build configuration list for PBXNativeTarget "Podcast Producer (macOS)" */ = {
+		C1491F7827AD472700A72AEB /* Build configuration list for PBXNativeTarget "Podcast Creator (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C1491F7927AD472700A72AEB /* Debug */,
