@@ -365,7 +365,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C1491F5427AD472500A72AEB /* Build configuration list for PBXProject "Podcast Producer" */;
+			buildConfigurationList = C1491F5427AD472500A72AEB /* Build configuration list for PBXProject "Podcast Creator" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -752,7 +752,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C1491F5427AD472500A72AEB /* Build configuration list for PBXProject "Podcast Producer" */ = {
+		C1491F5427AD472500A72AEB /* Build configuration list for PBXProject "Podcast Creator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C1491F7327AD472700A72AEB /* Debug */,
