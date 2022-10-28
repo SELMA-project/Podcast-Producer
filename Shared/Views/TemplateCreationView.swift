@@ -31,9 +31,9 @@ struct TemplateCreationView: View {
         VStack(alignment: .leading) {
             Text("Template").font(.title2)
             Picker("Template", selection: $template) {
-                Text("Boletim de Notícias")
-                Text("Deutschlandfunk Nachrichten")
-                Text("English")
+                Text("Boletim de Notícias").tag("Boletim de Notícias")
+                Text("Deutschlandfunk Nachrichten").tag("Deutschlandfunk Nachrichten")
+                Text("Spanish Noticias").tag("Spanish Noticias")
             }
         }.padding(.top)
         
