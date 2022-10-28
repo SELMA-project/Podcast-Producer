@@ -418,7 +418,7 @@ class EpisodeViewModel: ObservableObject {
     /// Replaces all place holders
     private func replacePlaceholders(inText text: String) -> String {
         let narratorName = chosenEpisode.narrator
-        let newText = text.replacing("{speakerName}", with: narratorName)
+        let newText = text.replacing("{narrator}", with: narratorName)
         return newText
     }
 }

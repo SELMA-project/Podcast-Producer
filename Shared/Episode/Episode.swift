@@ -110,7 +110,7 @@ extension Episode {
         let outroText = parser.extractOutro()  ?? "<no outro found>"
         
         // mark speakerName as token in introText
-        let speakerToken = "{speakerName}"
+        let speakerToken = "{narrator}"
         let introTextWithSpeakerToken = introText.replacing(narrator, with: speakerToken)
         
         // start from here
