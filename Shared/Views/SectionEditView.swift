@@ -32,7 +32,7 @@ struct SectionEditView: View {
     }
     
     var stories: [Story] {
-        return viewModel.availableEpisodes[viewModel.chosenEpisodeIndex].stories
+        return viewModel.chosenEpisode.stories
     }
     
     /// The text displayed under the audio section
@@ -115,7 +115,7 @@ struct SectionEditView: View {
             if section.type == .headlines {
                 Section("Configuration") {
                     //Toggle("Use highlights only", isOn: $restrictHeadlinesToHighlights)
-                    Toggle("Use highlights only", isOn: $viewModel.availableEpisodes[viewModel.chosenEpisodeIndex].restrictHeadlinesToHighLights)
+                    Toggle("Use highlights only", isOn: $viewModel.chosenEpisode.restrictHeadlinesToHighLights)
                 }
             }
             
