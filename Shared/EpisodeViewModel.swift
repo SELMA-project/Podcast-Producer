@@ -73,88 +73,20 @@ class EpisodeViewModel: ObservableObject {
         
     }
     
-    // WARNING: Probably obsolete
-//    func buildAndRenderEpisodeStructure() async {
-//        
-//        // result
-//        var structure = [BuildingBlock]()
-//        
-//        // episode to build
-//        let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
-//        
-//        for episodeSection in chosenEpisode.sections {
-//            
-//            switch episodeSection.type {
-//            case .standard:
-//                let name = episodeSection.name
-//                
-//                // FIXME: this should become obsolete
-//                // deduce block identifier form name
-//                let blockIdentifier: BlockIdentifier
-//                switch name {
-//                
-//                case "Introduction":
-//                    blockIdentifier = .introduction
-//                
-//                case "Epilog":
-//                    blockIdentifier = .epilogue
-//                
-//                default:
-//                    blockIdentifier = .unknown
-//                }
-//                
-//                // text from episode
-//                let text = episodeSection.text
-//                
-//                // replace place holders
-//                let textWithReplacedPlaceholders = replacePlaceholders(inText: text)
-//                
-//                // create building block
-//                let buildingBlock = BuildingBlock(blockIdentifier: blockIdentifier, text: textWithReplacedPlaceholders)
-//                
-//                // render audio -> this updates the buildingBlock's audioURL
-//                let updatedBuildingBlock = await renderAudioInBuildingBlock(buildingBlock)
-//                
-//                // store in structure
-//                structure.append(updatedBuildingBlock)
-//                
-//            case .headlines:
-//                for (index, story) in chosenEpisode.stories.enumerated() {
-//                    if story.usedInIntroduction {
-//                        
-//                        // create building block
-//                        let buildingBlock = BuildingBlock(blockIdentifier: .headline, subIndex: index, text: story.headline, highlightInSummary: story.usedInIntroduction)
-//                        
-//                        // render audio -> this updates the buildingBlock's audioURL
-//                        let updatedBuildingBlock = await renderAudioInBuildingBlock(buildingBlock)
-//                        
-//                        structure.append(updatedBuildingBlock)
-//                    }
-//                }
-//
-//            case .stories:
-//                for (index, story) in chosenEpisode.stories.enumerated() {
-//                    
-//                    // extract story text
-//                    let storyText = story.storyText
-//                    
-//                    // create building block
-//                    let buildingBlock = BuildingBlock(blockIdentifier: .story, subIndex: index, text: storyText)
-//                    
-//                    // render audio -> this updates the buildingBlock's audioURL
-//                    let updatedBuildingBlock = await renderAudioInBuildingBlock(buildingBlock)
-//                    
-//                    structure.append(updatedBuildingBlock)
-//                }
-//                
-//            }
-//        
-//        }
-//        
-//        // publish
-//        self.episodeStructure = structure
-//    }
-    
+    func printAppInformation() {
+        let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let cachesDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        
+        print("Documents are in: \(documentsDir)")
+        print("Caches are in: \(cachesDir)")
+        
+        //AudioManager.shared.deleteCachedFiles()
+        //Task {
+            //SpeechManager.shared.printSpeechVoices()
+            //let url = await SpeechManager.shared.saveAVSpeechUtteranceToFile()
+            //print("Speech is saved in \(String(describing: url))")
+        //}
+    }
     
     func buildEpisodeStructure() {
 
@@ -446,25 +378,6 @@ class EpisodeViewModel: ObservableObject {
             
         }
         
-    }
-    
-    
-    
-    
-    private func getDocumentsDirectory() -> URL {
-        // find all possible documents directories for this user
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-
-        // just send back the first one, which ought to be the only one
-        return paths[0]
-    }
-    
-    /// Should the rendered audio be stored?
-    private func storageURL(forAudioSegment audioSegment: BuildingBlock) -> URL {
-        let documentsDirectory = getDocumentsDirectory()
-        let fileName = "\(audioSegment.id).wav"
-        let audioURL = documentsDirectory.appendingPathComponent(fileName)
-        return audioURL
     }
     
 

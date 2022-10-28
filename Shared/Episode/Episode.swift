@@ -25,24 +25,6 @@ struct EpisodeSection: Identifiable, Hashable {
     var suffixAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     var separatorAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     
-//    func textAudioURL(forVoiceIdentifier voiceIndentifier: String) -> URL {
-//        
-//        // where to store
-//        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-//        
-//        // mix type and text into hash
-//        let textToBeHashed = "\(type.rawValue)-\(voiceIndentifier)-\(text)"
-//        let textAsData = Data(textToBeHashed.utf8)
-//        let hashed = SHA256.hash(data: textAsData)
-//        let hashString = hashed.compactMap { String(format: "%02x", $0) }.joined()
-//
-//        // create URL
-//        let fileName = "\(hashString).wav"
-//        let storageURL = documentsDirectory.appendingPathComponent(fileName)
-//        
-//        // return result
-//        return storageURL
-//    }
 }
 
 struct Episode: Identifiable, Hashable {
@@ -84,7 +66,7 @@ struct Episode: Identifiable, Hashable {
     static func textAudioURL(forSectionType sectionType: EpisodeSectionType, voiceIndentifier: String, textContent: String) -> URL {
         
         // where to store
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let documentsDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
         
         // mix type and text into hash
         let textToBeHashed = "\(sectionType.rawValue)-\(voiceIndentifier)-\(textContent)"
@@ -109,45 +91,6 @@ struct Story: Equatable, Identifiable, Hashable {
     var usedInIntroduction: Bool
     var headline: String
     var storyText: String
-    
-
-//    var proposedHeadlineAudioURL: URL {
-//        // where to store
-//        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-//        
-//        // mix type and headline into hash
-//        let textToBeHashed = "\(headline)"
-//        let textAsData = Data(textToBeHashed.utf8)
-//        let hashed = SHA256.hash(data: textAsData)
-//        let hashString = hashed.compactMap { String(format: "%02x", $0) }.joined()
-//
-//        // create URL
-//        let fileName = "\(hashString).wav"
-//        let storageURL = documentsDirectory.appendingPathComponent(fileName)
-//        
-//        // return
-//        return storageURL
-//    }
-    
-//    var proposedTextAudioURL: URL {
-//        
-//        // where to store
-//        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-//        
-//        // mix type and storyText into hash
-//        let textToBeHashed = "\(storyText)"
-//        let textAsData = Data(textToBeHashed.utf8)
-//        let hashed = SHA256.hash(data: textAsData)
-//        let hashString = hashed.compactMap { String(format: "%02x", $0) }.joined()
-//
-//        // create URL
-//        let fileName = "\(hashString).wav"
-//        let storageURL = documentsDirectory.appendingPathComponent(fileName)
-//        
-//        // return
-//        return storageURL
-//    }
-    
 }
 
 extension Episode {

@@ -106,8 +106,8 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
 
  
     
-    func deleteContentsOfDocumentDirectory() {
-        let documentsFolderURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    func deleteCachedFiles() {
+        let documentsFolderURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
         
         do {
             let items = try FileManager.default.contentsOfDirectory(at: documentsFolderURL, includingPropertiesForKeys: nil)
