@@ -73,6 +73,7 @@ class EpisodeViewModel: ObservableObject {
         
     }
     
+    /// Called when ContentView appears
     func printAppInformation() {
         let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let cachesDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
@@ -129,7 +130,7 @@ class EpisodeViewModel: ObservableObject {
                 }
                 
                 // get the section's audio URL based on the voice Id, the section type and the text
-                let textAudioURL = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: episodeSection.text)
+                let textAudioURL = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: textWithReplacedPlaceholders)
                 
                 let buildingBlock = BuildingBlock(blockIdentifier: blockIdentifier, audioURL: textAudioURL, text: textWithReplacedPlaceholders)
                 structure.append(buildingBlock)
@@ -138,7 +139,7 @@ class EpisodeViewModel: ObservableObject {
                 
                 // add headlines text if present
                 if textWithReplacedPlaceholders.count > 0 {
-                    let textAudioURL = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: episodeSection.text)
+                    let textAudioURL = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: textWithReplacedPlaceholders)
                     let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: textAudioURL, text: textWithReplacedPlaceholders)
                     structure.append(buildingBlock)
                 }
@@ -156,7 +157,7 @@ class EpisodeViewModel: ObservableObject {
                 
                 // add headlines text if present
                 if textWithReplacedPlaceholders.count > 0 {
-                    let textAudioURL = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: episodeSection.text)
+                    let textAudioURL = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: textWithReplacedPlaceholders)
                     let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: textAudioURL, text: textWithReplacedPlaceholders)
                     structure.append(buildingBlock)
                 }
@@ -416,7 +417,7 @@ class EpisodeViewModel: ObservableObject {
     
     /// Replaces all place holders
     private func replacePlaceholders(inText text: String) -> String {
-        let narratorName = chosenEpisode.podcastVoice.name
+        let narratorName = chosenEpisode.narrator
         let newText = text.replacing("{speakerName}", with: narratorName)
         return newText
     }
