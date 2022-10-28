@@ -27,8 +27,6 @@ struct AudioRenderView: View {
     
     var body: some View {
         
-        
-        
         List {
             ForEach(episodeViewModel.episodeStructure) {episodeSegment in
                 HStack {
