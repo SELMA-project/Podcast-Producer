@@ -23,22 +23,18 @@ struct MainEditView: View {
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     @State private var path = NavigationPath() //: [Int] = []
-    //@State private var chosenSpeaker = SelmaVoice(.leila)
-    
-    //@State var languageName: String = "Brazilian"
-    //@State var narratorName: String = "Leila Endruweit"
     @State var providerName: String = "SELMA"
     
     var episodeSections: [EpisodeSection] {
-        return episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].sections
+        return episodeViewModel.chosenEpisode.sections
     }
     
     var episodeStories: [Story] {
-        return episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].stories
+        return episodeViewModel.chosenEpisode.stories
     }
     
     var episodeLanguage: String {
-        return episodeViewModel.availableEpisodes[episodeViewModel.chosenEpisodeIndex].language.displayName
+        return episodeViewModel.chosenEpisode.language.displayName
     }
     
     /// All voices that share the same provider and language
