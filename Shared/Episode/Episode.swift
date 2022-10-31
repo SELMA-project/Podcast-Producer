@@ -99,7 +99,7 @@ extension Episode {
     static func buildFromScript(_ scriptFilename: String) -> Episode {
         
         // use this template
-        let episodeTemplate = EpisodeTemplate.dwBrazil()
+        let episodeTemplate = EpisodeTemplate.template(forLanguage: .brazilian)
         
         let parser = ScriptParser(name: scriptFilename)
         

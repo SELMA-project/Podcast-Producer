@@ -9,8 +9,18 @@ import SwiftUI
 
 struct TemplateCreationView: View {
     
-    @State var language: String = "Brazilian Portuguese"
-    @State var template: String = "Boletim de Notícias"
+    @State var language: LanguageManager.Language = .brazilian
+    @State var templateIndex: Int = 0
+    
+    var templates: [EpisodeTemplate] {
+        let templates = EpisodeTemplate.templates(forLanguage: language)
+        return templates
+    }
+    
+    init() {
+//        let defaultTemplate = EpisodeTemplate.template(forLanguage: .brazilian)
+//        _template = State(initialValue: defaultTemplate)
+    }
     
     var body: some View {
         
@@ -25,15 +35,15 @@ struct TemplateCreationView: View {
                 
                 Section("Specify Template") {
                     Picker("Language", selection: $language) {
-                        Text("Brazilian Portuguese").tag("Brazilian Portuguese")
-                        Text("German").tag("German")
-                        Text("English").tag("English")
-                    }
+                        ForEach(LanguageManager.Language.allCases, id: \.self) {language in
+                            Text(language.displayName)
+                        }
+                    }//.pickerStyle(.menu)
                     
-                    Picker("Template", selection: $template) {
-                        Text("Boletim de Notícias").tag("Boletim de Notícias")
-                        Text("Deutschlandfunk Nachrichten").tag("Deutschlandfunk Nachrichten")
-                        Text("Spanish Noticias").tag("Spanish Noticias")
+                    Picker("Template", selection: $templateIndex) {
+                        ForEach(0..<templates.count, id: \.self) { index in
+                            Text(templates[index].name)
+                        }
                     }
                 }
                 
