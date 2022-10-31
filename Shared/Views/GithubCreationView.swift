@@ -9,10 +9,10 @@ import SwiftUI
 
 struct GithubCreationView: View {
     
+    
     @State var selectedFile: String = "File 1"
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
-    
-    
+
     var scriptNames: [String] {
         let scripNames = ScriptParser.availableScriptNames()
         return scripNames
@@ -28,15 +28,23 @@ struct GithubCreationView: View {
         
             List {
                 ForEach(scriptNames, id: \.self) {scriptName in
-                    NavigationLink(value: scriptName) {
-                        Text(scriptName)
-                    }
+                    //NavigationLink(value: scriptName) {
+//                    Button {
+//                        print("tapped")
+//                        dismissAction()
+//
+//                    } label: {
+//                        TableRow(scriptName: scriptName)
+//                    }
+                    TableRow(scriptName: scriptName)
+
+                    //}
                 }
             }
             .listStyle(.automatic)
-            .navigationDestination(for: String.self) { scriptName in
-                GithubCreationDetailView(scriptName: scriptName)
-            }
+//            .navigationDestination(for: String.self) { scriptName in
+//                GithubCreationDetailView(scriptName: scriptName)
+//            }
         }
         
 //        Form {
@@ -68,8 +76,45 @@ struct GithubCreationView: View {
     }
 }
 
+struct TableRow: View {
+    
+    var scriptName: String
+    
+    @Environment(\.dismiss) var dismissAction
+    @EnvironmentObject var episodeViewModel: EpisodeViewModel
+    
+    @State var revealsCreateButton: Bool = false
+    
+    var body: some View {
+        
+        HStack {
+            Button {
+                revealsCreateButton.toggle()
+            } label: {
+                Text(scriptName)
+            }
+            
+            Spacer()
+            
+            if revealsCreateButton {
+                Button {
+                    episodeViewModel.addEpisode(parsedFromGithubScriptName: scriptName)
+                    dismissAction()
+                } label: {
+                    Text("Create Episode")
+                        .font(.body)
+                }.buttonStyle(.borderedProminent)
+            }
+
+        }
+
+    }
+}
+
 struct GithubCreationView_Previews: PreviewProvider {
     static var previews: some View {
+        
+        
         GithubCreationView()
             .environmentObject(EpisodeViewModel())
     }

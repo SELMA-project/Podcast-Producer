@@ -11,7 +11,7 @@ import SwiftUI
 
 struct EpisodeCreationView: View {
     
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismissAction
     
     enum Choice {
         case template, github
@@ -51,7 +51,7 @@ struct EpisodeCreationView: View {
 
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
-                        dismiss()
+                        dismissAction()
                     }
                 }
                 

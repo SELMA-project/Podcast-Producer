@@ -38,6 +38,9 @@ struct GithubCreationDetailView: View {
 
 struct GithubCreationDetailView_Previews: PreviewProvider {
     static var previews: some View {
+        
+        
+        
         NavigationStack {
             GithubCreationDetailView()
                 .environmentObject(EpisodeViewModel())
