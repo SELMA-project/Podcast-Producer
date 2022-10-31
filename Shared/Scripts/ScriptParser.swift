@@ -33,7 +33,11 @@ class ScriptParser {
             }
         }
         
-        return names
+        let sortedNames = names.sorted { e0, e1 in
+            return e0 > e1
+        }
+        
+        return sortedNames
         
     }
     

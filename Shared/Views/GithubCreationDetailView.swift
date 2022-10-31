@@ -9,29 +9,18 @@ import SwiftUI
 
 struct GithubCreationDetailView: View {
     
+    @EnvironmentObject var episodeViewModel: EpisodeViewModel
+    @Environment(\.dismiss) var dismiss
+    
     var scriptName: String = "2022-09-20-e2.md"
     
     var body: some View {
-//
-//        VStack {
-//
-//            Button(action: {
-//
-//            }, label: {
-//                Text("Create")
-//                    .frame(maxWidth: .infinity)
-//            })
-//            .buttonStyle(.borderedProminent)
-//            .padding()
-//
-//
-//            ScriptView(scriptName: scriptName)
-//        }
-  
+
         Form {
             Section {
                 Button(action: {
-                    
+                    episodeViewModel.addEpisode(parsedFromGithubScriptName: scriptName)
+                    dismiss()
                 }, label: {
                     Text("Create Episode")
                         .frame(maxWidth: .infinity)
@@ -51,6 +40,7 @@ struct GithubCreationDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             GithubCreationDetailView()
+                .environmentObject(EpisodeViewModel())
         }
     }
 }

@@ -16,7 +16,7 @@ struct ScriptView: View {
         guard let date else {return "<no date detected>"}
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mmZ"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm "
         let dateString = dateFormatter.string(from: date)
         return dateString
     }

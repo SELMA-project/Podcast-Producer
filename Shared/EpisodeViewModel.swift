@@ -59,13 +59,14 @@ class EpisodeViewModel: ObservableObject {
         // build array of locallay available scripts
         let fileNames = ScriptParser.availableScriptNames()
         
-        // prepare result
+        // we start with an empty array of available episodes
         availableEpisodes = [Episode]()
         
         // add episodes for each filename
-        for fileName in fileNames {
-            let episode = Episode.buildFromScript(fileName)
-            availableEpisodes.append(episode)
+        for (index, fileName) in fileNames.enumerated() { 
+            if index == 0 {
+                addEpisode(parsedFromGithubScriptName: fileName)
+            }
         }
 
         // sort available episodes by date
@@ -76,6 +77,25 @@ class EpisodeViewModel: ObservableObject {
         // chose first episode
         chosenEpisodeIndex = 0
         
+    }
+    
+    func addEpisode(parsedFromGithubScriptName scriptName: String) {
+        
+        // parse
+        let newEpisode = Episode.buildFromScript(scriptName)
+        
+        // does an episode with the same creation Date already exist
+        let matchingEpisodeIndex = availableEpisodes.firstIndex {$0.creationDate == newEpisode.creationDate}
+                
+        // if we have a matching episode, replace it
+        if let matchingEpisodeIndex {
+            availableEpisodes[matchingEpisodeIndex] = newEpisode
+            
+        } else { // otherwise add as new episode
+            
+            // add to existing episodes
+            availableEpisodes.append(newEpisode)
+        }
     }
     
     /// Called when ContentView appears
