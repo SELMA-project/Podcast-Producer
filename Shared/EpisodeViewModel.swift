@@ -224,7 +224,7 @@ class EpisodeViewModel: ObservableObject {
     private func renderAudioInBuildingBlock(_ buildingBlock:  BuildingBlock) async -> BuildingBlock  {
         
         // copy original building block to be able to update the audioURL
-        var updatedBuildingBlock = buildingBlock
+        let updatedBuildingBlock = buildingBlock
 
         // where should the rendered audio be stored?
         //let audioURL = storageURL(forAudioSegment: buildingBlock)
@@ -420,7 +420,7 @@ class EpisodeViewModel: ObservableObject {
         for segment in episodeStructure {
             
             // make a copy
-            var newSegment = segment
+            let newSegment = segment
             
             if let audioURL = newSegment.audioURL {
                 
