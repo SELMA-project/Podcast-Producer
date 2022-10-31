@@ -14,53 +14,48 @@ struct EpisodeCreationView: View {
     @Environment(\.dismiss) var dismiss
     
     enum Choice {
-        case template, github, translation
+        case template, github
     }
     
     @State private var choice: Choice = .template
     
     var body: some View {
         
-        NavigationView {
+        NavigationStack {
             VStack(alignment: .leading) {
-                        
+                                      
                 Picker("How do you want to create a new episode?", selection: $choice) {
                     Text("Template").tag(Choice.template)
                     Text("Github").tag(Choice.github)
-                    Text("Translation").tag(Choice.translation)
                 }
                 .pickerStyle(.segmented)
+                .padding()
                 
                 switch(choice) {
                 case .template:
                     TemplateCreationView()
-
+                    
                 case .github:
                     GithubCreationView()
-                    
-                case .translation:
-                    Text("Translation")
                 }
-
+                
                 Spacer()
 
 
             }
-            .padding()
+            //.padding()
             
             .toolbar {
                 
-                ToolbarItem(placement: .primaryAction) {
-                    Button("Create") {
-                        dismiss()
-                    }
-                }
+ 
 
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
                         dismiss()
                     }
                 }
+                
+    
             }
             .navigationTitle("New Episode")
         }
@@ -71,5 +66,6 @@ struct EpisodeCreationView: View {
 struct EpisodeCreationView_Previews: PreviewProvider {
     static var previews: some View {
         EpisodeCreationView()
+            .environmentObject(EpisodeViewModel())
     }
 }

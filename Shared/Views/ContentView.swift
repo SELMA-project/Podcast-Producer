@@ -84,7 +84,9 @@ struct Sidebar: View {
         }
         .sheet(isPresented: $showingSheet) {
             EpisodeCreationView()
+                .environmentObject(episodeViewModel)
         }
+        
         .navigationTitle("Episodes")
     }
 

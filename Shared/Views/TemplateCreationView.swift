@@ -14,30 +14,48 @@ struct TemplateCreationView: View {
     
     var body: some View {
         
-        Text("Create a new episode based on a template.")
-            .font(.callout)
-            .padding(.top)
-        
         VStack(alignment: .leading) {
-            Text("Episode language").font(.title2)
-        
-            Picker("Language", selection: $language) {
-                Text("Brazilian Portuguese").tag("Brazilian Portuguese")
-                Text("German").tag("German")
-                Text("English").tag("English")
+            
+            Text("Create a new episode based on a template.")
+                .font(.callout)
+                .padding()
+            
+            
+            Form {
+                
+                Section("Specify Template") {
+                    Picker("Language", selection: $language) {
+                        Text("Brazilian Portuguese").tag("Brazilian Portuguese")
+                        Text("German").tag("German")
+                        Text("English").tag("English")
+                    }
+                    
+                    Picker("Template", selection: $template) {
+                        Text("Boletim de Notícias").tag("Boletim de Notícias")
+                        Text("Deutschlandfunk Nachrichten").tag("Deutschlandfunk Nachrichten")
+                        Text("Spanish Noticias").tag("Spanish Noticias")
+                    }
+                }
+                
+                
+                HStack {
+                    Spacer()
+                    Button("Create") {
+                        
+                    }
+                    Spacer()
+                }
+                
             }
-        }.padding(.top)
-
-        VStack(alignment: .leading) {
-            Text("Template").font(.title2)
-            Picker("Template", selection: $template) {
-                Text("Boletim de Notícias").tag("Boletim de Notícias")
-                Text("Deutschlandfunk Nachrichten").tag("Deutschlandfunk Nachrichten")
-                Text("Spanish Noticias").tag("Spanish Noticias")
-            }
-        }.padding(.top)
+            
+            
+            
+        }
+        //.padding()
+        //.scrollContentBackground(.hidden)
         
-        Spacer()
+        
+        
         
     }
 }

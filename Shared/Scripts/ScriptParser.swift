@@ -234,7 +234,9 @@ class ScriptParser {
             print(error)
         }
         
-        return capturedText
+        let textWithNewlines = capturedText?.replacingOccurrences(of: ".", with: ".\n\n")
+        
+        return textWithNewlines
     }
     
     //Boletim de Notícias (21/09/22) – 1 edição

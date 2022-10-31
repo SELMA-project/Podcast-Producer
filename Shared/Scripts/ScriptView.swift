@@ -9,9 +9,21 @@ import SwiftUI
 
 struct ScriptView: View {
     
+    var scriptName: String
+    
+    func formatDate(_ date: Date?) -> String {
+        
+        guard let date else {return "<no date detected>"}
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mmZ"
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+ 
     var displayText: String {
         
-        let parser = ScriptParser(name: "2022-09-20-e2.md")
+        let parser = ScriptParser(name: scriptName)
         let scriptDate = parser.extractDatetime()
         let speakerName = parser.extractSpeaker()
         let teaserText = parser.extractTeaser()
@@ -20,7 +32,8 @@ struct ScriptView: View {
         let storyText = parser.extractStory(storyNumber: 1)
         let outroText = parser.extractOutro()
         
-        var displayText = "\(String(describing: scriptDate))\n\n"
+        //var displayText = "\(String(describing: scriptDate))\n\n"
+        var displayText = "\(formatDate(scriptDate))\n\n"
         displayText += "\(speakerName ?? "<no speaker>")\n\n"
         displayText += "\(teaserText ?? "<no teaser>")\n\n"
         
@@ -50,6 +63,6 @@ struct ScriptView: View {
 
 struct ScriptView_Previews: PreviewProvider {
     static var previews: some View {
-        ScriptView()
+        ScriptView(scriptName: "2022-09-20-e2.md")
     }
 }

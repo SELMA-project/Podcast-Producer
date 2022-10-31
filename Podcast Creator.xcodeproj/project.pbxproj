@@ -103,6 +103,8 @@
 		C1BA7EC928AB82300090573B /* SelmaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BA7EC728AB82300090573B /* SelmaAPI.swift */; };
 		C1C97196290C2E66008DACB3 /* GithubCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C97195290C2E66008DACB3 /* GithubCreationView.swift */; };
 		C1C97197290C2E66008DACB3 /* GithubCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C97195290C2E66008DACB3 /* GithubCreationView.swift */; };
+		C1ED87BC290FDA5A00B94D81 /* GithubCreationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ED87BB290FDA5A00B94D81 /* GithubCreationDetailView.swift */; };
+		C1ED87BD290FDA5A00B94D81 /* GithubCreationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ED87BB290FDA5A00B94D81 /* GithubCreationDetailView.swift */; };
 		C1F5602728D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
 		C1F5602828D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
 /* End PBXBuildFile section */
@@ -159,6 +161,7 @@
 		C1BA7EC028AA93280090573B /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		C1BA7EC728AB82300090573B /* SelmaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelmaAPI.swift; sourceTree = "<group>"; };
 		C1C97195290C2E66008DACB3 /* GithubCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubCreationView.swift; sourceTree = "<group>"; };
+		C1ED87BB290FDA5A00B94D81 /* GithubCreationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubCreationDetailView.swift; sourceTree = "<group>"; };
 		C1F5602628D4765900E573E2 /* no-audio.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "no-audio.m4a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -316,6 +319,7 @@
 				C191062C28FEEBAA00B81231 /* EpisodeCreationView.swift */,
 				C14B1E6E290C2801000748FA /* TemplateCreationView.swift */,
 				C1C97195290C2E66008DACB3 /* GithubCreationView.swift */,
+				C1ED87BB290FDA5A00B94D81 /* GithubCreationDetailView.swift */,
 				C1756AB928A1198D00FE9F2B /* MainEditView.swift */,
 				C13A712328E880A800BEE304 /* SectionEditView.swift */,
 				C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */,
@@ -482,6 +486,7 @@
 				C11A239B28F30B300022263B /* EpisodeTemplate.swift in Sources */,
 				C176AB0E28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
 				C11A239F28F310F20022263B /* LanguageManager.swift in Sources */,
+				C1ED87BC290FDA5A00B94D81 /* GithubCreationDetailView.swift in Sources */,
 				C14CEA3028F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
 				C110219F28FFFD93005AA554 /* SpeechManager.swift in Sources */,
 				C1491F6F27AD472700A72AEB /* Persistence.swift in Sources */,
@@ -517,6 +522,7 @@
 				C11A239C28F30B300022263B /* EpisodeTemplate.swift in Sources */,
 				C176AB0F28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
 				C11A23A028F310F20022263B /* LanguageManager.swift in Sources */,
+				C1ED87BD290FDA5A00B94D81 /* GithubCreationDetailView.swift in Sources */,
 				C14CEA3128F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
 				C11021A028FFFD93005AA554 /* SpeechManager.swift in Sources */,
 				C1491F7027AD472700A72AEB /* Persistence.swift in Sources */,

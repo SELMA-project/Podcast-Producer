@@ -68,6 +68,11 @@ class EpisodeViewModel: ObservableObject {
             availableEpisodes.append(episode)
         }
 
+        // sort available episodes by date
+        availableEpisodes.sort { e0, e1 in
+            return e0.creationDate > e1.creationDate
+        }
+        
         // chose first episode
         chosenEpisodeIndex = 0
         
