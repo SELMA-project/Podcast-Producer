@@ -58,7 +58,7 @@ struct Episode: Identifiable, Hashable {
     }
     
     static var standard: Episode {
-        let podcastVoice = PodcastVoice.proposedVoiceForLocale("en-US")
+        let podcastVoice = PodcastVoice.proposedVoice(forLanguageCode: "en-US")
         let episode = Episode(language: .english, narrator: "<no narrator>", podcastVoice: podcastVoice, creationDate: Date(), restrictHeadlinesToHighLights: true)
         return episode
     }
@@ -100,7 +100,7 @@ extension Episode {
         // prepare parameters for episode
         let language = episodeTemplate.language
         let narrator = ""
-        let podcastVoice = PodcastVoice.proposedVoiceForLocale(language.isoCode)
+        let podcastVoice = PodcastVoice.proposedVoice(forLanguageCode: language.isoCode)
         let creationDate = Date()
         let restrictHeadlinesToHighLights = episodeTemplate.restrictHeadlinesToHighLights
                 

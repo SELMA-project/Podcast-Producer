@@ -54,7 +54,7 @@ struct TemplateCreationView: View {
                 HStack {
                     Spacer()
                     Button("Create") {
-                        print("Creating episode based on templateIndex \(templateIndex)")
+                        // create episode based on currently selected template
                         let template = templates[templateIndex]
                         episodeViewModel.addEpisode(basedOnTemplate: template)
                         dismissAction()

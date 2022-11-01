@@ -52,13 +52,21 @@ struct PodcastVoice: Hashable {
         return podcastVoice
     }
     
-    /// Proposes an Apple voice based on the given locale
-    static func proposedVoiceForLocale(_ languageLocale: String) -> PodcastVoice {
+    /// Proposes a voice based on the given locale
+    static func proposedVoice(forLanguageCode languageCode: String) -> PodcastVoice {
+        
+        // the proposed voice of brasilian portuguese is Leila
+        if languageCode == "pt-BR" {
+            let leilasVoice = PodcastVoice(speechProvider: .SELMA, languageCode: "pt-BR", identifier: "leila")
+            return leilasVoice
+        }
+        
+        // all other locales: use Apple Voices
         
         var wantedVoice: AVSpeechSynthesisVoice?
         
         for voice in AVSpeechSynthesisVoice.speechVoices() {
-            if voice.language == languageLocale {
+            if voice.language == languageCode {
                 wantedVoice = voice
             }
         }
