@@ -38,7 +38,15 @@ struct Sidebar: View {
         
         List(selection: chosenEpisodeIndexBinding) {
             ForEach(0..<episodeViewModel.availableEpisodes.count, id: \.self) {episodeIndex in
-                NavigationLink(episodeViewModel.availableEpisodes[episodeIndex].timeSlot, value: episodeIndex)
+                NavigationLink(value: episodeIndex) {
+                    HStack {
+                        Text(episodeViewModel.availableEpisodes[episodeIndex].timeSlot)
+                        Spacer()
+                        Text(episodeViewModel.availableEpisodes[episodeIndex].language.isoCode)
+                            .font(.caption)
+                            .foregroundColor(Color.secondary)
+                    }
+                }
             }
         }
         .listStyle(.sidebar)
