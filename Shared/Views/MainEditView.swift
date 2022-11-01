@@ -68,24 +68,12 @@ struct MainEditView: View {
                 } header: {
                     Text("Language")
                 } footer: {
-                    Text("The language of an episode cannot be changed.")
+                    Text("The episode language cannot be changed.")
                 }
 
                 
                 Section("General") {
-  
-//                    HStack {
-//                        Text("Language")
-//                        Spacer()
-//                        Text(episodeViewModel.chosenEpisode.language.displayName)
-//                    }
-                    
-//                    Picker("Language", selection: $episodeViewModel.chosenEpisode.language) {
-//                        ForEach(LanguageManager.Language.allCases, id: \.self) {language in
-//                            Text(language.displayName)
-//                        }
-//                    }
-                    
+                      
                     HStack {
                         Text("Narrator")
                         Spacer()
