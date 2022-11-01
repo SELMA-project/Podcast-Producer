@@ -17,6 +17,7 @@ struct TemplateCreationView: View {
     
     var templates: [EpisodeTemplate] {
         let templates = EpisodeTemplate.templates(forLanguage: language)
+            
         return templates
     }
 
@@ -36,7 +37,11 @@ struct TemplateCreationView: View {
                         ForEach(LanguageManager.Language.allCases, id: \.self) {language in
                             Text(language.displayName)
                         }
-                    }.pickerStyle(.menu)
+                    }
+                    .pickerStyle(.menu)
+                    .onChange(of: language) {_ in 
+                        templateIndex = 0
+                    }
                     
                     Picker("Template", selection: $templateIndex) {
                         ForEach(0..<templates.count, id: \.self) { index in
