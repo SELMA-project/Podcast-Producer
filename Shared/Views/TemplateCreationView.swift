@@ -36,13 +36,13 @@ struct TemplateCreationView: View {
                         ForEach(LanguageManager.Language.allCases, id: \.self) {language in
                             Text(language.displayName)
                         }
-                    }//.pickerStyle(.menu)
+                    }.pickerStyle(.menu)
                     
                     Picker("Template", selection: $templateIndex) {
                         ForEach(0..<templates.count, id: \.self) { index in
                             Text(templates[index].name)
                         }
-                    }
+                    }.pickerStyle(.menu)
                 }
                 
                 

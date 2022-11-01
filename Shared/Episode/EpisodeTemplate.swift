@@ -68,12 +68,12 @@ extension EpisodeTemplate {
             
             switch edition {
             case .morning, .none:
-                templateName = "DW Brasil (morning)"
+                templateName = "DW Brasil (am)"
                 introText = "Olá, hoje é {date}. Eu sou {narrator} e este é o Boletim de Notícias da DW Brasil. Confira nesta edição:"
                 outroText = "Novas informações você pode conferir mais tarde na segunda edição do Boletim de Notícias da DW Brasil."
             
             case .evening:
-                templateName = "DW Brasil (evening)"
+                templateName = "DW Brasil (pm)"
                 introText = "Olá, hoje é {date}. Eu sou {narrator} e esta é a segunda edição do Boletim de Notícias da DW Brasil. Confira nesta edição:"
                 outroText = "Mais informações, confira no nosso site: dw.com/brasil"
             }
