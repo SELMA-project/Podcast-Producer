@@ -44,7 +44,7 @@ struct PodcastVoice: Hashable {
         }
         
     }
-
+        
     /// A default voice used for initialisation
     static var standard: PodcastVoice {
         let alexVoice = AVSpeechSynthesisVoice(identifier: AVSpeechSynthesisVoiceIdentifierAlex)!
@@ -63,27 +63,41 @@ struct PodcastVoice: Hashable {
         
         // all other locales: use Apple Voices
         
-        var wantedVoice: AVSpeechSynthesisVoice?
+        // the proposed PodcastVoice is stored here
+        var proposedPodcastVoice: PodcastVoice?
         
-        for voice in AVSpeechSynthesisVoice.speechVoices() {
-            if voice.language == languageCode {
-                wantedVoice = voice
+        // get all voices that we can synthesize
+        let usableApplePodcastVoices = Self.voicesForSpeechProvider(.Apple)
+        
+        // go through each one of them
+        for applePodcastVoice in usableApplePodcastVoices {
+            
+            // get the equivalent native apple voice
+            if let nativeAppleVoice = applePodcastVoice.nativeAppleVoice() {
+                
+                // do we have the right language?
+                if nativeAppleVoice.language == languageCode {
+                    
+                    // if there are no audio settings, it appears that we cannot write the voice renderings to disk. Exclude it.
+                    if nativeAppleVoice.audioFileSettings.count == 0 {
+                        print("Excluded Apple voice: \(nativeAppleVoice.identifier)")
+                        continue
+                    }
+                    
+                    // only use voice that have associated audioFile setings
+                    proposedPodcastVoice = applePodcastVoice
+                    
+                }
             }
         }
         
-        // convert to PodcastVoice
-        var podcastVoice: PodcastVoice?
-        
-        if let wantedVoice {
-            podcastVoice = PodcastVoice(speechProvider: .Apple, languageCode: wantedVoice.language, identifier: wantedVoice.identifier)
-        }
-        
+
         // we should always have a podcast voice here
-        if podcastVoice == nil {
+        if proposedPodcastVoice == nil {
             fatalError("We should have an Apple podcast voice here.")
         }
         
-        return podcastVoice!
+        return proposedPodcastVoice!
     }
     
     
@@ -161,6 +175,9 @@ struct PodcastVoice: Hashable {
         return returnedVoices
     }
     
+
+    
+    
     /// All available Apple voices
     static func appleVoices() -> [PodcastVoice] {
         
@@ -170,6 +187,23 @@ struct PodcastVoice: Hashable {
         let nativeVoices = AVSpeechSynthesisVoice.speechVoices()
         
         for nativeVoice in nativeVoices {
+            
+            // eleminate com.apple.speech.synthesis
+            var excludeVoice = false
+            
+            let eliminatedVoiceDomains = ["com.apple.speech.synthesis", "com.apple.eloquence"]
+            for voiceDomain in eliminatedVoiceDomains {
+                if nativeVoice.identifier.starts(with: voiceDomain) {
+                    print("Excluded Apple voice: \(nativeVoice.identifier)")
+                    excludeVoice = true
+                }
+            }
+
+            // skip to next voice if the current voice is not suitable
+            if excludeVoice {
+                continue
+            }
+            
             let voice = PodcastVoice(speechProvider: .Apple, languageCode: nativeVoice.language, identifier: nativeVoice.identifier)
             returnedVoices.append(voice)
         }

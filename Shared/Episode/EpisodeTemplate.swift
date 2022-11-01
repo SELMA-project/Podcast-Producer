@@ -83,7 +83,7 @@ extension EpisodeTemplate {
             templateName = "DW Nachrichten"
             restrictHeadlinesToHighLights = false
             introText = "Guten Tag, hier sind die neusten Nachrichten vom {date}."
-            outroText = "Das waren die Nachrichten"
+            outroText = "Das waren die Nachrichten."
 
         case .english:
             templateName = "DW News"
@@ -99,19 +99,14 @@ extension EpisodeTemplate {
         
     }
     
-    private static func createTemplate(name: String, forLanguage language: LanguageManager.Language, restrictHeadlinesToHighLights: Bool, introText: String, outroText: String) -> EpisodeTemplate {
+    private static func createTemplate(name templateName: String, forLanguage templateLanguage: LanguageManager.Language, restrictHeadlinesToHighLights: Bool, introText: String, outroText: String) -> EpisodeTemplate {
         
-        var templateName: String
-        var templateLanguage: LanguageManager.Language
         var sectionText: String
         var prefixAudioFile: AudioManager.AudioFile
         var mainAudioFile: AudioManager.AudioFile
         var suffixAudioFile: AudioManager.AudioFile
         var separatorAudioFile: AudioManager.AudioFile
-        
-        templateName = name
-        templateLanguage = language
-        
+                
         // section 0 -> Introduction & Headlines
         prefixAudioFile = AudioManager.audioFileForDisplayName("Intro Start")
         mainAudioFile = AudioManager.audioFileForDisplayName("Intro Main")
@@ -141,6 +136,8 @@ extension EpisodeTemplate {
         
         // build template
         let episodeTemplate = EpisodeTemplate(name: templateName, language: templateLanguage, restrictHeadlinesToHighLights: restrictHeadlinesToHighLights, episodeSections: [section0, section1, section2])
+        
+        print("Returning template with name \(episodeTemplate.name)")
         
         // return it
         return episodeTemplate

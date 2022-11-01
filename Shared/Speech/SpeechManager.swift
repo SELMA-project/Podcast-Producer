@@ -63,20 +63,20 @@ class SpeechManager {
         await withCheckedContinuation { continuation in
             
             var success = false
+        
+            print("Rendering speech with voice: \(voiceIdentifier)")
             
             // create utterance
             let utterance = AVSpeechUtterance(string: text)
             //utterance.rate = 0.50
             
             // associate voice
-            let voice = AVSpeechSynthesisVoice(language: "en-US")
-            //let voice = AVSpeechSynthesisVoice(identifier: voiceIdentifier)
+            let voice = AVSpeechSynthesisVoice(identifier: voiceIdentifier)
             utterance.voice = voice
-            
-            // debug voice
-            print(voice?.identifier)
-            print(voice?.language)
-            
+
+            if let voice {
+                print("Voice settings: \(voice.audioFileSettings)")
+            }
             
             // Only create new file handle if `output` is nil.
             var output: AVAudioFile?
@@ -110,6 +110,8 @@ class SpeechManager {
                                 settings: pcmBuffer.format.settings,
                                 commonFormat: .pcmFormatInt16,
                                 interleaved: false)
+                            
+                            print("pcmBuffer settings: \(pcmBuffer.format.settings)")
                         }
                         try output?.write(from: pcmBuffer)
                     } catch {

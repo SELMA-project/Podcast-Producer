@@ -52,31 +52,8 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     }
     
     
+    
 
-    
-//    private func synthesizeSELMAAudio(podcastVoice: PodcastVoice, text: String?, toURL fileURL: URL) async -> Bool {
-//        
-//        // TODO: extend for other voices
-//        guard podcastVoice.speechProvider == .SELMA else {return false}
-//        
-//        var success = false
-//        
-//        let selmaVoice = podcastVoice.nativeSelmaVoice()
-//        let selmaVoiceIdentifier = selmaVoice?.selmaName ?? "leila endruweit"
-//        
-//        let text = text ?? "Olá, hoje é quinta-feira, três de setembro de 2020."
-//        
-//        success = await selmaAPI.renderAudio(speakerName: selmaVoiceIdentifier, text: text, toURL: fileURL)
-//        
-//
-//        
-//        return success
-//    }
-    
-    
-    
-    
-    
     private typealias AudioPlayerCheckedContinuation = CheckedContinuation<Void, Never>
     private var audioPlayerCheckedContinuation: AudioPlayerCheckedContinuation?
     
