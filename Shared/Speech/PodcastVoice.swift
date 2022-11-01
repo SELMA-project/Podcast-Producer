@@ -32,8 +32,8 @@ struct PodcastVoice: Hashable {
         return podcastVoice
     }
     
-    /// Proposes a voice based on the given locale
-    static func proposedVoiceForLocale(_ languageLocale: String) -> PodcastVoice? {
+    /// Proposes an Apple voice based on the given locale
+    static func proposedVoiceForLocale(_ languageLocale: String) -> PodcastVoice {
         
         var wantedVoice: AVSpeechSynthesisVoice?
         
@@ -50,7 +50,12 @@ struct PodcastVoice: Hashable {
             podcastVoice = PodcastVoice(speechProvider: .Apple, language: wantedVoice.language, identifier: wantedVoice.identifier)
         }
         
-        return podcastVoice
+        // we should always have a podcast voice here
+        if podcastVoice == nil {
+            fatalError("We should have an Apple podcast voice here.")
+        }
+        
+        return podcastVoice!
     }
     
     

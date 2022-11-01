@@ -58,7 +58,7 @@ struct Episode: Identifiable, Hashable {
     }
     
     static var standard: Episode {
-        let podcastVoice = PodcastVoice.proposedVoiceForLocale("en-US")!
+        let podcastVoice = PodcastVoice.proposedVoiceForLocale("en-US")
         let episode = Episode(language: .english, narrator: "<no narrator>", podcastVoice: podcastVoice, creationDate: Date(), restrictHeadlinesToHighLights: true)
         return episode
     }
@@ -95,6 +95,38 @@ struct Story: Equatable, Identifiable, Hashable {
 
 extension Episode {
     
+    static func buildFromTemplate(_ episodeTemplate: EpisodeTemplate) -> Episode {
+        
+        // prepare parameters for episode
+        let language = episodeTemplate.language
+        let narrator = ""
+        let podcastVoice = PodcastVoice.proposedVoiceForLocale(language.isoCode)
+        let creationDate = Date()
+        let restrictHeadlinesToHighLights = episodeTemplate.restrictHeadlinesToHighLights
+                
+        
+        // create episode
+        var episode = Episode(language: language, narrator: narrator, podcastVoice: podcastVoice, creationDate: creationDate, restrictHeadlinesToHighLights: restrictHeadlinesToHighLights)
+        
+        // add introduction & headlines
+        let introductionSection = episodeTemplate.episodeSections[0]
+        episode.addSection(introductionSection)
+        
+        // add story section
+        let storySection = episodeTemplate.episodeSections[1]
+        episode.addSection(storySection)
+                
+        // add epilog
+        let epilogSection = episodeTemplate.episodeSections[2]
+        episode.addSection(epilogSection)
+        
+        return episode
+    }
+}
+
+
+extension Episode {
+    
     /// Builds episode from local Markdown script
     static func buildFromScript(_ scriptFilename: String) -> Episode {
         
@@ -122,10 +154,6 @@ extension Episode {
         var introductionSection = episodeTemplate.episodeSections[0]
         introductionSection.text = introTextWithSpeakerToken
         episode.addSection(introductionSection)
-
-//        // next, we want the headlines to be read out
-//        let headlineSection = episodeTemplate.episodeSections[1]
-//        episode.addSection(headlineSection)
         
         // add story section
         let storySection = episodeTemplate.episodeSections[1]

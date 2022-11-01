@@ -12,16 +12,14 @@ struct TemplateCreationView: View {
     @State var language: LanguageManager.Language = .brazilian
     @State var templateIndex: Int = 0
     
+    @Environment(\.dismiss) var dismissAction
+    @EnvironmentObject var episodeViewModel: EpisodeViewModel
+    
     var templates: [EpisodeTemplate] {
         let templates = EpisodeTemplate.templates(forLanguage: language)
         return templates
     }
-    
-    init() {
-//        let defaultTemplate = EpisodeTemplate.template(forLanguage: .brazilian)
-//        _template = State(initialValue: defaultTemplate)
-    }
-    
+
     var body: some View {
         
         VStack(alignment: .leading) {
@@ -51,7 +49,10 @@ struct TemplateCreationView: View {
                 HStack {
                     Spacer()
                     Button("Create") {
-                        
+                        print("Creating episode based on templateIndex \(templateIndex)")
+                        let template = templates[templateIndex]
+                        episodeViewModel.addEpisode(basedOnTemplate: template)
+                        dismissAction()
                     }
                     Spacer()
                 }

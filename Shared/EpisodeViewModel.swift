@@ -79,6 +79,15 @@ class EpisodeViewModel: ObservableObject {
         
     }
     
+    func addEpisode(basedOnTemplate template: EpisodeTemplate) {
+        
+        // create episode
+        let newEpisode = Episode.buildFromTemplate(template)
+        
+        // add to existing episodes
+        availableEpisodes.append(newEpisode)
+    }
+    
     func addEpisode(parsedFromGithubScriptName scriptName: String) {
         
         // parse
