@@ -42,14 +42,14 @@ struct MainEditView: View {
         let chosenEpisode = episodeViewModel.chosenEpisode
         let episodeLanguage = chosenEpisode.language
         let voiceProvider = chosenEpisode.podcastVoice.speechProvider
-        let availableVoices = PodcastVoice.availableVoices(forLanguage: episodeLanguage, forProvider: voiceProvider)
+        let availableVoices = VoiceManager.shared.availableVoices(forLanguage: episodeLanguage, forProvider: voiceProvider)
         return availableVoices
     }
     
-    var availableProviders: [PodcastVoice.SpeechProvider] {
+    var availableProviders: [SpeechProvider] {
         let chosenEpisode = episodeViewModel.chosenEpisode
         let episodeLanguage = chosenEpisode.language
-        let availableProviders = PodcastVoice.availableProviders(forLanguage: episodeLanguage)
+        let availableProviders = VoiceManager.shared.availableProviders(forLanguage: episodeLanguage)
         return availableProviders
     }
 

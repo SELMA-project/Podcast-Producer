@@ -58,7 +58,7 @@ struct Episode: Identifiable, Hashable {
     }
     
     static var standard: Episode {
-        let podcastVoice = PodcastVoice.proposedVoice(forLanguageCode: "en-US")
+        let podcastVoice = VoiceManager.shared.proposedVoice(forLanguageCode: "en-US")
         let episode = Episode(language: .english, narrator: "<no narrator>", podcastVoice: podcastVoice, creationDate: Date(), restrictHeadlinesToHighLights: true)
         return episode
     }
@@ -100,7 +100,7 @@ extension Episode {
         // prepare parameters for episode
         let language = episodeTemplate.language
         let narrator = ""
-        let podcastVoice = PodcastVoice.proposedVoice(forLanguageCode: language.isoCode)
+        let podcastVoice = VoiceManager.shared.proposedVoice(forLanguageCode: language.isoCode)
         let creationDate = Date()
         let restrictHeadlinesToHighLights = episodeTemplate.restrictHeadlinesToHighLights
                 
@@ -147,7 +147,7 @@ extension Episode {
         
         // start from here
         //var episode = Episode(language: .brazilian, creationDate: scriptDate, restrictHeadlinesToHighLights: true)
-        let podcastVoice = PodcastVoice.voiceForSelmaNarrator(narrator) ?? PodcastVoice.voiceForSelmaNarrator("Leila Endruweit")!
+        let podcastVoice = VoiceManager.shared.voiceForSelmaNarrator(narrator) ?? VoiceManager.shared.voiceForSelmaNarrator("Leila Endruweit")!
         var episode = Episode(language: .brazilian, narrator: narrator, podcastVoice: podcastVoice, creationDate: scriptDate, restrictHeadlinesToHighLights: true)
         
         // add introduction & headlines
