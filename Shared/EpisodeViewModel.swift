@@ -258,9 +258,6 @@ class EpisodeViewModel: ObservableObject {
         
         // copy original building block to be able to update the audioURL
         let updatedBuildingBlock = buildingBlock
-
-        // where should the rendered audio be stored?
-        //let audioURL = storageURL(forAudioSegment: buildingBlock)
         
         // early exit if we don't have an audioURL (this should not happen, as the URL is proposed by the episode in buildEpisodeStructure()
         guard let audioURL = buildingBlock.audioURL else {return updatedBuildingBlock}
@@ -475,8 +472,23 @@ class EpisodeViewModel: ObservableObject {
     
     /// Replaces all place holders
     private func replacePlaceholders(inText text: String) -> String {
+        
+        // narrator
         let narratorName = chosenEpisode.narrator
-        let newText = text.replacing("{narrator}", with: narratorName)
+        var newText = text.replacing("{narrator}", with: narratorName)
+        
+        // date
+        let creationDate = chosenEpisode.creationDate
+        let languageCode = chosenEpisode.language.isoCode
+        let appleLocale = languageCode.replacingOccurrences(of: "-", with: "_")
+        
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: appleLocale)
+        formatter.setLocalizedDateFormatFromTemplate("EEEE, dd MMMM YYYY")
+        let dateString = formatter.string(from: creationDate)
+        
+        newText = text.replacing("{date}", with: dateString)
+        
         return newText
     }
 }
