@@ -20,6 +20,18 @@ class EpisodeViewModel: ObservableObject {
     // the entire episode in segments
     @Published var episodeStructure: [BuildingBlock] = []
     
+    // the narrator name is stored in user defaults
+    @Published var narratorName: String = "" {
+        didSet {
+            
+            // store in user defaults
+            UserDefaults.standard.set(narratorName, forKey: "narratorName")
+            
+            // set in current chosenEpisode
+            chosenEpisode.narrator = narratorName
+        }
+    }
+    
     // TODO: replace removing Audio part
 //    @Published var speaker = SelmaVoice(.leila) {
 //        willSet(newValue) {
@@ -36,6 +48,9 @@ class EpisodeViewModel: ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
+        
+        // restore UserDefaults
+        narratorName = UserDefaults.standard.string(forKey: "narratorName") ?? ""
         
         // linking published properties via subscriptions
         
@@ -85,7 +100,10 @@ class EpisodeViewModel: ObservableObject {
     func addEpisode(basedOnTemplate template: EpisodeTemplate) {
         
         // create episode
-        let newEpisode = Episode.buildFromTemplate(template)
+        var newEpisode = Episode.buildFromTemplate(template)
+        
+        // set narrator name
+        newEpisode.narrator = narratorName
         
         // add to existing episodes
         availableEpisodes.append(newEpisode)

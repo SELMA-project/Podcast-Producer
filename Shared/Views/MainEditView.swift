@@ -72,14 +72,19 @@ struct MainEditView: View {
                 }
 
                 
-                Section("General") {
+                Section {
                       
                     HStack {
                         Text("Narrator")
                         Spacer()
-                        TextField("Name", text: $episodeViewModel.chosenEpisode.narrator)
+                        TextField("Name", text: $episodeViewModel.narratorName)
                             .multilineTextAlignment(.trailing)
                     }
+                } header: {
+                    Text("General")
+                }
+                footer: {
+                    Text("This replaces the {narrator} token.")
                 }
                 
                 Section("Voice") {
