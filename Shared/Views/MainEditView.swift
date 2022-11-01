@@ -59,13 +59,32 @@ struct MainEditView: View {
             
             Form {
                 
+                Section {
+                    HStack {
+                        Text("Language")
+                        Spacer()
+                        Text(episodeViewModel.chosenEpisode.language.displayName)
+                    }
+                } header: {
+                    Text("Language")
+                } footer: {
+                    Text("The language of an episode cannot be changed.")
+                }
+
+                
                 Section("General") {
+  
+//                    HStack {
+//                        Text("Language")
+//                        Spacer()
+//                        Text(episodeViewModel.chosenEpisode.language.displayName)
+//                    }
                     
-                    Picker("Language", selection: $episodeViewModel.chosenEpisode.language) {
-                        ForEach(LanguageManager.Language.allCases, id: \.self) {language in
-                            Text(language.displayName)
-                        }
-                    }.pickerStyle(.menu)
+//                    Picker("Language", selection: $episodeViewModel.chosenEpisode.language) {
+//                        ForEach(LanguageManager.Language.allCases, id: \.self) {language in
+//                            Text(language.displayName)
+//                        }
+//                    }
                     
                     HStack {
                         Text("Narrator")
@@ -80,13 +99,13 @@ struct MainEditView: View {
                         ForEach(availableProviders, id: \.self) {provider in
                             Text(provider.displayName)
                         }
-                    }.pickerStyle(.menu)
+                    }
                     
                     Picker("Identifier", selection: $episodeViewModel.chosenEpisode.podcastVoice) {
                         ForEach(availableVoices, id: \.self) {voice in
                             Text(voice.name)
                         }
-                    }.pickerStyle(.menu)
+                    }
                 }
                 
                 
@@ -99,6 +118,7 @@ struct MainEditView: View {
                 }
                 
             }
+            .pickerStyle(.menu)
             
             .navigationDestination(for: EpisodeSection.self) { section in
                 SectionEditView(section: section)
@@ -108,11 +128,6 @@ struct MainEditView: View {
         }
         
         .padding()
-        // somehow this avoid that in the simulator the path is incorrectly set
-        .onChange(of: path) { path in
-            //print(path)
-        }
-
     }
 }
 

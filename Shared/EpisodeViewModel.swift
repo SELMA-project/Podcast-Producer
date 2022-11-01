@@ -51,7 +51,10 @@ class EpisodeViewModel: ObservableObject {
             if self.availableEpisodes.count > self.chosenEpisodeIndex {
                 self.availableEpisodes[self.chosenEpisodeIndex] = newEpisode
             }
+                        
         }.store(in: &subscriptions)
+        
+
         
         // test available scripts
         ScriptParser.test()
