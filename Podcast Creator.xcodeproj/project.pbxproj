@@ -73,6 +73,8 @@
 		C1491F7027AD472700A72AEB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5A27AD472600A72AEB /* Persistence.swift */; };
 		C1491F7127AD472700A72AEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1491F5B27AD472700A72AEB /* Assets.xcassets */; };
 		C1491F7227AD472700A72AEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1491F5B27AD472700A72AEB /* Assets.xcassets */; };
+		C14A102729113213004DBB67 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14A102629113213004DBB67 /* Sidebar.swift */; };
+		C14A102829113213004DBB67 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14A102629113213004DBB67 /* Sidebar.swift */; };
 		C14B1E6F290C2801000748FA /* TemplateCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B1E6E290C2801000748FA /* TemplateCreationView.swift */; };
 		C14B1E70290C2801000748FA /* TemplateCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B1E6E290C2801000748FA /* TemplateCreationView.swift */; };
 		C14CEA2A28F1948A00B8DFC8 /* StandardSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */; };
@@ -146,6 +148,7 @@
 		C1491F6027AD472700A72AEB /* Podcast Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Podcast Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1491F6627AD472700A72AEB /* Podcast Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Podcast Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1491F6827AD472700A72AEB /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		C14A102629113213004DBB67 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		C14B1E6E290C2801000748FA /* TemplateCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCreationView.swift; sourceTree = "<group>"; };
 		C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardSectionEditView.swift; sourceTree = "<group>"; };
 		C14CEA2C28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesSectionEditView.swift; sourceTree = "<group>"; };
@@ -315,6 +318,7 @@
 		C1F00B9D290BDA3F0031EBAA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C14A102629113213004DBB67 /* Sidebar.swift */,
 				C1491F5927AD472600A72AEB /* ContentView.swift */,
 				C191062C28FEEBAA00B81231 /* EpisodeCreationView.swift */,
 				C14B1E6E290C2801000748FA /* TemplateCreationView.swift */,
@@ -486,6 +490,7 @@
 				C11A239B28F30B300022263B /* EpisodeTemplate.swift in Sources */,
 				C176AB0E28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
 				C11A239F28F310F20022263B /* LanguageManager.swift in Sources */,
+				C14A102729113213004DBB67 /* Sidebar.swift in Sources */,
 				C1ED87BC290FDA5A00B94D81 /* GithubCreationDetailView.swift in Sources */,
 				C14CEA3028F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
 				C110219F28FFFD93005AA554 /* SpeechManager.swift in Sources */,
@@ -522,6 +527,7 @@
 				C11A239C28F30B300022263B /* EpisodeTemplate.swift in Sources */,
 				C176AB0F28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
 				C11A23A028F310F20022263B /* LanguageManager.swift in Sources */,
+				C14A102829113213004DBB67 /* Sidebar.swift in Sources */,
 				C1ED87BD290FDA5A00B94D81 /* GithubCreationDetailView.swift in Sources */,
 				C14CEA3128F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
 				C11021A028FFFD93005AA554 /* SpeechManager.swift in Sources */,
