@@ -82,7 +82,7 @@ extension EpisodeTemplate {
         case .german:
             templateName = "DW Nachrichten"
             restrictHeadlinesToHighLights = false
-            introText = "Guten Tag, hier sind die neusten Nachrichten vom {date}."
+            introText = "Guten Tag, hier sind die neusten Nachrichten von {date}."
             outroText = "Das waren die Nachrichten."
 
         case .english:
