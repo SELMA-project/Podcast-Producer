@@ -21,7 +21,7 @@ struct SelmaVoice: Identifiable, Hashable {
     var id: SelmaVoiceId
     var shortName: String
     var fullName: String
-    var selmaName: String
+    var apiName: String
     var language: String
     
     enum SelmaVoiceId: String, CaseIterable  {
@@ -47,49 +47,49 @@ struct SelmaVoice: Identifiable, Hashable {
         case .roberto:
             shortName = "Roberto"
             fullName = "Roberto Crescenti"
-            selmaName = "roberto crescenti"
+            apiName = "roberto crescenti"
             language = "pt-BR"
             
         case .leila:
             shortName = "Leila"
             fullName = "Leila Endruweit"
-            selmaName = "leila endruweit"
+            apiName = "leila endruweit"
             language = "pt-BR"
             
         case .renate:
             shortName = "Renate"
             fullName = "Renate Krieger"
-            selmaName = "renate krieger"
+            apiName = "renate krieger"
             language = "pt-BR"
 
         case .alexandre:
             shortName = "Alexandre"
             fullName = "Alexandre Schossler"
-            selmaName = "alexandre schossler"
+            apiName = "alexandre schossler"
             language = "pt-BR"
 
         case .bruno:
             shortName = "Bruno"
             fullName = "Bruno Lupion"
-            selmaName = "bruno lupion"
+            apiName = "bruno lupion"
             language = "pt-BR"
 
         case .clarissa:
             shortName = "Clarissa"
             fullName = "Clarissa Nehere"
-            selmaName = "clarissa nehere"
+            apiName = "clarissa nehere"
             language = "pt-BR"
 
         case .marcio:
             shortName = "Marcio"
             fullName = "Marcio Damascenoe"
-            selmaName = "marcio damascenoe"
+            apiName = "marcio damascenoe"
             language = "pt-BR"
 
         case .philip:
             shortName = "Philip"
             fullName = "Philip Verminnen"
-            selmaName = "philip verminnen"
+            apiName = "philip verminnen"
             language = "pt-BR"
         }
         

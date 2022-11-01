@@ -58,6 +58,69 @@ class SpeechManager {
         }
     }
     
+    func renderAppleSpeech(voiceIdentifier: String, text: String, toURL fileURL: URL) async -> Bool {
+        
+        await withCheckedContinuation { continuation in
+            
+            var success = false
+            
+            // create utterance
+            let utterance = AVSpeechUtterance(string: text)
+            //utterance.rate = 0.50
+            
+            // associate voice
+            let voice = AVSpeechSynthesisVoice(language: "en-US")
+            //let voice = AVSpeechSynthesisVoice(identifier: voiceIdentifier)
+            utterance.voice = voice
+            
+            // debug voice
+            print(voice?.identifier)
+            print(voice?.language)
+            
+            
+            // Only create new file handle if `output` is nil.
+            var output: AVAudioFile?
+            
+            self.synthesizer.write(utterance) {(buffer: AVAudioBuffer) in
+                guard let pcmBuffer = buffer as? AVAudioPCMBuffer else {
+                    fatalError("unknown buffer type: \(buffer)")
+                }
+                if pcmBuffer.frameLength == 0 {
+                    // Done
+                    
+                    if output != nil {
+                        // here, we know that we have been successful
+                        success = true
+                        
+                        print("Sucessfully rendered: '\(text)' to \(fileURL)")
+                    }
+                    
+                    // set output AVAudioFile to nil to close it
+                    output = nil
+                    
+                    continuation.resume(returning: success)
+                    
+                } else {
+                    
+                    do{
+                        // this closure is called multiple times. so to save a complete audio, try create a file only for once.
+                        if output == nil {
+                            try  output = AVAudioFile(
+                                forWriting: fileURL,
+                                settings: pcmBuffer.format.settings,
+                                commonFormat: .pcmFormatInt16,
+                                interleaved: false)
+                        }
+                        try output?.write(from: pcmBuffer)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+                
+            }
+        }
+    }
+    
     func saveAVSpeechUtteranceToFile() async -> URL?  {
         
         await withCheckedContinuation { continuation in

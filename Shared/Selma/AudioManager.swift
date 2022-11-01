@@ -25,33 +25,56 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         super.init()
     }
     
-    func synthesizeAudio(podcastVoice: PodcastVoice, text: String?, toURL fileURL: URL) async -> Bool {
+    func synthesizeSpeech(podcastVoice: PodcastVoice, text: String?, toURL fileURL: URL) async -> Bool {
         
-        // TODO: extend for other voices
-        guard podcastVoice.speechProvider == .SELMA else {return false}
+        // retrun early if there is no text
+        guard let text else {return false}
         
+        // the result will be stored here
         var success = false
         
-        let selmaVoice = podcastVoice.nativeSelmaVoice()
-        let selmaVoiceIdentifier = selmaVoice?.selmaName ?? "leila endruweit"
-        
-        let text = text ?? "Olá, hoje é quinta-feira, três de setembro de 2020."
-        
-        let audioData = await selmaAPI.renderAudio(speakerName: selmaVoiceIdentifier, text: text)
-        
-        if let data = audioData {            
-            do {
-                try data.write(to: fileURL)
-                success = true
-            } catch {
-                print("Error writing audio to file with URL: \(fileURL)")
+        switch podcastVoice.speechProvider {
+        case .SELMA:
+            if let voiceApiName = podcastVoice.nativeSelmaVoice()?.apiName {
+                success = await selmaAPI.renderAudio(voiceApiName: voiceApiName, text: text, toURL: fileURL)
             }
-        } else {
-            print("Error while rendering audio on the server.")
+            
+        case .Apple:
+            let appleVoiceIdentifier = podcastVoice.identifier
+            success = await SpeechManager.shared.renderAppleSpeech(voiceIdentifier: appleVoiceIdentifier, text: text, toURL: fileURL)
+            
+        default:
+            print("I don't know yet how to render speech for \(podcastVoice.speechProvider.displayName)")
+            break
         }
-        
+     
         return success
     }
+    
+    
+
+    
+//    private func synthesizeSELMAAudio(podcastVoice: PodcastVoice, text: String?, toURL fileURL: URL) async -> Bool {
+//        
+//        // TODO: extend for other voices
+//        guard podcastVoice.speechProvider == .SELMA else {return false}
+//        
+//        var success = false
+//        
+//        let selmaVoice = podcastVoice.nativeSelmaVoice()
+//        let selmaVoiceIdentifier = selmaVoice?.selmaName ?? "leila endruweit"
+//        
+//        let text = text ?? "Olá, hoje é quinta-feira, três de setembro de 2020."
+//        
+//        success = await selmaAPI.renderAudio(speakerName: selmaVoiceIdentifier, text: text, toURL: fileURL)
+//        
+//
+//        
+//        return success
+//    }
+    
+    
+    
     
     
     private typealias AudioPlayerCheckedContinuation = CheckedContinuation<Void, Never>
@@ -297,177 +320,4 @@ extension AudioManager {
         
     }
     
-    
-    /// Adds audio to episode. Creates a new segment if *possibleSegmentId* is nil. Returns the segmentId that was used
-//    private func addAudio(withURL audioUrl: URL?, toAudioEpisode audioEpisode: inout AudioEpisode, toSegmentWithId segmentId: Int) {
-//
-//        // do we have an audioURL?
-//        if let audioUrl {
-//
-//            // do we have a file stored behind the URL?
-//            if FileManager.default.fileExists(atPath: audioUrl.path(percentEncoded: false)) {
-//
-//                // add audio to episode
-//                audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
-//            }
-//
-//        }
-//    }
-    
 }
-
-// this should be obsolete
-//extension AudioManager {
-//    
-//    /// Renders and Audio Episode and resturns its (local) URL
-//    func createAudioEpisode(basedOnBuildingBlocks episodeStructure: [BuildingBlock]) -> URL {
-//        
-//        // create entrie episode
-//        var audioEpisode = AudioEpisode()
-//        
-//        createS0(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
-//        createS1(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
-//        createS2(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
-//        createS3(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
-//        createS4(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
-//        createS5(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
-//        createS6(episodeStructure: episodeStructure, audioEpisode: &audioEpisode)
-//        
-//        // render episode
-//        let url = audioEpisode.render(outputfileName: "output")
-//        
-//        return url
-//    }
-//    
-//    // S0: intro music
-//    private func createS0(episodeStructure: [BuildingBlock], audioEpisode: inout AudioEpisode) {
-//        
-//        // add new segment
-//        let segmentId = audioEpisode.addSegment()
-//        
-//        // in S0: music
-//        let introStartFile = Bundle.main.url(forResource: "00-intro-start-trimmed.caf", withExtension: nil)!
-//        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: introStartFile)
-//    }
-//    
-//    // S1: welcome and headlines
-//    private func createS1(episodeStructure: [BuildingBlock], audioEpisode: inout AudioEpisode) {
-//        
-//        // add new segment
-//        let segmentId = audioEpisode.addSegment()
-//        
-//        for (_, episodeSegment) in episodeStructure.enumerated() {
-//            
-//            // welcome text in S1
-//            if episodeSegment.blockIdentifier == .introduction {
-//                
-//                // add speech
-//                if let speechUrl = episodeSegment.audioURL {
-//                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
-//                }
-//                
-//            }
-//            
-//            // headlines added to S1
-//            if episodeSegment.blockIdentifier == .headline  {
-//                
-//                // only use the headlines that should be highlighted in summary
-//                if episodeSegment.highlightInSummary == true {
-//                    // add speech
-//                    if let speechUrl = episodeSegment.audioURL {
-//                        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
-//                    }
-//                }
-//            }
-//        }
-//        
-//        // add music once we know how long the segment is
-//        let backgroundMusicFile = Bundle.main.url(forResource: "01-intro-middle-trimmed.caf", withExtension: nil)!
-//        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: backgroundMusicFile, volume: 0.5, isLoopingBackgroundTrack: true)
-//        
-//    }
-//    
-//    // S2: end of introduction
-//    private func createS2(episodeStructure: [BuildingBlock], audioEpisode: inout AudioEpisode) {
-//        
-//        // add new segment
-//        let segmentId = audioEpisode.addSegment()
-//        
-//        // in S2: music
-//        let introEndFile = Bundle.main.url(forResource: "02-intro-end-trimmed.caf", withExtension: nil)!
-//        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: introEndFile)
-//    }
-//    
-//    // S3: Stories
-//    private func createS3(episodeStructure: [BuildingBlock], audioEpisode: inout AudioEpisode) {
-//        
-//        // add new segment
-//        let segmentId = audioEpisode.addSegment()
-//        
-//        // filter to restrict to stories
-//        let storySegments = episodeStructure.filter({ $0.blockIdentifier == .story })
-//        
-//        for (index, episodeSegment) in storySegments.enumerated() {
-//            
-//            // Add storys
-//            if episodeSegment.blockIdentifier == .story {
-//                
-//                // add speech
-//                if let speechUrl = episodeSegment.audioURL {
-//                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
-//                }
-//                
-//                // add a sting at the end of each - except the last one
-//                if index < storySegments.endIndex - 1 {
-//                    let stingFile = Bundle.main.url(forResource: "03-sting-trimmed.caf", withExtension: nil)!
-//                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: stingFile)
-//                }
-//                
-//            }
-//        }
-//
-//    }
-//    
-//    // S4: Outro Start
-//    private func createS4(episodeStructure: [BuildingBlock], audioEpisode: inout AudioEpisode) {
-//        
-//        // add new segment
-//        let segmentId = audioEpisode.addSegment()
-//        
-//        // outro start
-//        let audioFile = Bundle.main.url(forResource: "07-outro-start-trimmed.caf", withExtension: nil)!
-//        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioFile)
-//    }
-//    
-//    // S5: Outro Middle
-//    private func createS5(episodeStructure: [BuildingBlock], audioEpisode: inout AudioEpisode) {
-//        
-//        // add new segment
-//        let segmentId = audioEpisode.addSegment()
-//        
-//        // add epiloge speech
-//        let episodeSegment = episodeStructure.filter({$0.blockIdentifier == .epilogue})[0]
-//        if let speechUrl = episodeSegment.audioURL {
-//            audioEpisode.addAudioTrack(toSegmentId: segmentId, url: speechUrl)
-//        }
-//        
-//        // outro middle as background
-//        let audioFile = Bundle.main.url(forResource: "08-outro-middle-trimmed.caf", withExtension: nil)!
-//        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioFile, volume: 0.5, isLoopingBackgroundTrack: true)
-//    }
-//    
-//    // S6: Outro end
-//    private func createS6(episodeStructure: [BuildingBlock], audioEpisode: inout AudioEpisode) {
-//        
-//        // add new segment
-//        let segmentId = audioEpisode.addSegment()
-//        
-//        // outro start
-//        let audioFile = Bundle.main.url(forResource: "09-outro-end-trimmed.caf", withExtension: nil)!
-//        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioFile)
-//    }
-//    
-//    
-//
-//    
-//}

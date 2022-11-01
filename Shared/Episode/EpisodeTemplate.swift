@@ -89,7 +89,7 @@ extension EpisodeTemplate {
             templateName = "DW News"
             restrictHeadlinesToHighLights = false
             introText = "Greetings. It's {date}. These are the latest news."
-            outroText = "The were the latest news. Come back for more."
+            outroText = "These were the latest news. Come back for more."
             
         }
         

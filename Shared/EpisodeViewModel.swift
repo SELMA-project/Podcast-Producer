@@ -112,7 +112,10 @@ class EpisodeViewModel: ObservableObject {
     func addEpisode(parsedFromGithubScriptName scriptName: String) {
         
         // parse
-        let newEpisode = Episode.buildFromScript(scriptName)
+        var newEpisode = Episode.buildFromScript(scriptName)
+        
+        // set narrator name
+        newEpisode.narrator = narratorName
         
         // does an episode with the same creation Date already exist
         let matchingEpisodeIndex = availableEpisodes.firstIndex {$0.creationDate == newEpisode.creationDate}
@@ -137,11 +140,11 @@ class EpisodeViewModel: ObservableObject {
         print("Caches are in: \(cachesDir)")
         
         //AudioManager.shared.deleteCachedFiles()
-        //Task {
-            //SpeechManager.shared.printSpeechVoices()
-            //let url = await SpeechManager.shared.saveAVSpeechUtteranceToFile()
-            //print("Speech is saved in \(String(describing: url))")
-        //}
+//        Task {
+//            //SpeechManager.shared.printSpeechVoices()
+//            let url = await SpeechManager.shared.saveAVSpeechUtteranceToFile()
+//            print("Speech is saved in \(String(describing: url))")
+//        }
     }
     
     func buildEpisodeStructure() {
@@ -271,7 +274,7 @@ class EpisodeViewModel: ObservableObject {
         // render audio if it does not yet exist
         var success = true
         if !fileExists(atURL: audioURL) {
-            success = await AudioManager.shared.synthesizeAudio(podcastVoice: podcastVoice, text: text, toURL: audioURL)
+            success = await AudioManager.shared.synthesizeSpeech(podcastVoice: podcastVoice, text: text, toURL: audioURL)
         }
         
         if !success {

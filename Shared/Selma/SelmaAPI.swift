@@ -9,7 +9,10 @@ import Foundation
 
 class SelmaAPI {
         
-    func renderAudio(speakerName: String, text: String) async -> Data? {
+    func renderAudio(voiceApiName: String, text: String, toURL fileURL: URL) async -> Bool {
+        
+        // the return value: success
+        var success = false
         
         // path on server
         let path = "/x:selmaproject:tts:777:5002/api/tts" // v1
@@ -19,13 +22,13 @@ class SelmaAPI {
         
         // query parameters
         let textQueryItem = URLQueryItem(name: "text", value: text)
-        let speakerQueryItem = URLQueryItem(name: "speaker_id", value: speakerName)
+        let speakerQueryItem = URLQueryItem(name: "speaker_id", value: voiceApiName)
         let queryItems = [textQueryItem, speakerQueryItem]
         
         // endpoint
         let uc0endPoint = UC0Endpoint(path: path, queryItems: queryItems)
         
-        // result
+        // store data here
         var data: Data?
         
         if let url = uc0endPoint.url {
@@ -39,7 +42,19 @@ class SelmaAPI {
             }
         }
         
-        return data
+        // store in file URL
+        if let data {
+            do {
+                try data.write(to: fileURL)
+                success = true
+            } catch {
+                print("Error writing audio to file with URL: \(fileURL)")
+            }
+        } else {
+            print("Error while rendering audio on the server.")
+        }
+        
+        return success
     }
     
     static func testRender()  {
@@ -50,11 +65,15 @@ class SelmaAPI {
         
         let selmaApi = SelmaAPI()
         
+        let testURL = FileManager.default.temporaryDirectory.appending(path: "test.wav")
+        
         Task {
-            if let data = await selmaApi.renderAudio(speakerName: speakerName, text: text) {
-                print("Received data: \(data.count) bytes.")
+            let success = await selmaApi.renderAudio(voiceApiName: speakerName, text: text, toURL: testURL)
+            
+            if success {
+                print("Wrote test speech to: \(testURL.absoluteString)")
             } else {
-                print("No data received.")
+                print("Error. Could not write test speech to: \(testURL.absoluteString)")
             }
         }
         
