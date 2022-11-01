@@ -34,4 +34,14 @@ class LanguageManager {
             return isoCode
         }
     }
+
+    /// Returns Language based on isoCode
+    func language(fromIsoCode isoCode: String) -> Language? {
+        
+        let result = Language.allCases.filter { language in
+            language.isoCode == isoCode
+        }.first
+        
+        return result
+    }
 }
