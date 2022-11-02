@@ -120,7 +120,7 @@ struct MainEditView: View {
             
         }
         
-        .padding()
+
     }
 }
 

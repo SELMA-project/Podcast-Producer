@@ -47,15 +47,11 @@ struct EpisodeCreationView: View {
             
             .toolbar {
                 
- 
-
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
                         dismissAction()
                     }
                 }
-                
-    
             }
             .navigationTitle("New Episode")
         }
