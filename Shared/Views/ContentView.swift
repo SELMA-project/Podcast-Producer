@@ -29,7 +29,7 @@ struct ContentView: View {
                     }
                 }
         }.onAppear {
-            episodeViewModel.printAppInformation()
+            episodeViewModel.runStartupRoutine()
         }
         .environmentObject(episodeViewModel)
     }

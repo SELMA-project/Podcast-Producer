@@ -113,8 +113,10 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
             let items = try FileManager.default.contentsOfDirectory(at: documentsFolderURL, includingPropertiesForKeys: nil)
 
             for itemURL in items {
-                try FileManager.default.removeItem(at: itemURL)
-                print("Removed: \(itemURL.absoluteString)")
+                if itemURL.pathExtension == "wav" {
+                    try FileManager.default.removeItem(at: itemURL)
+                    print("Removed: \(itemURL.absoluteString)")
+                }
             }
         } catch {
             // failed to read directory – bad permissions, perhaps?

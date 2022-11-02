@@ -132,7 +132,7 @@ class EpisodeViewModel: ObservableObject {
     }
     
     /// Called when ContentView appears
-    func printAppInformation() {
+    func runStartupRoutine() {
         let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let cachesDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
         
@@ -140,6 +140,7 @@ class EpisodeViewModel: ObservableObject {
         print("Caches are in: \(cachesDir)")
         
         AudioManager.shared.deleteCachedFiles()
+        
 //        Task {
 //            //SpeechManager.shared.printSpeechVoices()
 //            let url = await SpeechManager.shared.saveAVSpeechUtteranceToFile()
@@ -407,9 +408,6 @@ class EpisodeViewModel: ObservableObject {
                               newSuffixAudioFile: AudioManager.AudioFile? = nil,
                               newSeparatorAudioFile: AudioManager.AudioFile? = nil) {
         
-        // which episode are we currently working with?
-        let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
-        
         // get its sections
         let sections = chosenEpisode.sections
         
@@ -430,8 +428,7 @@ class EpisodeViewModel: ObservableObject {
             if let newSeparatorAudioFile {updatedSection.separatorAudioFile = newSeparatorAudioFile}
             
             // write back to array of sections
-            availableEpisodes[chosenEpisodeIndex].sections[episodeIndex] = updatedSection
-            
+            chosenEpisode.sections[episodeIndex] = updatedSection
         }
         
     }
