@@ -74,9 +74,9 @@ class SpeechManager {
             let voice = AVSpeechSynthesisVoice(identifier: voiceIdentifier)
             utterance.voice = voice
 
-            if let voice {
-                print("Voice settings: \(voice.audioFileSettings)")
-            }
+//            if let voice {
+//                print("Voice settings: \(voice.audioFileSettings)")
+//            }
             
             // Only create new file handle if `output` is nil.
             var output: AVAudioFile?
@@ -92,7 +92,7 @@ class SpeechManager {
                         // here, we know that we have been successful
                         success = true
                         
-                        print("Sucessfully rendered: '\(text)' to \(fileURL)")
+                        //print("Sucessfully rendered: '\(text)' to \(fileURL)")
                     }
                     
                     // set output AVAudioFile to nil to close it
@@ -111,7 +111,7 @@ class SpeechManager {
                                 commonFormat: .pcmFormatInt16,
                                 interleaved: false)
                             
-                            print("pcmBuffer settings: \(pcmBuffer.format.settings)")
+                            //print("pcmBuffer settings: \(pcmBuffer.format.settings)")
                         }
                         try output?.write(from: pcmBuffer)
                     } catch {
