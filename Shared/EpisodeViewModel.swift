@@ -480,7 +480,7 @@ class EpisodeViewModel: ObservableObject {
         formatter.setLocalizedDateFormatFromTemplate("EEEE, dd MMMM YYYY")
         let dateString = formatter.string(from: creationDate)
         
-        newText = text.replacing("{date}", with: dateString)
+        newText = newText.replacing("{date}", with: dateString)
         
         return newText
     }
