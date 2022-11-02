@@ -60,11 +60,11 @@ class VoiceManager {
                 // do we have the right language?
                 if nativeAppleVoice.language == languageCode {
                     
-                    // if there are no audio settings, it appears that we cannot write the voice renderings to disk. Exclude it.
-                    if nativeAppleVoice.audioFileSettings.count == 0 {
-                        print("Excluded Apple voice: \(nativeAppleVoice.identifier)")
-                        continue
-                    }
+//                    // if there are no audio settings, it appears that we cannot write the voice renderings to disk. Exclude it.
+//                    if nativeAppleVoice.audioFileSettings.count == 0 {
+//                        print("Excluded Apple voice: \(nativeAppleVoice.identifier)")
+//                        continue
+//                    }
                     
                     // only use voice that have associated audioFile setings
                     proposedPodcastVoice = applePodcastVoice

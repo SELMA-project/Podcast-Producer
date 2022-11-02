@@ -15,7 +15,22 @@ class LanguageManager {
         case brazilian, english, german
         
         var displayName: String {
-            return rawValue.capitalized
+            
+            let languageCode = isoCode.replacingOccurrences(of: "-", with: "_")
+            
+            let locale = Locale(identifier: "en_US")
+            let languageName = locale.localizedString(forLanguageCode: languageCode)!
+            
+//            switch(self) {
+//            case .brazilian:
+//                return "Portuguese (Brazil)"
+//            case .german:
+//                return "German"
+//            case .english:
+//                return "English"
+//            }
+            
+            return languageName
         }
         
         var isoCode: String {
