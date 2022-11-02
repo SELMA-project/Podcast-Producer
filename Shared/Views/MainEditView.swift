@@ -64,6 +64,7 @@ struct MainEditView: View {
                         Text("Language")
                         Spacer()
                         Text(episodeViewModel.chosenEpisode.language.displayName)
+                            .foregroundColor(.secondary)
                     }
                 } header: {
                     Text("Language")
