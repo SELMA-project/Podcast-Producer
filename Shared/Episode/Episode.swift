@@ -213,7 +213,7 @@ extension Episode {
         // TODO: Remove, only temporary
         var stories = [Story]()
         for storyIndex in 1...1 {
-            var story = Story(usedInIntroduction: true, headline: "Story headline \(storyIndex)", storyText: "Enter story text here.", owningEpisode: episode)
+            let story = Story(usedInIntroduction: true, headline: "Story headline \(storyIndex)", storyText: "Enter story text here.", owningEpisode: episode)
             stories.append(story)
         }
         episode.stories = stories
