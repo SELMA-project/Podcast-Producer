@@ -20,12 +20,12 @@ class EpisodeViewModel: ObservableObject {
     // the entire episode in segments
     @Published var episodeStructure: [BuildingBlock] = []
     
-    // the narrator name is stored in user defaults
-    @Published var narratorName: String = "" {
+    // the narrator name use when creating a new template. Is stored in user defaults.
+    @Published var newTemplateNarratorName: String = "" {
         didSet {
             
             // store in user defaults
-            UserDefaults.standard.set(narratorName, forKey: "narratorName")
+            UserDefaults.standard.set(newTemplateNarratorName, forKey: "newTemplateNarratorName")
             
             // set in current chosenEpisode
             //chosenEpisode.narrator = narratorName
@@ -50,7 +50,7 @@ class EpisodeViewModel: ObservableObject {
     init() {
         
         // restore UserDefaults
-        narratorName = UserDefaults.standard.string(forKey: "narratorName") ?? ""
+        newTemplateNarratorName = UserDefaults.standard.string(forKey: "newTemplateNarratorName") ?? ""
         
         // linking published properties via subscriptions
         
@@ -100,10 +100,7 @@ class EpisodeViewModel: ObservableObject {
     func addEpisode(basedOnTemplate template: EpisodeTemplate) {
         
         // create episode
-        var newEpisode = Episode.buildFromTemplate(template, narrator: narratorName)
-        
-        // set narrator name
-        newEpisode.narrator = narratorName
+        let newEpisode = Episode.buildFromTemplate(template, narrator: newTemplateNarratorName)
         
         // add to existing episodes
         availableEpisodes.append(newEpisode)
@@ -112,7 +109,7 @@ class EpisodeViewModel: ObservableObject {
     func addEpisode(parsedFromGithubScriptName scriptName: String) {
         
         // parse
-        var newEpisode = Episode.buildFromScript(scriptName)
+        let newEpisode = Episode.buildFromScript(scriptName)
                 
         // does an episode with the same creation Date already exist
         let matchingEpisodeIndex = availableEpisodes.firstIndex {$0.creationDate == newEpisode.creationDate}

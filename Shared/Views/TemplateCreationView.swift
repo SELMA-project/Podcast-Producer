@@ -48,6 +48,13 @@ struct TemplateCreationView: View {
                             Text(templates[index].name)
                         }
                     }.pickerStyle(.menu)
+                    
+                    HStack {
+                        Text("Narrator")
+                        Spacer()
+                        TextField("Name", text: $episodeViewModel.newTemplateNarratorName)
+                            .multilineTextAlignment(.trailing)
+                    }
                 }
                 
                 
