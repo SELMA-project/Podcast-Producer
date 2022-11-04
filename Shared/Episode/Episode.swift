@@ -25,6 +25,8 @@ struct EpisodeSection: Identifiable, Hashable {
     var suffixAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     var separatorAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     
+  
+    
 }
 
 struct Episode: Identifiable, Hashable {
@@ -80,6 +82,28 @@ struct Episode: Identifiable, Hashable {
         
         // return result
         return storageURL
+    }
+    
+    /// Replaces all place holders
+    func replacePlaceholders(inText text: String) -> String {
+        
+        // narrator
+        let narratorName = self.narrator
+        var newText = text.replacing("{narrator}", with: narratorName)
+        
+        // date
+        let creationDate = self.creationDate
+        let languageCode = self.language.isoCode
+        let appleLocale = languageCode.replacingOccurrences(of: "-", with: "_")
+        
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: appleLocale)
+        formatter.setLocalizedDateFormatFromTemplate("EEEE, dd MMMM YYYY")
+        let dateString = formatter.string(from: creationDate)
+        
+        newText = newText.replacing("{date}", with: dateString)
+        
+        return newText
     }
 }
 

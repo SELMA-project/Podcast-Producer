@@ -167,7 +167,7 @@ class EpisodeViewModel: ObservableObject {
         for episodeSection in chosenEpisode.sections {
   
             let text = episodeSection.text.trimmingCharacters(in: .whitespacesAndNewlines)
-            let textWithReplacedPlaceholders = replacePlaceholders(inText: text)
+            let textWithReplacedPlaceholders = chosenEpisode.replacePlaceholders(inText: text)
             
             switch episodeSection.type {
             case .standard:
@@ -463,25 +463,25 @@ class EpisodeViewModel: ObservableObject {
         
     }
     
-    /// Replaces all place holders
-    private func replacePlaceholders(inText text: String) -> String {
-        
-        // narrator
-        let narratorName = chosenEpisode.narrator
-        var newText = text.replacing("{narrator}", with: narratorName)
-        
-        // date
-        let creationDate = chosenEpisode.creationDate
-        let languageCode = chosenEpisode.language.isoCode
-        let appleLocale = languageCode.replacingOccurrences(of: "-", with: "_")
-        
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: appleLocale)
-        formatter.setLocalizedDateFormatFromTemplate("EEEE, dd MMMM YYYY")
-        let dateString = formatter.string(from: creationDate)
-        
-        newText = newText.replacing("{date}", with: dateString)
-        
-        return newText
-    }
+//    /// Replaces all place holders
+//    private func replacePlaceholders(inText text: String) -> String {
+//        
+//        // narrator
+//        let narratorName = chosenEpisode.narrator
+//        var newText = text.replacing("{narrator}", with: narratorName)
+//        
+//        // date
+//        let creationDate = chosenEpisode.creationDate
+//        let languageCode = chosenEpisode.language.isoCode
+//        let appleLocale = languageCode.replacingOccurrences(of: "-", with: "_")
+//        
+//        let formatter = DateFormatter()
+//        formatter.locale = Locale(identifier: appleLocale)
+//        formatter.setLocalizedDateFormatFromTemplate("EEEE, dd MMMM YYYY")
+//        let dateString = formatter.string(from: creationDate)
+//        
+//        newText = newText.replacing("{date}", with: dateString)
+//        
+//        return newText
+//    }
 }
