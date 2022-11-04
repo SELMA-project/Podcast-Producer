@@ -199,16 +199,26 @@ extension Episode {
         introductionSection.owningEpisode = episode // the section needs information from its episode, such as creation date and narrator
         episode.addSection(introductionSection)
         
-        // add story section
+        // create story section
         var storySection = episodeTemplate.episodeSections[1]
         storySection.owningEpisode = episode
         episode.addSection(storySection)
-                
+    
         // add epilog
         var epilogSection = episodeTemplate.episodeSections[2]
         epilogSection.owningEpisode = episode
         episode.addSection(epilogSection)
         
+        // add 5 dummy stories to episode
+        // TODO: Remove, only temporary
+        var stories = [Story]()
+        for storyIndex in 1...5 {
+            let story = Story(usedInIntroduction: true, headline: "Story headline \(storyIndex)", storyText: "Enter story text here.")
+            stories.append(story)
+        }
+        episode.stories = stories
+        
+
         return episode
     }
 }

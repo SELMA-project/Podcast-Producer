@@ -122,6 +122,7 @@ extension EpisodeTemplate {
         separatorAudioFile = AudioManager.audioFileForDisplayName("Sting")
         let section1 = EpisodeSection(type: .stories, name: "Stories", separatorAudioFile: separatorAudioFile)
 
+
         // section 2 -> Epilog
         sectionText = outroText
         prefixAudioFile = AudioManager.audioFileForDisplayName("Outro Start")
