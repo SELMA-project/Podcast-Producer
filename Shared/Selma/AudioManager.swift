@@ -240,9 +240,10 @@ extension AudioManager {
         segmentId = audioEpisode.addSegment()
         
         // add main text to new segment
-        let voiceIdentifier = episode.podcastVoice.identifier
-        let textWithReplacedPlaceholders = episode.replacePlaceholders(inText: episodeSection.text)
-        audioUrl = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: textWithReplacedPlaceholders)
+//        let voiceIdentifier = episode.podcastVoice.identifier
+//        let textWithReplacedPlaceholders = episode.replacePlaceholders(inText: episodeSection.text)
+//        audioUrl = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: textWithReplacedPlaceholders)
+        audioUrl = episodeSection.textAudioURL
         audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
         
         // add text audio
@@ -263,7 +264,7 @@ extension AudioManager {
             // go through each headline story
             for (storyIndex, story) in storiesUsedForHeadlines.enumerated() {
                 // headline audio
-                audioUrl = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: story.headline)
+                audioUrl = story.headlineAudioURL//(forSectionType: episodeSection.type, textContent: story.headline)
                 audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
                 
                 // add separator, except for the last headline
@@ -277,7 +278,7 @@ extension AudioManager {
             // go through each story
             for (storyIndex, story) in stories.enumerated() {
                 // story audio
-                audioUrl = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: story.storyText)
+                audioUrl = story.storyTextAudioURL//(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: story.storyText)
                 audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
                 
                 // add separator, except for the last story

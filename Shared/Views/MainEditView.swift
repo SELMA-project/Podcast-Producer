@@ -78,7 +78,7 @@ struct MainEditView: View {
                     HStack {
                         Text("Narrator")
                         Spacer()
-                        TextField("Name", text: $episodeViewModel.narratorName)
+                        TextField("Name", text: $episodeViewModel.chosenEpisode.narrator)
                             .multilineTextAlignment(.trailing)
                     }
                 } header: {

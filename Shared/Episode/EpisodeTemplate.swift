@@ -113,7 +113,7 @@ extension EpisodeTemplate {
         suffixAudioFile = AudioManager.audioFileForDisplayName("Intro End")
         let section0 = EpisodeSection(type: .headlines,
                                       name: "Introduction & Headlines",
-                                      text: introText,
+                                      rawText: introText,
                                       prefixAudioFile: prefixAudioFile,
                                       mainAudioFile: mainAudioFile,
                                       suffixAudioFile: suffixAudioFile)
@@ -129,7 +129,7 @@ extension EpisodeTemplate {
         suffixAudioFile = AudioManager.audioFileForDisplayName("Outro End")
         let section2 = EpisodeSection(type: .standard,
                                       name: "Epilog",
-                                      text: sectionText,
+                                      rawText: sectionText,
                                       prefixAudioFile: prefixAudioFile,
                                       mainAudioFile: mainAudioFile,
                                       suffixAudioFile: suffixAudioFile)

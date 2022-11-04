@@ -23,7 +23,7 @@ struct SectionEditView: View {
     init(section: EpisodeSection) {
         self.section = section
         _name = State(initialValue: section.name)
-        _text = State(initialValue: section.text)
+        _text = State(initialValue: section.rawText)
         
         _prefixAudioFile = State(initialValue: section.prefixAudioFile)
         _mainAudioFile = State(initialValue: section.mainAudioFile)

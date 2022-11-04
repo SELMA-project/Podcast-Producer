@@ -28,7 +28,7 @@ class EpisodeViewModel: ObservableObject {
             UserDefaults.standard.set(narratorName, forKey: "narratorName")
             
             // set in current chosenEpisode
-            chosenEpisode.narrator = narratorName
+            //chosenEpisode.narrator = narratorName
         }
     }
     
@@ -100,7 +100,7 @@ class EpisodeViewModel: ObservableObject {
     func addEpisode(basedOnTemplate template: EpisodeTemplate) {
         
         // create episode
-        var newEpisode = Episode.buildFromTemplate(template)
+        var newEpisode = Episode.buildFromTemplate(template, narrator: narratorName)
         
         // set narrator name
         newEpisode.narrator = narratorName
@@ -113,10 +113,7 @@ class EpisodeViewModel: ObservableObject {
         
         // parse
         var newEpisode = Episode.buildFromScript(scriptName)
-        
-        // set narrator name
-        newEpisode.narrator = narratorName
-        
+                
         // does an episode with the same creation Date already exist
         let matchingEpisodeIndex = availableEpisodes.firstIndex {$0.creationDate == newEpisode.creationDate}
                 
@@ -139,7 +136,7 @@ class EpisodeViewModel: ObservableObject {
         print("Documents are in: \(documentsDir)")
         print("Caches are in: \(cachesDir)")
         
-        //AudioManager.shared.deleteCachedFiles()
+        AudioManager.shared.deleteCachedFiles()
         
 //        Task {
 //            //SpeechManager.shared.printSpeechVoices()
@@ -162,12 +159,14 @@ class EpisodeViewModel: ObservableObject {
         //var newEpisodeSegments: [BuildingBlock]
         
         // the speaker identifier
-        let voiceIdentifier = chosenEpisode.podcastVoice.identifier
+        //let voiceIdentifier = chosenEpisode.podcastVoice.identifier
         
         for episodeSection in chosenEpisode.sections {
   
-            let text = episodeSection.text.trimmingCharacters(in: .whitespacesAndNewlines)
-            let textWithReplacedPlaceholders = chosenEpisode.replacePlaceholders(inText: text)
+            // trim section and text and replace placeholders
+//            let text = episodeSection.text.trimmingCharacters(in: .whitespacesAndNewlines)
+//            let textWithReplacedPlaceholders = chosenEpisode.replacePlaceholders(inText: text)
+            let episodeSectionText = episodeSection.finalText
             
             switch episodeSection.type {
             case .standard:
@@ -188,25 +187,25 @@ class EpisodeViewModel: ObservableObject {
                     blockIdentifier = .unknown
                 }
                 
-                // get the section's audio URL based on the voice Id, the section type and the text
-                let textAudioURL = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: textWithReplacedPlaceholders)
+                // calculate the section's audio URL the section type and the text
+                let textAudioURL = episodeSection.textAudioURL
                 
-                let buildingBlock = BuildingBlock(blockIdentifier: blockIdentifier, audioURL: textAudioURL, text: textWithReplacedPlaceholders)
+                let buildingBlock = BuildingBlock(blockIdentifier: blockIdentifier, audioURL: textAudioURL, text: episodeSectionText)
                 structure.append(buildingBlock)
                 
             case .headlines:
                 
                 // add headlines text if present
-                if textWithReplacedPlaceholders.count > 0 {
-                    let textAudioURL = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: textWithReplacedPlaceholders)
-                    let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: textAudioURL, text: textWithReplacedPlaceholders)
+                if episodeSectionText.count > 0 {
+                    let textAudioURL = episodeSection.textAudioURL
+                    let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: textAudioURL, text: episodeSectionText)
                     structure.append(buildingBlock)
                 }
                 
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     if story.usedInIntroduction || !chosenEpisode.restrictHeadlinesToHighLights {
                         let storyHeadline = story.headline
-                        let proposedHeadlineAudioUrl = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: storyHeadline)
+                        let proposedHeadlineAudioUrl = story.headlineAudioURL
                         let buildingBlock = BuildingBlock(blockIdentifier: .headline, subIndex: index, audioURL: proposedHeadlineAudioUrl, text: storyHeadline, highlightInSummary: story.usedInIntroduction)
                         structure.append(buildingBlock)
                     }
@@ -215,15 +214,15 @@ class EpisodeViewModel: ObservableObject {
             case .stories:
                 
                 // add headlines text if present
-                if textWithReplacedPlaceholders.count > 0 {
-                    let textAudioURL = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: textWithReplacedPlaceholders)
-                    let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: textAudioURL, text: textWithReplacedPlaceholders)
+                if episodeSectionText.count > 0 {
+                    let textAudioURL = episodeSection.textAudioURL
+                    let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: textAudioURL, text: episodeSectionText)
                     structure.append(buildingBlock)
                 }
                 
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     let storyText = story.storyText
-                    let proposedTextAudioUrl = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: storyText)
+                    let proposedTextAudioUrl = story.storyTextAudioURL
                     let buildingBlock = BuildingBlock(blockIdentifier: .story, subIndex: index, audioURL: proposedTextAudioUrl, text: storyText)
                     structure.append(buildingBlock)
                 }
@@ -254,7 +253,7 @@ class EpisodeViewModel: ObservableObject {
     }
         
     
-    /// Synthesizes audio for provided building block. If successful, the returned block  is marked with auddioISRendered = true
+    /// Synthesizes audio for provided building block.
     private func renderAudioInBuildingBlock(_ buildingBlock:  BuildingBlock) async -> BuildingBlock  {
         
         // copy original building block to be able to update the audioURL
@@ -417,7 +416,7 @@ class EpisodeViewModel: ObservableObject {
             
             // update properties if they exist
             if let newName {updatedSection.name = newName}
-            if let newText {updatedSection.text = newText}
+            if let newText {updatedSection.rawText = newText}
             if let newPrefixAudioFile {updatedSection.prefixAudioFile = newPrefixAudioFile}
             if let newMainAudioFile {updatedSection.mainAudioFile = newMainAudioFile}
             if let newSuffixAudioFile {updatedSection.suffixAudioFile = newSuffixAudioFile}
