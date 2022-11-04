@@ -240,9 +240,6 @@ extension AudioManager {
         segmentId = audioEpisode.addSegment()
         
         // add main text to new segment
-//        let voiceIdentifier = episode.podcastVoice.identifier
-//        let textWithReplacedPlaceholders = episode.replacePlaceholders(inText: episodeSection.text)
-//        audioUrl = Episode.textAudioURL(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: textWithReplacedPlaceholders)
         audioUrl = episodeSection.textAudioURL
         audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
         

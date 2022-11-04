@@ -32,16 +32,6 @@ class EpisodeViewModel: ObservableObject {
         }
     }
     
-    // TODO: replace removing Audio part
-//    @Published var speaker = SelmaVoice(.leila) {
-//        willSet(newValue) {
-//            if newValue != speaker {
-//                //print("New speaker: \(speaker)")
-//                removeAudio(inEpisodeStructure: episodeStructure)
-//            }
-//        }
-//    }
-//
     var episodeUrl: URL = Bundle.main.url(forResource: "no-audio.m4a", withExtension: nil)!
     
     // this is used in combine
@@ -133,7 +123,7 @@ class EpisodeViewModel: ObservableObject {
         print("Documents are in: \(documentsDir)")
         print("Caches are in: \(cachesDir)")
         
-        AudioManager.shared.deleteCachedFiles()
+        //AudioManager.shared.deleteCachedFiles()
         
 //        Task {
 //            //SpeechManager.shared.printSpeechVoices()
@@ -149,20 +139,9 @@ class EpisodeViewModel: ObservableObject {
         
         // episode to build
         let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
-        
-        // array of all ids
-        //let allIdentifiers = BlockIdentifier.allCases
-        
-        //var newEpisodeSegments: [BuildingBlock]
-        
-        // the speaker identifier
-        //let voiceIdentifier = chosenEpisode.podcastVoice.identifier
-        
+                
         for episodeSection in chosenEpisode.sections {
-  
-            // trim section and text and replace placeholders
-//            let text = episodeSection.text.trimmingCharacters(in: .whitespacesAndNewlines)
-//            let textWithReplacedPlaceholders = chosenEpisode.replacePlaceholders(inText: text)
+
             let episodeSectionText = episodeSection.finalText
             
             switch episodeSection.type {
@@ -329,23 +308,14 @@ class EpisodeViewModel: ObservableObject {
     }
     
     func buildAudio() {
-        print("Build audio pressed")
   
         // create entire episode
-        //episodeUrl = AudioManager.shared.createAudioEpisode(basedOnBuildingBlocks: self.episodeStructure)
         let episode = self.availableEpisodes[chosenEpisodeIndex]
         episodeUrl = AudioManager.shared.createAudioEpisodeBasedOnEpisode(episode)
         print("Audio file saved here: \(String(describing: episodeUrl))")
         
         // publish existance of the new audio URL in viewmodel
         episodeAvailable = true
-        
-//        guard let audioURL = episodeStructure[0].audioURL else {return}
-//
-//        let processedAudioURL = AudioManager.shared.createDownloadableAudio(audioUrl: audioURL)
-//        if let fileUrl = processedAudioURL {
-//            print("Audio file saved here: \(fileUrl)")
-//        }
     }
     
     private func indexOfEpisodeSection(withId relevantId: UUID) -> Int? {
@@ -459,25 +429,4 @@ class EpisodeViewModel: ObservableObject {
         
     }
     
-//    /// Replaces all place holders
-//    private func replacePlaceholders(inText text: String) -> String {
-//        
-//        // narrator
-//        let narratorName = chosenEpisode.narrator
-//        var newText = text.replacing("{narrator}", with: narratorName)
-//        
-//        // date
-//        let creationDate = chosenEpisode.creationDate
-//        let languageCode = chosenEpisode.language.isoCode
-//        let appleLocale = languageCode.replacingOccurrences(of: "-", with: "_")
-//        
-//        let formatter = DateFormatter()
-//        formatter.locale = Locale(identifier: appleLocale)
-//        formatter.setLocalizedDateFormatFromTemplate("EEEE, dd MMMM YYYY")
-//        let dateString = formatter.string(from: creationDate)
-//        
-//        newText = newText.replacing("{date}", with: dateString)
-//        
-//        return newText
-//    }
 }
