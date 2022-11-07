@@ -240,7 +240,8 @@ extension AudioManager {
         segmentId = audioEpisode.addSegment()
         
         // add main text to new segment
-        audioUrl = episodeSection.textAudioURL
+        //let sectionText = episode.replaceTokens(inText: episodeSection.rawText)
+        audioUrl = episode.textAudioURL(forSection: episodeSection)
         audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
         
         // add text audio
@@ -261,7 +262,7 @@ extension AudioManager {
             // go through each headline story
             for (storyIndex, story) in storiesUsedForHeadlines.enumerated() {
                 // headline audio
-                audioUrl = story.headlineAudioURL//(forSectionType: episodeSection.type, textContent: story.headline)
+                audioUrl = episode.headlineAudioURL(forStory: story)
                 audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
                 
                 // add separator, except for the last headline
@@ -275,7 +276,7 @@ extension AudioManager {
             // go through each story
             for (storyIndex, story) in stories.enumerated() {
                 // story audio
-                audioUrl = story.storyTextAudioURL//(forSectionType: episodeSection.type, voiceIndentifier: voiceIdentifier, textContent: story.storyText)
+                audioUrl = episode.storyTextAudioURL(forStory: story)
                 audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
                 
                 // add separator, except for the last story

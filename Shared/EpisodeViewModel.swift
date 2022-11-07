@@ -138,11 +138,14 @@ class EpisodeViewModel: ObservableObject {
         var structure = [BuildingBlock]()
         
         // episode to build
-        let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
+       // let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
                 
         for episodeSection in chosenEpisode.sections {
 
-            let episodeSectionText = episodeSection.finalText
+            // calculate the section's audio URL the section type and the text
+            let episodeSectionText = chosenEpisode.replaceTokens(inText: episodeSection.rawText)
+            //let episodeSectionType = episodeSection.type
+            let textAudioURL = chosenEpisode.textAudioURL(forSection: episodeSection)
             
             switch episodeSection.type {
             case .standard:
@@ -164,7 +167,7 @@ class EpisodeViewModel: ObservableObject {
                 }
                 
                 // calculate the section's audio URL the section type and the text
-                let textAudioURL = episodeSection.textAudioURL
+                //let textAudioURL = chosenEpisode.textAudioURL(forSectionType: episodeSectionType, textContent: episodeSectionText)
                 
                 let buildingBlock = BuildingBlock(blockIdentifier: blockIdentifier, audioURL: textAudioURL, text: episodeSectionText)
                 structure.append(buildingBlock)
@@ -173,7 +176,7 @@ class EpisodeViewModel: ObservableObject {
                 
                 // add headlines text if present
                 if episodeSectionText.count > 0 {
-                    let textAudioURL = episodeSection.textAudioURL
+                    //let textAudioURL = episodeSection.textAudioURL
                     let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: textAudioURL, text: episodeSectionText)
                     structure.append(buildingBlock)
                 }
@@ -181,7 +184,7 @@ class EpisodeViewModel: ObservableObject {
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     if story.usedInIntroduction || !chosenEpisode.restrictHeadlinesToHighLights {
                         let storyHeadline = story.headline
-                        let proposedHeadlineAudioUrl = story.headlineAudioURL
+                        let proposedHeadlineAudioUrl = chosenEpisode.headlineAudioURL(forStory: story)
                         let buildingBlock = BuildingBlock(blockIdentifier: .headline, subIndex: index, audioURL: proposedHeadlineAudioUrl, text: storyHeadline, highlightInSummary: story.usedInIntroduction)
                         structure.append(buildingBlock)
                     }
@@ -191,14 +194,14 @@ class EpisodeViewModel: ObservableObject {
                 
                 // add headlines text if present
                 if episodeSectionText.count > 0 {
-                    let textAudioURL = episodeSection.textAudioURL
+                    //let textAudioURL = episodeSection.textAudioURL
                     let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: textAudioURL, text: episodeSectionText)
                     structure.append(buildingBlock)
                 }
                 
                 for (index, story) in chosenEpisode.stories.enumerated() {
                     let storyText = story.storyText
-                    let proposedTextAudioUrl = story.storyTextAudioURL
+                    let proposedTextAudioUrl = chosenEpisode.storyTextAudioURL(forStory: story)
                     let buildingBlock = BuildingBlock(blockIdentifier: .story, subIndex: index, audioURL: proposedTextAudioUrl, text: storyText)
                     structure.append(buildingBlock)
                 }

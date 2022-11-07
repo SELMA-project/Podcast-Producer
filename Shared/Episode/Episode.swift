@@ -19,36 +19,36 @@ struct Story: Equatable, Identifiable, Hashable {
     var usedInIntroduction: Bool
     var headline: String
     var storyText: String
-    var owningEpisode: Episode?
+    //var owningEpisode: Episode?
     
-    var headlineAudioURL: URL? {
-        
-        var storageURL: URL?
-
-        // we need to be able to link to the owning episode
-        if let owningEpisode {
-            storageURL = owningEpisode.textAudioURL(forSectionType: .stories, textContent: self.headline)
-        } else {
-            fatalError("This episode section should have an owning episode by now")
-        }
-
-        // return result
-        return storageURL
-    }
-    
-    var storyTextAudioURL: URL? {
-        var storageURL: URL?
-
-        // we need to be able to link to the owning episode
-        if let owningEpisode {
-            storageURL = owningEpisode.textAudioURL(forSectionType: .stories, textContent: self.storyText)
-        } else {
-            fatalError("This episode section should have an owning episode by now")
-        }
-
-        // return result
-        return storageURL
-    }
+//    var headlineAudioURL: URL? {
+//
+//        var storageURL: URL?
+//
+//        // we need to be able to link to the owning episode
+//        if let owningEpisode {
+//            storageURL = owningEpisode.textAudioURL(forSectionType: .stories, textContent: self.headline)
+//        } else {
+//            fatalError("This episode section should have an owning episode by now")
+//        }
+//
+//        // return result
+//        return storageURL
+//    }
+//
+//    var storyTextAudioURL: URL? {
+//        var storageURL: URL?
+//
+//        // we need to be able to link to the owning episode
+//        if let owningEpisode {
+//            storageURL = owningEpisode.textAudioURL(forSectionType: .stories, textContent: self.storyText)
+//        } else {
+//            fatalError("This episode section should have an owning episode by now")
+//        }
+//
+//        // return result
+//        return storageURL
+//    }
 }
 
 
@@ -64,54 +64,54 @@ struct EpisodeSection: Identifiable, Hashable {
     var suffixAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     var separatorAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
     
-    var finalText: String {
-        
-        // make a copy
-        var textWithReplacements = rawText
-        
-        // we need to be able to link to the owning episode
-        if let owningEpisode {
-                        
-            // get relevant properties from owning episode
-            let episodeCreationDate = owningEpisode.creationDate
-            let episodeNarrator = owningEpisode.narrator
-            let episodeLanguage = owningEpisode.language
-            
-            // replace narrator
-            textWithReplacements = textWithReplacements.replacing("{narrator}", with: episodeNarrator)
-            
-            // replace date
-            let languageCode = episodeLanguage.isoCode
-            let appleLocale = languageCode.replacingOccurrences(of: "-", with: "_")
-            
-            let formatter = DateFormatter()
-            formatter.locale = Locale(identifier: appleLocale)
-            formatter.setLocalizedDateFormatFromTemplate("EEEE, dd MMMM YYYY")
-            let dateString = formatter.string(from: episodeCreationDate)
-            
-            textWithReplacements = textWithReplacements.replacing("{date}", with: dateString)
-
-        } else {
-            fatalError("This episode section should have an owning episode by now")
-        }
-        
-        return textWithReplacements
-    }
+//    var finalText: String {
+//        
+//        // make a copy
+//        var textWithReplacements = rawText
+//        
+//        // we need to be able to link to the owning episode
+//        if let owningEpisode {
+//                        
+//            // get relevant properties from owning episode
+//            let episodeCreationDate = owningEpisode.creationDate
+//            let episodeNarrator = owningEpisode.narrator
+//            let episodeLanguage = owningEpisode.language
+//            
+//            // replace narrator
+//            textWithReplacements = textWithReplacements.replacing("{narrator}", with: episodeNarrator)
+//            
+//            // replace date
+//            let languageCode = episodeLanguage.isoCode
+//            let appleLocale = languageCode.replacingOccurrences(of: "-", with: "_")
+//            
+//            let formatter = DateFormatter()
+//            formatter.locale = Locale(identifier: appleLocale)
+//            formatter.setLocalizedDateFormatFromTemplate("EEEE, dd MMMM YYYY")
+//            let dateString = formatter.string(from: episodeCreationDate)
+//            
+//            textWithReplacements = textWithReplacements.replacing("{date}", with: dateString)
+//
+//        } else {
+//            fatalError("This episode section should have an owning episode by now")
+//        }
+//        
+//        return textWithReplacements
+//    }
     
-    var textAudioURL: URL?
-    {
-        var storageURL: URL?
-
-        // we need to be able to link to the owning episode
-        if let owningEpisode {
-            storageURL = owningEpisode.textAudioURL(forSectionType: self.type, textContent: self.finalText)
-        } else {
-            fatalError("This episode section should have an owning episode by now")
-        }
-
-        // return result
-        return storageURL
-    }
+//    var textAudioURL: URL?
+//    {
+//        var storageURL: URL?
+//
+//        // we need to be able to link to the owning episode
+//        if let owningEpisode {
+//            storageURL = owningEpisode.textAudioURL(forSectionType: self.type, textContent: self.finalText)
+//        } else {
+//            fatalError("This episode section should have an owning episode by now")
+//        }
+//
+//        // return result
+//        return storageURL
+//    }
 }
 
 struct Episode: Identifiable, Hashable {
@@ -150,14 +150,36 @@ struct Episode: Identifiable, Hashable {
         return episode
     }
     
-    fileprivate func textAudioURL(forSectionType sectionType: EpisodeSectionType, textContent: String) -> URL {
+    func replaceTokens(inText text: String) -> String {
+        
+        // make a copy
+        var textWithReplacements = text
+        
+        // replace narrator
+        textWithReplacements = textWithReplacements.replacing("{narrator}", with: self.narrator)
+        
+        // replace date
+        let languageCode = self.language.isoCode
+        let appleLocale = languageCode.replacingOccurrences(of: "-", with: "_")
+        
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: appleLocale)
+        formatter.setLocalizedDateFormatFromTemplate("EEEE, dd MMMM YYYY")
+        let dateString = formatter.string(from: self.creationDate)
+        
+        textWithReplacements = textWithReplacements.replacing("{date}", with: dateString)
+
+        return textWithReplacements
+    }
+    
+    private func textAudioURL(forSectionType sectionType: EpisodeSectionType, textContent: String) -> URL {
 
         // where to store
         let documentsDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
 
         // voice identifier
         let voiceIdentifier = podcastVoice.identifier
-        
+
         // mix type and text into hash
         let textToBeHashed = "\(sectionType.rawValue)-\(voiceIdentifier)-\(textContent)"
         let textAsData = Data(textToBeHashed.utf8)
@@ -172,6 +194,35 @@ struct Episode: Identifiable, Hashable {
         return storageURL
     }
     
+    func textAudioURL(forSection episodeSection: EpisodeSection) -> URL {
+
+        // relevant parameters influencingthe URL
+        let sectionType = episodeSection.type
+        let textContent = replaceTokens(inText: episodeSection.rawText)
+        
+        // derive URL
+        let textAudioUrl = self.textAudioURL(forSectionType: sectionType, textContent: textContent)
+        
+        // return result
+        return textAudioUrl
+    }
+    
+
+    func headlineAudioURL(forStory story: Story) -> URL {
+    
+        let storageURL = textAudioURL(forSectionType: .stories, textContent: story.headline)
+
+        // return result
+        return storageURL
+    }
+    
+    func storyTextAudioURL(forStory story: Story) -> URL {
+
+        let storageURL = textAudioURL(forSectionType: .stories, textContent: story.storyText)
+
+        // return result
+        return storageURL
+    }
 
 }
 
@@ -213,7 +264,7 @@ extension Episode {
         // TODO: Remove, only temporary
         var stories = [Story]()
         for storyIndex in 1...1 {
-            let story = Story(usedInIntroduction: true, headline: "Story headline \(storyIndex)", storyText: "Enter story text here.", owningEpisode: episode)
+            let story = Story(usedInIntroduction: true, headline: "Story headline \(storyIndex)", storyText: "Enter story text here.")
             stories.append(story)
         }
         episode.stories = stories
@@ -276,7 +327,7 @@ extension Episode {
                 let headline = headlines[headlineIndex]
                 
                 // create story
-                let story = Story(usedInIntroduction: headline.isHighlighted, headline: headline.text, storyText: storyText, owningEpisode: episode)
+                let story = Story(usedInIntroduction: headline.isHighlighted, headline: headline.text, storyText: storyText)
                 
                 // append to other stories
                 stories.append(story)

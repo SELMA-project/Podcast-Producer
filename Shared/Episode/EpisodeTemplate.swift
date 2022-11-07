@@ -99,7 +99,7 @@ extension EpisodeTemplate {
         case .french:
             templateName = "Info Matin"
             restrictHeadlinesToHighLights = false
-            introText = "DW. Info Matin. Info Matin du {date}. Je m'appelle {narrator}. Bonjour."
+            introText = "DW Info Matin du {date}. Je m'appelle {narrator}. Bonjour."
             outroText = "Excellente journée à toutes et à tous et rendez-vous demain matin pour une nouvelle émission de Info Matin. A demain!"
         }
         
