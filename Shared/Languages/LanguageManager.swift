@@ -12,7 +12,7 @@ class LanguageManager {
     static var shared = LanguageManager()
     
     enum Language: String, CaseIterable {
-        case brazilian, english, german
+        case brazilian, english, german, french
         
         var displayName: String {
             
@@ -21,15 +21,7 @@ class LanguageManager {
             let locale = Locale(identifier: "en_US")
             let languageName = locale.localizedString(forLanguageCode: languageCode)!
             
-//            switch(self) {
-//            case .brazilian:
-//                return "Portuguese (Brazil)"
-//            case .german:
-//                return "German"
-//            case .english:
-//                return "English"
-//            }
-            
+
             return languageName
         }
         
@@ -44,7 +36,10 @@ class LanguageManager {
                 isoCode = "pt-BR"
             case .german:
                 isoCode = "de-DE"
+            case .french:
+                isoCode = "fr-FR"
             }
+        
             
             return isoCode
         }

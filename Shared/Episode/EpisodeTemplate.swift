@@ -40,6 +40,11 @@ extension EpisodeTemplate {
             let template = template(forLanguage: .english)
             templates.append(template)
         }
+
+        if language == .french {
+            let template = template(forLanguage: .french)
+            templates.append(template)
+        }
         
         return templates
     }
@@ -91,6 +96,11 @@ extension EpisodeTemplate {
             introText = "Greetings. It's {date} and my name is {narrator}. These are the latest news."
             outroText = "These were the latest news. Come back for more."
             
+        case .french:
+            templateName = "Info Matin"
+            restrictHeadlinesToHighLights = false
+            introText = "DW. Info Matin. Info Matin du {date}. Je m'appelle {narrator}. Bonjour."
+            outroText = "Excellente journée à toutes et à tous et rendez-vous demain matin pour une nouvelle émission de Info Matin. A demain!"
         }
         
         template = createTemplate(name: templateName, forLanguage: language, restrictHeadlinesToHighLights: restrictHeadlinesToHighLights, introText: introText, outroText: outroText)
