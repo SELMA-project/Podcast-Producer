@@ -100,6 +100,9 @@ struct MainEditView: View {
                             Text(voice.name)
                         }
                     }
+                }.onAppear {
+                    // TODO: Not an ideal solution, as screen need to reappear before screen update
+                    VoiceManager.shared.findSuitableVoices()
                 }
                 
                 

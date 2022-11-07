@@ -29,11 +29,14 @@ class VoiceManager {
     init() {
         
         // cache filtering of suitable  voices
-        //Task {
-            self.appleVoices =  findSuitableAppleVoices()
-            self.selmaVoices =  findSuitableSelmaVoices()
-            self.eurovoxVoices =  findSuitableEurovoxVoices()
-        //}
+        findSuitableVoices()
+    }
+    
+    func findSuitableVoices() {
+        print("Finding suitable voices")
+        self.appleVoices =  findSuitableAppleVoices()
+        self.selmaVoices =  findSuitableSelmaVoices()
+        self.eurovoxVoices =  findSuitableEurovoxVoices()
     }
     
     /// Proposes a voice based on the given locale
