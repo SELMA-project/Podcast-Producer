@@ -124,13 +124,144 @@ class EpisodeViewModel: ObservableObject {
         print("Caches are in: \(cachesDir)")
         
         //AudioManager.shared.deleteCachedFiles()
-        
-//        Task {
-//            //SpeechManager.shared.printSpeechVoices()
-//            let url = await SpeechManager.shared.saveAVSpeechUtteranceToFile()
-//            print("Speech is saved in \(String(describing: url))")
-//        }
     }
+    
+ 
+    
+    func buildAudio() {
+  
+        // create entire episode
+        let episode = self.availableEpisodes[chosenEpisodeIndex]
+        episodeUrl = AudioManager.shared.createAudioEpisodeBasedOnEpisode(episode)
+        print("Audio file saved here: \(String(describing: episodeUrl))")
+        
+        // publish existance of the new audio URL in viewmodel
+        episodeAvailable = true
+    }
+    
+    private func indexOfEpisodeSection(withId relevantId: UUID) -> Int? {
+        
+        // which episode are we currently working with?
+        let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
+        
+        // get its sections
+        let sections = chosenEpisode.sections
+    
+        // find episode index for given id
+        let episodeIndex = sections.firstIndex(where:  {$0.id == relevantId})
+        
+        return episodeIndex
+    }
+    
+    func updateEpisodeStory(storyId: UUID, newHeadline: String? = nil, newText: String? = nil, markAsHighlight: Bool? = nil) {
+                
+        // associated stories
+        let stories = chosenEpisode.stories
+        
+        // copy them
+        var updatedStories = stories
+        
+        // index for given storyId
+        if let storyIndex = stories.firstIndex(where:  {$0.id == storyId}) {
+            
+            // get a copy the story itself
+            var updatedStory = stories[storyIndex]
+            
+            // update properties if they exist
+            if let newHeadline {updatedStory.headline = newHeadline}
+            if let newText {updatedStory.storyText = newText}
+            if let markAsHighlight {updatedStory.usedInIntroduction = markAsHighlight}
+            
+            // update array of stories
+            updatedStories[storyIndex] = updatedStory
+            
+            // update episode with new stories
+            chosenEpisode.stories = updatedStories
+        }
+        
+    }
+    
+
+    /// Updates the currently chosen episode. The non-nil attributes of the episode's section, identified by *sectionId*, are updated.
+    func updateEpisodeSection(sectionId: UUID,
+                              newName: String? = nil,
+                              newText: String? = nil,
+                              newPrefixAudioFile: AudioManager.AudioFile? = nil,
+                              newMainAudioFile: AudioManager.AudioFile? = nil,
+                              newSuffixAudioFile: AudioManager.AudioFile? = nil,
+                              newSeparatorAudioFile: AudioManager.AudioFile? = nil) {
+        
+        // get its sections
+        let sections = chosenEpisode.sections
+        
+        // get the section's index
+        if let episodeIndex = indexOfEpisodeSection(withId: sectionId) {
+            // the section itself
+            let section = sections[episodeIndex]
+            
+            // copy ther section
+            var updatedSection = section
+            
+            // update properties if they exist
+            if let newName {updatedSection.name = newName}
+            if let newText {updatedSection.rawText = newText}
+            if let newPrefixAudioFile {updatedSection.prefixAudioFile = newPrefixAudioFile}
+            if let newMainAudioFile {updatedSection.mainAudioFile = newMainAudioFile}
+            if let newSuffixAudioFile {updatedSection.suffixAudioFile = newSuffixAudioFile}
+            if let newSeparatorAudioFile {updatedSection.separatorAudioFile = newSeparatorAudioFile}
+            
+            // write back to array of sections
+            chosenEpisode.sections[episodeIndex] = updatedSection
+        }
+        
+    }
+    
+
+    
+    private func fileExists(atURL url:URL) -> Bool {
+        return FileManager.default.fileExists(atPath: url.path)
+    }
+    
+ 
+    
+}
+
+
+
+// MARK: - Legacy BuildingBlock Code
+// this should be obsolete soon
+extension EpisodeViewModel {
+    
+    
+    /// Remove all rendered audio pointed to by the episode structure
+    /// Thids might be obsolte, as there is no caller
+    private func removeAudio(inEpisodeStructure episodeStructure: [BuildingBlock]) {
+        
+        var newEpisodeStructure = [BuildingBlock]()
+        
+        for segment in episodeStructure {
+            
+            // make a copy
+            let newSegment = segment
+            
+            if let audioURL = newSegment.audioURL {
+                
+                // remove audio
+                try? FileManager.default.removeItem(at: audioURL)
+                
+                // mark audio as not rendered
+                //newSegment.audioIsRendered = false
+            }
+            
+            // store in new episode structure
+            newEpisodeStructure.append(newSegment)
+        }
+        
+        // update structure
+        self.episodeStructure = newEpisodeStructure
+        
+    }
+    
     
     func buildEpisodeStructure() {
 
@@ -309,127 +440,4 @@ class EpisodeViewModel: ObservableObject {
         }
         
     }
-    
-    func buildAudio() {
-  
-        // create entire episode
-        let episode = self.availableEpisodes[chosenEpisodeIndex]
-        episodeUrl = AudioManager.shared.createAudioEpisodeBasedOnEpisode(episode)
-        print("Audio file saved here: \(String(describing: episodeUrl))")
-        
-        // publish existance of the new audio URL in viewmodel
-        episodeAvailable = true
-    }
-    
-    private func indexOfEpisodeSection(withId relevantId: UUID) -> Int? {
-        
-        // which episode are we currently working with?
-        let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
-        
-        // get its sections
-        let sections = chosenEpisode.sections
-    
-        // find episode index for given id
-        let episodeIndex = sections.firstIndex(where:  {$0.id == relevantId})
-        
-        return episodeIndex
-    }
-    
-    func updateEpisodeStory(storyId: UUID, newHeadline: String? = nil, newText: String? = nil, markAsHighlight: Bool? = nil) {
-                
-        // associated stories
-        let stories = chosenEpisode.stories
-        
-        // copy them
-        var updatedStories = stories
-        
-        // index for given storyId
-        if let storyIndex = stories.firstIndex(where:  {$0.id == storyId}) {
-            
-            // get a copy the story itself
-            var updatedStory = stories[storyIndex]
-            
-            // update properties if they exist
-            if let newHeadline {updatedStory.headline = newHeadline}
-            if let newText {updatedStory.storyText = newText}
-            if let markAsHighlight {updatedStory.usedInIntroduction = markAsHighlight}
-            
-            // update array of stories
-            updatedStories[storyIndex] = updatedStory
-            
-            // update episode with new stories
-            chosenEpisode.stories = updatedStories
-        }
-        
-    }
-    
-
-    /// Updates the currently chosen episode. The non-nil attributes of the episode's section, identified by *sectionId*, are updated.
-    func updateEpisodeSection(sectionId: UUID,
-                              newName: String? = nil,
-                              newText: String? = nil,
-                              newPrefixAudioFile: AudioManager.AudioFile? = nil,
-                              newMainAudioFile: AudioManager.AudioFile? = nil,
-                              newSuffixAudioFile: AudioManager.AudioFile? = nil,
-                              newSeparatorAudioFile: AudioManager.AudioFile? = nil) {
-        
-        // get its sections
-        let sections = chosenEpisode.sections
-        
-        // get the section's index
-        if let episodeIndex = indexOfEpisodeSection(withId: sectionId) {
-            // the section itself
-            let section = sections[episodeIndex]
-            
-            // copy ther section
-            var updatedSection = section
-            
-            // update properties if they exist
-            if let newName {updatedSection.name = newName}
-            if let newText {updatedSection.rawText = newText}
-            if let newPrefixAudioFile {updatedSection.prefixAudioFile = newPrefixAudioFile}
-            if let newMainAudioFile {updatedSection.mainAudioFile = newMainAudioFile}
-            if let newSuffixAudioFile {updatedSection.suffixAudioFile = newSuffixAudioFile}
-            if let newSeparatorAudioFile {updatedSection.separatorAudioFile = newSeparatorAudioFile}
-            
-            // write back to array of sections
-            chosenEpisode.sections[episodeIndex] = updatedSection
-        }
-        
-    }
-    
-
-    
-    private func fileExists(atURL url:URL) -> Bool {
-        return FileManager.default.fileExists(atPath: url.path)
-    }
-    
-    /// Remove all rendered audio pointed to by the episode structure
-    private func removeAudio(inEpisodeStructure episodeStructure: [BuildingBlock]) {
-        
-        var newEpisodeStructure = [BuildingBlock]()
-        
-        for segment in episodeStructure {
-            
-            // make a copy
-            let newSegment = segment
-            
-            if let audioURL = newSegment.audioURL {
-                
-                // remove audio
-                try? FileManager.default.removeItem(at: audioURL)
-                
-                // mark audio as not rendered
-                //newSegment.audioIsRendered = false
-            }
-            
-            // store in new episode structure
-            newEpisodeStructure.append(newSegment)
-        }
-        
-        // update structure
-        self.episodeStructure = newEpisodeStructure
-        
-    }
-    
 }
