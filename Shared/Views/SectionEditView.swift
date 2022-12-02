@@ -113,7 +113,7 @@ struct SectionEditView: View {
             }
             
             Section("Preview") {
-                PlayButtonRow()
+                PlayButtonRow(section: section)
             }
             
             if section.type == .headlines {
@@ -175,11 +175,22 @@ struct SectionEditView: View {
 }
 
 struct PlayButtonRow: View {
+    
+    @State var isSpinning = false
+    @EnvironmentObject var viewModel: EpisodeViewModel
+    
+    var section: EpisodeSection
+    
     var body: some View {
         HStack {
 
             Button {
-                print("Play pressed")
+                Task {
+                    isSpinning = true
+                    let audioUrl = await viewModel.renderEpisodeSection(section)
+                    isSpinning = false
+                    print("Audio for episode section is rendered.")
+                }
             } label: {
                 Image(systemName: "play.circle")
                     .resizable()
@@ -187,6 +198,13 @@ struct PlayButtonRow: View {
                     .frame(width: 25, height: 25)
             }
             
+            Spacer()
+            
+            if isSpinning {
+                ProgressView()
+            } else {
+                ProgressView().hidden()
+            }
             Spacer()
             ProgressView(value: 10, total: 100)
 

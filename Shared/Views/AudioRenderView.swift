@@ -58,7 +58,7 @@ struct AudioRenderView: View {
             ToolbarItem {
                 Button {
                     Task {
-                        episodeViewModel.buildAudio()
+                        await episodeViewModel.buildAudio()
                     }
                 } label: {
                     Text("Build")

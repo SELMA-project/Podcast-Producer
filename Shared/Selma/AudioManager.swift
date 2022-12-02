@@ -201,23 +201,45 @@ extension AudioManager {
 // MARK: -- Code where Audio Episode is created directly from episode data
 extension AudioManager {
     
-    func createAudioEpisodeBasedOnEpisode(_ episode: Episode) -> URL {
+    /// Render create audio episode, restricted to a certain section if parameter <selectedSectionIndex> is not nil
+    func createAudioEpisodeBasedOnEpisode(_ episode: Episode, selectedSectionIndex: Int?) async -> URL {
         
-        // create entire episode
+        // initialize a new audio episode
         var audioEpisode = AudioEpisode()
         
         // go through episode sections and process them
         for (sectionIndex, _) in episode.sections.enumerated() {
-            processSection(episode: episode, sectionIndex: sectionIndex, audioEpisode: &audioEpisode)
+            
+            // if a specific section was requested...
+            if let selectedSectionIndex {
+                // and if the loop's sectionIndex matches...
+                if sectionIndex == selectedSectionIndex {
+                    // add this section to the audioEpisode
+                    await processSection(episode: episode, sectionIndex: sectionIndex, audioEpisode: &audioEpisode)
+                }
+            } else {
+                // if we are _not_ restricting ourselves to a certain section, add all sections
+                await processSection(episode: episode, sectionIndex: sectionIndex, audioEpisode: &audioEpisode)
+            }
+            
+        }
+        
+        // deduce outputFileName
+        var outputFileName = "episode"
+        
+        // add section index if we only render a section
+        if let selectedSectionIndex {
+            outputFileName += "-s\(selectedSectionIndex)"
         }
         
         // render episode
-        let url = audioEpisode.render(outputfileName: "output")
+        let url = audioEpisode.render(outputfileName: outputFileName)
         
         return url
     }
     
-    private func processSection(episode: Episode, sectionIndex: Int, audioEpisode: inout AudioEpisode) {
+    // Synthesizes text in specified section and addss audio for all three segments
+    private func processSection(episode: Episode, sectionIndex: Int, audioEpisode: inout AudioEpisode) async {
         
         // contains id of current audio segment
         var segmentId: Int
@@ -239,13 +261,17 @@ extension AudioManager {
         // create main segment
         segmentId = audioEpisode.addSegment()
         
+        // render the main text in the episode section
+        await audioUrl = renderText(inEpisode: episode, section: episodeSection)
+        
         // add main text to new segment
-        //let sectionText = episode.replaceTokens(inText: episodeSection.rawText)
-        audioUrl = episode.textAudioURL(forSection: episodeSection)
         audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
         
         // add text audio
         switch episodeSection.type {
+            
+        // the main segment of the standard episodeSection only contains the text audio given through textAudioURL
+        // this hase been added above
         case .standard:
             break
             
@@ -262,7 +288,7 @@ extension AudioManager {
             // go through each headline story
             for (storyIndex, story) in storiesUsedForHeadlines.enumerated() {
                 // headline audio
-                audioUrl = episode.headlineAudioURL(forStory: story)
+                await audioUrl = renderText(inEpisode: episode, section: episodeSection, story: story, useHeadline: true)
                 audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
                 
                 // add separator, except for the last headline
@@ -276,7 +302,7 @@ extension AudioManager {
             // go through each story
             for (storyIndex, story) in stories.enumerated() {
                 // story audio
-                audioUrl = episode.storyTextAudioURL(forStory: story)
+                await audioUrl = renderText(inEpisode: episode, section: episodeSection, story: story, useHeadline: false)
                 audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
                 
                 // add separator, except for the last story
@@ -297,6 +323,46 @@ extension AudioManager {
         audioUrl = episodeSection.suffixAudioFile.url
         audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
         
+    }
+    
+    private func renderText(inEpisode episode: Episode, section episodeSection: EpisodeSection, story: Story? = nil, useHeadline: Bool = true) async -> URL? {
+        
+        // the speaker identifier
+        let podcastVoice = episode.podcastVoice
+        
+        // where is the audio stored?
+        
+        // by default, use the section's main text
+        var audioURL = episode.textAudioURL(forSection: episodeSection)
+        var rawText = episodeSection.rawText
+        
+        // if we want to render a story headline or main text...
+        if let story {
+            if useHeadline { // render headline
+                audioURL = episode.headlineAudioURL(forStory: story)
+                rawText = story.headline
+            } else { // render main story text
+                audioURL = episode.storyTextAudioURL(forStory: story)
+                rawText = story.storyText
+            }
+        }
+        
+        // replace tokens
+        let textToRender = episode.replaceTokens(inText: rawText)
+        
+        // render audio if it does not yet exist
+        var success = true
+        if !FileManager.default.fileExists(atPath: audioURL.path) {
+            success = await AudioManager.shared.synthesizeSpeech(podcastVoice: podcastVoice, text: textToRender, toURL: audioURL)
+        }
+        
+        // if we successfully rendered the speech, return its audioURL. Otherwise return nil.
+        var returnedURL: URL? = nil
+        if success {
+            returnedURL = audioURL
+        }
+        
+        return returnedURL
     }
     
 }

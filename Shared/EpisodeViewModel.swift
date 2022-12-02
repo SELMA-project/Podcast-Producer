@@ -127,16 +127,31 @@ class EpisodeViewModel: ObservableObject {
     }
     
  
-    
-    func buildAudio() {
+    /// Called when 'Create Audio' button is pressed in AudioRenderView
+    func buildAudio() async {
   
         // create entire episode
         let episode = self.availableEpisodes[chosenEpisodeIndex]
-        episodeUrl = AudioManager.shared.createAudioEpisodeBasedOnEpisode(episode)
+        episodeUrl = await AudioManager.shared.createAudioEpisodeBasedOnEpisode(episode, selectedSectionIndex: nil)
         print("Audio file saved here: \(String(describing: episodeUrl))")
         
         // publish existance of the new audio URL in viewmodel
         episodeAvailable = true
+    }
+    
+    /// Called when play button is sectionEditView is pressed
+    func renderEpisodeSection(_ episodeSection: EpisodeSection) async -> URL? {
+    
+        var sectionAudioUrl: URL?
+        
+        // get the section's index
+        if let episodeIndex = chosenEpisode.sections.firstIndex(of: episodeSection) {
+            
+            // create an audio episode which just contains the episode we want to preview
+            sectionAudioUrl = await AudioManager.shared.createAudioEpisodeBasedOnEpisode(chosenEpisode, selectedSectionIndex: episodeIndex)
+        }
+        
+        return sectionAudioUrl
     }
     
     private func indexOfEpisodeSection(withId relevantId: UUID) -> Int? {
