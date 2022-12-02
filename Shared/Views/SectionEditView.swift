@@ -187,9 +187,13 @@ struct PlayButtonRow: View {
             Button {
                 Task {
                     isSpinning = true
-                    let audioUrl = await viewModel.renderEpisodeSection(section)
+                    let audioURL = await viewModel.renderEpisodeSection(section)
                     isSpinning = false
                     print("Audio for episode section is rendered.")
+                    
+                    if let audioURL {
+                        await viewModel.playAudioAtURL(audioURL)
+                    }
                 }
             } label: {
                 Image(systemName: "play.circle")

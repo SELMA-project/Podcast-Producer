@@ -154,6 +154,12 @@ class EpisodeViewModel: ObservableObject {
         return sectionAudioUrl
     }
     
+    func playAudioAtURL(_ audioURL: URL) async {
+        // play segment
+        await AudioManager.shared.playAudio(audioUrl: audioURL)
+    }
+    
+    
     private func indexOfEpisodeSection(withId relevantId: UUID) -> Int? {
         
         // which episode are we currently working with?
@@ -413,6 +419,7 @@ extension EpisodeViewModel {
         
         return updatedBuildingBlock
     }
+    
     
     
     func playButtonPressed(forSegment audioSegment: BuildingBlock) async {
