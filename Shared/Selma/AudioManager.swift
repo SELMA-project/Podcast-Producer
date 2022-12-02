@@ -225,7 +225,8 @@ extension AudioManager {
         }
         
         // deduce outputFileName
-        var outputFileName = "episode"
+        let episodeIdString = episode.id.uuidString
+        var outputFileName = "e-\(episodeIdString)"
         
         // add section index if we only render a section
         if let selectedSectionIndex {
