@@ -159,6 +159,9 @@ class EpisodeViewModel: ObservableObject {
         await AudioManager.shared.playAudio(audioUrl: audioURL)
     }
     
+    func stopAudioPlayback() {
+        AudioManager.shared.stopAudio()
+    }
     
     private func indexOfEpisodeSection(withId relevantId: UUID) -> Int? {
         

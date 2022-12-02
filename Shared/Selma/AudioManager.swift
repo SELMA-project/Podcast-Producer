@@ -59,7 +59,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     
     func playAudio(audioUrl: URL) async {
         
-        // in case that we have an outstanding checkedContinuationm, resume it
+        // in case that we have an outstanding checkedContinuation, resume it
         audioPlayerCheckedContinuation?.resume()
         
         return await withCheckedContinuation({ continuation in
@@ -80,6 +80,8 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     
     func stopAudio() {
         audioPlayer?.stop()
+        audioPlayerCheckedContinuation?.resume()
+        audioPlayerCheckedContinuation = nil
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {

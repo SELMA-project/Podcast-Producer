@@ -176,42 +176,68 @@ struct SectionEditView: View {
 
 struct PlayButtonRow: View {
     
-    @State var isSpinning = false
+    enum PlayButtonState {
+        case waitingForStart, rendering, waitingForStop
+    }
+    
+    @State var playButtonState: PlayButtonState = .waitingForStart
     @EnvironmentObject var viewModel: EpisodeViewModel
     
     var section: EpisodeSection
     
+    func buttonPressed() {
+        
+        Task {
+            
+            if playButtonState == .waitingForStart {
+                
+                // render audio
+                playButtonState = .rendering
+                let audioURL = await viewModel.renderEpisodeSection(section)
+                playButtonState = .waitingForStart
+                
+                // if successful, start playback
+                if let audioURL {
+                    playButtonState = .waitingForStop
+                    await viewModel.playAudioAtURL(audioURL)
+                    playButtonState = .waitingForStart
+                }
+            }
+            
+            if playButtonState == .waitingForStop {
+                viewModel.stopAudioPlayback()
+                playButtonState = .waitingForStart
+            }
+        }
+    }
+    
+    
     var body: some View {
+        
         HStack {
 
-            Button {
-                Task {
-                    isSpinning = true
-                    let audioURL = await viewModel.renderEpisodeSection(section)
-                    isSpinning = false
-                    print("Audio for episode section is rendered.")
-                    
-                    if let audioURL {
-                        await viewModel.playAudioAtURL(audioURL)
-                    }
-                }
-            } label: {
-                Image(systemName: "play.circle")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 25, height: 25)
-            }
-            
-            Spacer()
-            
-            if isSpinning {
+            // replace audio button with spinner while rendering audio
+            if playButtonState == .rendering {
                 ProgressView()
             } else {
-                ProgressView().hidden()
+        
+                Button {
+                    buttonPressed()
+                } label: {
+                    Image(systemName: playButtonState == .waitingForStart ? "play.circle" : "pause.circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 25, height: 25)
+                }
             }
+            
             Spacer()
+            
             ProgressView(value: 10, total: 100)
 
+        }.onDisappear {
+            // if we are leaving the view, stop the audio
+            viewModel.stopAudioPlayback()
         }
     }
 }
