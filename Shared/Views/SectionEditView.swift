@@ -112,6 +112,10 @@ struct SectionEditView: View {
                 TextField("Text", text: textBinding, axis: .vertical)
             }
             
+            Section("Preview") {
+                PlayButtonRow()
+            }
+            
             if section.type == .headlines {
                 Section("Configuration") {
                     //Toggle("Use highlights only", isOn: $restrictHeadlinesToHighlights)
@@ -167,6 +171,26 @@ struct SectionEditView: View {
             StoryEditView(story: story)
         }
         .navigationTitle("Section Editor")
+    }
+}
+
+struct PlayButtonRow: View {
+    var body: some View {
+        HStack {
+
+            Button {
+                print("Play pressed")
+            } label: {
+                Image(systemName: "play.circle")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 25, height: 25)
+            }
+            
+            Spacer()
+            ProgressView(value: 10, total: 100)
+
+        }
     }
 }
 
