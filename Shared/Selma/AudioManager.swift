@@ -253,15 +253,20 @@ extension AudioManager {
         // extract stories for headlines and story section
         let stories = episode.stories
         
+        // ********* PREFIX Segment *********
+        
         // prefix audio
         segmentId = audioEpisode.addSegment()
         audioUrl = episodeSection.prefixAudioFile.url
         audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
         
+        
+        // ********* MAIN Segment *********
+        
         // create main segment
         segmentId = audioEpisode.addSegment()
         
-        // render the main text in the episode section
+        // render the main text in the episode section. Returns nil if unsuccessful
         await audioUrl = renderText(inEpisode: episode, section: episodeSection)
         
         // add main text to new segment
@@ -318,6 +323,9 @@ extension AudioManager {
         audioUrl = episodeSection.mainAudioFile.url
         audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl, delay: 0.0, volume: 0.5, fadeIn: 0.0, fadeOut: 0.0, isLoopingBackgroundTrack: true)
         
+        
+        // ********* SUFFIX Segment *********
+        
         // add suffix audio to a new segment
         segmentId = audioEpisode.addSegment()
         audioUrl = episodeSection.suffixAudioFile.url
@@ -347,19 +355,24 @@ extension AudioManager {
             }
         }
         
-        // replace tokens
-        let textToRender = episode.replaceTokens(inText: rawText)
-        
-        // render audio if it does not yet exist
-        var success = true
-        if !FileManager.default.fileExists(atPath: audioURL.path) {
-            success = await AudioManager.shared.synthesizeSpeech(podcastVoice: podcastVoice, text: textToRender, toURL: audioURL)
-        }
-        
         // if we successfully rendered the speech, return its audioURL. Otherwise return nil.
         var returnedURL: URL? = nil
-        if success {
-            returnedURL = audioURL
+        
+        // if there is any tex tat all, render it
+        if rawText.count > 0 {
+            
+            // replace tokens
+            let textToRender = episode.replaceTokens(inText: rawText)
+            
+            // render audio if it does not yet exist
+            var success = true
+            if !FileManager.default.fileExists(atPath: audioURL.path) {
+                success = await AudioManager.shared.synthesizeSpeech(podcastVoice: podcastVoice, text: textToRender, toURL: audioURL)
+            }
+            
+            if success {
+                returnedURL = audioURL
+            }
         }
         
         return returnedURL
