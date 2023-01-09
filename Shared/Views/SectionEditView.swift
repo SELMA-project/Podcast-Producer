@@ -113,7 +113,7 @@ struct SectionEditView: View {
             }
             
             Section("Preview") {
-                PlayButtonRow(section: section)
+                PlayButtonRow(sectionId: section.id)
             }
             
             if section.type == .headlines {
@@ -183,7 +183,7 @@ struct PlayButtonRow: View {
     @State var playButtonState: PlayButtonState = .waitingForStart
     @EnvironmentObject var viewModel: EpisodeViewModel
     
-    var section: EpisodeSection
+    var sectionId: UUID
     
     func buttonPressed() {
         
@@ -193,7 +193,7 @@ struct PlayButtonRow: View {
                 
                 // render audio
                 playButtonState = .rendering
-                let audioURL = await viewModel.renderEpisodeSection(section)
+                let audioURL = await viewModel.renderEpisodeSection(withId: sectionId)
                 playButtonState = .waitingForStart
                 
                 // if successful, start playback

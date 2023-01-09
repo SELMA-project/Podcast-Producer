@@ -209,7 +209,7 @@ extension AudioManager {
         // initialize a new audio episode
         var audioEpisode = AudioEpisode()
         
-        // go through episode sections and process them
+        // go through episode section and process it
         for (sectionIndex, _) in episode.sections.enumerated() {
             
             // if a specific section was requested...

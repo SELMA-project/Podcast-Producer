@@ -140,12 +140,12 @@ class EpisodeViewModel: ObservableObject {
     }
     
     /// Called when play button is sectionEditView is pressed
-    func renderEpisodeSection(_ episodeSection: EpisodeSection) async -> URL? {
+    func renderEpisodeSection(withId episodeId: UUID) async -> URL? {
     
         var sectionAudioUrl: URL?
         
         // get the section's index
-        if let episodeIndex = chosenEpisode.sections.firstIndex(of: episodeSection) {
+        if let episodeIndex = indexOfEpisodeSection(withId: episodeId) {
             
             // create an audio episode which just contains the episode we want to preview
             sectionAudioUrl = await AudioManager.shared.createAudioEpisodeBasedOnEpisode(chosenEpisode, selectedSectionIndex: episodeIndex)
@@ -216,14 +216,14 @@ class EpisodeViewModel: ObservableObject {
                               newSeparatorAudioFile: AudioManager.AudioFile? = nil) {
         
         // get its sections
-        let sections = chosenEpisode.sections
+        var sections = chosenEpisode.sections
         
         // get the section's index
-        if let episodeIndex = indexOfEpisodeSection(withId: sectionId) {
+        if let sectionIndex = indexOfEpisodeSection(withId: sectionId) {
             // the section itself
-            let section = sections[episodeIndex]
+            let section = sections[sectionIndex]
             
-            // copy ther section
+            // copy the section
             var updatedSection = section
             
             // update properties if they exist
@@ -235,7 +235,10 @@ class EpisodeViewModel: ObservableObject {
             if let newSeparatorAudioFile {updatedSection.separatorAudioFile = newSeparatorAudioFile}
             
             // write back to array of sections
-            chosenEpisode.sections[episodeIndex] = updatedSection
+            sections[sectionIndex] = updatedSection
+            
+            // write sections back to chosenEpisode
+            chosenEpisode.sections = sections
         }
         
     }
