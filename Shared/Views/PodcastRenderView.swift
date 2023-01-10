@@ -10,9 +10,16 @@ import SwiftUI
 struct PodcastRenderView: View {
     
     @Environment(\.dismiss) var dismissAction
+    @EnvironmentObject var episodeViewModel: EpisodeViewModel
+    
+    @State private var progressText = ""
+    @State private var progressValue = 0.0
+
+    @State private var audioURL: URL? = nil
     
     var body: some View {
         
+
         NavigationStack {
             VStack(alignment: .leading) {
              
@@ -23,19 +30,27 @@ struct PodcastRenderView: View {
                     .font(.caption)
 
                 Button {
-                    print("Rendering Podcast...")
+                    Task {
+                        
+                        progressValue = 50
+                        progressText = "Synthesizing speech..."
+                        audioURL = await episodeViewModel.renderEpisode()
+                                                
+                        progressValue = 100
+                        progressText = "Ready for sharing."
+                    }
                 } label: {
                     Text("Render")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
                 .padding([.top, .bottom])
+            
+                if progressValue > 0 {
+                    ProgressView(progressText, value: progressValue, total: 100)
+                }
                 
-
-
                 
-                
-                ProgressView("Rendering...", value: 10, total: 100)
                 
                 Spacer()
             }
@@ -44,6 +59,16 @@ struct PodcastRenderView: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
                         dismissAction()
+                    }
+                }
+                
+                ToolbarItem {
+                    if let audioURL {
+                        ShareLink(item: audioURL) {
+                            //Text("Share")
+                            Image(systemName: "square.and.arrow.up")
+                        }//.disabled(episodeViewModel.episodeAvailable == false)
+                        
                     }
                 }
             }

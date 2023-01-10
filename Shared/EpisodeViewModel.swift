@@ -13,7 +13,7 @@ class EpisodeViewModel: ObservableObject {
     
     @Published var chosenEpisodeIndex: Int = 0
     @Published var availableEpisodes: [Episode] = []
-    @Published var episodeAvailable: Bool = false
+    //@Published var episodeAvailable: Bool = false
     
     @Published var chosenEpisode: Episode = Episode.standard // default value to avoid making this optional
     
@@ -32,7 +32,7 @@ class EpisodeViewModel: ObservableObject {
         }
     }
     
-    var episodeUrl: URL = Bundle.main.url(forResource: "no-audio.m4a", withExtension: nil)!
+    //var episodeUrl: URL = Bundle.main.url(forResource: "no-audio.m4a", withExtension: nil)!
     
     // this is used in combine
     private var subscriptions = Set<AnyCancellable>()
@@ -87,6 +87,7 @@ class EpisodeViewModel: ObservableObject {
         
     }
     
+    // Uses the given template to create a new episode and adds it to the array of available Episodes
     func addEpisode(basedOnTemplate template: EpisodeTemplate) {
         
         // create episode
@@ -96,6 +97,7 @@ class EpisodeViewModel: ObservableObject {
         availableEpisodes.append(newEpisode)
     }
     
+    // Generates a new episode based on the given Github script and adds it to the array of available Episodes
     func addEpisode(parsedFromGithubScriptName scriptName: String) {
         
         // parse
@@ -127,17 +129,7 @@ class EpisodeViewModel: ObservableObject {
     }
     
  
-    /// Called when 'Create Audio' button is pressed in AudioRenderView
-    func buildAudio() async {
-  
-        // create entire episode
-        let episode = self.availableEpisodes[chosenEpisodeIndex]
-        episodeUrl = await AudioManager.shared.createAudioEpisodeBasedOnEpisode(episode, selectedSectionIndex: nil)
-        print("Audio file saved here: \(String(describing: episodeUrl))")
-        
-        // publish existance of the new audio URL in viewmodel
-        episodeAvailable = true
-    }
+
     
     /// Called when play button is sectionEditView is pressed
     func renderEpisodeSection(withId episodeId: UUID) async -> URL? {
@@ -153,6 +145,18 @@ class EpisodeViewModel: ObservableObject {
         
         return sectionAudioUrl
     }
+    
+    /// Called by the PodcastRenderView to render the entire episode
+    func renderEpisode() async -> URL {
+        
+        let episodeUrl = await AudioManager.shared.createAudioEpisodeBasedOnEpisode(chosenEpisode, selectedSectionIndex: nil)
+        print("Audio file saved here: \(String(describing: episodeUrl))")
+        
+        return episodeUrl
+    }
+    
+
+    
     
     func playAudioAtURL(_ audioURL: URL) async {
         // play segment
@@ -259,6 +263,17 @@ class EpisodeViewModel: ObservableObject {
 // this should be obsolete soon
 extension EpisodeViewModel {
     
+//    /// Called when 'Create Audio' button is pressed in AudioRenderView
+//    func buildAudio() async {
+//  
+//        // create entire episode
+//        let episode = self.availableEpisodes[chosenEpisodeIndex]
+//        episodeUrl = await AudioManager.shared.createAudioEpisodeBasedOnEpisode(episode, selectedSectionIndex: nil)
+//        print("Audio file saved here: \(String(describing: episodeUrl))")
+//        
+//        // publish existance of the new audio URL in viewmodel
+//        episodeAvailable = true
+//    }
     
     /// Remove all rendered audio pointed to by the episode structure
     /// Thids might be obsolte, as there is no caller
