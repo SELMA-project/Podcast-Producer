@@ -73,6 +73,8 @@
 		C1491F7027AD472700A72AEB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5A27AD472600A72AEB /* Persistence.swift */; };
 		C1491F7127AD472700A72AEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1491F5B27AD472700A72AEB /* Assets.xcassets */; };
 		C1491F7227AD472700A72AEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1491F5B27AD472700A72AEB /* Assets.xcassets */; };
+		C1495733296D7AFF00C70E40 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1495732296D7AFF00C70E40 /* AudioPlayerView.swift */; };
+		C1495734296D7AFF00C70E40 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1495732296D7AFF00C70E40 /* AudioPlayerView.swift */; };
 		C14A102729113213004DBB67 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14A102629113213004DBB67 /* Sidebar.swift */; };
 		C14A102829113213004DBB67 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14A102629113213004DBB67 /* Sidebar.swift */; };
 		C14B1E6F290C2801000748FA /* TemplateCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B1E6E290C2801000748FA /* TemplateCreationView.swift */; };
@@ -151,6 +153,7 @@
 		C1491F6027AD472700A72AEB /* Podcast Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Podcast Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1491F6627AD472700A72AEB /* Podcast Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Podcast Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1491F6827AD472700A72AEB /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		C1495732296D7AFF00C70E40 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		C14A102629113213004DBB67 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		C14B1E6E290C2801000748FA /* TemplateCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCreationView.swift; sourceTree = "<group>"; };
 		C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardSectionEditView.swift; sourceTree = "<group>"; };
@@ -204,6 +207,7 @@
 		C11A239928F2E0F00022263B /* Obsolete */ = {
 			isa = PBXGroup;
 			children = (
+				C1BA7EBD28AA92270090573B /* AudioRenderView.swift */,
 				C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */,
 				C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */,
 				C14CEA2C28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift */,
@@ -332,8 +336,8 @@
 				C1756AB928A1198D00FE9F2B /* MainEditView.swift */,
 				C13A712328E880A800BEE304 /* SectionEditView.swift */,
 				C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */,
-				C1BA7EBD28AA92270090573B /* AudioRenderView.swift */,
 				C15F6D56296D58D800BA567D /* PodcastRenderView.swift */,
+				C1495732296D7AFF00C70E40 /* AudioPlayerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -496,6 +500,7 @@
 				C1491F6B27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */,
 				C11A239B28F30B300022263B /* EpisodeTemplate.swift in Sources */,
 				C176AB0E28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
+				C1495733296D7AFF00C70E40 /* AudioPlayerView.swift in Sources */,
 				C11A239F28F310F20022263B /* LanguageManager.swift in Sources */,
 				C14A102729113213004DBB67 /* Sidebar.swift in Sources */,
 				C14CEA3028F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
@@ -534,6 +539,7 @@
 				C1491F6C27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */,
 				C11A239C28F30B300022263B /* EpisodeTemplate.swift in Sources */,
 				C176AB0F28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
+				C1495734296D7AFF00C70E40 /* AudioPlayerView.swift in Sources */,
 				C11A23A028F310F20022263B /* LanguageManager.swift in Sources */,
 				C14A102829113213004DBB67 /* Sidebar.swift in Sources */,
 				C14CEA3128F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
