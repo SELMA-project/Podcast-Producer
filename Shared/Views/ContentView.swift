@@ -13,6 +13,9 @@ struct ContentView: View {
     @StateObject var episodeViewModel = EpisodeViewModel()
     @Environment(\.managedObjectContext) private var viewContext
     
+    // Showing PodcastRenderViewSheet?
+    @State private var showingSheet = false
+    
     var body: some View {
         
         NavigationSplitView {
@@ -22,16 +25,28 @@ struct ContentView: View {
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {
                         
-                        // present Audio Render View
-                        NavigationLink("Create Audio") {
-                            AudioRenderView()
+//                        // present Audio Render View
+//                        NavigationLink("Create Audio") {
+//                            AudioRenderView()
+//                        }
+                        Button {
+                            showingSheet = true
+                        } label: {
+                            Text("Create Podcast")
                         }
+
                     }
                 }
         }.onAppear {
             episodeViewModel.runStartupRoutine()
         }
+        
         .environmentObject(episodeViewModel)
+        
+        .sheet(isPresented: $showingSheet) {
+            PodcastRenderView()
+                .environmentObject(episodeViewModel)
+        }
     }
 
 }
