@@ -393,7 +393,7 @@ struct AudioEpisode {
             AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue
         ]
         
-        // opene output file for writing
+        // open output file for writing
         do {
             outputFile = try AVAudioFile(forWriting: outputURL, settings: settings)
         } catch {

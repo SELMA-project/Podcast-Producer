@@ -21,43 +21,7 @@ class SpeechManager {
         self.synthesizer = synthesizer
     }
     
-    var recordingPath:  URL {
-        let soundName = "Finally.caf"
-        
-        // Local Directory
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0].appendingPathComponent(soundName)
-    }
-    
-    func speakPhrase(phrase: String) {
-        let utterance = AVSpeechUtterance(string: phrase)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en")
-        synthesizer.speak(utterance)
-    }
-    
-    func printSpeechVoices() {
-        let voices = AVSpeechSynthesisVoice.speechVoices()
-        for voice in voices {
-            print(voice)
-        }
-    }
-    
-    func playFile() {
-        print("Trying to play the file")
-        
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-            try AVAudioSession.sharedInstance().setActive(true)
-            
-            player = try AVAudioPlayer(contentsOf: recordingPath, fileTypeHint: AVFileType.caf.rawValue)
-            guard let player = player else {return}
-            
-            player.play()
-        } catch {
-            print("Error playing file.")
-        }
-    }
-    
+    // Uses voice with given identifier to render text to speech stored in a file URL
     func renderAppleSpeech(voiceIdentifier: String, text: String, toURL fileURL: URL) async -> Bool {
         
         await withCheckedContinuation { continuation in
@@ -123,51 +87,93 @@ class SpeechManager {
         }
     }
     
-    func saveAVSpeechUtteranceToFile() async -> URL?  {
-        
-        await withCheckedContinuation { continuation in
-            
-            let utterance = AVSpeechUtterance(string: "This is speech to record")
-            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-            utterance.rate = 0.50
-            
-            // Only create new file handle if `output` is nil.
-            var output: AVAudioFile?
-            
-            self.synthesizer.write(utterance) { [self] (buffer: AVAudioBuffer) in
-                guard let pcmBuffer = buffer as? AVAudioPCMBuffer else {
-                    fatalError("unknown buffer type: \(buffer)")
-                }
-                if pcmBuffer.frameLength == 0 {
-                    // Done
-                    
-                    var outputUrl: URL? = nil
-                    
-                    if output != nil {
-                        outputUrl = recordingPath
-                    }
-                    continuation.resume(returning: outputUrl)
-                } else {
-                    
-                    do{
-                        // this closure is called multiple times. so to save a complete audio, try create a file only for once.
-                        if output == nil {
-                            try  output = AVAudioFile(
-                                forWriting: recordingPath,
-                                settings: pcmBuffer.format.settings,
-                                commonFormat: .pcmFormatInt16,
-                                interleaved: false)
-                        }
-                        try output?.write(from: pcmBuffer)
-                    } catch {
-                        print(error.localizedDescription)
-                    }
-                    
-                }
-                
-            }
-            
-        }
-    }
+//    var recordingPath:  URL {
+//        let soundName = "Finally.caf"
+//
+//        // Local Directory
+//        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        return paths[0].appendingPathComponent(soundName)
+//    }
+//
+//    // Test function to test speech synthesizer. Not used.
+//    func speakPhrase(phrase: String) {
+//        let utterance = AVSpeechUtterance(string: phrase)
+//        utterance.voice = AVSpeechSynthesisVoice(language: "en")
+//        synthesizer.speak(utterance)
+//    }
+//
+//    // Print all available voices. Not used.
+//    func printSpeechVoices() {
+//        let voices = AVSpeechSynthesisVoice.speechVoices()
+//        for voice in voices {
+//            print(voice)
+//        }
+//    }
+    
+//    // spielt das File, das über recordingPath referenziert wird. Nicht genutzt
+//    func playFile() {
+//        print("Trying to play the file")
+//
+//        do {
+//            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+//            try AVAudioSession.sharedInstance().setActive(true)
+//
+//            player = try AVAudioPlayer(contentsOf: recordingPath, fileTypeHint: AVFileType.caf.rawValue)
+//            guard let player = player else {return}
+//
+//            player.play()
+//        } catch {
+//            print("Error playing file.")
+//        }
+//    }
+    
+
+    
+//    func saveAVSpeechUtteranceToFile() async -> URL?  {
+//
+//        await withCheckedContinuation { continuation in
+//
+//            let utterance = AVSpeechUtterance(string: "This is speech to record")
+//            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+//            utterance.rate = 0.50
+//
+//            // Only create new file handle if `output` is nil.
+//            var output: AVAudioFile?
+//
+//            self.synthesizer.write(utterance) { [self] (buffer: AVAudioBuffer) in
+//                guard let pcmBuffer = buffer as? AVAudioPCMBuffer else {
+//                    fatalError("unknown buffer type: \(buffer)")
+//                }
+//                if pcmBuffer.frameLength == 0 {
+//                    // Done
+//
+//                    var outputUrl: URL? = nil
+//
+//                    if output != nil {
+//                        outputUrl = recordingPath
+//                    }
+//                    continuation.resume(returning: outputUrl)
+//                } else {
+//
+//                    do{
+//                        // this closure is called multiple times. so to save a complete audio, try create a file only for once.
+//                        if output == nil {
+//                            try  output = AVAudioFile(
+//                                forWriting: recordingPath,
+//                                settings: pcmBuffer.format.settings,
+//                                commonFormat: .pcmFormatInt16,
+//                                interleaved: false)
+//                        }
+//                        try output?.write(from: pcmBuffer)
+//                    } catch {
+//                        print(error.localizedDescription)
+//                    }
+//
+//                }
+//
+//            }
+//
+//        }
+//    }
     
 }

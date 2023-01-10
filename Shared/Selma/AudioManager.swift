@@ -128,8 +128,10 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     
 }
 
+// MARK: -  All code relating to the storage of the music files used for prefix, main and suffix audio
 extension AudioManager {
 
+    // Describes an audio file and its location
     struct AudioFile: Hashable {
         var displayName: String
         var bundlePath: String
@@ -203,7 +205,7 @@ extension AudioManager {
 // MARK: -- Code where Audio Episode is created directly from episode data
 extension AudioManager {
     
-    /// Render create audio episode, restricted to a certain section if parameter <selectedSectionIndex> is not nil
+    /// Create audio episode, restricted to a certain section if parameter <selectedSectionIndex> is not nil
     func createAudioEpisodeBasedOnEpisode(_ episode: Episode, selectedSectionIndex: Int?) async -> URL {
         
         // initialize a new audio episode
@@ -241,7 +243,7 @@ extension AudioManager {
         return url
     }
     
-    // Synthesizes text in specified section and addss audio for all three segments
+    // Synthesizes text in specified section and adds audio for all three segments
     private func processSection(episode: Episode, sectionIndex: Int, audioEpisode: inout AudioEpisode) async {
         
         // contains id of current audio segment
@@ -370,7 +372,7 @@ extension AudioManager {
             // render audio if it does not yet exist
             var success = true
             if !FileManager.default.fileExists(atPath: audioURL.path) {
-                success = await AudioManager.shared.synthesizeSpeech(podcastVoice: podcastVoice, text: textToRender, toURL: audioURL)
+                success = await synthesizeSpeech(podcastVoice: podcastVoice, text: textToRender, toURL: audioURL)
             }
             
             if success {
