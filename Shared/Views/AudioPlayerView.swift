@@ -10,13 +10,13 @@ import SwiftUI
 struct AudioPlayerView: View {
  
     enum PlayButtonState {
-        case waitingForStart, rendering, waitingForStop
+        case waitingForStart, waitingForStop
     }
     
     @State var playButtonState: PlayButtonState = .waitingForStart
     @EnvironmentObject var viewModel: EpisodeViewModel
     
-    var sectionId: UUID
+    var audioURL: URL?
     
     func buttonPressed() {
         
@@ -24,17 +24,12 @@ struct AudioPlayerView: View {
             
             if playButtonState == .waitingForStart {
                 
-                // render audio
-                playButtonState = .rendering
-                let audioURL = await viewModel.renderEpisodeSection(withId: sectionId)
-                playButtonState = .waitingForStart
-                
-                // if successful, start playback
+                // start playback
+                playButtonState = .waitingForStop
                 if let audioURL {
-                    playButtonState = .waitingForStop
                     await viewModel.playAudioAtURL(audioURL)
-                    playButtonState = .waitingForStart
                 }
+                playButtonState = .waitingForStart
             }
             
             if playButtonState == .waitingForStop {
@@ -47,28 +42,55 @@ struct AudioPlayerView: View {
     
     var body: some View {
         
-        HStack {
+        VStack {
+    
+            ProgressView(value: 0, total: 100)
+                .padding(.bottom)
+                .hidden()
+            
+            HStack {
+                
+                Spacer()
+                
+                Button {
+                    print("Going back")
+                } label: {
+                    Image(systemName: "arrow.uturn.backward.circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                }
 
-            // replace audio button with spinner while rendering audio
-            if playButtonState == .rendering {
-                ProgressView()
-            } else {
-        
+                Spacer()
+                
                 Button {
                     buttonPressed()
                 } label: {
                     Image(systemName: playButtonState == .waitingForStart ? "play.circle" : "pause.circle")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 25, height: 25)
+                        .frame(width: 50, height: 50)
                 }
+                
+                Spacer()
+                
+                Button {
+                    print("Going fowards")
+                } label: {
+                    Image(systemName: "arrow.uturn.forward.circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                }
+                
+                Spacer()
+                
             }
             
-            Spacer()
-            
-            ProgressView(value: 10, total: 100)
 
-        }.onDisappear {
+        }
+        .disabled(audioURL == nil)
+        .onDisappear {
             // if we are leaving the view, stop the audio
             viewModel.stopAudioPlayback()
         }
@@ -77,8 +99,8 @@ struct AudioPlayerView: View {
 
 struct AudioPlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        let sectionId = UUID()
-        AudioPlayerView(sectionId: sectionId)
+        let episodeUrl: URL = Bundle.main.url(forResource: "no-audio.m4a", withExtension: nil)!
+        AudioPlayerView(audioURL: episodeUrl)
             .padding()
     }
 }
