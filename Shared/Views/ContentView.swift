@@ -23,19 +23,30 @@ struct ContentView: View {
         } detail: {
             MainEditView()
                 .toolbar {
-                    ToolbarItem(placement: .primaryAction) {
+
+                    ToolbarItem() {
                         
-//                        // present Audio Render View
-//                        NavigationLink("Create Audio") {
-//                            AudioRenderView()
-//                        }
+                        //                        // present Audio Render View
+                        //                        NavigationLink("Create Audio") {
+                        //                            AudioRenderView()
+                        //                        }
+                        
                         Button {
                             showingSheet = true
                         } label: {
-                            Text("Create Podcast")
+                            Image(systemName: "square.fill.text.grid.1x2")
                         }
-
                     }
+                    
+                    ToolbarItem(placement: .primaryAction) {
+                        Button {
+                            showingSheet = true
+                        } label: {
+                            Image(systemName: "antenna.radiowaves.left.and.right")
+                        }
+                    }
+
+                    
                 }
         }.onAppear {
             episodeViewModel.runStartupRoutine()
