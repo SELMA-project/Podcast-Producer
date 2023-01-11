@@ -16,38 +16,41 @@ struct ContentView: View {
     // Showing PodcastRenderViewSheet?
     @State private var showingSheet = false
     
+    @State private var path = NavigationPath()
+    
     var body: some View {
         
         NavigationSplitView {
             Sidebar(episodeViewModel: episodeViewModel)
         } detail: {
-            MainEditView()
-                .toolbar {
-
-                    ToolbarItem() {
+            
+            NavigationStack(path: $path) {
+                
+                MainEditView()
+                    .toolbar {
                         
-                        //                        // present Audio Render View
-                        //                        NavigationLink("Create Audio") {
-                        //                            AudioRenderView()
-                        //                        }
+                        ToolbarItem() {
+                            
+                            NavigationLink(value: "StoryList") {
+                                Image(systemName: "square.fill.text.grid.1x2")
+                            }
+                            
+                        }
                         
-                        Button {
-                            showingSheet = true
-                        } label: {
-                            Image(systemName: "square.fill.text.grid.1x2")
+                        ToolbarItem(placement: .primaryAction) {
+                            Button {
+                                showingSheet = true
+                            } label: {
+                                Image(systemName: "antenna.radiowaves.left.and.right")
+                            }
                         }
+                        
+                        
                     }
-                    
-                    ToolbarItem(placement: .primaryAction) {
-                        Button {
-                            showingSheet = true
-                        } label: {
-                            Image(systemName: "antenna.radiowaves.left.and.right")
-                        }
+                    .navigationDestination(for: String.self) { _ in
+                        StoryListView()
                     }
-
-                    
-                }
+            }
         }.onAppear {
             episodeViewModel.runStartupRoutine()
         }

@@ -108,11 +108,14 @@ struct SectionEditView: View {
                 TextField("Name", text: nameBinding)
             }
             
-            Section("Text") {
-                TextField("Text", text: textBinding, axis: .vertical)
+            // Text can be edited for all sections except the story section
+            if section.type != .stories {
+                Section("Text") {
+                    TextField("Text", text: textBinding, axis: .vertical)
+                }
             }
             
-            Section("Preview") {
+            Section("Listen") {
                 PlayButtonRow(sectionId: section.id)
             }
             
@@ -123,15 +126,15 @@ struct SectionEditView: View {
                 }
             }
             
-            if section.type == .stories {
-                Section("Stories") {
-                    ForEach(stories) {story in
-                        NavigationLink(value: story) {
-                            Text(story.headline)
-                        }
-                    }
-                }
-            }
+//            if section.type == .stories {
+//                Section("Stories") {
+//                    ForEach(stories) {story in
+//                        NavigationLink(value: story) {
+//                            Text(story.headline)
+//                        }
+//                    }
+//                }
+//            }
             
             Section {
                 Picker("Before", selection: prefixAudioFileBinding) {

@@ -22,7 +22,6 @@ extension View {
 struct MainEditView: View {
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
-    @State private var path = NavigationPath() //: [Int] = []
     @State var providerName: String = "SELMA"
     
     var episodeSections: [EpisodeSection] {
@@ -52,79 +51,77 @@ struct MainEditView: View {
         let availableProviders = VoiceManager.shared.availableProviders(forLanguage: episodeLanguage)
         return availableProviders
     }
-
+    
     var body: some View {
-                
-        NavigationStack(path: $path) {
+        
+        
+        
+        Form {
             
-            Form {
-                
-                Section {
-                    HStack {
-                        Text("Language")
-                        Spacer()
-                        Text(episodeViewModel.chosenEpisode.language.displayName)
-                            .foregroundColor(.secondary)
-                    }
-                } header: {
+            Section {
+                HStack {
                     Text("Language")
-                } footer: {
-                    Text("The episode language cannot be changed.")
+                    Spacer()
+                    Text(episodeViewModel.chosenEpisode.language.displayName)
+                        .foregroundColor(.secondary)
                 }
-
-                
-                Section {
-                      
-                    HStack {
-                        Text("Narrator")
-                        Spacer()
-                        TextField("Name", text: $episodeViewModel.chosenEpisode.narrator)
-                            .multilineTextAlignment(.trailing)
-                    }
-                } header: {
-                    Text("General")
-                }
-                footer: {
-                    Text("This replaces the {narrator} token.")
-                }
-                
-                Section("Voice") {
-                    Picker("Provider", selection: $episodeViewModel.chosenEpisode.podcastVoice.speechProvider) {
-                        ForEach(availableProviders, id: \.self) {provider in
-                            Text(provider.displayName)
-                        }
-                    }
-                    
-                    Picker("Identifier", selection: $episodeViewModel.chosenEpisode.podcastVoice) {
-                        ForEach(availableVoices, id: \.self) {voice in
-                            Text(voice.name)
-                        }
-                    }
-                }.onAppear {
-                    // TODO: Not an ideal solution, as screen need to reappear before screen update
-                    VoiceManager.shared.findSuitableVoices()
-                }
-                
-                
-                Section("Structure") {
-                    ForEach(episodeSections) {section in
-                        NavigationLink(value: section) {
-                            Text(section.name)
-                        }
-                    }
-                }
-                
+            } header: {
+                Text("Language")
+            } footer: {
+                Text("The episode language cannot be changed.")
             }
-            .pickerStyle(.menu)
             
-            .navigationDestination(for: EpisodeSection.self) { section in
-                SectionEditView(section: section)
+            
+            Section {
+                
+                HStack {
+                    Text("Narrator")
+                    Spacer()
+                    TextField("Name", text: $episodeViewModel.chosenEpisode.narrator)
+                        .multilineTextAlignment(.trailing)
+                }
+            } header: {
+                Text("General")
             }
-            .navigationTitle("Episode Editor")
+        footer: {
+            Text("This replaces the {narrator} token.")
+        }
+            
+            Section("Voice") {
+                Picker("Provider", selection: $episodeViewModel.chosenEpisode.podcastVoice.speechProvider) {
+                    ForEach(availableProviders, id: \.self) {provider in
+                        Text(provider.displayName)
+                    }
+                }
+                
+                Picker("Identifier", selection: $episodeViewModel.chosenEpisode.podcastVoice) {
+                    ForEach(availableVoices, id: \.self) {voice in
+                        Text(voice.name)
+                    }
+                }
+            }.onAppear {
+                // TODO: Not an ideal solution, as screen need to reappear before screen update
+                VoiceManager.shared.findSuitableVoices()
+            }
+            
+            
+            Section("Structure") {
+                ForEach(episodeSections) {section in
+                    NavigationLink(value: section) {
+                        Text(section.name)
+                    }
+                }
+            }
             
         }
+        .pickerStyle(.menu)
         
-
+        .navigationDestination(for: EpisodeSection.self) { section in
+            SectionEditView(section: section)
+        }
+        .navigationTitle("Episode Editor")
+        
+        
     }
 }
 
