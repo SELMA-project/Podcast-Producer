@@ -124,7 +124,7 @@ class EpisodeViewModel: ObservableObject {
         
         print("Documents are in: \(documentsDir)")
         print("Caches are in: \(cachesDir)")
-        
+                
         //AudioManager.shared.deleteCachedFiles()
     }
     

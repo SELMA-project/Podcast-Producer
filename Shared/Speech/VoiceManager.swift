@@ -160,7 +160,7 @@ class VoiceManager {
             let eliminatedVoiceDomains = ["com.apple.speech.synthesis", "com.apple.eloquence"]
             for voiceDomain in eliminatedVoiceDomains {
                 if nativeVoice.identifier.starts(with: voiceDomain) {
-                    print("Excluded Apple voice: \(nativeVoice.identifier)")
+                    //print("Excluded Apple voice: \(nativeVoice.identifier)")
                     excludeVoice = true
                 }
             }
