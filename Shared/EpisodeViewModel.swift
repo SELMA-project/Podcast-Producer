@@ -87,7 +87,7 @@ class EpisodeViewModel: ObservableObject {
         
     }
     
-    // Uses the given template to create a new episode and adds it to the array of available Episodes
+    /// Uses the given template to create a new episode and adds it to the array of available Episodes
     func addEpisode(basedOnTemplate template: EpisodeTemplate) {
         
         // create episode
@@ -97,7 +97,7 @@ class EpisodeViewModel: ObservableObject {
         availableEpisodes.append(newEpisode)
     }
     
-    // Generates a new episode based on the given Github script and adds it to the array of available Episodes
+    /// Generates a new episode based on the given Github script and adds it to the array of available Episodes
     func addEpisode(parsedFromGithubScriptName scriptName: String) {
         
         // parse
