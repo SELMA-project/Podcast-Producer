@@ -11,18 +11,46 @@ struct StoryListView: View {
     
     @EnvironmentObject var viewModel: EpisodeViewModel
     
-    var stories: [Story] {
-        return viewModel.chosenEpisode.stories
+//    var stories: [Story] {
+//        return $viewModel.chosenEpisode.stories
+//    }
+    
+    private func onDelete(offsets: IndexSet) {
+        viewModel.chosenEpisode.stories.remove(atOffsets: offsets)
+    }
+    
+    private func onMove(from source: IndexSet, to destination: Int) {
+        viewModel.chosenEpisode.stories.move(fromOffsets: source, toOffset: destination)
+    }
+    
+    private func addStory() {
+        
     }
     
     var body: some View {
                     
         Form {
             Section("Stories") {
-                ForEach(stories) {story in
+                ForEach($viewModel.chosenEpisode.stories) {$story in
                     NavigationLink(value: story) {
                         Text(story.headline)
                     }
+                }
+                .onDelete(perform: onDelete)
+                .onMove(perform: onMove)
+            }
+            
+            Section {
+                Button {
+                    addStory()
+                } label: {
+                    Text("Add Story")
+                }
+
+                Button {
+                    addStory()
+                } label: {
+                    Text("Import Story")
                 }
             }
             
@@ -30,7 +58,13 @@ struct StoryListView: View {
         .navigationDestination(for: Story.self) { story in
             StoryEditView(story: story)
         }
-        
+        .toolbar {
+            
+            ToolbarItem {
+                EditButton()
+            }
+
+        }
         .navigationTitle("Stories")
 
     }
