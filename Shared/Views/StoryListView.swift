@@ -34,6 +34,7 @@ struct StoryListView: View {
                 ForEach($viewModel.chosenEpisode.stories) {$story in
                     NavigationLink(value: story) {
                         Text(story.headline.count == 0 ? "Tap to edit story" : story.headline)
+                            .foregroundColor(story.headline.count == 0 ? .gray : .black)
                     }
                 }
                 .onDelete(perform: onDelete)
