@@ -117,6 +117,15 @@ class EpisodeViewModel: ObservableObject {
         }
     }
     
+    func appendEmptyStoryToChosenEpisode() {
+        let story = Story(usedInIntroduction: true, headline: "Story headline", storyText: "Enter story text here.")
+        
+        chosenEpisode.stories.append(story)
+
+        //episode.stories = stories
+    }
+    
+    
     /// Called when ContentView appears
     func runStartupRoutine() {
         let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]

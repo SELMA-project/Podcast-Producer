@@ -42,13 +42,13 @@ struct StoryListView: View {
             
             Section {
                 Button {
-                    addStory()
+                    viewModel.appendEmptyStoryToChosenEpisode()
                 } label: {
                     Text("Add Story")
                 }
 
                 Button {
-                    addStory()
+                    print("Add code to import episode here.")
                 } label: {
                     Text("Import Story")
                 }
