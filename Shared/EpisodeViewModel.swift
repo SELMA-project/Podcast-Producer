@@ -118,7 +118,7 @@ class EpisodeViewModel: ObservableObject {
     }
     
     func appendEmptyStoryToChosenEpisode() {
-        let story = Story(usedInIntroduction: true, headline: "Story headline", storyText: "Enter story text here.")
+        let story = Story(usedInIntroduction: true, headline: "", storyText: "")
         
         chosenEpisode.stories.append(story)
 

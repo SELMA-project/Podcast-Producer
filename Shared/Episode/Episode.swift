@@ -186,11 +186,11 @@ extension Episode {
         
         // add 5 dummy stories to episode
         // TODO: Remove, only temporary
-        var stories = [Story]()
-        for storyIndex in 1...1 {
-            let story = Story(usedInIntroduction: true, headline: "Story headline \(storyIndex)", storyText: "Enter story text here.")
-            stories.append(story)
-        }
+        let stories = [Story]()
+//        for storyIndex in 1...1 {
+//            let story = Story(usedInIntroduction: true, headline: "Story headline \(storyIndex)", storyText: "Enter story text here.")
+//            stories.append(story)
+//        }
         episode.stories = stories
         
 

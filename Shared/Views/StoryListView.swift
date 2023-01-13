@@ -33,7 +33,7 @@ struct StoryListView: View {
             Section("Stories") {
                 ForEach($viewModel.chosenEpisode.stories) {$story in
                     NavigationLink(value: story) {
-                        Text(story.headline)
+                        Text(story.headline.count == 0 ? "Tap to edit story" : story.headline)
                     }
                 }
                 .onDelete(perform: onDelete)
