@@ -62,7 +62,7 @@ class EpisodeViewModel: ObservableObject {
 
         
         // test available scripts
-        ScriptParser.test()
+        //ScriptParser.test()
 
         // build array of locallay available scripts
         let fileNames = ScriptParser.availableScriptNames()
@@ -71,7 +71,7 @@ class EpisodeViewModel: ObservableObject {
         availableEpisodes = [Episode]()
         
         // add episodes for each filename
-        for (index, fileName) in fileNames.enumerated() { 
+        for (index, fileName) in fileNames.enumerated() {
             if index == 0 {
                 addEpisode(parsedFromGithubScriptName: fileName)
             }
