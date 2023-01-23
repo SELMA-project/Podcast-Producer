@@ -61,10 +61,10 @@ struct Episode: Identifiable, Hashable {
         sections.append(section)
     }
     
-    func generateBuildingBlocks() -> [BuildingBlock] {
-        return [BuildingBlock]()
-    }
-    
+//    func generateBuildingBlocks() -> [BuildingBlock] {
+//        return [BuildingBlock]()
+//    }
+//    
     static var standard: Episode {
         let podcastVoice = VoiceManager.shared.proposedVoice(forLanguageCode: "en-US")
         let episode = Episode(language: .english, narrator: "<no narrator>", podcastVoice: podcastVoice, creationDate: Date(), restrictHeadlinesToHighLights: true)

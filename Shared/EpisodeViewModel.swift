@@ -18,7 +18,7 @@ class EpisodeViewModel: ObservableObject {
     @Published var chosenEpisode: Episode = Episode.standard // default value to avoid making this optional
     
     // the entire episode in segments
-    @Published var episodeStructure: [BuildingBlock] = []
+    //@Published var episodeStructure: [BuildingBlock] = []
     
     // the narrator name use when creating a new template. Is stored in user defaults.
     @Published var newTemplateNarratorName: String = "" {
