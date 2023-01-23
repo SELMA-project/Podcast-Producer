@@ -40,19 +40,28 @@ struct Sidebar: View {
 //            episodeViewModel.chosenEpisodeIndex = newValue ?? 0
 //        }
         
-        List(selection: $episodeViewModel.chosenEpisodeIndex) {
-            ForEach(0..<episodeViewModel.availableEpisodes.count, id: \.self) {episodeIndex in
-                NavigationLink(value: episodeIndex) {
-                    HStack {
-                        Text(episodeViewModel.availableEpisodes[episodeIndex].timeSlot)
-                        Spacer()
-                        Text(episodeViewModel.availableEpisodes[episodeIndex].language.isoCode)
-                            .font(.caption)
-                            .foregroundColor(Color.secondary)
+        ZStack {
+            
+            // show this if we have at least one episode
+            List(selection: $episodeViewModel.chosenEpisodeIndex) {
+                ForEach(0..<episodeViewModel.availableEpisodes.count, id: \.self) {episodeIndex in
+                    NavigationLink(value: episodeIndex) {
+                        HStack {
+                            Text(episodeViewModel.availableEpisodes[episodeIndex].timeSlot)
+                            Spacer()
+                            Text(episodeViewModel.availableEpisodes[episodeIndex].language.isoCode)
+                                .font(.caption)
+                                .foregroundColor(Color.secondary)
+                        }
                     }
                 }
+                .onDelete(perform: onDelete)
             }
-            .onDelete(perform: onDelete)
+            
+            // show this instruction if we don't have any episodes
+            if episodeViewModel.availableEpisodes.count == 0 {
+                Text("Please tap '+' to add a new episode.")
+            }
         }
         .listStyle(.sidebar)
         .toolbar {
