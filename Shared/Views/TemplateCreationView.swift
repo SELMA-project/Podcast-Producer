@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TemplateCreationView: View {
     
-    @State var language: LanguageManager.Language = .brazilian
+    @State var language: LanguageManager.Language = .english
     @State var templateIndex: Int = 0
     
     @Environment(\.dismiss) var dismissAction
