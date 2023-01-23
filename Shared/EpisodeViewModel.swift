@@ -29,7 +29,10 @@ class EpisodeViewModel: ObservableObject {
     //@Published var episodeStructure: [BuildingBlock] = []
     
     // the narrator name use when creating a new template. Is stored in user defaults.
-    @Published var newTemplateNarratorName: String = "" {
+    var newTemplateNarratorName: String = "" {
+        willSet {
+            objectWillChange.send()
+        }
         didSet {
             
             // store in user defaults

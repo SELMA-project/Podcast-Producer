@@ -16,7 +16,6 @@ struct StoryEditView: View {
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
-    //@State private var path: [Story] = []
     
     init(story: Story) {
         self.story = story
@@ -60,29 +59,22 @@ struct StoryEditView: View {
             
             Section("Story headline") {
                 TextField("Headline", text: headlineBinding, axis: .vertical)
-                    .onSubmit {
-                        // update section in viewModel
-                        episodeViewModel.updateEpisodeStory(storyId: story.id, newHeadline: headlineText)
-                    }
             }
             
             Section("Highlight") {
                 Toggle("Highlight story", isOn: markAsHighlightBinding)
-                    .onChange(of: markAsHighlight) { newValue in
-                        // update section in viewModel
-                        episodeViewModel.updateEpisodeStory(storyId: story.id, markAsHighlight: markAsHighlight)
-                    }
             }
             
             Section("Story text") {
                 TextField("Story", text: storyTextBinding, axis: .vertical)
-                    .onSubmit {
-                        // update section in viewModel
-                        episodeViewModel.updateEpisodeStory(storyId: story.id, newText: storyText)
-                    }
             }
             
         }
+        .onDisappear {
+            // save when leaving the screen
+            episodeViewModel.updateEpisodeStory(storyId: story.id, newHeadline: headlineText, newText: storyText, markAsHighlight: markAsHighlight)
+        }
+
         .navigationTitle("Story Editor")
         
     }
