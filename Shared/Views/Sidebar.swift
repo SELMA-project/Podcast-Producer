@@ -24,6 +24,10 @@ struct Sidebar: View {
 //        _chosenEpisodeIndex = State(initialValue: episodeViewModel.chosenEpisodeIndex)
 //    }
     
+    private func onDelete(offsets: IndexSet) {
+        episodeViewModel.availableEpisodes.remove(atOffsets: offsets)
+    }
+    
     var body: some View {
         
 //        // Binding used for List selection. Linked to chosenEpisodeIndex
@@ -48,6 +52,7 @@ struct Sidebar: View {
                     }
                 }
             }
+            .onDelete(perform: onDelete)
         }
         .listStyle(.sidebar)
         .toolbar {
