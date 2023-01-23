@@ -8,13 +8,13 @@
 import Foundation
 import CryptoKit
 
-enum EpisodeSectionType: String {
+enum EpisodeSectionType: String, Codable {
     case standard = "Standard"
     case headlines = "Headlines"
     case stories = "Stories"
 }
 
-struct Story: Equatable, Identifiable, Hashable {
+struct Story: Equatable, Identifiable, Hashable, Codable {
     var id: UUID = UUID()
     var usedInIntroduction: Bool
     var headline: String
@@ -22,7 +22,7 @@ struct Story: Equatable, Identifiable, Hashable {
 }
 
 
-struct EpisodeSection: Identifiable, Hashable {
+struct EpisodeSection: Identifiable, Hashable, Codable {
     var id: UUID = UUID()
     var type: EpisodeSectionType
     var name: String
@@ -35,7 +35,7 @@ struct EpisodeSection: Identifiable, Hashable {
     var separatorAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
 }
 
-struct Episode: Identifiable, Hashable {
+struct Episode: Identifiable, Hashable, Codable {
     var id: UUID = UUID()
     
     var language: LanguageManager.Language

@@ -34,7 +34,7 @@ struct StoryEditView: View {
             self.headlineText = newValue
             
             // update section in viewModel
-            episodeViewModel.updateEpisodeStory(storyId: story.id, newHeadline: headlineText)
+            //episodeViewModel.updateEpisodeStory(storyId: story.id, newHeadline: headlineText)
         }
 
         let storyTextBinding = Binding {
@@ -43,7 +43,7 @@ struct StoryEditView: View {
             self.storyText = newValue
             
             // update section in viewModel
-            episodeViewModel.updateEpisodeStory(storyId: story.id, newText: storyText)
+            //episodeViewModel.updateEpisodeStory(storyId: story.id, newText: storyText)
         }
         
         let markAsHighlightBinding = Binding {
@@ -52,7 +52,7 @@ struct StoryEditView: View {
             self.markAsHighlight = newValue
             
             // update section in viewModel
-            episodeViewModel.updateEpisodeStory(storyId: story.id, markAsHighlight: markAsHighlight)
+            //episodeViewModel.updateEpisodeStory(storyId: story.id, markAsHighlight: markAsHighlight)
         }
         
         Form {
@@ -60,14 +60,26 @@ struct StoryEditView: View {
             
             Section("Story headline") {
                 TextField("Headline", text: headlineBinding, axis: .vertical)
+                    .onSubmit {
+                        // update section in viewModel
+                        episodeViewModel.updateEpisodeStory(storyId: story.id, newHeadline: headlineText)
+                    }
             }
             
             Section("Highlight") {
                 Toggle("Highlight story", isOn: markAsHighlightBinding)
+                    .onChange(of: markAsHighlight) { newValue in
+                        // update section in viewModel
+                        episodeViewModel.updateEpisodeStory(storyId: story.id, markAsHighlight: markAsHighlight)
+                    }
             }
             
             Section("Story text") {
                 TextField("Story", text: storyTextBinding, axis: .vertical)
+                    .onSubmit {
+                        // update section in viewModel
+                        episodeViewModel.updateEpisodeStory(storyId: story.id, newText: storyText)
+                    }
             }
             
         }

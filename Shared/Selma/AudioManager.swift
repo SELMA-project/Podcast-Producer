@@ -132,7 +132,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
 extension AudioManager {
 
     // Describes an audio file and its location
-    struct AudioFile: Hashable {
+    struct AudioFile: Hashable, Codable {
         var displayName: String
         var bundlePath: String
         var url: URL? {

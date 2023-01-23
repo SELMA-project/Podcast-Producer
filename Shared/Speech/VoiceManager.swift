@@ -9,7 +9,7 @@ import Foundation
 import AVFoundation
 
 
-enum SpeechProvider: String, CaseIterable {
+enum SpeechProvider: String, CaseIterable, Codable {
     case SELMA, Apple, EuroVOX
     
     var displayName: String {

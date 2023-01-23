@@ -12,7 +12,15 @@ import Combine
 class EpisodeViewModel: ObservableObject {
     
     @Published var chosenEpisodeIndex: Int?
-    @Published var availableEpisodes: [Episode] = []
+    var availableEpisodes: [Episode] = [] {
+        willSet {
+            objectWillChange.send()
+        }
+        didSet {
+            // save episodes to disk whenever the array changes
+            saveEpisodes()
+        }
+    }
     //@Published var episodeAvailable: Bool = false
     
     @Published var chosenEpisode: Episode = Episode.standard // default value to avoid making this optional
@@ -34,6 +42,15 @@ class EpisodeViewModel: ObservableObject {
     
     //var episodeUrl: URL = Bundle.main.url(forResource: "no-audio.m4a", withExtension: nil)!
     
+    /// The URL under which the all Episode data is stored
+    private var episodeDataURL: URL {
+        let fileName = "episodeData.json"
+        let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileUrl = documentsDir.appending(path: fileName)
+        return fileUrl
+    }
+    
+    
     // this is used in combine
     private var subscriptions = Set<AnyCancellable>()
     
@@ -43,6 +60,15 @@ class EpisodeViewModel: ObservableObject {
         newTemplateNarratorName = UserDefaults.standard.string(forKey: "newTemplateNarratorName") ?? ""
         
         // linking published properties via subscriptions
+        
+        // load episode data - if there is any
+        if let episodesFromDisk = loadEpisodes() {
+            self.availableEpisodes = episodesFromDisk
+        } else {
+            // if no data is avaiable from disk we start with an empty array of available episodes
+            self.availableEpisodes = [Episode]()
+        }
+        
         
         // update $chosenEpisode when chosenEpisodeIndex changes
         $chosenEpisodeIndex.sink { newEpisodeIndex in
@@ -58,12 +84,14 @@ class EpisodeViewModel: ObservableObject {
             if let chosenEpisodeIndex = self.chosenEpisodeIndex {
                 if self.availableEpisodes.count > chosenEpisodeIndex {
                     self.availableEpisodes[chosenEpisodeIndex] = newEpisode
+                    
+                    // save to disk
+                    //self.saveEpisodes()
                 }
             }
                         
         }.store(in: &subscriptions)
         
-
         
         // test available scripts
         //ScriptParser.test()
@@ -71,8 +99,7 @@ class EpisodeViewModel: ObservableObject {
         // build array of locallay available scripts
         //let fileNames = ScriptParser.availableScriptNames()
         
-        // we start with an empty array of available episodes
-        availableEpisodes = [Episode]()
+
         
         // add episodes for each filename
 //        for (index, fileName) in fileNames.enumerated() {
@@ -129,6 +156,47 @@ class EpisodeViewModel: ObservableObject {
         //episode.stories = stories
     }
     
+    /// Save all availableEpisodes to disk as JSON
+    private func saveEpisodes() {
+        
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(availableEpisodes) {
+            // save `encoded` somewhere
+//            if let json = String(data: encoded, encoding: .utf8) {
+//                print(json)
+//            }
+            
+            do {
+                try encoded.write(to: self.episodeDataURL)
+                print("Saved episode data to disk: \(self.episodeDataURL)")
+            } catch {
+                print("Error while saving episode data to disk: \(error)")
+            }
+            
+        }
+        
+    }
+    
+    /// Load all availableEpisodes from disk as JSON
+    func loadEpisodes() -> [Episode]? {
+        
+        var result: [Episode]?
+        
+        let decoder = JSONDecoder()
+        
+        do {
+            let episodeData = try Data(contentsOf: self.episodeDataURL)
+            
+            if let decoded = try? decoder.decode([Episode].self, from: episodeData) {
+                result = decoded
+            }
+            
+        } catch {
+            print("Error while reading episode data to disk: \(error)")
+        }
+        
+        return result
+    }
     
     /// Called when ContentView appears
     func runStartupRoutine() {

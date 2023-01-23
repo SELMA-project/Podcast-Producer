@@ -11,7 +11,7 @@ class LanguageManager {
     
     static var shared = LanguageManager()
     
-    enum Language: String, CaseIterable {
+    enum Language: String, CaseIterable, Codable {
         case brazilian, english, german, french
         
         var displayName: String {

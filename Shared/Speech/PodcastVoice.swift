@@ -10,7 +10,7 @@ import AVFoundation
 
 
 /// A wrapper to address verious Speecg Providers
-struct PodcastVoice: Hashable {
+struct PodcastVoice: Hashable, Codable {
         
     var speechProvider: SpeechProvider {
         
