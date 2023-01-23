@@ -17,26 +17,26 @@ struct Sidebar: View {
     // are we showing the EpisodeCreationSheet?
     @State private var showingSheet = false
     
-    init(episodeViewModel: EpisodeViewModel) {
-        self.episodeViewModel = episodeViewModel
-        
-        // init chosenEpisodeIndex @State with episodeViewModel
-        _chosenEpisodeIndex = State(initialValue: episodeViewModel.chosenEpisodeIndex)
-    }
+//    init(episodeViewModel: EpisodeViewModel) {
+//        self.episodeViewModel = episodeViewModel
+//
+//        // init chosenEpisodeIndex @State with episodeViewModel
+//        _chosenEpisodeIndex = State(initialValue: episodeViewModel.chosenEpisodeIndex)
+//    }
     
     var body: some View {
         
-        // Binding used for List selection. Linked to chosenEpisodeIndex
-        let chosenEpisodeIndexBinding = Binding {
-            self.chosenEpisodeIndex
-        } set: { newValue in
-            self.chosenEpisodeIndex = newValue
-            
-            // update viewmodel based on selection
-            episodeViewModel.chosenEpisodeIndex = newValue ?? 0
-        }
+//        // Binding used for List selection. Linked to chosenEpisodeIndex
+//        let chosenEpisodeIndexBinding = Binding {
+//            self.chosenEpisodeIndex
+//        } set: { newValue in
+//            self.chosenEpisodeIndex = newValue
+//
+//            // update viewmodel based on selection
+//            episodeViewModel.chosenEpisodeIndex = newValue ?? 0
+//        }
         
-        List(selection: chosenEpisodeIndexBinding) {
+        List(selection: $episodeViewModel.chosenEpisodeIndex) {
             ForEach(0..<episodeViewModel.availableEpisodes.count, id: \.self) {episodeIndex in
                 NavigationLink(value: episodeIndex) {
                     HStack {
