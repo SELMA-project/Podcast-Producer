@@ -11,7 +11,7 @@ import Combine
 @MainActor
 class EpisodeViewModel: ObservableObject {
     
-    @Published var chosenEpisodeIndex: Int = 0
+    @Published var chosenEpisodeIndex: Int?
     @Published var availableEpisodes: [Episode] = []
     //@Published var episodeAvailable: Bool = false
     
@@ -46,15 +46,19 @@ class EpisodeViewModel: ObservableObject {
         
         // update $chosenEpisode when chosenEpisodeIndex changes
         $chosenEpisodeIndex.sink { newEpisodeIndex in
-            if self.availableEpisodes.count > self.chosenEpisodeIndex {
-                self.chosenEpisode = self.availableEpisodes[self.chosenEpisodeIndex]
+            if let newEpisodeIndex {
+                if self.availableEpisodes.count > newEpisodeIndex {
+                    self.chosenEpisode = self.availableEpisodes[newEpisodeIndex]
+                }
             }
         }.store(in: &subscriptions)
         
         // if $chosenEpisode changes, update this episode in the array of availableEpisodes
         $chosenEpisode.sink { newEpisode in
-            if self.availableEpisodes.count > self.chosenEpisodeIndex {
-                self.availableEpisodes[self.chosenEpisodeIndex] = newEpisode
+            if let chosenEpisodeIndex = self.chosenEpisodeIndex {
+                if self.availableEpisodes.count > chosenEpisodeIndex {
+                    self.availableEpisodes[chosenEpisodeIndex] = newEpisode
+                }
             }
                         
         }.store(in: &subscriptions)
@@ -65,25 +69,25 @@ class EpisodeViewModel: ObservableObject {
         //ScriptParser.test()
 
         // build array of locallay available scripts
-        let fileNames = ScriptParser.availableScriptNames()
+        //let fileNames = ScriptParser.availableScriptNames()
         
         // we start with an empty array of available episodes
         availableEpisodes = [Episode]()
         
         // add episodes for each filename
-        for (index, fileName) in fileNames.enumerated() {
-            if index == 0 {
-                addEpisode(parsedFromGithubScriptName: fileName)
-            }
-        }
+//        for (index, fileName) in fileNames.enumerated() {
+//            if index == 0 {
+//                //addEpisode(parsedFromGithubScriptName: fileName)
+//            }
+//        }
 
         // sort available episodes by date
-        availableEpisodes.sort { e0, e1 in
-            return e0.creationDate > e1.creationDate
-        }
+//        availableEpisodes.sort { e0, e1 in
+//            return e0.creationDate > e1.creationDate
+//        }
         
         // chose first episode
-        chosenEpisodeIndex = 0
+        //chosenEpisodeIndex = 0
         
     }
     
@@ -177,6 +181,8 @@ class EpisodeViewModel: ObservableObject {
     
     /// Returns the index of the given section within the current chosenEpisode
     private func indexOfEpisodeSection(withId relevantId: UUID) -> Int? {
+        
+        guard let chosenEpisodeIndex else {return nil}
         
         // which episode are we currently working with?
         let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
