@@ -16,7 +16,7 @@ struct ContentView: View {
     // Showing PodcastRenderViewSheet?
     @State private var showingSheet = false
     
-    @State private var path = NavigationPath()
+    //@State private var navigationPath = NavigationPath()
     
     var body: some View {
         
@@ -24,7 +24,7 @@ struct ContentView: View {
             Sidebar(episodeViewModel: episodeViewModel)
         } detail: {
             
-            NavigationStack(path: $path) {
+            NavigationStack(path: $episodeViewModel.navigationPath) {
                 
                 EpisodeEditorView()
                     .toolbar {

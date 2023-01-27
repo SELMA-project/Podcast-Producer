@@ -30,28 +30,35 @@ struct StoryListView: View {
     var body: some View {
                     
         Form {
-            Section("Stories") {
-                ForEach($viewModel.chosenEpisode.stories) {$story in
-                    NavigationLink(value: story) {
-                        Text(story.headline.count == 0 ? "Tap to edit story" : story.headline)
-                            .foregroundColor(story.headline.count == 0 ? .gray : .black)
+            List {
+                Section("Stories") {
+                    ForEach($viewModel.chosenEpisode.stories) {$story in
+                        NavigationLink(value: story) {
+                            Text(story.headline)
+                        }
                     }
-                }
-                .onDelete(perform: onDelete)
-                .onMove(perform: onMove)
-            }
-            
-            Section {
-                Button {
-                    viewModel.appendEmptyStoryToChosenEpisode()
-                } label: {
-                    Text("Add Story")
-                }
+                    .onDelete(perform: onDelete)
+                    .onMove(perform: onMove)
 
-                Button {
-                    print("Add code to import episode here.")
-                } label: {
-                    Text("Import Story")
+                }
+                
+                Section {
+                    Button {
+                        
+                        // create empty story
+                        let story = viewModel.appendEmptyStoryToChosenEpisode()
+                        
+                        // put story on the navigation stack - this way, StoryEditView is called
+                        viewModel.navigationPath.append(story)
+                    } label: {
+                        Text("Add Story")
+                    }
+                    
+                    Button {
+                        print("Add code to import episode here.")
+                    } label: {
+                        Text("Import Story")
+                    }
                 }
             }
             

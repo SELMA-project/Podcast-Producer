@@ -7,9 +7,12 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 @MainActor
 class EpisodeViewModel: ObservableObject {
+    
+    @Published var navigationPath = NavigationPath()
     
     var chosenEpisodeIndex: Int? {
         willSet {
@@ -117,12 +120,12 @@ class EpisodeViewModel: ObservableObject {
 //            if let chosenEpisodeIndex = self.chosenEpisodeIndex {
 //                if self.availableEpisodes.count > chosenEpisodeIndex {
 //                    self.availableEpisodes[chosenEpisodeIndex] = newEpisode
-//                    
+//
 //                    // save to disk
 //                    //self.saveEpisodes()
 //                }
 //            }
-//                        
+//
 //        }.store(in: &subscriptions)
         
         
@@ -184,12 +187,17 @@ class EpisodeViewModel: ObservableObject {
         }
     }
     
-    func appendEmptyStoryToChosenEpisode() {
-        let story = Story(usedInIntroduction: true, headline: "", storyText: "")
+    func appendEmptyStoryToChosenEpisode() -> Story {
         
+        let storyIndex = chosenEpisode.stories.count + 1
+        
+        // create empty story
+        let story = Story(usedInIntroduction: true, headline: "Headline \(storyIndex)", storyText: "")
+        
+        // add  to chosen episode
         chosenEpisode.stories.append(story)
-
-        //episode.stories = stories
+        
+        return story
     }
     
     /// Save all availableEpisodes to disk as JSON
