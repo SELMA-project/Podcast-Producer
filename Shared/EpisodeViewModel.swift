@@ -11,7 +11,20 @@ import Combine
 @MainActor
 class EpisodeViewModel: ObservableObject {
     
-    @Published var chosenEpisodeIndex: Int?
+    var chosenEpisodeIndex: Int? {
+        willSet {
+            objectWillChange.send()
+        }
+        didSet {
+            // select chosenEpisode based on index
+            if let chosenEpisodeIndex {
+                if self.availableEpisodes.count > chosenEpisodeIndex {
+                    self.chosenEpisode = self.availableEpisodes[chosenEpisodeIndex]
+                }
+            }
+        }
+    }
+    
     var availableEpisodes: [Episode] = [] {
         willSet {
             objectWillChange.send()
@@ -19,11 +32,28 @@ class EpisodeViewModel: ObservableObject {
         didSet {
             // save episodes to disk whenever the array changes
             saveEpisodes()
+            
+            // if there are no more episode available, adjust index to nil
+            if availableEpisodes.count == 0 {
+                chosenEpisodeIndex = nil
+            }
         }
     }
     //@Published var episodeAvailable: Bool = false
     
-    @Published var chosenEpisode: Episode = Episode.standard // default value to avoid making this optional
+    var chosenEpisode: Episode = Episode.standard {
+        willSet {
+            objectWillChange.send()
+        }
+        didSet {
+            if let chosenEpisodeIndex = self.chosenEpisodeIndex {
+                if self.availableEpisodes.count > chosenEpisodeIndex {
+                    self.availableEpisodes[chosenEpisodeIndex] = chosenEpisode
+                }
+            }
+            
+        }
+    }// default value to avoid making this optional
     
     // the entire episode in segments
     //@Published var episodeStructure: [BuildingBlock] = []
@@ -74,26 +104,26 @@ class EpisodeViewModel: ObservableObject {
         
         
         // update $chosenEpisode when chosenEpisodeIndex changes
-        $chosenEpisodeIndex.sink { newEpisodeIndex in
-            if let newEpisodeIndex {
-                if self.availableEpisodes.count > newEpisodeIndex {
-                    self.chosenEpisode = self.availableEpisodes[newEpisodeIndex]
-                }
-            }
-        }.store(in: &subscriptions)
+//        $chosenEpisodeIndex.sink { newEpisodeIndex in
+//            if let newEpisodeIndex {
+//                if self.availableEpisodes.count > newEpisodeIndex {
+//                    self.chosenEpisode = self.availableEpisodes[newEpisodeIndex]
+//                }
+//            }
+//        }.store(in: &subscriptions)
         
         // if $chosenEpisode changes, update this episode in the array of availableEpisodes
-        $chosenEpisode.sink { newEpisode in
-            if let chosenEpisodeIndex = self.chosenEpisodeIndex {
-                if self.availableEpisodes.count > chosenEpisodeIndex {
-                    self.availableEpisodes[chosenEpisodeIndex] = newEpisode
-                    
-                    // save to disk
-                    //self.saveEpisodes()
-                }
-            }
-                        
-        }.store(in: &subscriptions)
+//        $chosenEpisode.sink { newEpisode in
+//            if let chosenEpisodeIndex = self.chosenEpisodeIndex {
+//                if self.availableEpisodes.count > chosenEpisodeIndex {
+//                    self.availableEpisodes[chosenEpisodeIndex] = newEpisode
+//                    
+//                    // save to disk
+//                    //self.saveEpisodes()
+//                }
+//            }
+//                        
+//        }.store(in: &subscriptions)
         
         
         // test available scripts
@@ -129,6 +159,9 @@ class EpisodeViewModel: ObservableObject {
         
         // add to existing episodes
         availableEpisodes.append(newEpisode)
+        
+        // set index to new episode
+        chosenEpisodeIndex = availableEpisodes.firstIndex(of: newEpisode)
     }
     
     /// Generates a new episode based on the given Github script and adds it to the array of available Episodes

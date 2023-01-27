@@ -26,7 +26,7 @@ struct ContentView: View {
             
             NavigationStack(path: $path) {
                 
-                MainEditView()
+                EpisodeEditorView()
                     .toolbar {
                         
 //                        ToolbarItem() {
