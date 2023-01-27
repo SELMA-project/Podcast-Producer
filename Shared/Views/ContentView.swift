@@ -29,27 +29,28 @@ struct ContentView: View {
                 MainEditView()
                     .toolbar {
                         
-                        ToolbarItem() {
-                            
-                            NavigationLink(value: "StoryList") {
-                                Image(systemName: "square.fill.text.grid.1x2")
-                            }
-                            
-                        }
+//                        ToolbarItem() {
+//
+//                            NavigationLink(value: "StoryList") {
+//                                Image(systemName: "square.fill.text.grid.1x2")
+//                            }
+//
+//                        }
                         
                         ToolbarItem(placement: .primaryAction) {
                             Button {
                                 showingSheet = true
                             } label: {
-                                Image(systemName: "antenna.radiowaves.left.and.right")
+                                Text("Build")
+                                //Image(systemName: "antenna.radiowaves.left.and.right")
                             }
                         }
                         
                         
                     }
-                    .navigationDestination(for: String.self) { _ in
-                        StoryListView()
-                    }
+//                    .navigationDestination(for: String.self) { _ in
+//                        StoryListView()
+//                    }
             }
         }.onAppear {
             episodeViewModel.runStartupRoutine()

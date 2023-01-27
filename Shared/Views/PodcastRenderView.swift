@@ -41,7 +41,7 @@ struct PodcastRenderView: View {
                             progressText = "Ready for sharing."
                         }
                     } label: {
-                        Text("Render")
+                        Text("Build")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)

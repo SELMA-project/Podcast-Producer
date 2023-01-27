@@ -101,6 +101,15 @@ struct MainEditView: View {
                 }
             }
             
+            Section("Stories") {
+                NavigationLink(value: "Stories") {
+                    Text("Tap to edit stories")
+                        .foregroundColor(.blue)
+                        .badge(episodeViewModel.chosenEpisode.stories.count)
+                        
+                }
+                
+            }
             
             Section("Structure") {
                 ForEach(episodeSections) {section in
@@ -110,12 +119,20 @@ struct MainEditView: View {
                 }
             }
             
+   
+            
         }
         .pickerStyle(.menu)
         
         .navigationDestination(for: EpisodeSection.self) { section in
             SectionEditView(section: section)
         }
+        .navigationDestination(for: String.self) { destinationName in
+            if destinationName == "Stories" {
+                StoryListView()
+            }
+        }
+        
         .navigationTitle("Episode Editor")
         
         
