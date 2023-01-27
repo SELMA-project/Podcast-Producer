@@ -69,7 +69,9 @@ struct StoryListView: View {
         .toolbar {
             
             ToolbarItem {
+                #if os(iOS)
                 EditButton()
+                #endif
             }
 
         }

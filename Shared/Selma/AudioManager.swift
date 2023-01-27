@@ -24,13 +24,15 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     override init() {
         super.init()
         
+#if os(iOS)
         // activate playback mode
         let audioSession = AVAudioSession.sharedInstance()
-         do {
+        do {
             try audioSession.setCategory(.playback)
-         } catch {
-             print("Setting category to AVAudioSessionCategoryPlayback failed.")
-         }
+        } catch {
+            print("Setting category to AVAudioSessionCategoryPlayback failed.")
+        }
+#endif
     }
     
     func synthesizeSpeech(podcastVoice: PodcastVoice, text: String?, toURL fileURL: URL) async -> Bool {
