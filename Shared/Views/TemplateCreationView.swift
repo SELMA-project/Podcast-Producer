@@ -16,7 +16,7 @@ struct TemplateCreationView: View {
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
     var templates: [EpisodeTemplate] {
-        let templates = EpisodeTemplate.templates(forLanguage: language)
+        let templates = TemplateManager.shared.availableTemplates(forLanguage: language)
             
         return templates
     }

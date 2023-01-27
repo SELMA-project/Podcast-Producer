@@ -1,5 +1,5 @@
 //
-//  MainEditView.swift
+//  EpisodeEditorView.swift
 //  Podcast Producer
 //
 //  Created by Andy Giefer on 08.08.22.

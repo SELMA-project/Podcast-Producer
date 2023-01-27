@@ -149,8 +149,10 @@ class EpisodeViewModel: ObservableObject {
 //            return e0.creationDate > e1.creationDate
 //        }
         
-        // chose first episode
-        //chosenEpisodeIndex = 0
+        // choose latest episode
+        if availableEpisodes.count > 0 {
+            chosenEpisodeIndex = availableEpisodes.count - 1
+        }
         
     }
     
