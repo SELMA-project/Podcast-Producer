@@ -38,9 +38,20 @@ struct SectionEditView: View {
     /// The text displayed under the audio section
     var pickerExplainerText: LocalizedStringKey {
         
-        var explainerText = "Audio that plays before, while and after the text is spoken."
-        if section.type == .headlines || section.type == .stories {
-            explainerText += "The *separator* is inserted between headlines and stories."
+        var explainerText = ""
+        
+        if section.type == .headlines {
+            explainerText += "Audio that plays before, during and after the text is spoken. "
+            explainerText += "The *separator* is inserted between the individual headlines."
+        }
+        
+        if section.type ==  .stories {
+            explainerText += "Audio that plays during the spoken text. "
+            explainerText += "The *separator* is inserted between the individual stories."
+        }
+        
+        if section.type == .standard {
+            explainerText += "Audio that plays before, during and after the text is spoken."
         }
         
         return LocalizedStringKey(explainerText)
@@ -120,41 +131,50 @@ struct SectionEditView: View {
             }
             
             if section.type == .headlines {
-                Section("Configuration") {
-                    //Toggle("Use highlights only", isOn: $restrictHeadlinesToHighlights)
+//                Section("Configuration") {
+//                    Toggle("Use highlights only", isOn: $viewModel.chosenEpisode.restrictHeadlinesToHighLights)
+//                } footer: {
+//                    Text("Activate this toggle to include this story's headline into the introduction.")
+//                }
+                Section {
                     Toggle("Use highlights only", isOn: $viewModel.chosenEpisode.restrictHeadlinesToHighLights)
+                } header: {
+                    Text("Configuration")
+                } footer: {
+                    Text("Activate this toggle to include this story's headline into the introduction.")
                 }
+
+
+                
             }
             
-//            if section.type == .stories {
-//                Section("Stories") {
-//                    ForEach(stories) {story in
-//                        NavigationLink(value: story) {
-//                            Text(story.headline)
-//                        }
-//                    }
-//                }
-//            }
+            
             
             Section {
-                Picker("Before", selection: prefixAudioFileBinding) {
-                    ForEach(AudioManager.availableAudioFiles(), id: \.self) {audioFile in
-                        Text(audioFile.displayName).tag(audioFile)
-                    }
-                }.pickerStyle(.menu)
                 
-                Picker("While", selection: mainAudioFileBinding) {
+                if section.type != .stories {
+                    Picker("Before speech", selection: prefixAudioFileBinding) {
+                        ForEach(AudioManager.availableAudioFiles(), id: \.self) {audioFile in
+                            Text(audioFile.displayName).tag(audioFile)
+                        }
+                    }.pickerStyle(.menu)
+                }
+                
+                Picker("During speech", selection: mainAudioFileBinding) {
                     ForEach(AudioManager.availableAudioFiles(), id: \.self) {audioFile in
                         Text(audioFile.displayName).tag(audioFile)
                     }
                 }.pickerStyle(.menu)
 
-                Picker("After", selection: suffixAudioFileBinding) {
-                    ForEach(AudioManager.availableAudioFiles(), id: \.self) {audioFile in
-                        Text(audioFile.displayName).tag(audioFile)
-                    }
-                }.pickerStyle(.menu)
+                if section.type != .stories {
+                    Picker("After speech", selection: suffixAudioFileBinding) {
+                        ForEach(AudioManager.availableAudioFiles(), id: \.self) {audioFile in
+                            Text(audioFile.displayName).tag(audioFile)
+                        }
+                    }.pickerStyle(.menu)
+                }
                 
+            
                 if section.type == .headlines || section.type == .stories {
                     Picker("Separator", selection: separatorAudioFileBinding) {
                         ForEach(AudioManager.availableAudioFiles(), id: \.self) {audioFile in

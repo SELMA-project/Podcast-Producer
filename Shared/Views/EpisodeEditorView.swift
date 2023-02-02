@@ -106,13 +106,13 @@ struct MainEditView: View {
         }
             
             Section("Voice") {
-                Picker("Provider", selection: $episodeViewModel.chosenEpisode.podcastVoice.speechProvider) {
+                Picker("Voice Provider", selection: $episodeViewModel.chosenEpisode.podcastVoice.speechProvider) {
                     ForEach(availableProviders, id: \.self) {provider in
                         Text(provider.displayName)
                     }
                 }
                 
-                Picker("Identifier", selection: $episodeViewModel.chosenEpisode.podcastVoice) {
+                Picker("Synthetic Voice Identifier", selection: $episodeViewModel.chosenEpisode.podcastVoice) {
                     ForEach(availableVoices, id: \.self) {voice in
                         Text(voice.name)
                     }
