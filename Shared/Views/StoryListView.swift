@@ -26,19 +26,13 @@ struct StoryListView: View {
     }
     
     private func onDelete(offsets: IndexSet) {
-        var chosenEpisode = viewModel[chosenEpisodeIndex]
-        chosenEpisode.stories.remove(atOffsets: offsets)
+        viewModel[chosenEpisodeIndex].stories.remove(atOffsets: offsets)
     }
     
     private func onMove(from source: IndexSet, to destination: Int) {
-        var chosenEpisode = viewModel[chosenEpisodeIndex]
-        chosenEpisode.stories.move(fromOffsets: source, toOffset: destination)
+        viewModel[chosenEpisodeIndex].stories.move(fromOffsets: source, toOffset: destination)
     }
-    
-    private func addStory() {
         
-    }
-    
     var body: some View {
                     
         Form {
