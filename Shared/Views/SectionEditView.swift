@@ -11,6 +11,7 @@ struct SectionEditView: View {
     
     @Binding var chosenEpisodeIndex: Int?
     var section: EpisodeSection
+
     
     @State var name: String
     @State var text: String

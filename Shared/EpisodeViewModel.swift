@@ -404,8 +404,7 @@ class EpisodeViewModel: ObservableObject {
                               newSeparatorAudioFile: AudioManager.AudioFile? = nil) {
         
         // get its sections
-        var chosenEpisode = self[chosenEpisodeIndex]
-        var sections = chosenEpisode.sections
+        var sections = self[chosenEpisodeIndex].sections
         
         // get the section's index
         if let sectionIndex = indexOfEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, relevantId: sectionId) {
@@ -427,7 +426,7 @@ class EpisodeViewModel: ObservableObject {
             sections[sectionIndex] = updatedSection
             
             // write sections back to chosenEpisode
-            chosenEpisode.sections = sections
+            self[chosenEpisodeIndex].sections = sections
         }
         
     }

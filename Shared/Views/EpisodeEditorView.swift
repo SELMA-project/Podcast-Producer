@@ -59,6 +59,7 @@ struct MainEditView: View {
         let sections = chosenEpisode.sections
         return sections
     }
+
     
     var episodeStories: [Story] {
         return chosenEpisode.stories
