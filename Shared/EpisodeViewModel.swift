@@ -366,8 +366,7 @@ class EpisodeViewModel: ObservableObject {
     func updateEpisodeStory(chosenEpisodeIndex: Int?, storyId: UUID, newHeadline: String? = nil, newText: String? = nil, markAsHighlight: Bool? = nil) {
                 
         // associated stories
-        var chosenEpisode = self[chosenEpisodeIndex]
-        let stories = chosenEpisode.stories
+        let stories = self[chosenEpisodeIndex].stories
         
         // copy them
         var updatedStories = stories
@@ -387,7 +386,7 @@ class EpisodeViewModel: ObservableObject {
             updatedStories[storyIndex] = updatedStory
             
             // update episode with new stories
-            chosenEpisode.stories = updatedStories
+            self[chosenEpisodeIndex].stories = updatedStories
         }
         
     }
