@@ -9,7 +9,9 @@ import SwiftUI
 
 struct StoryEditView: View {
     
+    @Binding var chosenEpisodeIndex: Int?
     var story: Story
+
     @State var headlineText: String
     @State var storyText: String
     @State var markAsHighlight: Bool
@@ -17,7 +19,8 @@ struct StoryEditView: View {
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
     
-    init(story: Story) {
+    init(chosenEpisodeIndex: Binding<Int?>, story: Story) {
+        self._chosenEpisodeIndex = chosenEpisodeIndex
         self.story = story
         _headlineText = State(initialValue: story.headline)
         _storyText = State(initialValue: story.storyText)
@@ -72,7 +75,7 @@ struct StoryEditView: View {
         }
         .onDisappear {
             // save when leaving the screen
-            episodeViewModel.updateEpisodeStory(storyId: story.id, newHeadline: headlineText, newText: storyText, markAsHighlight: markAsHighlight)
+            episodeViewModel.updateEpisodeStory(chosenEpisodeIndex: chosenEpisodeIndex, storyId: story.id, newHeadline: headlineText, newText: storyText, markAsHighlight: markAsHighlight)
         }
 
         .navigationTitle("Story Editor")
@@ -84,6 +87,6 @@ struct StoryEditView: View {
 struct StoryEditView_Previews: PreviewProvider {
     static var previews: some View {
         let story = Story(usedInIntroduction: true, headline: "Headline", storyText: "Text")
-        StoryEditView(story: story)
+        StoryEditView(chosenEpisodeIndex: .constant(0), story: story)
     }
 }

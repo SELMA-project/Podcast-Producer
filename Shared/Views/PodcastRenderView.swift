@@ -9,6 +9,8 @@ import SwiftUI
 
 struct PodcastRenderView: View {
     
+    @Binding var chosenEpisodeIndex: Int?
+    
     @Environment(\.dismiss) var dismissAction
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
@@ -35,7 +37,7 @@ struct PodcastRenderView: View {
                             
                             progressValue = 50
                             progressText = "Synthesizing speech..."
-                            audioURL = await episodeViewModel.renderEpisode()
+                            audioURL = await episodeViewModel.renderEpisode(chosenEpisodeIndex: chosenEpisodeIndex)
                             
                             progressValue = 100
                             progressText = "Ready for sharing."
@@ -85,6 +87,6 @@ struct PodcastRenderView: View {
 
 struct PodcastRenderView_Previews: PreviewProvider {
     static var previews: some View {
-        PodcastRenderView()
+        PodcastRenderView(chosenEpisodeIndex: .constant(0))
     }
 }

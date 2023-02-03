@@ -14,7 +14,7 @@ class EpisodeViewModel: ObservableObject {
     
     @Published var navigationPath = NavigationPath()
     
-    @Published var chosenEpisodeIndex: Int? //{
+    //@Published var chosenEpisodeIndex: Int? //{
 //        willSet {
 //            objectWillChange.send()
 //        }
@@ -44,20 +44,18 @@ class EpisodeViewModel: ObservableObject {
     //}
     //@Published var episodeAvailable: Bool = false
     
-    // gets and sets chosenEpisode
-    var chosenEpisode: Episode {
+    
+    subscript(episodeIndex: Int?) -> Episode {
         get {
-            if let index = chosenEpisodeIndex {
+            if let index = episodeIndex {
                 if availableEpisodes.count > index {
                     return availableEpisodes[index]
                 }
             }
             return Episode.standard
         }
-        
-        set(newValue) {
-                        
-            if let index = chosenEpisodeIndex {
+        set {
+            if let index = episodeIndex {
                 availableEpisodes[index] = newValue
                 
                 // save episodes to disk whenever the array changes
@@ -65,6 +63,28 @@ class EpisodeViewModel: ObservableObject {
             }
         }
     }
+    
+    // gets and sets chosenEpisode
+//    var chosenEpisode: Episode {
+//        get {
+//            if let index = chosenEpisodeIndex {
+//                if availableEpisodes.count > index {
+//                    return availableEpisodes[index]
+//                }
+//            }
+//            return Episode.standard
+//        }
+//
+//        set(newValue) {
+//
+//            if let index = chosenEpisodeIndex {
+//                availableEpisodes[index] = newValue
+//
+//                // save episodes to disk whenever the array changes
+//                saveEpisodes()
+//            }
+//        }
+//    }
     
 //    var chosenEpisode: Episode = Episode.standard {
 //        willSet {
@@ -178,9 +198,9 @@ class EpisodeViewModel: ObservableObject {
 //        }
         
         // choose latest episode
-        if availableEpisodes.count > 0 {
-            chosenEpisodeIndex = availableEpisodes.count - 1
-        }
+//        if availableEpisodes.count > 0 {
+//            chosenEpisodeIndex = availableEpisodes.count - 1
+//        }
         
     }
     
@@ -194,7 +214,7 @@ class EpisodeViewModel: ObservableObject {
         availableEpisodes.append(newEpisode)
         
         // set index to new episode
-        chosenEpisodeIndex = availableEpisodes.firstIndex(of: newEpisode)
+        //chosenEpisodeIndex = availableEpisodes.firstIndex(of: newEpisode)
     }
     
     /// Generates a new episode based on the given Github script and adds it to the array of available Episodes
@@ -217,8 +237,9 @@ class EpisodeViewModel: ObservableObject {
         }
     }
     
-    func appendEmptyStoryToChosenEpisode() -> Story {
+    func appendEmptyStoryToChosenEpisode(chosenEpisodeIndex: Int?) -> Story {
         
+        var chosenEpisode = self[chosenEpisodeIndex]
         let storyIndex = chosenEpisode.stories.count + 1
         
         // create empty story
@@ -287,14 +308,15 @@ class EpisodeViewModel: ObservableObject {
 
     
     /// Called when play button is sectionEditView is pressed
-    func renderEpisodeSection(withId episodeId: UUID) async -> URL? {
+    func renderEpisodeSection(chosenEpisodeIndex: Int?, sectionId: UUID) async -> URL? {
     
         var sectionAudioUrl: URL?
         
         // get the section's index
-        if let episodeIndex = indexOfEpisodeSection(withId: episodeId) {
+        if let episodeIndex = indexOfEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, relevantId: sectionId) {
             
             // create an audio episode which just contains the episode we want to preview
+            let chosenEpisode = self[chosenEpisodeIndex]
             sectionAudioUrl = await AudioManager.shared.createAudioEpisodeBasedOnEpisode(chosenEpisode, selectedSectionIndex: episodeIndex)
         }
         
@@ -302,8 +324,9 @@ class EpisodeViewModel: ObservableObject {
     }
     
     /// Called by the PodcastRenderView to render the entire episode
-    func renderEpisode() async -> URL {
+    func renderEpisode(chosenEpisodeIndex: Int?) async -> URL {
         
+        let chosenEpisode = self[chosenEpisodeIndex]
         let episodeUrl = await AudioManager.shared.createAudioEpisodeBasedOnEpisode(chosenEpisode, selectedSectionIndex: nil)
         print("Audio file saved here: \(String(describing: episodeUrl))")
         
@@ -322,7 +345,7 @@ class EpisodeViewModel: ObservableObject {
     }
     
     /// Returns the index of the given section within the current chosenEpisode
-    private func indexOfEpisodeSection(withId relevantId: UUID) -> Int? {
+    private func indexOfEpisodeSection(chosenEpisodeIndex: Int?, relevantId: UUID) -> Int? {
         
         guard let chosenEpisodeIndex else {return nil}
         
@@ -340,9 +363,10 @@ class EpisodeViewModel: ObservableObject {
     
     
     /// Called by StoryEditView to update story details for given storyId inside the chosenEpisode
-    func updateEpisodeStory(storyId: UUID, newHeadline: String? = nil, newText: String? = nil, markAsHighlight: Bool? = nil) {
+    func updateEpisodeStory(chosenEpisodeIndex: Int?, storyId: UUID, newHeadline: String? = nil, newText: String? = nil, markAsHighlight: Bool? = nil) {
                 
         // associated stories
+        var chosenEpisode = self[chosenEpisodeIndex]
         let stories = chosenEpisode.stories
         
         // copy them
@@ -370,7 +394,8 @@ class EpisodeViewModel: ObservableObject {
     
 
     /// Updates the currently chosen episode. The non-nil attributes of the episode's section, identified by *sectionId*, are updated.
-    func updateEpisodeSection(sectionId: UUID,
+    func updateEpisodeSection(chosenEpisodeIndex: Int?,
+                              sectionId: UUID,
                               newName: String? = nil,
                               newText: String? = nil,
                               newPrefixAudioFile: AudioManager.AudioFile? = nil,
@@ -379,10 +404,11 @@ class EpisodeViewModel: ObservableObject {
                               newSeparatorAudioFile: AudioManager.AudioFile? = nil) {
         
         // get its sections
+        var chosenEpisode = self[chosenEpisodeIndex]
         var sections = chosenEpisode.sections
         
         // get the section's index
-        if let sectionIndex = indexOfEpisodeSection(withId: sectionId) {
+        if let sectionIndex = indexOfEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, relevantId: sectionId) {
             // the section itself
             let section = sections[sectionIndex]
             

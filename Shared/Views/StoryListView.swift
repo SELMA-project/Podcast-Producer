@@ -9,18 +9,30 @@ import SwiftUI
 
 struct StoryListView: View {
     
+    @Binding var chosenEpisodeIndex: Int?
+    
     @EnvironmentObject var viewModel: EpisodeViewModel
     
 //    var stories: [Story] {
 //        return $viewModel.chosenEpisode.stories
 //    }
     
+//    var chosenEpisode: Episode {
+//        return viewModel[viewModel.chosenEpisodeIndex]
+//    }
+    
+    var chosenEpisodeBinding: Binding<Episode> {
+        return $viewModel[chosenEpisodeIndex]
+    }
+    
     private func onDelete(offsets: IndexSet) {
-        viewModel.chosenEpisode.stories.remove(atOffsets: offsets)
+        var chosenEpisode = viewModel[chosenEpisodeIndex]
+        chosenEpisode.stories.remove(atOffsets: offsets)
     }
     
     private func onMove(from source: IndexSet, to destination: Int) {
-        viewModel.chosenEpisode.stories.move(fromOffsets: source, toOffset: destination)
+        var chosenEpisode = viewModel[chosenEpisodeIndex]
+        chosenEpisode.stories.move(fromOffsets: source, toOffset: destination)
     }
     
     private func addStory() {
@@ -32,7 +44,7 @@ struct StoryListView: View {
         Form {
             List {
                 Section("Stories") {
-                    ForEach($viewModel.chosenEpisode.stories) {$story in
+                    ForEach(chosenEpisodeBinding.stories) {$story in
                         NavigationLink(value: story) {
                             Text(story.headline)
                         }
@@ -46,7 +58,7 @@ struct StoryListView: View {
                     Button {
                         
                         // create empty story
-                        let story = viewModel.appendEmptyStoryToChosenEpisode()
+                        let story = viewModel.appendEmptyStoryToChosenEpisode(chosenEpisodeIndex: chosenEpisodeIndex)
                         
                         // put story on the navigation stack - this way, StoryEditView is called
                         viewModel.navigationPath.append(story)
@@ -64,7 +76,7 @@ struct StoryListView: View {
             
         }
         .navigationDestination(for: Story.self) { story in
-            StoryEditView(story: story)
+            StoryEditView(chosenEpisodeIndex: $chosenEpisodeIndex, story: story)
         }
         .toolbar {
             
@@ -82,6 +94,6 @@ struct StoryListView: View {
 
 struct StoryListView_Previews: PreviewProvider {
     static var previews: some View {
-        StoryListView()
+        StoryListView(chosenEpisodeIndex: .constant(0))
     }
 }

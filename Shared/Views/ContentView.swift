@@ -12,6 +12,7 @@ struct ContentView: View {
     
     @StateObject var episodeViewModel = EpisodeViewModel()
     @Environment(\.managedObjectContext) private var viewContext
+    @SceneStorage("chosenEpisodeIndex") private var chosenEpisodeIndex: Int?
     
     // Showing PodcastRenderViewSheet?
     @State private var showingSheet = false
@@ -21,12 +22,12 @@ struct ContentView: View {
     var body: some View {
         
         NavigationSplitView {
-            Sidebar(episodeViewModel: episodeViewModel)
+            Sidebar(chosenEpisodeIndex: $chosenEpisodeIndex)
         } detail: {
             
             NavigationStack(path: $episodeViewModel.navigationPath) {
                 
-                EpisodeEditorView()
+                EpisodeEditorView(chosenEpisodeIndex: $chosenEpisodeIndex)
                     .toolbar {
                         
 //                        ToolbarItem() {
@@ -59,7 +60,7 @@ struct ContentView: View {
         .environmentObject(episodeViewModel)
         
         .sheet(isPresented: $showingSheet) {
-            PodcastRenderView()
+            PodcastRenderView(chosenEpisodeIndex: $chosenEpisodeIndex)
                 .environmentObject(episodeViewModel)
         }
     }

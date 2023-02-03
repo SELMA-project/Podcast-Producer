@@ -9,7 +9,10 @@ import SwiftUI
 
 struct Sidebar: View {
     
-    @ObservedObject var episodeViewModel: EpisodeViewModel
+    //@ObservedObject var episodeViewModel: EpisodeViewModel
+    @Binding var chosenEpisodeIndex: Int?
+    
+    @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
     // stores selection. needs to be optional!
     //@State private var chosenEpisodeIndex: Int?
@@ -43,7 +46,7 @@ struct Sidebar: View {
         ZStack {
             
             // show this if we have at least one episode
-            List(selection: $episodeViewModel.chosenEpisodeIndex) {
+            List(selection: $chosenEpisodeIndex) {
                 ForEach(0..<episodeViewModel.availableEpisodes.count, id: \.self) {episodeIndex in
                     NavigationLink(value: episodeIndex) {
                         HStack {
@@ -87,6 +90,7 @@ struct Sidebar: View {
 
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
-        Sidebar(episodeViewModel: EpisodeViewModel())
+        Sidebar(chosenEpisodeIndex: .constant(0))
+            .environmentObject(EpisodeViewModel())
     }
 }

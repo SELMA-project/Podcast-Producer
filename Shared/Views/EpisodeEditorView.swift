@@ -22,10 +22,12 @@ extension View {
 
 struct EpisodeEditorView: View {
     
+    @Binding var chosenEpisodeIndex: Int?
+    
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
     var body: some View {
-        if episodeViewModel.chosenEpisodeIndex == nil {
+        if chosenEpisodeIndex == nil {
             
             if episodeViewModel.availableEpisodes.count == 0 {
                 Text("Please create an Episode.")
@@ -33,32 +35,42 @@ struct EpisodeEditorView: View {
                 Text("Please choose an Episode.")
             }
         } else {
-            MainEditView()
+            MainEditView(chosenEpisodeIndex: $chosenEpisodeIndex)
         }
     }
 }
 
 struct MainEditView: View {
     
+    @Binding var chosenEpisodeIndex: Int?
+    
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     @State var providerName: String = "SELMA"
     
+    var chosenEpisode: Episode {
+        return episodeViewModel[chosenEpisodeIndex]
+    }
+    
+    var chosenEpisodeBinding: Binding<Episode> {
+        return $episodeViewModel[chosenEpisodeIndex]
+    }
+    
     var episodeSections: [EpisodeSection] {
-        let sections = episodeViewModel.chosenEpisode.sections
+        let sections = chosenEpisode.sections
         return sections
     }
     
     var episodeStories: [Story] {
-        return episodeViewModel.chosenEpisode.stories
+        return chosenEpisode.stories
     }
     
     var episodeLanguage: String {
-        return episodeViewModel.chosenEpisode.language.displayName
+        return chosenEpisode.language.displayName
     }
     
     /// All voices that share the same provider and language
     var availableVoices: [PodcastVoice] {
-        let chosenEpisode = episodeViewModel.chosenEpisode
+        let chosenEpisode = chosenEpisode
         let episodeLanguage = chosenEpisode.language
         let voiceProvider = chosenEpisode.podcastVoice.speechProvider
         let availableVoices = VoiceManager.shared.availableVoices(forLanguage: episodeLanguage, forProvider: voiceProvider)
@@ -66,7 +78,7 @@ struct MainEditView: View {
     }
     
     var availableProviders: [SpeechProvider] {
-        let chosenEpisode = episodeViewModel.chosenEpisode
+        let chosenEpisode = chosenEpisode
         let episodeLanguage = chosenEpisode.language
         let availableProviders = VoiceManager.shared.availableProviders(forLanguage: episodeLanguage)
         return availableProviders
@@ -74,14 +86,13 @@ struct MainEditView: View {
     
     var body: some View {
         
-        
         Form {
             
             Section {
                 HStack {
                     Text("Language")
                     Spacer()
-                    Text(episodeViewModel.chosenEpisode.language.displayName)
+                    Text(chosenEpisode.language.displayName)
                         .foregroundColor(.secondary)
                 }
             } header: {
@@ -96,7 +107,7 @@ struct MainEditView: View {
                 HStack {
                     Text("Narrator")
                     Spacer()
-                    TextField("Name", text: $episodeViewModel.chosenEpisode.narrator)
+                    TextField("Name", text: chosenEpisodeBinding.narrator)
                         .multilineTextAlignment(.trailing)
                 }
             } header: {
@@ -107,13 +118,13 @@ struct MainEditView: View {
             }
 
             Section("Voice") {
-                Picker("Voice Provider", selection: $episodeViewModel.chosenEpisode.podcastVoice.speechProvider) {
+                Picker("Voice Provider", selection: chosenEpisodeBinding.podcastVoice.speechProvider) {
                     ForEach(availableProviders, id: \.self) {provider in
                         Text(provider.displayName)
                     }
                 }
 
-                Picker("Synthetic Voice Identifier", selection: $episodeViewModel.chosenEpisode.podcastVoice) {
+                Picker("Synthetic Voice Identifier", selection: chosenEpisodeBinding.podcastVoice) {
                     ForEach(availableVoices, id: \.self) {voice in
                         Text(voice.name)
                     }
@@ -124,7 +135,7 @@ struct MainEditView: View {
                 NavigationLink(value: "Stories") {
                     Text("Tap to edit stories")
                         .foregroundColor(.blue)
-                        .badge(episodeViewModel.chosenEpisode.stories.count)
+                        .badge(chosenEpisode.stories.count)
 
                 }
 
@@ -148,11 +159,11 @@ struct MainEditView: View {
         .pickerStyle(.menu)
         
         .navigationDestination(for: EpisodeSection.self) { section in
-            SectionEditView(section: section)
+            SectionEditView(chosenEpisodeIndex: $chosenEpisodeIndex, section: section)
         }
         .navigationDestination(for: String.self) { destinationName in
             if destinationName == "Stories" {
-                StoryListView()
+                StoryListView(chosenEpisodeIndex: $chosenEpisodeIndex)
             }
         }
         
@@ -164,6 +175,6 @@ struct MainEditView: View {
 struct MainEditView_Previews: PreviewProvider {
     
     static var previews: some View {
-        MainEditView()
+        MainEditView(chosenEpisodeIndex: .constant(0))
     }
 }

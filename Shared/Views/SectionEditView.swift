@@ -9,7 +9,9 @@ import SwiftUI
 
 struct SectionEditView: View {
     
+    @Binding var chosenEpisodeIndex: Int?
     var section: EpisodeSection
+    
     @State var name: String
     @State var text: String
     @State var prefixAudioFile: AudioManager.AudioFile
@@ -20,7 +22,8 @@ struct SectionEditView: View {
     
     @EnvironmentObject var viewModel: EpisodeViewModel
     
-    init(section: EpisodeSection) {
+    init(chosenEpisodeIndex: Binding<Int?>, section: EpisodeSection) {
+        self._chosenEpisodeIndex = chosenEpisodeIndex
         self.section = section
         _name = State(initialValue: section.name)
         _text = State(initialValue: section.rawText)
@@ -31,8 +34,16 @@ struct SectionEditView: View {
         _separatorAudioFile = State(initialValue: section.separatorAudioFile)
     }
     
+    var chosenEpisode: Episode {
+        return viewModel[chosenEpisodeIndex]
+    }
+    
+    var chosenEpisodeBinding: Binding<Episode> {
+        return $viewModel[chosenEpisodeIndex]
+    }
+    
     var stories: [Story] {
-        return viewModel.chosenEpisode.stories
+        return chosenEpisode.stories
     }
     
     /// The text displayed under the audio section
@@ -65,7 +76,7 @@ struct SectionEditView: View {
              self.name = newValue
              
              // update section in viewModel
-             viewModel.updateEpisodeSection(sectionId: section.id, newName: newValue)
+             viewModel.updateEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, sectionId: section.id, newName: newValue)
          }
         
         let textBinding = Binding {
@@ -74,7 +85,7 @@ struct SectionEditView: View {
              self.text = newValue
              
              // update section in viewModel
-             viewModel.updateEpisodeSection(sectionId: section.id, newText: newValue)
+             viewModel.updateEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, sectionId: section.id, newText: newValue)
          }
         
         let prefixAudioFileBinding = Binding {
@@ -83,7 +94,7 @@ struct SectionEditView: View {
              self.prefixAudioFile = newValue
              
              // update section in viewModel
-             viewModel.updateEpisodeSection(sectionId: section.id, newPrefixAudioFile: newValue)
+             viewModel.updateEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, sectionId: section.id, newPrefixAudioFile: newValue)
          }
         
         let mainAudioFileBinding = Binding {
@@ -92,7 +103,7 @@ struct SectionEditView: View {
              self.mainAudioFile = newValue
              
              // update section in viewModel
-             viewModel.updateEpisodeSection(sectionId: section.id, newMainAudioFile: newValue)
+             viewModel.updateEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, sectionId: section.id, newMainAudioFile: newValue)
          }
         
         let suffixAudioFileBinding = Binding {
@@ -101,7 +112,7 @@ struct SectionEditView: View {
              self.suffixAudioFile = newValue
              
              // update section in viewModel
-             viewModel.updateEpisodeSection(sectionId: section.id, newSuffixAudioFile: newValue)
+             viewModel.updateEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, sectionId: section.id, newSuffixAudioFile: newValue)
          }
         
         let separatorAudioFileBinding = Binding {
@@ -110,7 +121,7 @@ struct SectionEditView: View {
              self.separatorAudioFile = newValue
              
              // update section in viewModel
-             viewModel.updateEpisodeSection(sectionId: section.id, newSeparatorAudioFile: newValue)
+             viewModel.updateEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, sectionId: section.id, newSeparatorAudioFile: newValue)
          }
         
             
@@ -127,7 +138,7 @@ struct SectionEditView: View {
             }
             
             Section("Listen") {
-                PlayButtonRow(sectionId: section.id)
+                PlayButtonRow(chosenEpisodeIndex: $chosenEpisodeIndex, sectionId: section.id)
             }
             
             if section.type == .headlines {
@@ -137,7 +148,7 @@ struct SectionEditView: View {
 //                    Text("Activate this toggle to include this story's headline into the introduction.")
 //                }
                 Section {
-                    Toggle("Use highlights only", isOn: $viewModel.chosenEpisode.restrictHeadlinesToHighLights)
+                    Toggle("Use highlights only", isOn: chosenEpisodeBinding.restrictHeadlinesToHighLights)
                 } header: {
                     Text("Configuration")
                 } footer: {
@@ -191,13 +202,15 @@ struct SectionEditView: View {
             
         }
         .navigationDestination(for: Story.self) { story in
-            StoryEditView(story: story)
+            StoryEditView(chosenEpisodeIndex: $chosenEpisodeIndex, story: story)
         }
         .navigationTitle("Section Editor")
     }
 }
 
 struct PlayButtonRow: View {
+    
+    @Binding var chosenEpisodeIndex: Int?
     
     enum PlayButtonState {
         case waitingForStart, rendering, waitingForStop
@@ -216,7 +229,7 @@ struct PlayButtonRow: View {
                 
                 // render audio
                 playButtonState = .rendering
-                let audioURL = await viewModel.renderEpisodeSection(withId: sectionId)
+                let audioURL = await viewModel.renderEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, sectionId: sectionId)
                 playButtonState = .waitingForStart
                 
                 // if successful, start playback
@@ -268,6 +281,6 @@ struct PlayButtonRow: View {
 struct SectionEditView_Previews: PreviewProvider {
     static var previews: some View {
         let section = EpisodeSection(type: .standard, name: "Introduction")
-        SectionEditView(section: section)
+        SectionEditView(chosenEpisodeIndex: .constant(0), section: section)
     }
 }
