@@ -152,12 +152,9 @@ struct MainEditView: View {
                     }
                 }
             }
-
    
             
         }
-        .pickerStyle(.menu)
-        
         .navigationDestination(for: EpisodeSection.self) { section in
             SectionEditView(chosenEpisodeIndex: $chosenEpisodeIndex, section: section)
         }
@@ -166,7 +163,8 @@ struct MainEditView: View {
                 StoryListView(chosenEpisodeIndex: $chosenEpisodeIndex)
             }
         }
-        
+        .pickerStyle(.menu)
+    
         .navigationTitle("Episode Editor")
         
     }
