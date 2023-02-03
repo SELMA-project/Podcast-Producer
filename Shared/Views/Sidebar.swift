@@ -12,7 +12,7 @@ struct Sidebar: View {
     @ObservedObject var episodeViewModel: EpisodeViewModel
     
     // stores selection. needs to be optional!
-    @State private var chosenEpisodeIndex: Int?
+    //@State private var chosenEpisodeIndex: Int?
     
     // are we showing the EpisodeCreationSheet?
     @State private var showingSheet = false

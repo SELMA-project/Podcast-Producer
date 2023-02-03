@@ -44,7 +44,8 @@ struct MainEditView: View {
     @State var providerName: String = "SELMA"
     
     var episodeSections: [EpisodeSection] {
-        return episodeViewModel.chosenEpisode.sections
+        let sections = episodeViewModel.chosenEpisode.sections
+        return sections
     }
     
     var episodeStories: [Story] {
@@ -91,7 +92,7 @@ struct MainEditView: View {
             
             
             Section {
-                
+
                 HStack {
                     Text("Narrator")
                     Spacer()
@@ -101,42 +102,46 @@ struct MainEditView: View {
             } header: {
                 Text("General")
             }
-        footer: {
-            Text("This replaces the {narrator} token.")
-        }
-            
+            footer: {
+                Text("This replaces the {narrator} token.")
+            }
+
             Section("Voice") {
                 Picker("Voice Provider", selection: $episodeViewModel.chosenEpisode.podcastVoice.speechProvider) {
                     ForEach(availableProviders, id: \.self) {provider in
                         Text(provider.displayName)
                     }
                 }
-                
+
                 Picker("Synthetic Voice Identifier", selection: $episodeViewModel.chosenEpisode.podcastVoice) {
                     ForEach(availableVoices, id: \.self) {voice in
                         Text(voice.name)
                     }
                 }
             }
-            
+
             Section("Stories") {
                 NavigationLink(value: "Stories") {
                     Text("Tap to edit stories")
                         .foregroundColor(.blue)
                         .badge(episodeViewModel.chosenEpisode.stories.count)
-                        
+
                 }
-                
+
             }
-            
+
             Section("Structure") {
-                ForEach(episodeSections) {section in
-                    NavigationLink(value: section) {
-                        Text(section.name)
+                if episodeSections.count == 0 {
+                    Text("No defined structure")
+                } else {
+                    ForEach(episodeSections) {section in
+                        NavigationLink(value: section) {
+                            Text(section.name)
+                        }
                     }
                 }
             }
-            
+
    
             
         }

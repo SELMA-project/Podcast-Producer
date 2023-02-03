@@ -14,52 +14,80 @@ class EpisodeViewModel: ObservableObject {
     
     @Published var navigationPath = NavigationPath()
     
-    var chosenEpisodeIndex: Int? {
-        willSet {
-            objectWillChange.send()
-        }
-        didSet {
-            // select chosenEpisode based on index
-            if let chosenEpisodeIndex {
-                if self.availableEpisodes.count > chosenEpisodeIndex {
-                    self.chosenEpisode = self.availableEpisodes[chosenEpisodeIndex]
-                }
-            }
-        }
-    }
+    @Published var chosenEpisodeIndex: Int? //{
+//        willSet {
+//            objectWillChange.send()
+//        }
+//        didSet {
+//            // select chosenEpisode based on index
+//            if let chosenEpisodeIndex {
+//                if self.availableEpisodes.count > chosenEpisodeIndex {
+//                    self.chosenEpisode = self.availableEpisodes[chosenEpisodeIndex]
+//                }
+//            }
+//        }
+    //}
     
-    var availableEpisodes: [Episode] = [] {
-        willSet {
-            objectWillChange.send()
-        }
-        didSet {
-            // save episodes to disk whenever the array changes
-            saveEpisodes()
-            
-            // if there are no more episode available, adjust index to nil
-            if availableEpisodes.count == 0 {
-                chosenEpisodeIndex = nil
-            }
-        }
-    }
+    @Published var availableEpisodes: [Episode] = [] //{
+//        willSet {
+//            objectWillChange.send()
+//        }
+//        didSet {
+//            // save episodes to disk whenever the array changes
+//            saveEpisodes()
+//
+//            // if there are no more episode available, adjust index to nil
+//            if availableEpisodes.count == 0 {
+//                chosenEpisodeIndex = nil
+//            }
+//        }
+    //}
     //@Published var episodeAvailable: Bool = false
     
-    var chosenEpisode: Episode = Episode.standard {
-        willSet {
-            objectWillChange.send()
-        }
-        didSet {
-            if let chosenEpisodeIndex = self.chosenEpisodeIndex {
-                if self.availableEpisodes.count > chosenEpisodeIndex {
-                    self.availableEpisodes[chosenEpisodeIndex] = chosenEpisode
+    // gets and sets chosenEpisode
+    var chosenEpisode: Episode {
+        get {
+            if let index = chosenEpisodeIndex {
+                if availableEpisodes.count > index {
+                    return availableEpisodes[index]
                 }
             }
-            
+            return Episode.standard
         }
-    }// default value to avoid making this optional
+        
+        set(newValue) {
+                        
+            if let index = chosenEpisodeIndex {
+                availableEpisodes[index] = newValue
+                
+                // save episodes to disk whenever the array changes
+                saveEpisodes()
+            }
+        }
+    }
+    
+//    var chosenEpisode: Episode = Episode.standard {
+//        willSet {
+//            objectWillChange.send()
+//        }
+//        didSet {
+//            if let chosenEpisodeIndex = self.chosenEpisodeIndex {
+//                if self.availableEpisodes.count > chosenEpisodeIndex {
+//                    self.availableEpisodes[chosenEpisodeIndex] = chosenEpisode
+//                }
+//            }
+//
+//        }
+//    }// default value to avoid making this optional
     
     // the entire episode in segments
     //@Published var episodeStructure: [BuildingBlock] = []
+    
+    
+    
+    
+    
+    
     
     // the narrator name use when creating a new template. Is stored in user defaults.
     var newTemplateNarratorName: String = "" {
