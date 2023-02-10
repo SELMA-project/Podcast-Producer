@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PodcastRenderView: View {
     
-    @Binding var chosenEpisodeIndex: Int?
+    var chosenEpisodeIndex: Int?
     
     @Environment(\.dismiss) var dismissAction
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
@@ -87,6 +87,6 @@ struct PodcastRenderView: View {
 
 struct PodcastRenderView_Previews: PreviewProvider {
     static var previews: some View {
-        PodcastRenderView(chosenEpisodeIndex: .constant(0))
+        PodcastRenderView(chosenEpisodeIndex: 0)
     }
 }

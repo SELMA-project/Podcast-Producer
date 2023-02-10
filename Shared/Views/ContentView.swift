@@ -25,7 +25,7 @@ struct ContentView: View {
             
             NavigationStack(path: $episodeViewModel.navigationPath) {
                 
-                EpisodeEditorView(chosenEpisodeIndex: $chosenEpisodeIndex)
+                EpisodeEditorView(chosenEpisodeIndex: chosenEpisodeIndex)
                     .toolbar {
                         
                         ToolbarItem() {
@@ -58,7 +58,7 @@ struct ContentView: View {
         .environmentObject(episodeViewModel)
         
         .sheet(isPresented: $showingSheet) {
-            PodcastRenderView(chosenEpisodeIndex: $chosenEpisodeIndex)
+            PodcastRenderView(chosenEpisodeIndex: chosenEpisodeIndex)
                 .environmentObject(episodeViewModel)
         }
     }

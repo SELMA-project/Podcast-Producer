@@ -22,7 +22,7 @@ extension View {
 
 struct EpisodeEditorView: View {
     
-    @Binding var chosenEpisodeIndex: Int?
+    var chosenEpisodeIndex: Int?
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
@@ -35,14 +35,14 @@ struct EpisodeEditorView: View {
                 Text("Please choose an Episode.")
             }
         } else {
-            MainEditView(chosenEpisodeIndex: $chosenEpisodeIndex)
+            MainEditView(chosenEpisodeIndex: chosenEpisodeIndex)
         }
     }
 }
 
 struct MainEditView: View {
     
-    @Binding var chosenEpisodeIndex: Int?
+    var chosenEpisodeIndex: Int?
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     @State var providerName: String = "SELMA"
@@ -185,6 +185,6 @@ struct MainEditView: View {
 struct MainEditView_Previews: PreviewProvider {
     
     static var previews: some View {
-        MainEditView(chosenEpisodeIndex: .constant(0))
+        MainEditView(chosenEpisodeIndex: 0)
     }
 }
