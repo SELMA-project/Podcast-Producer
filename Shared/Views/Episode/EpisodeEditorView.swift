@@ -83,24 +83,6 @@ struct MainEditView: View {
         return availableProviders
     }
     
-    var voiceExplanationText: LocalizedStringKey {
-        
-        var explanationText: LocalizedStringKey = "Add high-quality voices through the System Settings."
-        
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            let urlString = url.absoluteString
-            explanationText = "Add high-quality voices through the [System Settings](\(UIApplication.openSettingsURLString))."
-        }
-        
-        explanationText = "Add high-quality voices through the [System Settings](\(UIApplication.openSettingsURLString))."
-        
-        return explanationText
-    }
-    
-//    var settingsURL: URL {
-//
-//    }
-    
     private func onDelete(offsets: IndexSet) {
         episodeViewModel[chosenEpisodeIndex].stories.remove(atOffsets: offsets)
     }
