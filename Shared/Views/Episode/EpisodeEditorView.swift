@@ -83,6 +83,24 @@ struct MainEditView: View {
         return availableProviders
     }
     
+    var voiceExplanationText: LocalizedStringKey {
+        
+        var explanationText: LocalizedStringKey = "Add high-quality voices through the System Settings."
+        
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            let urlString = url.absoluteString
+            explanationText = "Add high-quality voices through the [System Settings](\(UIApplication.openSettingsURLString))."
+        }
+        
+        explanationText = "Add high-quality voices through the [System Settings](\(UIApplication.openSettingsURLString))."
+        
+        return explanationText
+    }
+    
+//    var settingsURL: URL {
+//
+//    }
+    
     private func onDelete(offsets: IndexSet) {
         episodeViewModel[chosenEpisodeIndex].stories.remove(atOffsets: offsets)
     }
@@ -124,7 +142,7 @@ struct MainEditView: View {
                 Text("This replaces the {narrator} token.")
             }
 
-            Section("Voice") {
+            Section {
                 Picker("Voice Provider", selection: chosenEpisodeBinding.podcastVoice.speechProvider) {
                     ForEach(availableProviders, id: \.self) {provider in
                         Text(provider.displayName)
@@ -135,6 +153,18 @@ struct MainEditView: View {
                     ForEach(availableVoices, id: \.self) {voice in
                         Text(voice.name)
                     }
+                }
+            }
+            header: {
+                Text("Voice")
+            }
+            footer: {
+                //Text(voiceExplanationText)
+                HStack {
+                    Text("Add high-quality voices through").padding(.trailing, 0)
+                    Link("System Settings.", destination: URL(string: UIApplication.openSettingsURLString)! ).font(.footnote).padding(.leading, 0)
+                    Text("More information can be found in this [Apple support article](https://support.apple.com/en-us/HT202362).")
+                    Spacer()
                 }
             }
 
