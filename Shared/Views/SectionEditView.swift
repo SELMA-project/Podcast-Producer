@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SectionEditView: View {
     
-    @Binding var chosenEpisodeIndex: Int?
+    var chosenEpisodeIndex: Int?
     var section: EpisodeSection
 
     
@@ -23,8 +23,8 @@ struct SectionEditView: View {
     
     @EnvironmentObject var viewModel: EpisodeViewModel
     
-    init(chosenEpisodeIndex: Binding<Int?>, section: EpisodeSection) {
-        self._chosenEpisodeIndex = chosenEpisodeIndex
+    init(chosenEpisodeIndex: Int?, section: EpisodeSection) {
+        self.chosenEpisodeIndex = chosenEpisodeIndex
         self.section = section
         _name = State(initialValue: section.name)
         _text = State(initialValue: section.rawText)
@@ -139,7 +139,7 @@ struct SectionEditView: View {
             }
             
             Section("Listen") {
-                PlayButtonRow(chosenEpisodeIndex: $chosenEpisodeIndex, sectionId: section.id)
+                PlayButtonRow(chosenEpisodeIndex: chosenEpisodeIndex, sectionId: section.id)
             }
             
             if section.type == .headlines {
@@ -193,16 +193,16 @@ struct SectionEditView: View {
             }
             
         }
-        .navigationDestination(for: Story.self) { story in
-            StoryEditView(chosenEpisodeIndex: $chosenEpisodeIndex, story: story)
-        }
+//        .navigationDestination(for: Story.self) { story in
+//            StoryEditView(chosenEpisodeIndex: chosenEpisodeIndex, story: story)
+//        }
         .navigationTitle("Section Editor")
     }
 }
 
 struct PlayButtonRow: View {
     
-    @Binding var chosenEpisodeIndex: Int?
+    var chosenEpisodeIndex: Int?
     
     enum PlayButtonState {
         case waitingForStart, rendering, waitingForStop
@@ -273,6 +273,6 @@ struct PlayButtonRow: View {
 struct SectionEditView_Previews: PreviewProvider {
     static var previews: some View {
         let section = EpisodeSection(type: .standard, name: "Introduction")
-        SectionEditView(chosenEpisodeIndex: .constant(0), section: section)
+        SectionEditView(chosenEpisodeIndex: 0, section: section)
     }
 }

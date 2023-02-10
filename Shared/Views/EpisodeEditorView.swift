@@ -55,11 +55,6 @@ struct MainEditView: View {
         return $episodeViewModel[chosenEpisodeIndex]
     }
     
-//    var episodeSections: [EpisodeSection] {
-//        let sections = chosenEpisode.sections
-//        return sections
-//    }
-
     
     var episodeStories: [Story] {
         return chosenEpisode.stories
@@ -83,6 +78,14 @@ struct MainEditView: View {
         let episodeLanguage = chosenEpisode.language
         let availableProviders = VoiceManager.shared.availableProviders(forLanguage: episodeLanguage)
         return availableProviders
+    }
+    
+    private func onDelete(offsets: IndexSet) {
+        episodeViewModel[chosenEpisodeIndex].stories.remove(atOffsets: offsets)
+    }
+    
+    private func onMove(from source: IndexSet, to destination: Int) {
+        episodeViewModel[chosenEpisodeIndex].stories.move(fromOffsets: source, toOffset: destination)
     }
     
     var body: some View {
@@ -133,38 +136,45 @@ struct MainEditView: View {
             }
 
             Section("Stories") {
-                Text("Story list goes here")
-//                NavigationLink(value: "Stories") {
-//                    Text("Tap to edit stories")
-//                        .foregroundColor(.blue)
-//                        .badge(chosenEpisode.stories.count)
-//
-//                }
-
+                ForEach(chosenEpisodeBinding.stories) {$story in
+                    NavigationLink(value: story) {
+                        Text(story.headline)
+                    }
+                }
+                .onDelete(perform: onDelete)
+                .onMove(perform: onMove)
             }
 
-//            Section("Structure") {
-//                if episodeSections.count == 0 {
-//                    Text("No defined structure")
-//                } else {
-//                    ForEach(episodeSections) {section in
-//                        NavigationLink(value: section) {
-//                            Text(section.name)
-//                        }
-//                    }
-//                }
-//            }
+            // Extra buttons to create and import stories
+            Section {
+                Button {
+                    
+                    // create empty story
+                    let story = episodeViewModel.appendEmptyStoryToChosenEpisode(chosenEpisodeIndex: chosenEpisodeIndex)
+                    
+                    // put story on the navigation stack - this way, StoryEditView is called
+                    episodeViewModel.navigationPath.append(story)
+                } label: {
+                    Text("Add Story")
+                }
+                
+                Button {
+                    print("Add code to import episode here.")
+                } label: {
+                    Text("Import Story")
+                }
+            }
+
    
             
         }
         .navigationDestination(for: EpisodeSection.self) { section in
-            SectionEditView(chosenEpisodeIndex: $chosenEpisodeIndex, section: section)
+            SectionEditView(chosenEpisodeIndex: chosenEpisodeIndex, section: section)
         }
-//        .navigationDestination(for: String.self) { destinationName in
-//            if destinationName == "Stories" {
-//                StoryListView(chosenEpisodeIndex: $chosenEpisodeIndex)
-//            }
-//        }
+        .navigationDestination(for: Story.self) { story in
+            StoryEditView(chosenEpisodeIndex: chosenEpisodeIndex, story: story)
+        }
+
         .pickerStyle(.menu)
     
         .navigationTitle("Episode Editor")

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C100A48D29964AA000713E3B /* StructureEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100A48C29964AA000713E3B /* StructureEditorView.swift */; };
 		C100A48E29964AA000713E3B /* StructureEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100A48C29964AA000713E3B /* StructureEditorView.swift */; };
+		C100A49029964F7F00713E3B /* StoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100A48F29964F7F00713E3B /* StoryListView.swift */; };
+		C100A49129964F7F00713E3B /* StoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100A48F29964F7F00713E3B /* StoryListView.swift */; };
 		C110219F28FFFD93005AA554 /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110219E28FFFD93005AA554 /* SpeechManager.swift */; };
 		C11021A028FFFD93005AA554 /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110219E28FFFD93005AA554 /* SpeechManager.swift */; };
 		C11021A3290026D1005AA554 /* PodcastVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11021A2290026D1005AA554 /* PodcastVoice.swift */; };
@@ -63,8 +65,8 @@
 		C13C775F28D8B4FF00C6C61B /* 02-intro-end-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C13C775D28D8B4FF00C6C61B /* 02-intro-end-trimmed.caf */; };
 		C13C776128D8B52200C6C61B /* 01-intro-middle-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C13C776028D8B52200C6C61B /* 01-intro-middle-trimmed.caf */; };
 		C13C776228D8B52200C6C61B /* 01-intro-middle-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C13C776028D8B52200C6C61B /* 01-intro-middle-trimmed.caf */; };
-		C145FE91296EB67000D11F1A /* StoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C145FE90296EB67000D11F1A /* StoryListView.swift */; };
-		C145FE92296EB67000D11F1A /* StoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C145FE90296EB67000D11F1A /* StoryListView.swift */; };
+		C145FE91296EB67000D11F1A /* StoryListViewOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = C145FE90296EB67000D11F1A /* StoryListViewOld.swift */; };
+		C145FE92296EB67000D11F1A /* StoryListViewOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = C145FE90296EB67000D11F1A /* StoryListViewOld.swift */; };
 		C1491F6927AD472700A72AEB /* Podcast_Producer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5627AD472600A72AEB /* Podcast_Producer.xcdatamodeld */; };
 		C1491F6A27AD472700A72AEB /* Podcast_Producer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5627AD472600A72AEB /* Podcast_Producer.xcdatamodeld */; };
 		C1491F6B27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5827AD472600A72AEB /* Podcast_ProducerApp.swift */; };
@@ -121,6 +123,7 @@
 
 /* Begin PBXFileReference section */
 		C100A48C29964AA000713E3B /* StructureEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureEditorView.swift; sourceTree = "<group>"; };
+		C100A48F29964F7F00713E3B /* StoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListView.swift; sourceTree = "<group>"; };
 		C10D912A2919430300AC94A7 /* Podcast-Creator--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Podcast-Creator--iOS--Info.plist"; sourceTree = "<group>"; };
 		C110219E28FFFD93005AA554 /* SpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechManager.swift; sourceTree = "<group>"; };
 		C11021A2290026D1005AA554 /* PodcastVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastVoice.swift; sourceTree = "<group>"; };
@@ -149,7 +152,7 @@
 		C13C775A28D8B42A00C6C61B /* 00-intro-start-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "00-intro-start-trimmed.caf"; sourceTree = "<group>"; };
 		C13C775D28D8B4FF00C6C61B /* 02-intro-end-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "02-intro-end-trimmed.caf"; sourceTree = "<group>"; };
 		C13C776028D8B52200C6C61B /* 01-intro-middle-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "01-intro-middle-trimmed.caf"; sourceTree = "<group>"; };
-		C145FE90296EB67000D11F1A /* StoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListView.swift; sourceTree = "<group>"; };
+		C145FE90296EB67000D11F1A /* StoryListViewOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListViewOld.swift; sourceTree = "<group>"; };
 		C1491F5727AD472600A72AEB /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		C1491F5827AD472600A72AEB /* Podcast_ProducerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Podcast_ProducerApp.swift; sourceTree = "<group>"; };
 		C1491F5927AD472600A72AEB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -342,7 +345,8 @@
 				C1C97195290C2E66008DACB3 /* GithubCreationView.swift */,
 				C1756AB928A1198D00FE9F2B /* EpisodeEditorView.swift */,
 				C13A712328E880A800BEE304 /* SectionEditView.swift */,
-				C145FE90296EB67000D11F1A /* StoryListView.swift */,
+				C100A48F29964F7F00713E3B /* StoryListView.swift */,
+				C145FE90296EB67000D11F1A /* StoryListViewOld.swift */,
 				C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */,
 				C15F6D56296D58D800BA567D /* PodcastRenderView.swift */,
 				C1495732296D7AFF00C70E40 /* AudioPlayerView.swift */,
@@ -500,6 +504,7 @@
 			files = (
 				C13A712428E880A800BEE304 /* SectionEditView.swift in Sources */,
 				C1262F9228E3259F00F3C725 /* ScriptView.swift in Sources */,
+				C100A49029964F7F00713E3B /* StoryListView.swift in Sources */,
 				C1543A0928A2652200427ED0 /* TestView.swift in Sources */,
 				C1756ABD28A13D3700FE9F2B /* StoryEditView.swift in Sources */,
 				C1B0977A29117CC3004BDEE3 /* VoiceManager.swift in Sources */,
@@ -510,7 +515,7 @@
 				C1CF37AF29840C4700134E75 /* TemplateManager.swift in Sources */,
 				C176AB0E28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
 				C1495733296D7AFF00C70E40 /* AudioPlayerView.swift in Sources */,
-				C145FE91296EB67000D11F1A /* StoryListView.swift in Sources */,
+				C145FE91296EB67000D11F1A /* StoryListViewOld.swift in Sources */,
 				C11A239F28F310F20022263B /* LanguageManager.swift in Sources */,
 				C14A102729113213004DBB67 /* Sidebar.swift in Sources */,
 				C14CEA3028F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
@@ -541,6 +546,7 @@
 			files = (
 				C13A712528E880A800BEE304 /* SectionEditView.swift in Sources */,
 				C1262F9328E3259F00F3C725 /* ScriptView.swift in Sources */,
+				C100A49129964F7F00713E3B /* StoryListView.swift in Sources */,
 				C1543A0A28A2652200427ED0 /* TestView.swift in Sources */,
 				C1756ABE28A13D3700FE9F2B /* StoryEditView.swift in Sources */,
 				C1B0977B29117CC3004BDEE3 /* VoiceManager.swift in Sources */,
@@ -551,7 +557,7 @@
 				C1CF37B029840C4700134E75 /* TemplateManager.swift in Sources */,
 				C176AB0F28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
 				C1495734296D7AFF00C70E40 /* AudioPlayerView.swift in Sources */,
-				C145FE92296EB67000D11F1A /* StoryListView.swift in Sources */,
+				C145FE92296EB67000D11F1A /* StoryListViewOld.swift in Sources */,
 				C11A23A028F310F20022263B /* LanguageManager.swift in Sources */,
 				C14A102829113213004DBB67 /* Sidebar.swift in Sources */,
 				C14CEA3128F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
