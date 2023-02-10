@@ -55,10 +55,10 @@ struct MainEditView: View {
         return $episodeViewModel[chosenEpisodeIndex]
     }
     
-    var episodeSections: [EpisodeSection] {
-        let sections = chosenEpisode.sections
-        return sections
-    }
+//    var episodeSections: [EpisodeSection] {
+//        let sections = chosenEpisode.sections
+//        return sections
+//    }
 
     
     var episodeStories: [Story] {
@@ -133,37 +133,38 @@ struct MainEditView: View {
             }
 
             Section("Stories") {
-                NavigationLink(value: "Stories") {
-                    Text("Tap to edit stories")
-                        .foregroundColor(.blue)
-                        .badge(chosenEpisode.stories.count)
-
-                }
+                Text("Story list goes here")
+//                NavigationLink(value: "Stories") {
+//                    Text("Tap to edit stories")
+//                        .foregroundColor(.blue)
+//                        .badge(chosenEpisode.stories.count)
+//
+//                }
 
             }
 
-            Section("Structure") {
-                if episodeSections.count == 0 {
-                    Text("No defined structure")
-                } else {
-                    ForEach(episodeSections) {section in
-                        NavigationLink(value: section) {
-                            Text(section.name)
-                        }
-                    }
-                }
-            }
+//            Section("Structure") {
+//                if episodeSections.count == 0 {
+//                    Text("No defined structure")
+//                } else {
+//                    ForEach(episodeSections) {section in
+//                        NavigationLink(value: section) {
+//                            Text(section.name)
+//                        }
+//                    }
+//                }
+//            }
    
             
         }
         .navigationDestination(for: EpisodeSection.self) { section in
             SectionEditView(chosenEpisodeIndex: $chosenEpisodeIndex, section: section)
         }
-        .navigationDestination(for: String.self) { destinationName in
-            if destinationName == "Stories" {
-                StoryListView(chosenEpisodeIndex: $chosenEpisodeIndex)
-            }
-        }
+//        .navigationDestination(for: String.self) { destinationName in
+//            if destinationName == "Stories" {
+//                StoryListView(chosenEpisodeIndex: $chosenEpisodeIndex)
+//            }
+//        }
         .pickerStyle(.menu)
     
         .navigationTitle("Episode Editor")

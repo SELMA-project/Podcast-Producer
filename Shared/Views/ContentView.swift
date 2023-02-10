@@ -28,13 +28,13 @@ struct ContentView: View {
                 EpisodeEditorView(chosenEpisodeIndex: $chosenEpisodeIndex)
                     .toolbar {
                         
-//                        ToolbarItem() {
-//
-//                            NavigationLink(value: "StoryList") {
-//                                Image(systemName: "square.fill.text.grid.1x2")
-//                            }
-//
-//                        }
+                        ToolbarItem() {
+
+                            NavigationLink(value: "Structure") {
+                                Image(systemName: "slider.horizontal.3")
+                            }
+
+                        }
                         
                         ToolbarItem(placement: .primaryAction) {
                             Button {
@@ -47,9 +47,9 @@ struct ContentView: View {
                         
                         
                     }
-//                    .navigationDestination(for: String.self) { _ in
-//                        StoryListView()
-//                    }
+                    .navigationDestination(for: String.self) { _ in
+                        StructureEditorView(chosenEpisodeIndex: chosenEpisodeIndex)
+                    }
             }
         }.onAppear {
             episodeViewModel.runStartupRoutine()
