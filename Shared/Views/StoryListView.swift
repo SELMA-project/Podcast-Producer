@@ -13,14 +13,6 @@ struct StoryListView: View {
     
     @EnvironmentObject var viewModel: EpisodeViewModel
     
-//    var stories: [Story] {
-//        return $viewModel.chosenEpisode.stories
-//    }
-    
-//    var chosenEpisode: Episode {
-//        return viewModel[viewModel.chosenEpisodeIndex]
-//    }
-    
     var chosenEpisodeBinding: Binding<Episode> {
         return $viewModel[chosenEpisodeIndex]
     }

@@ -9,39 +9,18 @@ import SwiftUI
 
 struct Sidebar: View {
     
-    //@ObservedObject var episodeViewModel: EpisodeViewModel
     @Binding var chosenEpisodeIndex: Int?
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
-    // stores selection. needs to be optional!
-    //@State private var chosenEpisodeIndex: Int?
-    
     // are we showing the EpisodeCreationSheet?
     @State private var showingSheet = false
-    
-//    init(episodeViewModel: EpisodeViewModel) {
-//        self.episodeViewModel = episodeViewModel
-//
-//        // init chosenEpisodeIndex @State with episodeViewModel
-//        _chosenEpisodeIndex = State(initialValue: episodeViewModel.chosenEpisodeIndex)
-//    }
     
     private func onDelete(offsets: IndexSet) {
         episodeViewModel.availableEpisodes.remove(atOffsets: offsets)
     }
     
     var body: some View {
-        
-//        // Binding used for List selection. Linked to chosenEpisodeIndex
-//        let chosenEpisodeIndexBinding = Binding {
-//            self.chosenEpisodeIndex
-//        } set: { newValue in
-//            self.chosenEpisodeIndex = newValue
-//
-//            // update viewmodel based on selection
-//            episodeViewModel.chosenEpisodeIndex = newValue ?? 0
-//        }
         
         ZStack {
             
@@ -84,8 +63,6 @@ struct Sidebar: View {
         
         .navigationTitle("Episodes")
     }
-
-                       
 }
 
 struct Sidebar_Previews: PreviewProvider {

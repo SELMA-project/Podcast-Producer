@@ -143,11 +143,7 @@ struct SectionEditView: View {
             }
             
             if section.type == .headlines {
-//                Section("Configuration") {
-//                    Toggle("Use highlights only", isOn: $viewModel.chosenEpisode.restrictHeadlinesToHighLights)
-//                } footer: {
-//                    Text("Activate this toggle to include this story's headline into the introduction.")
-//                }
+
                 Section {
                     Toggle("Use highlights only", isOn: chosenEpisodeBinding.restrictHeadlinesToHighLights)
                 } header: {
@@ -155,12 +151,7 @@ struct SectionEditView: View {
                 } footer: {
                     Text("Activate this toggle to include this story's headline into the introduction.")
                 }
-
-
-                
             }
-            
-            
             
             Section {
                 

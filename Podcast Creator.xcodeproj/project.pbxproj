@@ -51,8 +51,6 @@
 		C1262F9028E323DF00F3C725 /* ScriptParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1262F8E28E323DF00F3C725 /* ScriptParser.swift */; };
 		C1262F9228E3259F00F3C725 /* ScriptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1262F9128E3259F00F3C725 /* ScriptView.swift */; };
 		C1262F9328E3259F00F3C725 /* ScriptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1262F9128E3259F00F3C725 /* ScriptView.swift */; };
-		C13A711E28E85B5B00BEE304 /* BuildingBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13A711D28E85B5B00BEE304 /* BuildingBlock.swift */; };
-		C13A711F28E85B5B00BEE304 /* BuildingBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13A711D28E85B5B00BEE304 /* BuildingBlock.swift */; };
 		C13A712428E880A800BEE304 /* SectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13A712328E880A800BEE304 /* SectionEditView.swift */; };
 		C13A712528E880A800BEE304 /* SectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13A712328E880A800BEE304 /* SectionEditView.swift */; };
 		C13C775228D889D900C6C61B /* bip-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C13C775128D889D900C6C61B /* bip-CAF.caf */; };
@@ -143,7 +141,6 @@
 		C1262F7728E3239F00F3C725 /* 2022-09-22-e1.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "2022-09-22-e1.md"; sourceTree = "<group>"; };
 		C1262F8E28E323DF00F3C725 /* ScriptParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptParser.swift; sourceTree = "<group>"; };
 		C1262F9128E3259F00F3C725 /* ScriptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptView.swift; sourceTree = "<group>"; };
-		C13A711D28E85B5B00BEE304 /* BuildingBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingBlock.swift; sourceTree = "<group>"; };
 		C13A712328E880A800BEE304 /* SectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditView.swift; sourceTree = "<group>"; };
 		C13C775128D889D900C6C61B /* bip-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bip-CAF.caf"; sourceTree = "<group>"; };
 		C13C775A28D8B42A00C6C61B /* 00-intro-start-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "00-intro-start-trimmed.caf"; sourceTree = "<group>"; };
@@ -355,7 +352,6 @@
 				C1543A0E28A2A69C00427ED0 /* Episode.swift */,
 				C11A239A28F30B300022263B /* EpisodeTemplate.swift */,
 				C1CF37AE29840C4700134E75 /* TemplateManager.swift */,
-				C13A711D28E85B5B00BEE304 /* BuildingBlock.swift */,
 			);
 			path = Episode;
 			sourceTree = "<group>";
@@ -503,7 +499,6 @@
 				C1543A0928A2652200427ED0 /* TestView.swift in Sources */,
 				C1756ABD28A13D3700FE9F2B /* StoryEditView.swift in Sources */,
 				C1B0977A29117CC3004BDEE3 /* VoiceManager.swift in Sources */,
-				C13A711E28E85B5B00BEE304 /* BuildingBlock.swift in Sources */,
 				C1BA7EBE28AA92270090573B /* AudioRenderView.swift in Sources */,
 				C1491F6B27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */,
 				C11A239B28F30B300022263B /* EpisodeTemplate.swift in Sources */,
@@ -544,7 +539,6 @@
 				C1543A0A28A2652200427ED0 /* TestView.swift in Sources */,
 				C1756ABE28A13D3700FE9F2B /* StoryEditView.swift in Sources */,
 				C1B0977B29117CC3004BDEE3 /* VoiceManager.swift in Sources */,
-				C13A711F28E85B5B00BEE304 /* BuildingBlock.swift in Sources */,
 				C1BA7EBF28AA92270090573B /* AudioRenderView.swift in Sources */,
 				C1491F6C27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */,
 				C11A239C28F30B300022263B /* EpisodeTemplate.swift in Sources */,

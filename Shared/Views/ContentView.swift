@@ -13,12 +13,9 @@ struct ContentView: View {
     @StateObject var episodeViewModel = EpisodeViewModel()
     @Environment(\.managedObjectContext) private var viewContext
     @AppStorage("chosenEpisodeIndex") private var chosenEpisodeIndex: Int?
-    //@State private var chosenEpisodeIndex: Int?
     
     // Showing PodcastRenderViewSheet?
     @State private var showingSheet = false
-    
-    //@State private var navigationPath = NavigationPath()
     
     var body: some View {
         

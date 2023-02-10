@@ -70,16 +70,7 @@ struct TemplateCreationView: View {
                 }
                 
             }
-            
-            
-            
         }
-        //.padding()
-        //.scrollContentBackground(.hidden)
-        
-        
-        
-        
     }
 }
 

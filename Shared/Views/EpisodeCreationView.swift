@@ -43,7 +43,6 @@ struct EpisodeCreationView: View {
 
 
             }
-            //.padding()
             
             .toolbar {
                 

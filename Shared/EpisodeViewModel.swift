@@ -13,38 +13,8 @@ import SwiftUI
 class EpisodeViewModel: ObservableObject {
     
     @Published var navigationPath = NavigationPath()
-    
-    //@Published var chosenEpisodeIndex: Int? //{
-//        willSet {
-//            objectWillChange.send()
-//        }
-//        didSet {
-//            // select chosenEpisode based on index
-//            if let chosenEpisodeIndex {
-//                if self.availableEpisodes.count > chosenEpisodeIndex {
-//                    self.chosenEpisode = self.availableEpisodes[chosenEpisodeIndex]
-//                }
-//            }
-//        }
-    //}
-    
-    @Published var availableEpisodes: [Episode] = [] //{
-//        willSet {
-//            objectWillChange.send()
-//        }
-//        didSet {
-//            // save episodes to disk whenever the array changes
-//            saveEpisodes()
-//
-//            // if there are no more episode available, adjust index to nil
-//            if availableEpisodes.count == 0 {
-//                chosenEpisodeIndex = nil
-//            }
-//        }
-    //}
-    //@Published var episodeAvailable: Bool = false
-    
-    
+    @Published var availableEpisodes: [Episode] = []
+
     subscript(episodeIndex: Int?) -> Episode {
         get {
             if let index = episodeIndex {
@@ -63,51 +33,7 @@ class EpisodeViewModel: ObservableObject {
             }
         }
     }
-    
-    // gets and sets chosenEpisode
-//    var chosenEpisode: Episode {
-//        get {
-//            if let index = chosenEpisodeIndex {
-//                if availableEpisodes.count > index {
-//                    return availableEpisodes[index]
-//                }
-//            }
-//            return Episode.standard
-//        }
-//
-//        set(newValue) {
-//
-//            if let index = chosenEpisodeIndex {
-//                availableEpisodes[index] = newValue
-//
-//                // save episodes to disk whenever the array changes
-//                saveEpisodes()
-//            }
-//        }
-//    }
-    
-//    var chosenEpisode: Episode = Episode.standard {
-//        willSet {
-//            objectWillChange.send()
-//        }
-//        didSet {
-//            if let chosenEpisodeIndex = self.chosenEpisodeIndex {
-//                if self.availableEpisodes.count > chosenEpisodeIndex {
-//                    self.availableEpisodes[chosenEpisodeIndex] = chosenEpisode
-//                }
-//            }
-//
-//        }
-//    }// default value to avoid making this optional
-    
-    // the entire episode in segments
-    //@Published var episodeStructure: [BuildingBlock] = []
-    
-    
-    
-    
-    
-    
+        
     
     // the narrator name use when creating a new template. Is stored in user defaults.
     var newTemplateNarratorName: String = "" {
@@ -123,9 +49,7 @@ class EpisodeViewModel: ObservableObject {
             //chosenEpisode.narrator = narratorName
         }
     }
-    
-    //var episodeUrl: URL = Bundle.main.url(forResource: "no-audio.m4a", withExtension: nil)!
-    
+        
     /// The URL under which the all Episode data is stored
     private var episodeDataURL: URL {
         let fileName = "episodeData.json"
@@ -152,56 +76,6 @@ class EpisodeViewModel: ObservableObject {
             // if no data is avaiable from disk we start with an empty array of available episodes
             self.availableEpisodes = [Episode]()
         }
-        
-        
-        // update $chosenEpisode when chosenEpisodeIndex changes
-//        $chosenEpisodeIndex.sink { newEpisodeIndex in
-//            if let newEpisodeIndex {
-//                if self.availableEpisodes.count > newEpisodeIndex {
-//                    self.chosenEpisode = self.availableEpisodes[newEpisodeIndex]
-//                }
-//            }
-//        }.store(in: &subscriptions)
-        
-        // if $chosenEpisode changes, update this episode in the array of availableEpisodes
-//        $chosenEpisode.sink { newEpisode in
-//            if let chosenEpisodeIndex = self.chosenEpisodeIndex {
-//                if self.availableEpisodes.count > chosenEpisodeIndex {
-//                    self.availableEpisodes[chosenEpisodeIndex] = newEpisode
-//
-//                    // save to disk
-//                    //self.saveEpisodes()
-//                }
-//            }
-//
-//        }.store(in: &subscriptions)
-        
-        
-        // test available scripts
-        //ScriptParser.test()
-
-        // build array of locallay available scripts
-        //let fileNames = ScriptParser.availableScriptNames()
-        
-
-        
-        // add episodes for each filename
-//        for (index, fileName) in fileNames.enumerated() {
-//            if index == 0 {
-//                //addEpisode(parsedFromGithubScriptName: fileName)
-//            }
-//        }
-
-        // sort available episodes by date
-//        availableEpisodes.sort { e0, e1 in
-//            return e0.creationDate > e1.creationDate
-//        }
-        
-        // choose latest episode
-//        if availableEpisodes.count > 0 {
-//            chosenEpisodeIndex = availableEpisodes.count - 1
-//        }
-        
     }
     
     /// Uses the given template to create a new episode and adds it to the array of available Episodes
@@ -212,9 +86,6 @@ class EpisodeViewModel: ObservableObject {
         
         // add to existing episodes
         availableEpisodes.append(newEpisode)
-        
-        // set index to new episode
-        //chosenEpisodeIndex = availableEpisodes.firstIndex(of: newEpisode)
     }
     
     /// Generates a new episode based on the given Github script and adds it to the array of available Episodes
@@ -255,10 +126,6 @@ class EpisodeViewModel: ObservableObject {
         
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(availableEpisodes) {
-            // save `encoded` somewhere
-//            if let json = String(data: encoded, encoding: .utf8) {
-//                print(json)
-//            }
             
             do {
                 try encoded.write(to: self.episodeDataURL)
@@ -429,240 +296,5 @@ class EpisodeViewModel: ObservableObject {
         
     }
     
-
-    /// Tells the caller whether a URL exists at the given location
-//    private func fileExists(atURL url:URL) -> Bool {
-//        return FileManager.default.fileExists(atPath: url.path)
-//    }
-    
- 
-    
 }
 
-
-
-//// MARK: - Legacy BuildingBlock Code
-//// this should be obsolete soon
-//extension EpisodeViewModel {
-//
-////    /// Called when 'Create Audio' button is pressed in AudioRenderView
-////    func buildAudio() async {
-////
-////        // create entire episode
-////        let episode = self.availableEpisodes[chosenEpisodeIndex]
-////        episodeUrl = await AudioManager.shared.createAudioEpisodeBasedOnEpisode(episode, selectedSectionIndex: nil)
-////        print("Audio file saved here: \(String(describing: episodeUrl))")
-////
-////        // publish existance of the new audio URL in viewmodel
-////        episodeAvailable = true
-////    }
-//
-//    /// Remove all rendered audio pointed to by the episode structure
-//    /// Thids might be obsolte, as there is no caller
-//    private func removeAudio(inEpisodeStructure episodeStructure: [BuildingBlock]) {
-//
-//        var newEpisodeStructure = [BuildingBlock]()
-//
-//        for segment in episodeStructure {
-//
-//            // make a copy
-//            let newSegment = segment
-//
-//            if let audioURL = newSegment.audioURL {
-//
-//                // remove audio
-//                try? FileManager.default.removeItem(at: audioURL)
-//
-//                // mark audio as not rendered
-//                //newSegment.audioIsRendered = false
-//            }
-//
-//            // store in new episode structure
-//            newEpisodeStructure.append(newSegment)
-//        }
-//
-//        // update structure
-//        self.episodeStructure = newEpisodeStructure
-//
-//    }
-//
-//
-//    func buildEpisodeStructure() {
-//
-//        // result
-//        var structure = [BuildingBlock]()
-//
-//        // episode to build
-//       // let chosenEpisode = availableEpisodes[chosenEpisodeIndex]
-//
-//        for episodeSection in chosenEpisode.sections {
-//
-//            // calculate the section's audio URL the section type and the text
-//            let episodeSectionText = chosenEpisode.replaceTokens(inText: episodeSection.rawText)
-//            //let episodeSectionType = episodeSection.type
-//            let textAudioURL = chosenEpisode.textAudioURL(forSection: episodeSection)
-//
-//            switch episodeSection.type {
-//            case .standard:
-//                let name = episodeSection.name
-//
-//                // FIXME: this should become obsolete
-//                // deduce block identifier from name
-//                let blockIdentifier: BlockIdentifier
-//                switch name {
-//
-//                case "Introduction":
-//                    blockIdentifier = .introduction
-//
-//                case "Epilog":
-//                    blockIdentifier = .epilogue
-//
-//                default:
-//                    blockIdentifier = .unknown
-//                }
-//
-//                // calculate the section's audio URL the section type and the text
-//                //let textAudioURL = chosenEpisode.textAudioURL(forSectionType: episodeSectionType, textContent: episodeSectionText)
-//
-//                let buildingBlock = BuildingBlock(blockIdentifier: blockIdentifier, audioURL: textAudioURL, text: episodeSectionText)
-//                structure.append(buildingBlock)
-//
-//            case .headlines:
-//
-//                // add headlines text if present
-//                if episodeSectionText.count > 0 {
-//                    //let textAudioURL = episodeSection.textAudioURL
-//                    let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: textAudioURL, text: episodeSectionText)
-//                    structure.append(buildingBlock)
-//                }
-//
-//                for (index, story) in chosenEpisode.stories.enumerated() {
-//                    if story.usedInIntroduction || !chosenEpisode.restrictHeadlinesToHighLights {
-//                        let storyHeadline = story.headline
-//                        let proposedHeadlineAudioUrl = chosenEpisode.headlineAudioURL(forStory: story)
-//                        let buildingBlock = BuildingBlock(blockIdentifier: .headline, subIndex: index, audioURL: proposedHeadlineAudioUrl, text: storyHeadline, highlightInSummary: story.usedInIntroduction)
-//                        structure.append(buildingBlock)
-//                    }
-//                }
-//
-//            case .stories:
-//
-//                // add headlines text if present
-//                if episodeSectionText.count > 0 {
-//                    //let textAudioURL = episodeSection.textAudioURL
-//                    let buildingBlock = BuildingBlock(blockIdentifier: .introduction, audioURL: textAudioURL, text: episodeSectionText)
-//                    structure.append(buildingBlock)
-//                }
-//
-//                for (index, story) in chosenEpisode.stories.enumerated() {
-//                    let storyText = story.storyText
-//                    let proposedTextAudioUrl = chosenEpisode.storyTextAudioURL(forStory: story)
-//                    let buildingBlock = BuildingBlock(blockIdentifier: .story, subIndex: index, audioURL: proposedTextAudioUrl, text: storyText)
-//                    structure.append(buildingBlock)
-//                }
-//
-//            }
-//
-//        }
-//
-//        // publish
-//        self.episodeStructure = structure
-//    }
-//
-//
-//    func renderEpisodeStructure() async {
-//
-//        for (index, audioSegment) in episodeStructure.enumerated() {
-//            print("Cancel status: \(Task.isCancelled)")
-//            print("Rendering: \(index) -> \(audioSegment.blockIdentifier.rawValue)")
-//
-//            // render audio -> this updates the audio segment's property 'audioISRendered'
-//            let updatedAudioSegment = await renderAudioInBuildingBlock(audioSegment)
-//
-//            // replace original block
-//            episodeStructure[index] = updatedAudioSegment
-//
-//        }
-//
-//    }
-//
-//
-//    /// Synthesizes audio for provided building block.
-//    private func renderAudioInBuildingBlock(_ buildingBlock:  BuildingBlock) async -> BuildingBlock  {
-//
-//        // copy original building block to be able to update the audioURL
-//        let updatedBuildingBlock = buildingBlock
-//
-//        // early exit if we don't have an audioURL (this should not happen, as the URL is proposed by the episode in buildEpisodeStructure()
-//        guard let audioURL = buildingBlock.audioURL else {return updatedBuildingBlock}
-//
-//        // the text to render
-//        let text = buildingBlock.text
-//
-//        // the speaker identifier
-//        let podcastVoice = chosenEpisode.podcastVoice
-//
-//        // render audio if it does not yet exist
-//        var success = true
-//        if !fileExists(atURL: audioURL) {
-//            success = await AudioManager.shared.synthesizeSpeech(podcastVoice: podcastVoice, text: text, toURL: audioURL)
-//        }
-//
-//        if !success {
-//            print("No audio data available.")
-//        }
-//
-////        if success {
-////            //episodeStructure[index].audioURL = audioURL
-////            //updatedBuildingBlock.audioURL = audioURL
-////            //updatedBuildingBlock.audioIsRendered = true
-////        } else {
-////
-////        }
-//
-//        return updatedBuildingBlock
-//    }
-//
-//
-//
-//    func playButtonPressed(forSegment audioSegment: BuildingBlock) async {
-//
-//        // find index of given audioSegment in array
-//        let currentIndex = episodeStructure.firstIndex { segment in
-//            segment.id == audioSegment.id
-//        }
-//
-//        // early return if no index was found (should not happen)
-//        guard let currentIndex = currentIndex else {return}
-//
-//        // early exit if no audio data is available (should not happen)
-//        guard let audioUrl = audioSegment.audioURL else {return}
-//
-//        // in any case, stop the currently played audio
-//        AudioManager.shared.stopAudio()
-//
-//        // currently not playng, so we want to play
-//        if audioSegment.isPlaying == false {
-//
-//            // switch all audioSegments to 'off' - except the one with the current index
-//            for (index, _) in episodeStructure.enumerated() {
-//                episodeStructure[index].isPlaying = currentIndex == index ? true : false
-//            }
-//
-//            // switch to 'playing'
-//            //episodeStructure[index].isPlaying = true
-//
-//            // play segment
-//            await AudioManager.shared.playAudio(audioUrl: audioUrl)
-//
-//            // when returning, switch to 'not playing'
-//            episodeStructure[currentIndex].isPlaying = false
-//
-//        } else { // segment is currently playing
-//
-//            // switch to 'not playing'
-//            episodeStructure[currentIndex].isPlaying = false
-//        }
-//
-//    }
-//}
