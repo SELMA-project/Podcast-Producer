@@ -80,7 +80,7 @@ struct PodcastRenderView: View {
                 }
             }
 
-            .navigationTitle("Create Podcast")
+            .navigationTitle("Produce Podcast")
         }
     }
 }
