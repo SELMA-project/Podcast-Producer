@@ -46,6 +46,7 @@ struct PodcastRenderView: View {
                         Text("Build")
                             .frame(maxWidth: .infinity)
                     }
+                    .disabled(audioURL != nil)
                     .buttonStyle(.borderedProminent)
                     .padding([.top, .bottom])
 
