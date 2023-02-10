@@ -141,7 +141,12 @@ struct MainEditView: View {
             Section("Stories") {
                 ForEach(chosenEpisodeBinding.stories) {$story in
                     NavigationLink(value: story) {
-                        Text(story.headline)
+                        Label {
+                            Text(story.headline)
+                        } icon: {
+                            Image(systemName: story.usedInIntroduction ? "star.fill" : "star")
+                        }
+                        
                     }
                 }
                 .onDelete(perform: onDelete)
