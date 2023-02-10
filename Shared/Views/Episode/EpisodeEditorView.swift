@@ -47,6 +47,9 @@ struct MainEditView: View {
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     @State var providerName: String = "SELMA"
     
+    // Showing PodcastRenderViewSheet?
+    @State private var showingSheet = false
+    
     var chosenEpisode: Episode {
         return episodeViewModel[chosenEpisodeIndex]
     }
@@ -164,6 +167,15 @@ struct MainEditView: View {
                     Text("Import Story")
                 }
             }
+            
+            Section {
+                Button {
+                    showingSheet = true
+                } label: {
+                    Text("Produce Podcast")
+                }
+
+            }
 
    
             
@@ -178,6 +190,11 @@ struct MainEditView: View {
         .pickerStyle(.menu)
     
         .navigationTitle("Episode Editor")
+        
+        .sheet(isPresented: $showingSheet) {
+            PodcastRenderView(chosenEpisodeIndex: chosenEpisodeIndex)
+                .environmentObject(episodeViewModel)
+        }
         
     }
 }

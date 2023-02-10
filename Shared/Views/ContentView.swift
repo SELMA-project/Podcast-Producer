@@ -14,9 +14,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @AppStorage("chosenEpisodeIndex") private var chosenEpisodeIndex: Int?
     
-    // Showing PodcastRenderViewSheet?
-    @State private var showingSheet = false
-    
+
     var body: some View {
         
         NavigationSplitView {
@@ -36,14 +34,14 @@ struct ContentView: View {
 
                         }
                         
-                        ToolbarItem(placement: .primaryAction) {
-                            Button {
-                                showingSheet = true
-                            } label: {
-                                Text("Build")
-                                //Image(systemName: "antenna.radiowaves.left.and.right")
-                            }
-                        }
+//                        ToolbarItem(placement: .primaryAction) {
+//                            Button {
+//                                showingSheet = true
+//                            } label: {
+//                                Text("Build")
+//                                //Image(systemName: "antenna.radiowaves.left.and.right")
+//                            }
+//                        }
                         
                         
                     }
@@ -57,10 +55,6 @@ struct ContentView: View {
         
         .environmentObject(episodeViewModel)
         
-        .sheet(isPresented: $showingSheet) {
-            PodcastRenderView(chosenEpisodeIndex: chosenEpisodeIndex)
-                .environmentObject(episodeViewModel)
-        }
     }
 
 }
