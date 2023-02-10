@@ -50,16 +50,16 @@ struct AudioPlayerView: View {
             
             HStack {
                 
-                Spacer()
+//                Spacer()
                 
-                Button {
-                    print("Going back")
-                } label: {
-                    Image(systemName: "arrow.uturn.backward.circle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
-                }
+//                Button {
+//                    print("Going back")
+//                } label: {
+//                    Image(systemName: "arrow.uturn.backward.circle")
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                        .frame(width: 30, height: 30)
+//                }
 
                 Spacer()
                 
@@ -74,16 +74,16 @@ struct AudioPlayerView: View {
                 
                 Spacer()
                 
-                Button {
-                    print("Going fowards")
-                } label: {
-                    Image(systemName: "arrow.uturn.forward.circle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
-                }
-                
-                Spacer()
+//                Button {
+//                    print("Going fowards")
+//                } label: {
+//                    Image(systemName: "arrow.uturn.forward.circle")
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                        .frame(width: 30, height: 30)
+//                }
+//                
+//                Spacer()
                 
             }
             
