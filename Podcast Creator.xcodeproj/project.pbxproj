@@ -213,6 +213,7 @@
 		C11A239928F2E0F00022263B /* Obsolete */ = {
 			isa = PBXGroup;
 			children = (
+				C100A48F29964F7F00713E3B /* StoryListView.swift */,
 				C1BA7EBD28AA92270090573B /* AudioRenderView.swift */,
 				C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */,
 				C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */,
@@ -229,7 +230,7 @@
 			path = Languages;
 			sourceTree = "<group>";
 		};
-		C1262F6C28E3236400F3C725 /* Scripts */ = {
+		C1262F6C28E3236400F3C725 /* Github Scripts */ = {
 			isa = PBXGroup;
 			children = (
 				C1262F8E28E323DF00F3C725 /* ScriptParser.swift */,
@@ -246,7 +247,7 @@
 				C1262F7028E3239E00F3C725 /* 2022-09-26-e2.md */,
 				C1262F6E28E3239E00F3C725 /* 2022-09-27-e1.md */,
 			);
-			path = Scripts;
+			path = "Github Scripts";
 			sourceTree = "<group>";
 		};
 		C1491F5027AD472500A72AEB = {
@@ -263,16 +264,12 @@
 			isa = PBXGroup;
 			children = (
 				C1491F5827AD472600A72AEB /* Podcast_ProducerApp.swift */,
-				C1F00B9E290BDA570031EBAA /* Episode */,
 				C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */,
 				C1F00B9D290BDA3F0031EBAA /* Views */,
-				C11A239D28F310D70022263B /* Languages */,
-				C11021A128FFFDAC005AA554 /* Speech */,
-				C1BA7EC628AA9E510090573B /* Selma */,
-				C189696228B371E1005108E7 /* Audio */,
+				C1BC0A7029965B4300ABE597 /* Models */,
+				C189696228B371E1005108E7 /* Audio Files */,
+				C1262F6C28E3236400F3C725 /* Github Scripts */,
 				C11A239928F2E0F00022263B /* Obsolete */,
-				C1262F6C28E3236400F3C725 /* Scripts */,
-				C158EDFD28AA32B9002EFF7B /* Episode Data */,
 				C1543A0828A2652200427ED0 /* TestView.swift */,
 				C1491F5B27AD472700A72AEB /* Assets.xcassets */,
 				C1491F5627AD472600A72AEB /* Podcast_Producer.xcdatamodeld */,
@@ -297,15 +294,7 @@
 			path = macOS;
 			sourceTree = "<group>";
 		};
-		C158EDFD28AA32B9002EFF7B /* Episode Data */ = {
-			isa = PBXGroup;
-			children = (
-				C1491F5A27AD472600A72AEB /* Persistence.swift */,
-			);
-			path = "Episode Data";
-			sourceTree = "<group>";
-		};
-		C189696228B371E1005108E7 /* Audio */ = {
+		C189696228B371E1005108E7 /* Audio Files */ = {
 			isa = PBXGroup;
 			children = (
 				C13C775A28D8B42A00C6C61B /* 00-intro-start-trimmed.caf */,
@@ -318,7 +307,7 @@
 				C13C775128D889D900C6C61B /* bip-CAF.caf */,
 				C1F5602628D4765900E573E2 /* no-audio.m4a */,
 			);
-			path = Audio;
+			path = "Audio Files";
 			sourceTree = "<group>";
 		};
 		C1BA7EC628AA9E510090573B /* Selma */ = {
@@ -331,21 +320,64 @@
 			path = Selma;
 			sourceTree = "<group>";
 		};
-		C1F00B9D290BDA3F0031EBAA /* Views */ = {
+		C1BC0A6C299659ED00ABE597 /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
 				C14A102629113213004DBB67 /* Sidebar.swift */,
-				C1491F5927AD472600A72AEB /* ContentView.swift */,
-				C100A48C29964AA000713E3B /* StructureEditorView.swift */,
-				C191062C28FEEBAA00B81231 /* EpisodeCreationView.swift */,
 				C14B1E6E290C2801000748FA /* TemplateCreationView.swift */,
 				C1C97195290C2E66008DACB3 /* GithubCreationView.swift */,
-				C1756AB928A1198D00FE9F2B /* EpisodeEditorView.swift */,
-				C13A712328E880A800BEE304 /* SectionEditView.swift */,
-				C100A48F29964F7F00713E3B /* StoryListView.swift */,
-				C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */,
+			);
+			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		C1BC0A6D29965A8400ABE597 /* Rendering */ = {
+			isa = PBXGroup;
+			children = (
 				C15F6D56296D58D800BA567D /* PodcastRenderView.swift */,
 				C1495732296D7AFF00C70E40 /* AudioPlayerView.swift */,
+			);
+			path = Rendering;
+			sourceTree = "<group>";
+		};
+		C1BC0A6E29965AB500ABE597 /* Structure */ = {
+			isa = PBXGroup;
+			children = (
+				C100A48C29964AA000713E3B /* StructureEditorView.swift */,
+				C13A712328E880A800BEE304 /* SectionEditView.swift */,
+			);
+			path = Structure;
+			sourceTree = "<group>";
+		};
+		C1BC0A6F29965AE900ABE597 /* Episode */ = {
+			isa = PBXGroup;
+			children = (
+				C1756AB928A1198D00FE9F2B /* EpisodeEditorView.swift */,
+				C191062C28FEEBAA00B81231 /* EpisodeCreationView.swift */,
+				C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */,
+			);
+			path = Episode;
+			sourceTree = "<group>";
+		};
+		C1BC0A7029965B4300ABE597 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C1F00B9E290BDA570031EBAA /* Episode */,
+				C11A239D28F310D70022263B /* Languages */,
+				C11021A128FFFDAC005AA554 /* Speech */,
+				C1BA7EC628AA9E510090573B /* Selma */,
+				C1491F5A27AD472600A72AEB /* Persistence.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C1F00B9D290BDA3F0031EBAA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C1491F5927AD472600A72AEB /* ContentView.swift */,
+				C1BC0A6C299659ED00ABE597 /* Sidebar */,
+				C1BC0A6F29965AE900ABE597 /* Episode */,
+				C1BC0A6E29965AB500ABE597 /* Structure */,
+				C1BC0A6D29965A8400ABE597 /* Rendering */,
 			);
 			path = Views;
 			sourceTree = "<group>";

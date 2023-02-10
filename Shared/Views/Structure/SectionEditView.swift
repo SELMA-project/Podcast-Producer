@@ -192,10 +192,7 @@ struct SectionEditView: View {
                 Text(pickerExplainerText)
             }
             
-        }
-//        .navigationDestination(for: Story.self) { story in
-//            StoryEditView(chosenEpisodeIndex: chosenEpisodeIndex, story: story)
-//        }
+        }                                                                                                                                                                                                                                
         .navigationTitle("Section Editor")
     }
 }
