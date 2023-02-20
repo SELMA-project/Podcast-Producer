@@ -32,14 +32,12 @@ struct Sidebar: View {
             // show this if we have at least one episode
             List(selection: $chosenEpisodeIndex) {
                 ForEach(0..<episodeViewModel.availableEpisodes.count, id: \.self) {episodeIndex in
-                    NavigationLink(value: episodeIndex) {
-                        HStack {
-                            Text(episodeViewModel.availableEpisodes[episodeIndex].timeSlot)
-                            Spacer()
-                            Text(episodeViewModel.availableEpisodes[episodeIndex].language.isoCode)
-                                .font(.caption)
-                                .foregroundColor(Color.secondary)
-                        }
+                    HStack {
+                        Text(episodeViewModel.availableEpisodes[episodeIndex].timeSlot)
+                        Spacer()
+                        Text(episodeViewModel.availableEpisodes[episodeIndex].language.isoCode)
+                            .font(.caption)
+                            .foregroundColor(Color.secondary)
                     }
                 }
                 .onDelete(perform: onDelete)

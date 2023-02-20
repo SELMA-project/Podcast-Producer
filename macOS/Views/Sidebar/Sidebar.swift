@@ -30,19 +30,31 @@ struct Sidebar: View {
         ZStack {
             
             // show this if we have at least one episode
+//            List(selection: $chosenEpisodeIndex) {
+//                ForEach(episodeViewModel.availableEpisodes, id: \.self) {episode in
+//                    //NavigationLink(value: episodeIndex) {
+//                        HStack {
+//                            Text(episode.timeSlot)
+//                            Spacer()
+//                            Text(episode.language.isoCode)
+//                                .font(.caption)
+//                                .foregroundColor(Color.secondary)
+//                        }
+//                    //}
+//                }
+//                .onDelete(perform: onDelete)
+//            }
             List(selection: $chosenEpisodeIndex) {
                 ForEach(0..<episodeViewModel.availableEpisodes.count, id: \.self) {episodeIndex in
-                    NavigationLink(value: episodeIndex) {
-                        HStack {
-                            Text(episodeViewModel.availableEpisodes[episodeIndex].timeSlot)
-                            Spacer()
-                            Text(episodeViewModel.availableEpisodes[episodeIndex].language.isoCode)
-                                .font(.caption)
-                                .foregroundColor(Color.secondary)
-                        }
+                    HStack {
+                        Text(episodeViewModel.availableEpisodes[episodeIndex].timeSlot)
+                        Spacer()
+                        Text(episodeViewModel.availableEpisodes[episodeIndex].language.isoCode)
+                            .font(.caption)
+                            .foregroundColor(Color.secondary)
                     }
                 }
-                .onDelete(perform: onDelete)
+                .onDelete(perform: onDelete) // only works if the ForEach items are the stories themselves
             }
             .onDeleteCommand {
                 if let chosenEpisodeIndex {
@@ -59,6 +71,7 @@ struct Sidebar: View {
         }
         .listStyle(.sidebar)
         .toolbar {
+            
             ToolbarItemGroup(placement: .automatic, content: {
                 Button {
                     showingSheet.toggle()
