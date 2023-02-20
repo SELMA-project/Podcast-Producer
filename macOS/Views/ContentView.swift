@@ -16,6 +16,7 @@ struct ContentView: View {
         
         NavigationSplitView {
             Sidebar(chosenEpisodeIndex: $chosenEpisodeIndex)
+                .navigationSplitViewColumnWidth(230)
         } detail: {
             
             NavigationStack(path: $episodeViewModel.navigationPath) {
