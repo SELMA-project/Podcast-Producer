@@ -174,7 +174,7 @@ class EpisodeViewModel: ObservableObject {
 
     
     /// Called when play button is sectionEditView is pressed
-    func renderEpisodeSection(chosenEpisodeIndex: Int?, sectionId: UUID) async -> URL? {
+    func renderEpisodeSection(chosenEpisodeIndex: Int?, sectionId: EpisodeSection.SectionId) async -> URL? {
     
         var sectionAudioUrl: URL?
         
@@ -211,7 +211,7 @@ class EpisodeViewModel: ObservableObject {
     }
     
     /// Returns the index of the given section within the current chosenEpisode
-    private func indexOfEpisodeSection(chosenEpisodeIndex: Int?, relevantId: UUID) -> Int? {
+    private func indexOfEpisodeSection(chosenEpisodeIndex: Int?, relevantId: EpisodeSection.SectionId) -> Int? {
         
         guard let chosenEpisodeIndex else {return nil}
         

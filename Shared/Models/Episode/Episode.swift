@@ -29,9 +29,11 @@ struct Story: Equatable, Identifiable, Hashable, Codable {
 
 struct EpisodeSection: Identifiable, Hashable, Codable {
     
-    typealias SectionID = UUID
+    struct SectionId: Codable, Hashable {
+        var internalId = UUID()
+    }
     
-    var id: SectionID = UUID()
+    var id: SectionId = SectionId()
     var type: EpisodeSectionType
     var name: String
     var owningEpisode: Episode?

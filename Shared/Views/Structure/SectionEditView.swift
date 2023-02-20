@@ -132,7 +132,7 @@ struct PlayButtonRow: View {
     @State var playButtonState: PlayButtonState = .waitingForStart
     @EnvironmentObject var viewModel: EpisodeViewModel
     
-    var sectionId: UUID
+    var sectionId: EpisodeSection.SectionId
     
     func buttonPressed() {
         

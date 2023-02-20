@@ -32,7 +32,7 @@ struct StructureEditorView: View {
             }
         }
         .navigationTitle("Structure Editor")
-        .navigationDestination(for: EpisodeSection.SectionID.self) { sectionId in
+        .navigationDestination(for: EpisodeSection.SectionId.self) { sectionId in
             
             // get the section's index
             if let sectionIndex = episodeViewModel[chosenEpisodeIndex].sections.firstIndex(where: {$0.id == sectionId}) {
