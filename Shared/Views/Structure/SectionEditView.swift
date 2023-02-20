@@ -11,30 +11,9 @@ struct SectionEditView: View {
     
     var chosenEpisodeIndex: Int?
     @Binding var section: EpisodeSection
-
-    
-//    @State var name: String
-//    @State var text: String
-//    @State var prefixAudioFile: AudioManager.AudioFile
-//    @State var mainAudioFile: AudioManager.AudioFile
-//    @State var suffixAudioFile: AudioManager.AudioFile
-//    @State var separatorAudioFile: AudioManager.AudioFile
-
     
     @EnvironmentObject var viewModel: EpisodeViewModel
     
-//    init(chosenEpisodeIndex: Int?, section: EpisodeSection) {
-//        self.chosenEpisodeIndex = chosenEpisodeIndex
-//        self.section = section
-//        _name = State(initialValue: section.name)
-//        _text = State(initialValue: section.rawText)
-//
-//        _prefixAudioFile = State(initialValue: section.prefixAudioFile)
-//        _mainAudioFile = State(initialValue: section.mainAudioFile)
-//        _suffixAudioFile = State(initialValue: section.suffixAudioFile)
-//        _separatorAudioFile = State(initialValue: section.separatorAudioFile)
-//    }
-//
     var chosenEpisode: Episode {
         return viewModel[chosenEpisodeIndex]
     }
@@ -70,61 +49,6 @@ struct SectionEditView: View {
     }
     
     var body: some View {
-        
-//        let nameBinding = Binding {
-//             self.name
-//         } set: { newValue in
-//             self.name = newValue
-//
-//             // update section in viewModel
-//             viewModel.updateEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, sectionId: section.id, newName: newValue)
-//         }
-//
-//        let textBinding = Binding {
-//             self.text
-//         } set: { newValue in
-//             self.text = newValue
-//
-//             // update section in viewModel
-//             viewModel.updateEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, sectionId: section.id, newText: newValue)
-//         }
-//
-//        let prefixAudioFileBinding = Binding {
-//             self.prefixAudioFile
-//         } set: { newValue in
-//             self.prefixAudioFile = newValue
-//
-//             // update section in viewModel
-//             viewModel.updateEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, sectionId: section.id, newPrefixAudioFile: newValue)
-//         }
-//
-//        let mainAudioFileBinding = Binding {
-//             self.mainAudioFile
-//         } set: { newValue in
-//             self.mainAudioFile = newValue
-//
-//             // update section in viewModel
-//             viewModel.updateEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, sectionId: section.id, newMainAudioFile: newValue)
-//         }
-//
-//        let suffixAudioFileBinding = Binding {
-//             self.suffixAudioFile
-//         } set: { newValue in
-//             self.suffixAudioFile = newValue
-//
-//             // update section in viewModel
-//             viewModel.updateEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, sectionId: section.id, newSuffixAudioFile: newValue)
-//         }
-//
-//        let separatorAudioFileBinding = Binding {
-//             self.separatorAudioFile
-//         } set: { newValue in
-//             self.separatorAudioFile = newValue
-//
-//             // update section in viewModel
-//             viewModel.updateEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, sectionId: section.id, newSeparatorAudioFile: newValue)
-//         }
-//
             
         Form {
             Section("Name") {

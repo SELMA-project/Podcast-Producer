@@ -55,8 +55,6 @@
 		C1262F9028E323DF00F3C725 /* ScriptParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1262F8E28E323DF00F3C725 /* ScriptParser.swift */; };
 		C1262F9228E3259F00F3C725 /* ScriptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1262F9128E3259F00F3C725 /* ScriptView.swift */; };
 		C1262F9328E3259F00F3C725 /* ScriptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1262F9128E3259F00F3C725 /* ScriptView.swift */; };
-		C13A712428E880A800BEE304 /* SectionEditViewOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13A712328E880A800BEE304 /* SectionEditViewOld.swift */; };
-		C13A712528E880A800BEE304 /* SectionEditViewOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13A712328E880A800BEE304 /* SectionEditViewOld.swift */; };
 		C13C775228D889D900C6C61B /* bip-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C13C775128D889D900C6C61B /* bip-CAF.caf */; };
 		C13C775328D889D900C6C61B /* bip-CAF.caf in Resources */ = {isa = PBXBuildFile; fileRef = C13C775128D889D900C6C61B /* bip-CAF.caf */; };
 		C13C775B28D8B42A00C6C61B /* 00-intro-start-trimmed.caf in Resources */ = {isa = PBXBuildFile; fileRef = C13C775A28D8B42A00C6C61B /* 00-intro-start-trimmed.caf */; };
@@ -147,7 +145,6 @@
 		C1262F7728E3239F00F3C725 /* 2022-09-22-e1.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "2022-09-22-e1.md"; sourceTree = "<group>"; };
 		C1262F8E28E323DF00F3C725 /* ScriptParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptParser.swift; sourceTree = "<group>"; };
 		C1262F9128E3259F00F3C725 /* ScriptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptView.swift; sourceTree = "<group>"; };
-		C13A712328E880A800BEE304 /* SectionEditViewOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditViewOld.swift; sourceTree = "<group>"; };
 		C13C775128D889D900C6C61B /* bip-CAF.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bip-CAF.caf"; sourceTree = "<group>"; };
 		C13C775A28D8B42A00C6C61B /* 00-intro-start-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "00-intro-start-trimmed.caf"; sourceTree = "<group>"; };
 		C13C775D28D8B4FF00C6C61B /* 02-intro-end-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "02-intro-end-trimmed.caf"; sourceTree = "<group>"; };
@@ -346,7 +343,6 @@
 			isa = PBXGroup;
 			children = (
 				C100A48C29964AA000713E3B /* StructureEditorView.swift */,
-				C13A712328E880A800BEE304 /* SectionEditViewOld.swift */,
 				C170D76729A37A9F00309559 /* SectionEditView.swift */,
 			);
 			path = Structure;
@@ -534,7 +530,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C13A712428E880A800BEE304 /* SectionEditViewOld.swift in Sources */,
 				C1262F9228E3259F00F3C725 /* ScriptView.swift in Sources */,
 				C100A49029964F7F00713E3B /* StoryListView.swift in Sources */,
 				C1543A0928A2652200427ED0 /* TestView.swift in Sources */,
@@ -576,7 +571,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C13A712528E880A800BEE304 /* SectionEditViewOld.swift in Sources */,
 				C1262F9328E3259F00F3C725 /* ScriptView.swift in Sources */,
 				C100A49129964F7F00713E3B /* StoryListView.swift in Sources */,
 				C1543A0A28A2652200427ED0 /* TestView.swift in Sources */,
