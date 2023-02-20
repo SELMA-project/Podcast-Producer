@@ -15,7 +15,12 @@ enum EpisodeSectionType: String, Codable {
 }
 
 struct Story: Equatable, Identifiable, Hashable, Codable {
-    var id: UUID = UUID()
+
+    struct StoryId: Codable, Hashable {
+        var internalId = UUID()
+    }
+    
+    var id: StoryId = StoryId()
     var usedInIntroduction: Bool
     var headline: String
     var storyText: String

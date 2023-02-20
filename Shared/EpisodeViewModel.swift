@@ -108,7 +108,7 @@ class EpisodeViewModel: ObservableObject {
         }
     }
     
-    func appendEmptyStoryToChosenEpisode(chosenEpisodeIndex: Int?) -> Int {
+    func appendEmptyStoryToChosenEpisode(chosenEpisodeIndex: Int?) -> Story.StoryId {
                 
         let storyNumber =  self[chosenEpisodeIndex].stories.count + 1
         
@@ -118,7 +118,7 @@ class EpisodeViewModel: ObservableObject {
         // add  to chosen episode
         self[chosenEpisodeIndex].stories.append(story)
         
-        return self[chosenEpisodeIndex].stories.endIndex - 1
+        return story.id
     }
         
     /// Save all availableEpisodes to disk as JSON
