@@ -24,7 +24,7 @@ struct StructureEditorView: View {
                     Text("No defined structure")
                 } else {
                     ForEach(episodeSections) {section in
-                        NavigationLink(value: section) {
+                        NavigationLink(value: section.id) {
                             Text(section.name)
                         }
                     }
@@ -32,8 +32,16 @@ struct StructureEditorView: View {
             }
         }
         .navigationTitle("Structure Editor")
-        .navigationDestination(for: EpisodeSection.self) { section in
-            SectionEditView(chosenEpisodeIndex: chosenEpisodeIndex, section: section)
+        .navigationDestination(for: EpisodeSection.SectionID.self) { sectionId in
+            
+            // get the section's index
+            if let sectionIndex = episodeViewModel[chosenEpisodeIndex].sections.firstIndex(where: {$0.id == sectionId}) {
+                // use it to get a binding to the section
+                let sectionBinding = $episodeViewModel[chosenEpisodeIndex].sections[sectionIndex]
+                
+                // call SectionEditView
+                SectionEditView(chosenEpisodeIndex: chosenEpisodeIndex, section: sectionBinding)
+            }
         }
     }
 }
