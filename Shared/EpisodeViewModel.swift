@@ -108,19 +108,19 @@ class EpisodeViewModel: ObservableObject {
         }
     }
     
-    func appendEmptyStoryToChosenEpisode(chosenEpisodeIndex: Int?) -> Story {
-        
-        let storyIndex = self[chosenEpisodeIndex].stories.count + 1
+    func appendEmptyStoryToChosenEpisode(chosenEpisodeIndex: Int?) -> Int {
+                
+        let storyNumber =  self[chosenEpisodeIndex].stories.count + 1
         
         // create empty story
-        let story = Story(usedInIntroduction: true, headline: "Headline \(storyIndex)", storyText: "")
+        let story = Story(usedInIntroduction: true, headline: "Headline \(storyNumber)", storyText: "")
         
         // add  to chosen episode
         self[chosenEpisodeIndex].stories.append(story)
         
-        return story
+        return self[chosenEpisodeIndex].stories.endIndex - 1
     }
-    
+        
     /// Save all availableEpisodes to disk as JSON
     private func saveEpisodes() {
         

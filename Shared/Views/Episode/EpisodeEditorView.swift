@@ -151,12 +151,12 @@ struct MainEditView: View {
             }
 
             Section("Stories") {
-                ForEach(chosenEpisodeBinding.stories) {$story in
-                    NavigationLink(value: story) {
+                ForEach(0..<chosenEpisode.stories.count, id: \.self) {storyIndex in
+                    NavigationLink(value: storyIndex) {
                         Label {
-                            Text(story.headline)
+                            Text(chosenEpisode.stories[storyIndex].headline)
                         } icon: {
-                            Image(systemName: story.usedInIntroduction ? "star.fill" : "star")
+                            Image(systemName: chosenEpisode.stories[storyIndex].usedInIntroduction ? "star.fill" : "star")
                         }
                         
                     }
@@ -170,10 +170,10 @@ struct MainEditView: View {
                 Button {
                     
                     // create empty story
-                    let story = episodeViewModel.appendEmptyStoryToChosenEpisode(chosenEpisodeIndex: chosenEpisodeIndex)
+                    let storyIndex = episodeViewModel.appendEmptyStoryToChosenEpisode(chosenEpisodeIndex: chosenEpisodeIndex)
                     
                     // put story on the navigation stack - this way, StoryEditView is called
-                    episodeViewModel.navigationPath.append(story)
+                    episodeViewModel.navigationPath.append(storyIndex)
                 } label: {
                     Text("Add Story")
                 }
@@ -200,8 +200,9 @@ struct MainEditView: View {
         .navigationDestination(for: EpisodeSection.self) { section in
             SectionEditView(chosenEpisodeIndex: chosenEpisodeIndex, section: section)
         }
-        .navigationDestination(for: Story.self) { story in
-            StoryEditView(chosenEpisodeIndex: chosenEpisodeIndex, story: story)
+        .navigationDestination(for: Int.self) { storyIndex in
+            let storyBinding = $episodeViewModel[chosenEpisodeIndex].stories[storyIndex]
+            StoryEditView(chosenEpisodeIndex: chosenEpisodeIndex, story: storyBinding)
         }
 
         .pickerStyle(.menu)
