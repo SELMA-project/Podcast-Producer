@@ -18,6 +18,11 @@ struct Sidebar: View {
     
     private func onDelete(offsets: IndexSet) {
         episodeViewModel.availableEpisodes.remove(atOffsets: offsets)
+        
+        // set chosenEpisodeIndex to nil when there are not episodes left
+        if episodeViewModel.availableEpisodes.count == 0 {
+            chosenEpisodeIndex = nil
+        }
     }
     
     var body: some View {

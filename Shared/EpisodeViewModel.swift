@@ -86,6 +86,9 @@ class EpisodeViewModel: ObservableObject {
         
         // add to existing episodes
         availableEpisodes.append(newEpisode)
+        
+        // save
+        saveEpisodes()
     }
     
     /// Generates a new episode based on the given Github script and adds it to the array of available Episodes
@@ -106,6 +109,9 @@ class EpisodeViewModel: ObservableObject {
             // add to existing episodes
             availableEpisodes.append(newEpisode)
         }
+        
+        // save
+        saveEpisodes()
     }
     
     func appendEmptyStoryToChosenEpisode(chosenEpisodeIndex: Int?) -> Story.StoryId {
@@ -226,8 +232,6 @@ class EpisodeViewModel: ObservableObject {
         
         return episodeIndex
     }
-    
-    
 
 }
 

@@ -144,7 +144,11 @@ struct MainEditView: View {
                 //Text(voiceExplanationText)
                 HStack {
                     Text("Add high-quality voices through").padding(.trailing, 0)
+                    #if os(iOS)
                     Link("System Settings.", destination: URL(string: UIApplication.openSettingsURLString)! ).font(.footnote).padding(.leading, 0)
+                    #else
+                    Text("System Settings.").font(.footnote).padding(.leading, 0)
+                    #endif
                     Text("More information can be found in this [Apple support article](https://support.apple.com/en-us/HT202362). Restart the app after adding a new voice.")
                     Spacer()
                 }
