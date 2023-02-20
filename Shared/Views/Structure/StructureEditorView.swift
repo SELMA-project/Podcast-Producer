@@ -32,6 +32,9 @@ struct StructureEditorView: View {
             }
         }
         .navigationTitle("Structure Editor")
+        .navigationDestination(for: EpisodeSection.self) { section in
+            SectionEditView(chosenEpisodeIndex: chosenEpisodeIndex, section: section)
+        }
     }
 }
 

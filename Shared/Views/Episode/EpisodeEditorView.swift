@@ -197,9 +197,6 @@ struct MainEditView: View {
    
             
         }
-        .navigationDestination(for: EpisodeSection.self) { section in
-            SectionEditView(chosenEpisodeIndex: chosenEpisodeIndex, section: section)
-        }
         .navigationDestination(for: Int.self) { storyIndex in
             let storyBinding = $episodeViewModel[chosenEpisodeIndex].stories[storyIndex]
             StoryEditView(chosenEpisodeIndex: chosenEpisodeIndex, story: storyBinding)
