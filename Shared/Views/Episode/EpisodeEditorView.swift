@@ -22,27 +22,28 @@ extension View {
 
 struct EpisodeEditorView: View {
     
-    var chosenEpisodeIndex: Int?
+    var chosenEpisodeId: UUID?
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
     var body: some View {
-        if chosenEpisodeIndex == nil {
+        if let chosenEpisodeId  {
             
+            MainEditView(chosenEpisodeId: chosenEpisodeId)
+
+        } else {
             if episodeViewModel.availableEpisodes.count == 0 {
                 Text("Please create an Episode.")
             } else {
                 Text("Please choose an Episode.")
             }
-        } else {
-            MainEditView(chosenEpisodeIndex: chosenEpisodeIndex)
         }
     }
 }
 
 struct MainEditView: View {
     
-    var chosenEpisodeIndex: Int?
+    var chosenEpisodeId: UUID
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     @State var providerName: String = "SELMA"
@@ -51,13 +52,16 @@ struct MainEditView: View {
     @State private var showingSheet = false
     
     var chosenEpisode: Episode {
-        return episodeViewModel[chosenEpisodeIndex]
+        return episodeViewModel[chosenEpisodeId]
     }
     
     var chosenEpisodeBinding: Binding<Episode> {
-        return $episodeViewModel[chosenEpisodeIndex]
+        return $episodeViewModel[chosenEpisodeId]
     }
     
+    var chosenEpisodeIndex: Int {
+        return episodeViewModel.availableEpisodes.firstIndex(where: {$0.id == chosenEpisodeId})!
+    }
     
     var episodeStories: [Story] {
         return chosenEpisode.stories
@@ -77,18 +81,17 @@ struct MainEditView: View {
     }
     
     var availableProviders: [SpeechProvider] {
-        let chosenEpisode = chosenEpisode
         let episodeLanguage = chosenEpisode.language
         let availableProviders = VoiceManager.shared.availableProviders(forLanguage: episodeLanguage)
         return availableProviders
     }
     
     private func onDelete(offsets: IndexSet) {
-        episodeViewModel[chosenEpisodeIndex].stories.remove(atOffsets: offsets)
+        episodeViewModel[chosenEpisodeId].stories.remove(atOffsets: offsets)
     }
     
     private func onMove(from source: IndexSet, to destination: Int) {
-        episodeViewModel[chosenEpisodeIndex].stories.move(fromOffsets: source, toOffset: destination)
+        episodeViewModel[chosenEpisodeId].stories.move(fromOffsets: source, toOffset: destination)
     }
     
     var body: some View {
@@ -174,7 +177,7 @@ struct MainEditView: View {
                 Button {
                     
                     // create empty story
-                    let storyId = episodeViewModel.appendEmptyStoryToChosenEpisode(chosenEpisodeIndex: chosenEpisodeIndex)
+                    let storyId = episodeViewModel.appendEmptyStoryToChosenEpisode(chosenEpisodeId: chosenEpisodeId)
                     
                     // put storyId on the navigation stack - this way, StoryEditView is called
                     episodeViewModel.navigationPath.append(storyId)
@@ -199,7 +202,7 @@ struct MainEditView: View {
             }
         }
         .navigationDestination(for: Story.StoryId.self) { storyId in
-            if let storyBinding = $episodeViewModel[chosenEpisodeIndex].stories.first(where: {$0.id == storyId}) {
+            if let storyBinding = $episodeViewModel[chosenEpisodeId].stories.first(where: {$0.id == storyId}) {
                 StoryEditView(chosenEpisodeIndex: chosenEpisodeIndex, story: storyBinding)
             }
         }
@@ -209,7 +212,7 @@ struct MainEditView: View {
         .navigationTitle("Episode Editor")
         
         .sheet(isPresented: $showingSheet) {
-            PodcastRenderView(chosenEpisodeIndex: chosenEpisodeIndex)
+            PodcastRenderView(chosenEpisodeId: chosenEpisodeId)
                 .environmentObject(episodeViewModel)
         }
         
@@ -219,6 +222,13 @@ struct MainEditView: View {
 struct MainEditView_Previews: PreviewProvider {
     
     static var previews: some View {
-        MainEditView(chosenEpisodeIndex: 0)
+        let episodeViewModel = EpisodeViewModel()
+        if episodeViewModel.availableEpisodes.count > 0 {
+            let firstEpisodeId = episodeViewModel.availableEpisodes[0].id
+            MainEditView(chosenEpisodeId: firstEpisodeId)
+        } else {
+            Text("No episode to display")
+        }
+        
     }
 }

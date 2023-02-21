@@ -9,11 +9,15 @@ import SwiftUI
 
 struct StructureEditorView: View {
     
-    var chosenEpisodeIndex: Int?
+    var chosenEpisodeId: UUID
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
+    var chosenEpisodeIndex: Int {
+        return episodeViewModel.availableEpisodes.firstIndex(where: {$0.id == chosenEpisodeId})!
+    }
+    
     var episodeSections: [EpisodeSection] {
-        let sections = episodeViewModel[chosenEpisodeIndex].sections
+        let sections = episodeViewModel[chosenEpisodeId].sections
         return sections
     }
     
@@ -35,12 +39,12 @@ struct StructureEditorView: View {
         .navigationDestination(for: EpisodeSection.SectionId.self) { sectionId in
             
             // get the section's index
-            if let sectionIndex = episodeViewModel[chosenEpisodeIndex].sections.firstIndex(where: {$0.id == sectionId}) {
+            if let sectionIndex = episodeViewModel[chosenEpisodeId].sections.firstIndex(where: {$0.id == sectionId}) {
                 // use it to get a binding to the section
-                let sectionBinding = $episodeViewModel[chosenEpisodeIndex].sections[sectionIndex]
+                let sectionBinding = $episodeViewModel[chosenEpisodeId].sections[sectionIndex]
                 
                 // call SectionEditView
-                SectionEditView(chosenEpisodeIndex: chosenEpisodeIndex, section: sectionBinding)
+                SectionEditView(chosenEpisodeId: chosenEpisodeId, section: sectionBinding)
             }
         }
     }
@@ -48,6 +52,12 @@ struct StructureEditorView: View {
 
 struct StructureEditor_Previews: PreviewProvider {
     static var previews: some View {
-        StructureEditorView(chosenEpisodeIndex: 0)
+        let episodeViewModel = EpisodeViewModel()
+        if episodeViewModel.availableEpisodes.count > 0 {
+            let firstEpisodeId = episodeViewModel.availableEpisodes[0].id
+            StructureEditorView(chosenEpisodeId: firstEpisodeId)
+        } else {
+            Text("No episode to display")
+        }
     }
 }

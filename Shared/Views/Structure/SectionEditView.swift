@@ -9,17 +9,17 @@ import SwiftUI
 
 struct SectionEditView: View {
     
-    var chosenEpisodeIndex: Int?
+    var chosenEpisodeId: UUID?
     @Binding var section: EpisodeSection
     
     @EnvironmentObject var viewModel: EpisodeViewModel
     
     var chosenEpisode: Episode {
-        return viewModel[chosenEpisodeIndex]
+        return viewModel[chosenEpisodeId]
     }
     
     var chosenEpisodeBinding: Binding<Episode> {
-        return $viewModel[chosenEpisodeIndex]
+        return $viewModel[chosenEpisodeId]
     }
     
     var stories: [Story] {
@@ -63,7 +63,7 @@ struct SectionEditView: View {
             }
             
             Section("Listen") {
-                PlayButtonRow(chosenEpisodeIndex: chosenEpisodeIndex, sectionId: section.id)
+                PlayButtonRow(chosenEpisodeId: chosenEpisodeId, sectionId: section.id)
             }
             
             if section.type == .headlines {
@@ -123,7 +123,7 @@ struct SectionEditView: View {
 
 struct PlayButtonRow: View {
     
-    var chosenEpisodeIndex: Int?
+    var chosenEpisodeId: UUID?
     
     enum PlayButtonState {
         case waitingForStart, rendering, waitingForStop
@@ -142,7 +142,7 @@ struct PlayButtonRow: View {
                 
                 // render audio
                 playButtonState = .rendering
-                let audioURL = await viewModel.renderEpisodeSection(chosenEpisodeIndex: chosenEpisodeIndex, sectionId: sectionId)
+                let audioURL = await viewModel.renderEpisodeSection(chosenEpisodeId: chosenEpisodeId, sectionId: sectionId)
                 playButtonState = .waitingForStart
                 
                 // if successful, start playback
@@ -194,7 +194,14 @@ struct PlayButtonRow: View {
 struct SectionEditView_Previews: PreviewProvider {
     static var previews: some View {
         let section = EpisodeSection(type: .standard, name: "Introduction")
-        SectionEditView(chosenEpisodeIndex: 0, section: .constant(section))
+        let episodeViewModel = EpisodeViewModel()
+        
+        if episodeViewModel.availableEpisodes.count > 0 {
+            let firstEpisodeId = episodeViewModel.availableEpisodes[0].id
+            SectionEditView(chosenEpisodeId: firstEpisodeId, section: .constant(section))
+        } else {
+            Text("No episode to display")
+        }
     }
 }
 

@@ -12,18 +12,18 @@ struct ContentView: View {
     
     @StateObject var episodeViewModel = EpisodeViewModel()
     @Environment(\.managedObjectContext) private var viewContext
-    @AppStorage("chosenEpisodeIndex") private var chosenEpisodeIndex: Int?
-    
+    //@AppStorage("chosenEpisodeId") private var chosenEpisodeId: UUID?
+    @State private var chosenEpisodeId: UUID?
 
     var body: some View {
         
         NavigationSplitView {
-            Sidebar(chosenEpisodeIndex: $chosenEpisodeIndex)
+            Sidebar(chosenEpisodeId: $chosenEpisodeId)
         } detail: {
             
             NavigationStack(path: $episodeViewModel.navigationPath) {
                 
-                EpisodeEditorView(chosenEpisodeIndex: chosenEpisodeIndex)
+                EpisodeEditorView(chosenEpisodeId: chosenEpisodeId)
                     .toolbar {
                         
                         ToolbarItem() {
@@ -36,7 +36,9 @@ struct ContentView: View {
                         
                     }
                     .navigationDestination(for: String.self) { _ in
-                        StructureEditorView(chosenEpisodeIndex: chosenEpisodeIndex)
+                        if let chosenEpisodeId {
+                            StructureEditorView(chosenEpisodeId: chosenEpisodeId)
+                        }
                     }
             }
         }.onAppear {

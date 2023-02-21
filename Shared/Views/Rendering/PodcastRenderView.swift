@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PodcastRenderView: View {
     
-    var chosenEpisodeIndex: Int?
+    var chosenEpisodeId: UUID?
     
     @Environment(\.dismiss) var dismissAction
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
@@ -37,7 +37,7 @@ struct PodcastRenderView: View {
                             
                             progressValue = 50
                             progressText = "Synthesizing speech..."
-                            audioURL = await episodeViewModel.renderEpisode(chosenEpisodeIndex: chosenEpisodeIndex)
+                            audioURL = await episodeViewModel.renderEpisode(chosenEpisodeId: chosenEpisodeId)
                             
                             progressValue = 100
                             progressText = "Ready for sharing."
@@ -88,6 +88,12 @@ struct PodcastRenderView: View {
 
 struct PodcastRenderView_Previews: PreviewProvider {
     static var previews: some View {
-        PodcastRenderView(chosenEpisodeIndex: 0)
+        let episodeViewModel = EpisodeViewModel()
+        if episodeViewModel.availableEpisodes.count > 0 {
+            let firstEpisodeId = episodeViewModel.availableEpisodes[0].id
+            PodcastRenderView(chosenEpisodeId: firstEpisodeId)
+        } else {
+            Text("No episode to display")
+        }
     }
 }
