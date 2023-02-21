@@ -25,14 +25,12 @@ class EpisodeViewModel: ObservableObject {
             return Episode.standard
         }
         set {
-            if let episodeId {
-                if let episodeIndex = availableEpisodes.firstIndex(where: {$0.id == episodeId}) {
-                    availableEpisodes[episodeIndex] = newValue
-                }
-                
-                // save episodes to disk whenever the array changes
-                saveEpisodes()
+            if let episodeIndex = episodeIndexForId(episodeId: episodeId) {
+                availableEpisodes[episodeIndex] = newValue
             }
+            
+            // save episodes to disk whenever the array changes
+            saveEpisodes()
         }
     }
     

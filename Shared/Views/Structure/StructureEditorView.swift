@@ -13,7 +13,7 @@ struct StructureEditorView: View {
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
     var chosenEpisodeIndex: Int {
-        return episodeViewModel.availableEpisodes.firstIndex(where: {$0.id == chosenEpisodeId})!
+        return episodeViewModel.episodeIndexForId(episodeId: chosenEpisodeId)!
     }
     
     var episodeSections: [EpisodeSection] {

@@ -60,7 +60,7 @@ struct MainEditView: View {
     }
     
     var chosenEpisodeIndex: Int {
-        return episodeViewModel.availableEpisodes.firstIndex(where: {$0.id == chosenEpisodeId})!
+        return episodeViewModel.episodeIndexForId(episodeId: chosenEpisodeId)!
     }
     
     var episodeStories: [Story] {
