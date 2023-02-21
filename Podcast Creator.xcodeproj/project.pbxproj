@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		C100A48D29964AA000713E3B /* StructureEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100A48C29964AA000713E3B /* StructureEditorView.swift */; };
 		C100A48E29964AA000713E3B /* StructureEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100A48C29964AA000713E3B /* StructureEditorView.swift */; };
-		C100A49029964F7F00713E3B /* StoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100A48F29964F7F00713E3B /* StoryListView.swift */; };
-		C100A49129964F7F00713E3B /* StoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100A48F29964F7F00713E3B /* StoryListView.swift */; };
 		C11013A329A4CD600082D667 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14A102629113213004DBB67 /* Sidebar.swift */; };
 		C110219F28FFFD93005AA554 /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110219E28FFFD93005AA554 /* SpeechManager.swift */; };
 		C11021A028FFFD93005AA554 /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110219E28FFFD93005AA554 /* SpeechManager.swift */; };
@@ -80,8 +78,6 @@
 		C14B1E70290C2801000748FA /* TemplateCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B1E6E290C2801000748FA /* TemplateCreationView.swift */; };
 		C14CEA2A28F1948A00B8DFC8 /* StandardSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */; };
 		C14CEA2B28F1948A00B8DFC8 /* StandardSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */; };
-		C14CEA2D28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2C28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift */; };
-		C14CEA2E28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2C28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift */; };
 		C14CEA3028F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */; };
 		C14CEA3128F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */; };
 		C1543A0C28A2A64300427ED0 /* EpisodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */; };
@@ -120,7 +116,6 @@
 
 /* Begin PBXFileReference section */
 		C100A48C29964AA000713E3B /* StructureEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureEditorView.swift; sourceTree = "<group>"; };
-		C100A48F29964F7F00713E3B /* StoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListView.swift; sourceTree = "<group>"; };
 		C10D912A2919430300AC94A7 /* Podcast-Creator--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Podcast-Creator--iOS--Info.plist"; sourceTree = "<group>"; };
 		C110219E28FFFD93005AA554 /* SpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechManager.swift; sourceTree = "<group>"; };
 		C11021A2290026D1005AA554 /* PodcastVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastVoice.swift; sourceTree = "<group>"; };
@@ -160,7 +155,6 @@
 		C14A102629113213004DBB67 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		C14B1E6E290C2801000748FA /* TemplateCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCreationView.swift; sourceTree = "<group>"; };
 		C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardSectionEditView.swift; sourceTree = "<group>"; };
-		C14CEA2C28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesSectionEditView.swift; sourceTree = "<group>"; };
 		C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineSectionEditView.swift; sourceTree = "<group>"; };
 		C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewModel.swift; sourceTree = "<group>"; };
 		C1543A0E28A2A69C00427ED0 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
@@ -212,11 +206,9 @@
 		C11A239928F2E0F00022263B /* Obsolete */ = {
 			isa = PBXGroup;
 			children = (
-				C100A48F29964F7F00713E3B /* StoryListView.swift */,
 				C1BA7EBD28AA92270090573B /* AudioRenderView.swift */,
 				C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */,
 				C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */,
-				C14CEA2C28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift */,
 			);
 			path = Obsolete;
 			sourceTree = "<group>";
@@ -538,7 +530,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1262F9228E3259F00F3C725 /* ScriptView.swift in Sources */,
-				C100A49029964F7F00713E3B /* StoryListView.swift in Sources */,
 				C1756ABD28A13D3700FE9F2B /* StoryEditView.swift in Sources */,
 				C1B0977A29117CC3004BDEE3 /* VoiceManager.swift in Sources */,
 				C1BA7EBE28AA92270090573B /* AudioRenderView.swift in Sources */,
@@ -567,7 +558,6 @@
 				C11DBB6B28DDEDA2003E426D /* SelmaVoice.swift in Sources */,
 				C14B1E6F290C2801000748FA /* TemplateCreationView.swift in Sources */,
 				C15F6D57296D58D800BA567D /* PodcastRenderView.swift in Sources */,
-				C14CEA2D28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift in Sources */,
 				C1C97196290C2E66008DACB3 /* GithubCreationView.swift in Sources */,
 				C1262F8F28E323DF00F3C725 /* ScriptParser.swift in Sources */,
 			);
@@ -579,7 +569,6 @@
 			files = (
 				C1D946FD29A3A35800B70A83 /* MacTestView.swift in Sources */,
 				C1262F9328E3259F00F3C725 /* ScriptView.swift in Sources */,
-				C100A49129964F7F00713E3B /* StoryListView.swift in Sources */,
 				C1756ABE28A13D3700FE9F2B /* StoryEditView.swift in Sources */,
 				C1B0977B29117CC3004BDEE3 /* VoiceManager.swift in Sources */,
 				C1BA7EBF28AA92270090573B /* AudioRenderView.swift in Sources */,
@@ -608,7 +597,6 @@
 				C14B1E70290C2801000748FA /* TemplateCreationView.swift in Sources */,
 				C1D946FE29A3A3F100B70A83 /* EpisodeEditorView.swift in Sources */,
 				C15F6D58296D58D800BA567D /* PodcastRenderView.swift in Sources */,
-				C14CEA2E28F1CB4D00B8DFC8 /* StoriesSectionEditView.swift in Sources */,
 				C1C97197290C2E66008DACB3 /* GithubCreationView.swift in Sources */,
 				C1262F9028E323DF00F3C725 /* ScriptParser.swift in Sources */,
 			);

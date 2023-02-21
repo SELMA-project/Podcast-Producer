@@ -9,7 +9,6 @@ import SwiftUI
 
 struct StoryEditView: View {
     
-    var chosenEpisodeIndex: Int?
     @Binding var story: Story
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
@@ -42,6 +41,6 @@ struct StoryEditView: View {
 struct StoryEditView_Previews: PreviewProvider {
     static var previews: some View {
         let story = Story(usedInIntroduction: true, headline: "Headline", storyText: "Text")
-        StoryEditView(chosenEpisodeIndex: 0, story: .constant(story))
+        StoryEditView(story: .constant(story))
     }
 }

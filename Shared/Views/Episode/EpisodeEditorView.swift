@@ -58,11 +58,7 @@ struct MainEditView: View {
     var chosenEpisodeBinding: Binding<Episode> {
         return $episodeViewModel[chosenEpisodeId]
     }
-    
-    var chosenEpisodeIndex: Int {
-        return episodeViewModel.episodeIndexForId(episodeId: chosenEpisodeId)!
-    }
-    
+        
     var episodeStories: [Story] {
         return chosenEpisode.stories
     }
@@ -203,7 +199,7 @@ struct MainEditView: View {
         }
         .navigationDestination(for: Story.StoryId.self) { storyId in
             if let storyBinding = $episodeViewModel[chosenEpisodeId].stories.first(where: {$0.id == storyId}) {
-                StoryEditView(chosenEpisodeIndex: chosenEpisodeIndex, story: storyBinding)
+                StoryEditView(story: storyBinding)
             }
         }
 

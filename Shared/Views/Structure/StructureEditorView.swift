@@ -12,10 +12,6 @@ struct StructureEditorView: View {
     var chosenEpisodeId: UUID
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
-    var chosenEpisodeIndex: Int {
-        return episodeViewModel.episodeIndexForId(episodeId: chosenEpisodeId)!
-    }
-    
     var episodeSections: [EpisodeSection] {
         let sections = episodeViewModel[chosenEpisodeId].sections
         return sections
