@@ -121,7 +121,6 @@
 /* Begin PBXFileReference section */
 		C100A48C29964AA000713E3B /* StructureEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureEditorView.swift; sourceTree = "<group>"; };
 		C100A48F29964F7F00713E3B /* StoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListView.swift; sourceTree = "<group>"; };
-		C108C27629A3B684001032F0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C10D912A2919430300AC94A7 /* Podcast-Creator--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Podcast-Creator--iOS--Info.plist"; sourceTree = "<group>"; };
 		C110219E28FFFD93005AA554 /* SpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechManager.swift; sourceTree = "<group>"; };
 		C11021A2290026D1005AA554 /* PodcastVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastVoice.swift; sourceTree = "<group>"; };
@@ -374,7 +373,6 @@
 		C1ECCC1F29A3BDE200C1241F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C108C27629A3B684001032F0 /* ContentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
