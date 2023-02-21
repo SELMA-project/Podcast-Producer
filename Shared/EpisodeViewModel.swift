@@ -35,7 +35,11 @@ class EpisodeViewModel: ObservableObject {
             }
         }
     }
-        
+    
+    // returns index inside availableEpisodes for given id
+    func episodeIndexForId(episodeId: UUID?) -> Int? {
+        return availableEpisodes.firstIndex(where: {$0.id == episodeId})
+    }
     
     // the narrator name use when creating a new template. Is stored in user defaults.
     var newTemplateNarratorName: String = "" {

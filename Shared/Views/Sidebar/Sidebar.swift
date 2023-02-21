@@ -18,14 +18,11 @@ struct Sidebar: View {
     
     private func onDelete(offsets: IndexSet) {
         
+        // deselect currently chosen episode
         chosenEpisodeId = nil
         
+        // remove
         episodeViewModel.availableEpisodes.remove(atOffsets: offsets)
-        
-        // set chosenEpisodeId to nil when there are not episodes left
-        if episodeViewModel.availableEpisodes.count == 0 {
-            chosenEpisodeId = nil
-        }
     }
     
     var body: some View {
@@ -45,6 +42,14 @@ struct Sidebar: View {
                 }
                 .onDelete(perform: onDelete)
             }
+            #if os(macOS)
+            .onDeleteCommand {
+                if let episodeIndex = episodeViewModel.episodeIndexForId(episodeId: chosenEpisodeId) {
+                    let indexSet = IndexSet(integer: episodeIndex)
+                    onDelete(offsets: indexSet)
+                }
+            }
+            #endif
             
             // show this instruction if we don't have any episodes
             if episodeViewModel.availableEpisodes.count == 0 {

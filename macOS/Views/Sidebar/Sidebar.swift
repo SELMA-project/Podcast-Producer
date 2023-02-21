@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Sidebar: View {
     
-    @Binding var chosenEpisodeIndex: Int?
+    @Binding var chosenEpisodeId: UUID?
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
@@ -17,12 +17,11 @@ struct Sidebar: View {
     @State private var showingSheet = false
     
     private func onDelete(offsets: IndexSet) {
-        episodeViewModel.availableEpisodes.remove(atOffsets: offsets)
+        // deselect currently chosen episode
+        chosenEpisodeId = nil
         
-        // set chosenEpisodeIndex to nil when there are not episodes left
-        if episodeViewModel.availableEpisodes.count == 0 {
-            chosenEpisodeIndex = nil
-        }
+        // remove
+        episodeViewModel.availableEpisodes.remove(atOffsets: offsets)
     }
     
     var body: some View {
@@ -30,35 +29,21 @@ struct Sidebar: View {
         ZStack {
             
             // show this if we have at least one episode
-//            List(selection: $chosenEpisodeIndex) {
-//                ForEach(episodeViewModel.availableEpisodes, id: \.self) {episode in
-//                    //NavigationLink(value: episodeIndex) {
-//                        HStack {
-//                            Text(episode.timeSlot)
-//                            Spacer()
-//                            Text(episode.language.isoCode)
-//                                .font(.caption)
-//                                .foregroundColor(Color.secondary)
-//                        }
-//                    //}
-//                }
-//                .onDelete(perform: onDelete)
-//            }
-            List(selection: $chosenEpisodeIndex) {
-                ForEach(0..<episodeViewModel.availableEpisodes.count, id: \.self) {episodeIndex in
+            List(selection: $chosenEpisodeId) {
+                ForEach(episodeViewModel.availableEpisodes) {episode in
                     HStack {
-                        Text(episodeViewModel.availableEpisodes[episodeIndex].timeSlot)
+                        Text(episode.timeSlot)
                         Spacer()
-                        Text(episodeViewModel.availableEpisodes[episodeIndex].language.isoCode)
+                        Text(episode.language.isoCode)
                             .font(.caption)
                             .foregroundColor(Color.secondary)
                     }
                 }
-                .onDelete(perform: onDelete) // only works if the ForEach items are the stories themselves
+                .onDelete(perform: onDelete)
             }
             .onDeleteCommand {
-                if let chosenEpisodeIndex {
-                    let indexSet = IndexSet(integer: chosenEpisodeIndex)
+                if let episodeIndex = episodeViewModel.episodeIndexForId(episodeId: chosenEpisodeId) {
+                    let indexSet = IndexSet(integer: episodeIndex)
                     onDelete(offsets: indexSet)
                 }
             }
@@ -92,7 +77,13 @@ struct Sidebar: View {
 
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
-        Sidebar(chosenEpisodeIndex: .constant(0))
-            .environmentObject(EpisodeViewModel())
+        let episodeViewModel = EpisodeViewModel()
+        if episodeViewModel.availableEpisodes.count > 0 {
+            let firstEpisodeId = episodeViewModel.availableEpisodes[0].id
+            Sidebar(chosenEpisodeId: .constant(firstEpisodeId))
+                .environmentObject(EpisodeViewModel())
+        } else {
+            Text("No episode to display")
+        }
     }
 }

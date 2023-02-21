@@ -10,18 +10,18 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject var episodeViewModel = EpisodeViewModel()
-    @AppStorage("chosenEpisodeIndex") private var chosenEpisodeIndex: Int?
+    @State private var chosenEpisodeId: UUID?
     
     var body: some View {
         
         NavigationSplitView {
-            Sidebar(chosenEpisodeIndex: $chosenEpisodeIndex)
+            Sidebar(chosenEpisodeId: $chosenEpisodeId)
                 .navigationSplitViewColumnWidth(230)
         } detail: {
             
             NavigationStack(path: $episodeViewModel.navigationPath) {
                 
-                EpisodeEditorView(chosenEpisodeIndex: chosenEpisodeIndex)
+                EpisodeEditorView(chosenEpisodeId: chosenEpisodeId)
                     .toolbar {
                         
                         ToolbarItem() {
@@ -34,7 +34,9 @@ struct ContentView: View {
                         
                     }
                     .navigationDestination(for: String.self) { _ in
-                        StructureEditorView(chosenEpisodeIndex: chosenEpisodeIndex)
+                        if let chosenEpisodeId {
+                            StructureEditorView(chosenEpisodeId: chosenEpisodeId)
+                        }
                     }
             }
         }.onAppear {

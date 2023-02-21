@@ -11,8 +11,6 @@ import CoreData
 struct ContentView: View {
     
     @StateObject var episodeViewModel = EpisodeViewModel()
-    @Environment(\.managedObjectContext) private var viewContext
-    //@AppStorage("chosenEpisodeId") private var chosenEpisodeId: UUID?
     @State private var chosenEpisodeId: UUID?
 
     var body: some View {
