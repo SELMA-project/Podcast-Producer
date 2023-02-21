@@ -28,11 +28,9 @@ struct ContentView: View {
                     .toolbar {
                         
                         ToolbarItem() {
-
                             NavigationLink(value: "Structure") {
                                 Image(systemName: "slider.horizontal.3")
-                            }
-
+                            }.disabled(chosenEpisodeId == nil)
                         }
                         
                     }
