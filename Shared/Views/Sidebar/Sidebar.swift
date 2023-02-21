@@ -58,7 +58,7 @@ struct Sidebar: View {
         }
         .listStyle(.sidebar)
         .toolbar {
-            ToolbarItemGroup(placement: .automatic, content: {
+            ToolbarItemGroup(placement: .navigation, content: {
                 Button {
                     showingSheet.toggle()
                 } label: {
