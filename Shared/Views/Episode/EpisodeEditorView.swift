@@ -58,18 +58,9 @@ struct MainEditView: View {
     var chosenEpisodeBinding: Binding<Episode> {
         return $episodeViewModel[chosenEpisodeId]
     }
-        
-    var episodeStories: [Story] {
-        return chosenEpisode.stories
-    }
-    
-    var episodeLanguage: String {
-        return chosenEpisode.language.displayName
-    }
-    
+                
     /// All voices that share the same provider and language
     var availableVoices: [PodcastVoice] {
-        let chosenEpisode = chosenEpisode
         let episodeLanguage = chosenEpisode.language
         let voiceProvider = chosenEpisode.podcastVoice.speechProvider
         let availableVoices = VoiceManager.shared.availableVoices(forLanguage: episodeLanguage, forProvider: voiceProvider)
