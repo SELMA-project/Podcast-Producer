@@ -17,6 +17,9 @@ struct ContentView: View {
         
         NavigationSplitView {
             Sidebar(chosenEpisodeId: $chosenEpisodeId)
+            #if os(macOS)
+                .navigationSplitViewColumnWidth(230)
+            #endif
         } detail: {
             
             NavigationStack(path: $episodeViewModel.navigationPath) {
@@ -56,6 +59,5 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

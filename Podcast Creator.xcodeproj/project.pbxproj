@@ -11,8 +11,6 @@
 		C100A48E29964AA000713E3B /* StructureEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100A48C29964AA000713E3B /* StructureEditorView.swift */; };
 		C100A49029964F7F00713E3B /* StoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100A48F29964F7F00713E3B /* StoryListView.swift */; };
 		C100A49129964F7F00713E3B /* StoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100A48F29964F7F00713E3B /* StoryListView.swift */; };
-		C108C27729A3B684001032F0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C108C27629A3B684001032F0 /* ContentView.swift */; };
-		C11013A229A4CD570082D667 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C108C27629A3B684001032F0 /* ContentView.swift */; };
 		C11013A329A4CD600082D667 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14A102629113213004DBB67 /* Sidebar.swift */; };
 		C110219F28FFFD93005AA554 /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110219E28FFFD93005AA554 /* SpeechManager.swift */; };
 		C11021A028FFFD93005AA554 /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110219E28FFFD93005AA554 /* SpeechManager.swift */; };
@@ -115,6 +113,7 @@
 		C1CF37B029840C4700134E75 /* TemplateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CF37AE29840C4700134E75 /* TemplateManager.swift */; };
 		C1D946FD29A3A35800B70A83 /* MacTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D946FC29A3A35800B70A83 /* MacTestView.swift */; };
 		C1D946FE29A3A3F100B70A83 /* EpisodeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756AB928A1198D00FE9F2B /* EpisodeEditorView.swift */; };
+		C1E4C71A29A4D1350040826F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5927AD472600A72AEB /* ContentView.swift */; };
 		C1F5602728D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
 		C1F5602828D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
 /* End PBXBuildFile section */
@@ -176,7 +175,6 @@
 		C1BA7EBD28AA92270090573B /* AudioRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRenderView.swift; sourceTree = "<group>"; };
 		C1BA7EC028AA93280090573B /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		C1BA7EC728AB82300090573B /* SelmaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelmaAPI.swift; sourceTree = "<group>"; };
-		C1BD13ED29A3BE3A00786B68 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		C1C97195290C2E66008DACB3 /* GithubCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubCreationView.swift; sourceTree = "<group>"; };
 		C1CF37AE29840C4700134E75 /* TemplateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateManager.swift; sourceTree = "<group>"; };
 		C1D946FC29A3A35800B70A83 /* MacTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacTestView.swift; sourceTree = "<group>"; };
@@ -373,19 +371,10 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		C1BD13EF29A3BE4300786B68 /* Sidebar */ = {
-			isa = PBXGroup;
-			children = (
-				C1BD13ED29A3BE3A00786B68 /* Sidebar.swift */,
-			);
-			path = Sidebar;
-			sourceTree = "<group>";
-		};
 		C1ECCC1F29A3BDE200C1241F /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				C108C27629A3B684001032F0 /* ContentView.swift */,
-				C1BD13EF29A3BE4300786B68 /* Sidebar */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -574,7 +563,6 @@
 				C1BA7EC128AA93280090573B /* AudioManager.swift in Sources */,
 				C11021A3290026D1005AA554 /* PodcastVoice.swift in Sources */,
 				C14CEA2A28F1948A00B8DFC8 /* StandardSectionEditView.swift in Sources */,
-				C11013A229A4CD570082D667 /* ContentView.swift in Sources */,
 				C170D76829A37A9F00309559 /* SectionEditView.swift in Sources */,
 				C1491F6D27AD472700A72AEB /* ContentView.swift in Sources */,
 				C1BA7EC828AB82300090573B /* SelmaAPI.swift in Sources */,
@@ -606,7 +594,6 @@
 				C11A23A028F310F20022263B /* LanguageManager.swift in Sources */,
 				C14CEA3128F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
 				C11021A028FFFD93005AA554 /* SpeechManager.swift in Sources */,
-				C108C27729A3B684001032F0 /* ContentView.swift in Sources */,
 				C1491F7027AD472700A72AEB /* Persistence.swift in Sources */,
 				C191062E28FEEBAA00B81231 /* EpisodeCreationView.swift in Sources */,
 				C1491F6A27AD472700A72AEB /* Podcast_Producer.xcdatamodeld in Sources */,
@@ -616,6 +603,7 @@
 				C11021A4290026D1005AA554 /* PodcastVoice.swift in Sources */,
 				C14CEA2B28F1948A00B8DFC8 /* StandardSectionEditView.swift in Sources */,
 				C11013A329A4CD600082D667 /* Sidebar.swift in Sources */,
+				C1E4C71A29A4D1350040826F /* ContentView.swift in Sources */,
 				C170D76929A37A9F00309559 /* SectionEditView.swift in Sources */,
 				C1BA7EC928AB82300090573B /* SelmaAPI.swift in Sources */,
 				C11DBB6C28DDEDA2003E426D /* SelmaVoice.swift in Sources */,
