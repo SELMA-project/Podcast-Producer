@@ -76,125 +76,215 @@ struct MainEditView: View {
     
     var body: some View {
         
-        Form {
+        VStack {
             
-            Section {
-                HStack {
-                    Text("Language")
-                    Spacer()
-                    Text(chosenEpisode.language.displayName)
-                        .foregroundColor(.secondary)
-                }
-            } header: {
-                Text("Language")
-            } footer: {
-                Text("The episode language cannot be changed.")
-            }
-            
-            
-            Section {
-
-                HStack {
-                    Text("Narrator")
-                    Spacer()
-                    TextField("Name", text: chosenEpisodeBinding.narrator)
-                        .multilineTextAlignment(.trailing)
-                }
-            } header: {
-                Text("General")
-            }
-            footer: {
-                Text("This replaces the {narrator} token.")
-            }
-
-            Section {
-                Picker("Voice Provider", selection: chosenEpisodeBinding.podcastVoice.speechProvider) {
-                    ForEach(availableProviders, id: \.self) {provider in
-                        Text(provider.displayName)
-                    }
-                }
-
-                Picker("Synthetic Voice Identifier", selection: chosenEpisodeBinding.podcastVoice) {
-                    ForEach(availableVoices, id: \.self) {voice in
-                        Text(voice.name)
-                    }
-                }
-            }
-            header: {
-                Text("Voice")
-            }
-            footer: {
-                //Text(voiceExplanationText)
-                HStack {
-                    Text("Add high-quality voices through").padding(.trailing, 0)
-                    #if os(iOS)
-                    Link("System Settings.", destination: URL(string: UIApplication.openSettingsURLString)! ).font(.footnote).padding(.leading, 0)
-                    #else
-                    Text("System Settings.").font(.footnote).padding(.leading, 0)
-                    #endif
-                    Text("More information can be found in this [Apple support article](https://support.apple.com/en-us/HT202362). Restart the app after adding a new voice.")
-                    Spacer()
-                }
-            }
-
-            Section("Stories") {
-                ForEach(chosenEpisode.stories) {story in
-                    NavigationLink(value: story.id) {
-                        Label {
-                            Text(story.headline)
-                        } icon: {
-                            Image(systemName: story.usedInIntroduction ? "star.fill" : "star")
-                        }
-                        
-                    }
-                }
-                .onDelete(perform: onDelete)
-                .onMove(perform: onMove)
-            }
-
-            // Extra buttons to create and import stories
-            Section {
-                Button {
-                    
-                    // create empty story
-                    let storyId = episodeViewModel.appendEmptyStoryToChosenEpisode(chosenEpisodeId: chosenEpisodeId)
-                    
-                    // put storyId on the navigation stack - this way, StoryEditView is called
-                    episodeViewModel.navigationPath.append(storyId)
-                } label: {
-                    Text("Add Story")
-                }
+            GroupBox {
                 
-                Button {
-                    print("Add code to import episode here.")
-                } label: {
-                    Text("Import Story")
-                }
+                Form {
+                    LabeledContent("Language:") {
+                        Text(chosenEpisode.language.displayName)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    TextField("Narrator:", text: chosenEpisodeBinding.narrator, prompt: Text("Narrator"))
+                    
+                    Picker("Voice Provider:", selection: chosenEpisodeBinding.podcastVoice.speechProvider) {
+                        ForEach(availableProviders, id: \.self) {provider in
+                            Text(provider.displayName)
+                        }
+                    }
+                    
+                    Picker("Synthetic Voice Identifier:", selection: chosenEpisodeBinding.podcastVoice) {
+                        ForEach(availableVoices, id: \.self) {voice in
+                            Text(voice.name)
+                        }
+                    }
+                    
+                    Text("Add high-quality voices through the Mac's Preferences. Find more information [here](https://support.apple.com/de-de/guide/mac-help/mchlp2290/mac).")
+                        .font(.caption)
+                }.padding()
+                
+            } label: {
+                Text("Podcast Settings").font(.title3)
+                //Label("End-User Agreement", systemImage: "building.columns").font(.title)
             }
             
-            Section {
-                Button {
-                    showingSheet = true
-                } label: {
-                    Text("Produce Podcast")
-                }
-
+            
+            GroupBox {
+                //Form {
+                    List {
+                        ForEach(chosenEpisode.stories) {story in
+                            Text(story.headline)
+                        }
+                    }.listStyle(.inset(alternatesRowBackgrounds: true))
+                //}
+            } label: {
+                Text("Stories").font(.title3)
             }
-        }
-        .navigationDestination(for: Story.StoryId.self) { storyId in
-            if let storyBinding = $episodeViewModel[chosenEpisodeId].stories.first(where: {$0.id == storyId}) {
-                StoryEditView(story: storyBinding)
-            }
+            
         }
 
-        .pickerStyle(.menu)
-    
-        .navigationTitle("Episode Editor")
+            
+            
+//        Form {
+//
+//            Section {
+//                LabeledContent("Language:") {
+//                    Text(chosenEpisode.language.displayName)
+//                        .foregroundColor(.secondary)
+//                }
+//
+//                TextField("Narrator:", text: chosenEpisodeBinding.narrator, prompt: Text("Narrator"))
+//
+//                Picker("Voice Provider:", selection: chosenEpisodeBinding.podcastVoice.speechProvider) {
+//                    ForEach(availableProviders, id: \.self) {provider in
+//                        Text(provider.displayName)
+//                    }
+//                }
+//
+//                Picker("Synthetic Voice Identifier:", selection: chosenEpisodeBinding.podcastVoice) {
+//                    ForEach(availableVoices, id: \.self) {voice in
+//                        Text(voice.name)
+//                    }
+//                }
+//
+//                Text("Add high-quality voices through the Mac's Preferences. Find more information [here](https://support.apple.com/de-de/guide/mac-help/mchlp2290/mac).")
+//                    .font(.caption)
+//
+//            } header: {
+//                Text("Basics").font(.title)
+//            }
+//
+//
+//
+//        }
+//        .padding()
         
-        .sheet(isPresented: $showingSheet) {
-            PodcastRenderView(chosenEpisodeId: chosenEpisodeId)
-                .environmentObject(episodeViewModel)
-        }
+        
+        
+        
+        
+        
+        
+//        Form {
+//
+//            Section {
+//                HStack {
+//                    Text("Language")
+//                    Spacer()
+//                    Text(chosenEpisode.language.displayName)
+//                        .foregroundColor(.secondary)
+//                }
+//            } header: {
+//                Text("Language")
+//            } footer: {
+//                Text("The episode language cannot be changed.")
+//            }
+//
+//
+//            Section {
+//
+//                HStack {
+//                    Text("Narrator")
+//                    Spacer()
+//                    TextField("Name", text: chosenEpisodeBinding.narrator)
+//                        .multilineTextAlignment(.trailing)
+//                }
+//            } header: {
+//                Text("General")
+//            }
+//            footer: {
+//                Text("This replaces the {narrator} token.")
+//            }
+//
+//            Section {
+//                Picker("Voice Provider", selection: chosenEpisodeBinding.podcastVoice.speechProvider) {
+//                    ForEach(availableProviders, id: \.self) {provider in
+//                        Text(provider.displayName)
+//                    }
+//                }
+//
+//                Picker("Synthetic Voice Identifier", selection: chosenEpisodeBinding.podcastVoice) {
+//                    ForEach(availableVoices, id: \.self) {voice in
+//                        Text(voice.name)
+//                    }
+//                }
+//            }
+//            header: {
+//                Text("Voice")
+//            }
+//            footer: {
+//                //Text(voiceExplanationText)
+//                HStack {
+//                    Text("Add high-quality voices through").padding(.trailing, 0)
+//                    #if os(iOS)
+//                    Link("System Settings.", destination: URL(string: UIApplication.openSettingsURLString)! ).font(.footnote).padding(.leading, 0)
+//                    #else
+//                    Text("System Settings.").font(.footnote).padding(.leading, 0)
+//                    #endif
+//                    Text("More information can be found in this [Apple support article](https://support.apple.com/en-us/HT202362). Restart the app after adding a new voice.")
+//                    Spacer()
+//                }
+//            }
+//
+//            Section("Stories") {
+//                ForEach(chosenEpisode.stories) {story in
+//                    NavigationLink(value: story.id) {
+//                        Label {
+//                            Text(story.headline)
+//                        } icon: {
+//                            Image(systemName: story.usedInIntroduction ? "star.fill" : "star")
+//                        }
+//
+//                    }
+//                }
+//                .onDelete(perform: onDelete)
+//                .onMove(perform: onMove)
+//            }
+//
+//            // Extra buttons to create and import stories
+//            Section {
+//                Button {
+//
+//                    // create empty story
+//                    let storyId = episodeViewModel.appendEmptyStoryToChosenEpisode(chosenEpisodeId: chosenEpisodeId)
+//
+//                    // put storyId on the navigation stack - this way, StoryEditView is called
+//                    episodeViewModel.navigationPath.append(storyId)
+//                } label: {
+//                    Text("Add Story")
+//                }
+//
+//                Button {
+//                    print("Add code to import episode here.")
+//                } label: {
+//                    Text("Import Story")
+//                }
+//            }
+//
+//            Section {
+//                Button {
+//                    showingSheet = true
+//                } label: {
+//                    Text("Produce Podcast")
+//                }
+//
+//            }
+//        }
+//        .navigationDestination(for: Story.StoryId.self) { storyId in
+//            if let storyBinding = $episodeViewModel[chosenEpisodeId].stories.first(where: {$0.id == storyId}) {
+//                StoryEditView(story: storyBinding)
+//            }
+//        }
+//
+//        .pickerStyle(.menu)
+//
+//        .navigationTitle("Episode Editor")
+//
+//        .sheet(isPresented: $showingSheet) {
+//            PodcastRenderView(chosenEpisodeId: chosenEpisodeId)
+//                .environmentObject(episodeViewModel)
+//        }
         
     }
 }
@@ -209,6 +299,7 @@ struct MainEditView_Previews: PreviewProvider {
             
             MainEditView(chosenEpisodeId: firstEpisodeId)
                 .environmentObject(episodeViewModel)
+                .frame(width:400)
             
         } else {
             Text("No episode to display")
