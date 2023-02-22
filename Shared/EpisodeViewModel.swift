@@ -53,7 +53,7 @@ class EpisodeViewModel: ObservableObject {
             //chosenEpisode.narrator = narratorName
         }
     }
-        
+     
     /// The URL under which the all Episode data is stored
     private var episodeDataURL: URL {
         let fileName = "episodeData.json"
@@ -62,17 +62,22 @@ class EpisodeViewModel: ObservableObject {
         return fileUrl
     }
     
+    /// The id of the first episode
+    var firstEpisodeId: UUID? {
+        
+        var firstEpisodeId: UUID? = nil
+        if availableEpisodes.count > 0 {
+            firstEpisodeId = availableEpisodes[0].id
+        }
+        return firstEpisodeId
+    }
     
-    // this is used in combine
-    private var subscriptions = Set<AnyCancellable>()
-    
+        
     init() {
         
         // restore UserDefaults
         newTemplateNarratorName = UserDefaults.standard.string(forKey: "newTemplateNarratorName") ?? ""
-        
-        // linking published properties via subscriptions
-        
+                
         // load episode data - if there is any
         if let episodesFromDisk = loadEpisodes() {
             self.availableEpisodes = episodesFromDisk
@@ -236,6 +241,8 @@ class EpisodeViewModel: ObservableObject {
         
         return episodeIndex
     }
+    
+
 
 }
 

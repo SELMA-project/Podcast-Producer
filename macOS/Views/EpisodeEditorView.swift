@@ -202,10 +202,14 @@ struct MainEditView: View {
 struct MainEditView_Previews: PreviewProvider {
     
     static var previews: some View {
+        
         let episodeViewModel = EpisodeViewModel()
-        if episodeViewModel.availableEpisodes.count > 0 {
-            let firstEpisodeId = episodeViewModel.availableEpisodes[0].id
+        
+        if let firstEpisodeId = episodeViewModel.firstEpisodeId {
+            
             MainEditView(chosenEpisodeId: firstEpisodeId)
+                .environmentObject(episodeViewModel)
+            
         } else {
             Text("No episode to display")
         }
