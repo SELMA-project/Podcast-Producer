@@ -23,6 +23,9 @@ struct Sidebar: View {
         
         // remove
         episodeViewModel.availableEpisodes.remove(atOffsets: offsets)
+        
+        // save remaining episodes
+        episodeViewModel.saveEpisodes()
     }
     
     var body: some View {

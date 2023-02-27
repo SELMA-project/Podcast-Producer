@@ -293,7 +293,7 @@ struct MainEditView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        let episodeViewModel = EpisodeViewModel()
+        let episodeViewModel = EpisodeViewModel(createPlaceholderEpisode: true)
         
         if let firstEpisodeId = episodeViewModel.firstEpisodeId {
             

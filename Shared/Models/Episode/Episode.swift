@@ -70,14 +70,25 @@ struct Episode: Identifiable, Hashable, Codable {
         
         sections.append(section)
     }
-    
-//    func generateBuildingBlocks() -> [BuildingBlock] {
-//        return [BuildingBlock]()
-//    }
-//    
+       
     static var standard: Episode {
         let podcastVoice = VoiceManager.shared.proposedVoice(forLanguageCode: "en-US")
-        let episode = Episode(language: .english, narrator: "<no narrator>", podcastVoice: podcastVoice, creationDate: Date(), restrictHeadlinesToHighLights: true)
+        var episode = Episode(language: .english, narrator: "<no narrator>", podcastVoice: podcastVoice, creationDate: Date(), restrictHeadlinesToHighLights: true)
+        
+        let story0 = Story(usedInIntroduction: true,
+                           headline: "Kyiv denies Russian forces have captured Yahidne",
+                           storyText: "Moscow's mercenary Wagner group has been 'unsuccessful' in seizing several areas around the eastern city of Bakhmut, Ukraine's military said. Putin repeats claims the West wants to liquidate Russia.")
+        
+        let story1 = Story(usedInIntroduction: true,
+                           headline: "Mexico: Thousands protest electoral reforms",
+                           storyText: "Once enacted, the electoral body reforms would reduce salaries and funding for local election offices. Additionally, they would lessen sanctions for candidates who fail to report campaign spending.")
+        
+        let story2 = Story(usedInIntroduction: false,
+                           headline: "Germany: Left Party, Wagenknecht clash after 'peace' rally",
+                           storyText: "After a contentious 'peace rally' in Berlin that critics said was a platform for Russian propaganda, the socialist Left Party and prominent member Sahra Wagenknecht, who arranged the demo, continued to trade blows.")
+        
+        episode.stories = [story0, story1, story2]
+        
         return episode
     }
     

@@ -73,7 +73,7 @@ class EpisodeViewModel: ObservableObject {
     }
     
         
-    init() {
+    init(createPlaceholderEpisode: Bool = false) {
         
         // restore UserDefaults
         newTemplateNarratorName = UserDefaults.standard.string(forKey: "newTemplateNarratorName") ?? ""
@@ -84,6 +84,11 @@ class EpisodeViewModel: ObservableObject {
         } else {
             // if no data is avaiable from disk we start with an empty array of available episodes
             self.availableEpisodes = [Episode]()
+        }
+        
+        if createPlaceholderEpisode {
+            let newEpisode = Episode.standard
+            availableEpisodes.append(newEpisode)
         }
     }
     
@@ -137,7 +142,7 @@ class EpisodeViewModel: ObservableObject {
     }
         
     /// Save all availableEpisodes to disk as JSON
-    private func saveEpisodes() {
+    func saveEpisodes() {
         
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(availableEpisodes) {
