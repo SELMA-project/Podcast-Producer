@@ -10,7 +10,7 @@ import CoreData
 
 struct ContentView: View {
     
-    @StateObject var episodeViewModel = EpisodeViewModel()
+    @StateObject var episodeViewModel = EpisodeViewModel(createPlaceholderEpisode: false)
     @State private var chosenEpisodeId: UUID?
 
     var body: some View {
@@ -32,6 +32,8 @@ struct ContentView: View {
                                 Image(systemName: "slider.horizontal.3")
                             }.disabled(chosenEpisodeId == nil)
                         }
+                        
+                        
                         
                     }
                     .navigationDestination(for: String.self) { _ in

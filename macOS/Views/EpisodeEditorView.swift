@@ -15,10 +15,20 @@ struct EpisodeEditorView: View {
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
     var body: some View {
+        
+        
         if let chosenEpisodeId  {
-            
-            MainEditView(chosenEpisodeId: chosenEpisodeId)
-
+                        
+            GeometryReader{geometry in
+                HSplitView {
+                    MainEditView(chosenEpisodeId: chosenEpisodeId)
+                        .frame(minWidth:550, idealWidth: 550, maxWidth: .infinity, minHeight: geometry.size.height)
+        
+                    
+                    Text("Right").frame(minWidth:200, idealWidth: 200, maxWidth: .infinity)
+                }.frame(width: geometry.size.width, height: geometry.size.height)
+            }
+                        
         } else {
             if episodeViewModel.availableEpisodes.count == 0 {
                 Text("Please create an Episode.")
@@ -80,152 +90,98 @@ struct MainEditView: View {
             
             GroupBox {
                 
-                Form {
-                    LabeledContent("Language:") {
-                        Text(chosenEpisode.language.displayName)
-                            .foregroundColor(.secondary)
-                    }
+                VStack(alignment: .leading) {
                     
-                    TextField("Narrator:", text: chosenEpisodeBinding.narrator, prompt: Text("Narrator"))
-                    
-                    Picker("Voice Provider:", selection: chosenEpisodeBinding.podcastVoice.speechProvider) {
-                        ForEach(availableProviders, id: \.self) {provider in
-                            Text(provider.displayName)
+                    Text("Podcast Settings").font(.title3)
+  
+                    Form {
+                        
+                        LabeledContent("Language:") {
+                            Text(chosenEpisode.language.displayName)
+                                .foregroundColor(.secondary)
                         }
-                    }
-                    
-                    Picker("Synthetic Voice Identifier:", selection: chosenEpisodeBinding.podcastVoice) {
-                        ForEach(availableVoices, id: \.self) {voice in
-                            Text(voice.name)
+                        
+                        TextField("Narrator:", text: chosenEpisodeBinding.narrator, prompt: Text("Narrator"))
+                        
+                        Picker("Voice Provider:", selection: chosenEpisodeBinding.podcastVoice.speechProvider) {
+                            ForEach(availableProviders, id: \.self) {provider in
+                                Text(provider.displayName)
+                            }
                         }
-                    }
-                    
-                    Text("Add high-quality voices through the Mac's Preferences. Find more information [here](https://support.apple.com/de-de/guide/mac-help/mchlp2290/mac).")
-                        .font(.caption)
+                        
+                        Picker("Synthetic Voice Identifier:", selection: chosenEpisodeBinding.podcastVoice) {
+                            ForEach(availableVoices, id: \.self) {voice in
+                                Text(voice.name)
+                            }
+                        }
+                        
+                        Text("Add high-quality voices through the Mac's Preferences.\nFind more information [here](https://support.apple.com/de-de/guide/mac-help/mchlp2290/mac).")
+                            .font(.caption)
+                            .lineLimit(3,reservesSpace: true)
+                        
+                        
+                        
+                    }.padding()
                 }.padding()
                 
-            } label: {
-                Text("Podcast Settings").font(.title3)
-                //Label("End-User Agreement", systemImage: "building.columns").font(.title)
-            }
-            
+            }.padding()
             
             GroupBox {
-                //Form {
+                
+                VStack(alignment: .leading) {
+  
+                    Text("Stories").font(.title3)
+                    
                     List {
                         ForEach(chosenEpisode.stories) {story in
-                            Text(story.headline)
+                            NavigationLink(value: story.id) {
+                                Label {
+                                    Text(story.headline)
+                                } icon: {
+                                    Image(systemName: story.usedInIntroduction ? "star.fill" : "star")
+                                }
+                            }
                         }
-                    }.listStyle(.inset(alternatesRowBackgrounds: true))
-                //}
-            } label: {
-                Text("Stories").font(.title3)
+                        .onDelete(perform: onDelete)
+                        .onMove(perform: onMove)
+                    }
+                    .listStyle(.inset(alternatesRowBackgrounds: true))
+                    .navigationDestination(for: Story.StoryId.self) { storyId in
+                        if let storyBinding = $episodeViewModel[chosenEpisodeId].stories.first(where: {$0.id == storyId}) {
+                            //StoryEditView(story: storyBinding)
+                            
+                        }
+                    }
+                    
+                }.padding()
+                
+            }.padding()
+    
+            
+        }
+        .sheet(isPresented: $showingSheet) {
+            PodcastRenderView(chosenEpisodeId: chosenEpisodeId)
+                .environmentObject(episodeViewModel)
+        }
+        .toolbar {
+            
+            ToolbarItem() {
+                Button {
+                    showingSheet = true
+                } label: {
+                    //Text("Produce Podcast")
+                    Image(systemName: "record.circle")
+                }
             }
             
         }
 
+
             
             
-//        Form {
-//
-//            Section {
-//                LabeledContent("Language:") {
-//                    Text(chosenEpisode.language.displayName)
-//                        .foregroundColor(.secondary)
-//                }
-//
-//                TextField("Narrator:", text: chosenEpisodeBinding.narrator, prompt: Text("Narrator"))
-//
-//                Picker("Voice Provider:", selection: chosenEpisodeBinding.podcastVoice.speechProvider) {
-//                    ForEach(availableProviders, id: \.self) {provider in
-//                        Text(provider.displayName)
-//                    }
-//                }
-//
-//                Picker("Synthetic Voice Identifier:", selection: chosenEpisodeBinding.podcastVoice) {
-//                    ForEach(availableVoices, id: \.self) {voice in
-//                        Text(voice.name)
-//                    }
-//                }
-//
-//                Text("Add high-quality voices through the Mac's Preferences. Find more information [here](https://support.apple.com/de-de/guide/mac-help/mchlp2290/mac).")
-//                    .font(.caption)
-//
-//            } header: {
-//                Text("Basics").font(.title)
-//            }
-//
-//
-//
-//        }
-//        .padding()
+
         
         
-        
-        
-        
-        
-        
-//        Form {
-//
-//            Section {
-//                HStack {
-//                    Text("Language")
-//                    Spacer()
-//                    Text(chosenEpisode.language.displayName)
-//                        .foregroundColor(.secondary)
-//                }
-//            } header: {
-//                Text("Language")
-//            } footer: {
-//                Text("The episode language cannot be changed.")
-//            }
-//
-//
-//            Section {
-//
-//                HStack {
-//                    Text("Narrator")
-//                    Spacer()
-//                    TextField("Name", text: chosenEpisodeBinding.narrator)
-//                        .multilineTextAlignment(.trailing)
-//                }
-//            } header: {
-//                Text("General")
-//            }
-//            footer: {
-//                Text("This replaces the {narrator} token.")
-//            }
-//
-//            Section {
-//                Picker("Voice Provider", selection: chosenEpisodeBinding.podcastVoice.speechProvider) {
-//                    ForEach(availableProviders, id: \.self) {provider in
-//                        Text(provider.displayName)
-//                    }
-//                }
-//
-//                Picker("Synthetic Voice Identifier", selection: chosenEpisodeBinding.podcastVoice) {
-//                    ForEach(availableVoices, id: \.self) {voice in
-//                        Text(voice.name)
-//                    }
-//                }
-//            }
-//            header: {
-//                Text("Voice")
-//            }
-//            footer: {
-//                //Text(voiceExplanationText)
-//                HStack {
-//                    Text("Add high-quality voices through").padding(.trailing, 0)
-//                    #if os(iOS)
-//                    Link("System Settings.", destination: URL(string: UIApplication.openSettingsURLString)! ).font(.footnote).padding(.leading, 0)
-//                    #else
-//                    Text("System Settings.").font(.footnote).padding(.leading, 0)
-//                    #endif
-//                    Text("More information can be found in this [Apple support article](https://support.apple.com/en-us/HT202362). Restart the app after adding a new voice.")
-//                    Spacer()
-//                }
-//            }
 //
 //            Section("Stories") {
 //                ForEach(chosenEpisode.stories) {story in
@@ -299,7 +255,7 @@ struct MainEditView_Previews: PreviewProvider {
             
             MainEditView(chosenEpisodeId: firstEpisodeId)
                 .environmentObject(episodeViewModel)
-                .frame(width:400)
+                .frame(width:400, height: 600)
             
         } else {
             Text("No episode to display")
