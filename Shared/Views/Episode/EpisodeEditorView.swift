@@ -15,15 +15,30 @@ struct EpisodeEditorView: View {
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
     var body: some View {
-        if let chosenEpisodeId  {
-            
-            MainEditView(chosenEpisodeId: chosenEpisodeId)
-
-        } else {
-            if episodeViewModel.availableEpisodes.count == 0 {
-                Text("Please create an Episode.")
+        
+        Group {
+            if let chosenEpisodeId  {
+                
+                MainEditView(chosenEpisodeId: chosenEpisodeId)
+                
             } else {
-                Text("Please choose an Episode.")
+                if episodeViewModel.availableEpisodes.count == 0 {
+                    Text("Please create an Episode.")
+                } else {
+                    Text("Please choose an Episode.")
+                }
+            }
+        }
+        .toolbar {
+            ToolbarItem() {
+                NavigationLink(value: "Structure") {
+                    Image(systemName: "slider.horizontal.3")
+                }.disabled(chosenEpisodeId == nil)
+            }
+        }
+        .navigationDestination(for: String.self) { _ in
+            if let chosenEpisodeId {
+                StructureEditorView(chosenEpisodeId: chosenEpisodeId)
             }
         }
     }

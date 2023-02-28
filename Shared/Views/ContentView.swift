@@ -25,22 +25,7 @@ struct ContentView: View {
             NavigationStack(path: $episodeViewModel.navigationPath) {
                 
                 EpisodeEditorView(chosenEpisodeId: chosenEpisodeId)
-                    .toolbar {
-                        
-                        ToolbarItem() {
-                            NavigationLink(value: "Structure") {
-                                Image(systemName: "slider.horizontal.3")
-                            }.disabled(chosenEpisodeId == nil)
-                        }
-                        
-                        
-                        
-                    }
-                    .navigationDestination(for: String.self) { _ in
-                        if let chosenEpisodeId {
-                            StructureEditorView(chosenEpisodeId: chosenEpisodeId)
-                        }
-                    }
+
             }
         }.onAppear {
             episodeViewModel.runStartupRoutine()
