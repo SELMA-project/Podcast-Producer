@@ -10,6 +10,7 @@ import SwiftUI
 struct EpisodeEditorStoriesListView: View {
     
     var chosenEpisodeId: UUID
+    @Binding var chosenStoryId: Story.StoryId?
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     //@State var providerName: String = "SELMA"
@@ -44,26 +45,24 @@ struct EpisodeEditorStoriesListView: View {
 
                 Text("Stories").font(.title3)
                 
-                List {
+                List(selection: $chosenStoryId) {
                     ForEach(chosenEpisode.stories) {story in
-                        NavigationLink(value: story.id) {
-                            Label {
-                                Text(story.headline)
-                            } icon: {
-                                Image(systemName: story.usedInIntroduction ? "star.fill" : "star")
-                            }
+                        Label {
+                            Text(story.headline)
+                        } icon: {
+                            Image(systemName: story.usedInIntroduction ? "star.fill" : "star")
                         }
                     }
                     .onDelete(perform: onDelete)
                     .onMove(perform: onMove)
                 }
                 .listStyle(.inset(alternatesRowBackgrounds: true))
-                .navigationDestination(for: Story.StoryId.self) { storyId in
-                    if let storyBinding = $episodeViewModel[chosenEpisodeId].stories.first(where: {$0.id == storyId}) {
-                        //StoryEditView(story: storyBinding)
-                        
-                    }
-                }
+//                .navigationDestination(for: Story.StoryId.self) { storyId in
+//                    if let storyBinding = $episodeViewModel[chosenEpisodeId].stories.first(where: {$0.id == storyId}) {
+//                        //StoryEditView(story: storyBinding)
+//
+//                    }
+//                }
                 
             }.padding()
             
@@ -78,7 +77,7 @@ struct EpisodeEditorStoriesListView_Previews: PreviewProvider {
         let episodeViewModel = EpisodeViewModel(createPlaceholderEpisode: true)
         if let firstEpisodeId = episodeViewModel.firstEpisodeId {
             
-            EpisodeEditorStoriesListView(chosenEpisodeId: firstEpisodeId)
+            EpisodeEditorStoriesListView(chosenEpisodeId: firstEpisodeId, chosenStoryId: .constant(nil))
                 .padding()
                 .environmentObject(episodeViewModel)
                 .frame(width:550, height: 600)

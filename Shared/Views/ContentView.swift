@@ -10,7 +10,7 @@ import CoreData
 
 struct ContentView: View {
     
-    @StateObject var episodeViewModel = EpisodeViewModel(createPlaceholderEpisode: false)
+    @StateObject var episodeViewModel = EpisodeViewModel(createPlaceholderEpisode: true)
     @State private var chosenEpisodeId: UUID?
 
     var body: some View {

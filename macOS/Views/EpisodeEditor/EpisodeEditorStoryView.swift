@@ -8,13 +8,28 @@
 import SwiftUI
 
 struct EpisodeEditorStoryView: View {
+    
+    var storyId: Story.StoryId?
+    
+    var contentView: some View {
+        ZStack {
+            if let storyId {
+                Text("Title")
+                    .font(.title3)
+                Text("\(storyId.internalId)")
+            } else {
+                Text("No story was selected.")
+            }
+        }
+    }
+    
     var body: some View {
         GroupBox {
-            
+                        
             VStack {
                 VStack {
                     HStack {
-                        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+                        contentView
                         Spacer()
                     }
                     Spacer()
@@ -26,6 +41,6 @@ struct EpisodeEditorStoryView: View {
 
 struct EpisodeEditorStoryView_Previews: PreviewProvider {
     static var previews: some View {
-        EpisodeEditorStoryView()
+        EpisodeEditorStoryView(storyId: nil)
     }
 }

@@ -15,10 +15,13 @@ struct EpisodeEditorView: View {
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
     /// Constrols visibility of the inspector
-    @State var inspectorIsVisible: Bool = true
+    @State var inspectorIsVisible: Bool = false
     
     /// Showing PodcastRenderViewSheet?
     @State private var showingSheet = false
+    
+    // Which story is chosen?
+    @State private var chosenStoryId: Story.StoryId?
     
     var body: some View {
         
@@ -27,17 +30,21 @@ struct EpisodeEditorView: View {
                 
                 HStack(spacing: 0) {
                     HStack {
-                        MainEditView(chosenEpisodeId: chosenEpisodeId)
-                            .frame(width: 550)
+                        VStack {
+                            EpisodeEditorSettingsView(chosenEpisodeId: chosenEpisodeId)
+                            EpisodeEditorStoriesListView(chosenEpisodeId: chosenEpisodeId, chosenStoryId: $chosenStoryId)
+                        }
+                        .frame(width: 550)
                     
-                        EpisodeEditorStoryView()
+                        EpisodeEditorStoryView(storyId: chosenStoryId)
                             
                     }
 
                     .padding()
                     
                     StructureEditorView(chosenEpisodeId: chosenEpisodeId)
-                        .frame(width: inspectorIsVisible ? 200 : 0)
+                        .frame(width:  inspectorIsVisible ? 200 : 0)
+                        .opacity(inspectorIsVisible ? 1 : 0 )
                     
                 }
                 
@@ -98,40 +105,3 @@ struct EpisodeEditorView_Previews: PreviewProvider {
 }
 
 
-struct MainEditView: View {
-    
-    var chosenEpisodeId: UUID
-    
-    @EnvironmentObject var episodeViewModel: EpisodeViewModel
-
-
-        
-    var body: some View {
-        
-        VStack {
-            
-            EpisodeEditorSettingsView(chosenEpisodeId: chosenEpisodeId)
-            EpisodeEditorStoriesListView(chosenEpisodeId: chosenEpisodeId)
-        }
-
-
-    }
-}
-
-struct MainEditView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        
-        let episodeViewModel = EpisodeViewModel(createPlaceholderEpisode: true)
-        if let firstEpisodeId = episodeViewModel.firstEpisodeId {
-            
-            MainEditView(chosenEpisodeId: firstEpisodeId)
-                .environmentObject(episodeViewModel)
-                .frame(width:550, height: 600)
-            
-        } else {
-            Text("No episode to display")
-        }
-        
-    }
-}
