@@ -13,7 +13,6 @@ struct EpisodeEditorStoriesListView: View {
     @Binding var chosenStoryId: Story.StoryId?
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
-    //@State var providerName: String = "SELMA"
     
     /// Showing PodcastRenderViewSheet?
     @State private var showingSheet = false
@@ -43,7 +42,7 @@ struct EpisodeEditorStoriesListView: View {
             
             VStack(alignment: .leading) {
 
-                Text("Stories").font(.title3)
+                Text("Stories").font(.title2)
                 
                 List(selection: $chosenStoryId) {
                     ForEach(chosenEpisode.stories) {story in
@@ -57,12 +56,6 @@ struct EpisodeEditorStoriesListView: View {
                     .onMove(perform: onMove)
                 }
                 .listStyle(.inset(alternatesRowBackgrounds: true))
-//                .navigationDestination(for: Story.StoryId.self) { storyId in
-//                    if let storyBinding = $episodeViewModel[chosenEpisodeId].stories.first(where: {$0.id == storyId}) {
-//                        //StoryEditView(story: storyBinding)
-//
-//                    }
-//                }
                 
             }.padding()
             

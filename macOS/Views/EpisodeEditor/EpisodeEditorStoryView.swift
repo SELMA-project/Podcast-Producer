@@ -9,38 +9,39 @@ import SwiftUI
 
 struct EpisodeEditorStoryView: View {
     
-    var storyId: Story.StoryId?
-    
-    var contentView: some View {
-        ZStack {
-            if let storyId {
-                Text("Title")
-                    .font(.title3)
-                Text("\(storyId.internalId)")
-            } else {
-                Text("No story was selected.")
-            }
-        }
-    }
-    
+    @Binding var story: Story
+
+    @EnvironmentObject var episodeViewModel: EpisodeViewModel
+        
     var body: some View {
         GroupBox {
-                        
-            VStack {
-                VStack {
-                    HStack {
-                        contentView
-                        Spacer()
+
+            ZStack {
+                HStack {
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("Headline").font(.title2)
+                            Spacer()
+                            Toggle("Highlight story", isOn: $story.usedInIntroduction)
+                        }
+                        TextField("Title", text: $story.headline, prompt: Text("Story Headline"), axis: .vertical)
+                            .font(.title3)
+                    
+                        Text("Text").font(.title2).padding(.top)
+                        TextEditor(text: $story.storyText).font(.title3)
                     }
-                    Spacer()
+                    .padding()
+                    
                 }
-            }
+            }.frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }
 
 struct EpisodeEditorStoryView_Previews: PreviewProvider {
     static var previews: some View {
-        EpisodeEditorStoryView(storyId: nil)
+        
+        EpisodeEditorStoryView(story: .constant(Story.mockup))
+            .padding()
     }
 }

@@ -23,6 +23,19 @@ struct EpisodeEditorView: View {
     // Which story is chosen?
     @State private var chosenStoryId: Story.StoryId?
     
+    var chosenStoryBinding: Binding<Story>? {
+        // if we have selected a story through it's id
+        if let chosenStoryId {
+            // get associated story and return it
+            if let storyBinding = $episodeViewModel[chosenEpisodeId].stories.first(where: {$0.id == chosenStoryId}) {
+                return storyBinding
+            }
+        }
+        
+        // by default, return nil
+        return nil
+    }
+    
     var body: some View {
         
         Group {
@@ -35,8 +48,15 @@ struct EpisodeEditorView: View {
                             EpisodeEditorStoriesListView(chosenEpisodeId: chosenEpisodeId, chosenStoryId: $chosenStoryId)
                         }
                         .frame(width: 550)
-                    
-                        EpisodeEditorStoryView(storyId: chosenStoryId)
+                        
+                        if let chosenStoryBinding {
+                            EpisodeEditorStoryView(story: chosenStoryBinding)
+                        } else {
+                            GroupBox {
+                                Text("Please select a story.")
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            }
+                        }
                             
                     }
 

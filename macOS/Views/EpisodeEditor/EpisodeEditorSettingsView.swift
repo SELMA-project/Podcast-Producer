@@ -47,7 +47,7 @@ struct EpisodeEditorSettingsView: View {
             
             VStack(alignment: .leading) {
                 
-                Text("Podcast Settings").font(.title3)
+                Text("Podcast Settings").font(.title2)
 
                 Form {
                     

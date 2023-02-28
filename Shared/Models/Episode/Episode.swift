@@ -24,6 +24,14 @@ struct Story: Equatable, Identifiable, Hashable, Codable {
     var usedInIntroduction: Bool
     var headline: String
     var storyText: String
+    
+    static var mockup: Story {
+        let story = Story(usedInIntroduction: true,
+                          headline: "Kyiv denies Russian forces have captured Yahidne",
+                          storyText: "Moscow's mercenary Wagner group has been 'unsuccessful' in seizing several areas around the eastern city of Bakhmut, Ukraine's military said. Putin repeats claims the West wants to liquidate Russia.")
+        return story
+    }
+    
 }
 
 
