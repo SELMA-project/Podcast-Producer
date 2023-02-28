@@ -25,17 +25,20 @@ struct EpisodeEditorView: View {
         Group {
             if let chosenEpisodeId  {
                 
-                HStack {
+                HStack(spacing: 0) {
                     HStack {
                         MainEditView(chosenEpisodeId: chosenEpisodeId)
                             .frame(width: 550)
                     
                         EpisodeEditorStoryView()
-                    }.padding()
+                            
+                    }
 
-                    Rectangle()
-                        .foregroundColor(.red)
+                    .padding()
+                    
+                    StructureEditorView(chosenEpisodeId: chosenEpisodeId)
                         .frame(width: inspectorIsVisible ? 200 : 0)
+                    
                 }
                 
             } else {
