@@ -113,6 +113,7 @@
 		C1C97197290C2E66008DACB3 /* GithubCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C97195290C2E66008DACB3 /* GithubCreationView.swift */; };
 		C1CF37AF29840C4700134E75 /* TemplateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CF37AE29840C4700134E75 /* TemplateManager.swift */; };
 		C1CF37B029840C4700134E75 /* TemplateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CF37AE29840C4700134E75 /* TemplateManager.swift */; };
+		C1D3F48629ADF51100DC4E1A /* EpisodeEditorStoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D3F48529ADF51100DC4E1A /* EpisodeEditorStoryView.swift */; };
 		C1D946FD29A3A35800B70A83 /* MacTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D946FC29A3A35800B70A83 /* MacTestView.swift */; };
 		C1E4C71A29A4D1350040826F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5927AD472600A72AEB /* ContentView.swift */; };
 		C1F5602728D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
@@ -180,6 +181,7 @@
 		C1C703BB29ACB81900E05BFF /* MacSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacSplitView.swift; sourceTree = "<group>"; };
 		C1C97195290C2E66008DACB3 /* GithubCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubCreationView.swift; sourceTree = "<group>"; };
 		C1CF37AE29840C4700134E75 /* TemplateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateManager.swift; sourceTree = "<group>"; };
+		C1D3F48529ADF51100DC4E1A /* EpisodeEditorStoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorStoryView.swift; sourceTree = "<group>"; };
 		C1D946FC29A3A35800B70A83 /* MacTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacTestView.swift; sourceTree = "<group>"; };
 		C1F5602628D4765900E573E2 /* no-audio.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "no-audio.m4a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -387,6 +389,7 @@
 				C1A3F61029A60BA2009BA0BE /* EpisodeEditorView.swift */,
 				C19249A729ADE932007022E5 /* EpisodeEditorSettingsView.swift */,
 				C19249A929ADEA85007022E5 /* EpisodeEditorStoriesListView.swift */,
+				C1D3F48529ADF51100DC4E1A /* EpisodeEditorStoryView.swift */,
 				C1C703BB29ACB81900E05BFF /* MacSplitView.swift */,
 			);
 			path = Views;
@@ -610,6 +613,7 @@
 				C1491F7027AD472700A72AEB /* Persistence.swift in Sources */,
 				C191062E28FEEBAA00B81231 /* EpisodeCreationView.swift in Sources */,
 				C1C703BC29ACB81900E05BFF /* MacSplitView.swift in Sources */,
+				C1D3F48629ADF51100DC4E1A /* EpisodeEditorStoryView.swift in Sources */,
 				C19249A829ADE932007022E5 /* EpisodeEditorSettingsView.swift in Sources */,
 				C1491F6A27AD472700A72AEB /* Podcast_Producer.xcdatamodeld in Sources */,
 				C1543A0D28A2A64300427ED0 /* EpisodeViewModel.swift in Sources */,
