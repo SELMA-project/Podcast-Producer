@@ -78,6 +78,17 @@ struct EpisodeEditorView: View {
         }
         .toolbar {
             
+            // Add new story botton
+            ToolbarItem() {
+                Button {
+                    chosenStoryId = episodeViewModel.appendEmptyStoryToChosenEpisode(chosenEpisodeId: chosenEpisodeId)
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                }
+                .disabled(chosenEpisodeId == nil)
+            }
+            
+            // Produce Podcast button
             ToolbarItem() {
                 Button {
                     showingSheet = true
@@ -87,6 +98,7 @@ struct EpisodeEditorView: View {
                 }
             }
             
+            // Show structure inspector button
             ToolbarItem() {
                 Button {
                     withAnimation {
