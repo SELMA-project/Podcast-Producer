@@ -31,12 +31,8 @@ struct PodcastRenderView: View {
         return paths[0]
     }
     
-    func save() {
+    func save(toURL destinationUrl: URL) {
         if let audioURL {
-            
-            let filename = audioURL.lastPathComponent
-            
-            let destinationUrl = getDownloadsDirectory().appendingPathComponent(filename)
             
             do {
                 try FileManager.default.copyItem(at: audioURL, to: destinationUrl)
@@ -46,6 +42,31 @@ struct PodcastRenderView: View {
         }
     }
     
+    func showSavePanel() -> URL? {
+        
+        var returnedURL: URL? = nil
+        
+        if let audioURL {
+            
+            let savePanel = NSSavePanel()
+            //savePanel.allowedContentTypes = []
+            savePanel.canCreateDirectories = true
+            savePanel.isExtensionHidden = false
+            savePanel.nameFieldStringValue = audioURL.lastPathComponent
+            //savePanel.allowsOtherFileTypes = false
+            savePanel.title = "Save audio"
+            savePanel.message = "Choose a folder and a name to store your audio."
+            savePanel.nameFieldLabel = "File name:"
+            let response = savePanel.runModal()
+            
+            if response == .OK {
+                returnedURL = savePanel.url
+            }
+            
+        }
+        
+        return returnedURL
+    }
     var body: some View {
        
         VStack(alignment: .leading) {
@@ -58,10 +79,46 @@ struct PodcastRenderView: View {
             Text("Render the podcast to convert the text in each section into synthesized speech while adding additional audio elements.")
                 .font(.caption)
             
-            Divider()//.padding([.top, .bottom])
+
             
             HStack {
                                 
+//                Button {
+//                    Task {
+//
+//                        progressValue = 50
+//                        progressText = "Synthesizing speech..."
+//                        audioURL = await episodeViewModel.renderEpisode(chosenEpisodeId: chosenEpisodeId)
+//
+//                        progressValue = 100
+//                        progressText = "Ready for sharing."
+//                    }
+//                } label: {
+//                    Text("Build")
+//                        .frame(maxWidth: .infinity)
+//                }
+//                .disabled(audioURL != nil)
+//                .buttonStyle(.borderedProminent)
+//                .frame(maxWidth: 100)
+//
+//                ProgressView(progressText, value: progressValue, total: 100)
+//                    .opacity(renderProgressIsVisible ? 1 : 0)
+//
+
+            }
+            
+
+
+            // display audio player if we have an audio URL
+            AudioPlayerView(audioURL: audioURL)
+                .padding([.top, .bottom])
+
+            Divider()//.padding([.top, .bottom])
+
+            
+            HStack {
+                
+                
                 Button {
                     Task {
                         
@@ -83,18 +140,6 @@ struct PodcastRenderView: View {
                 ProgressView(progressText, value: progressValue, total: 100)
                     .opacity(renderProgressIsVisible ? 1 : 0)
  
-
-            }
-            
-
-
-
-            // display audio player if we have an audio URL
-            AudioPlayerView(audioURL: audioURL)
-                .padding([.top, .bottom])
-
-            
-            HStack {
                 Spacer()
   
                 Button {
@@ -104,10 +149,15 @@ struct PodcastRenderView: View {
                 }
                 
                 Button {
-                    save()
+                    if let destionationURL = showSavePanel() {
+                        save(toURL: destionationURL)
+                    }
+                    
+                    dismissAction()
+                    
                 } label: {
-                    Text("Download Audio")
-                }
+                    Text("Save Audio")
+                }.disabled(audioURL == nil)
             }
         }
     }
