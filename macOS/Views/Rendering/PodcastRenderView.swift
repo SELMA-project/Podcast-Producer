@@ -23,6 +23,29 @@ struct PodcastRenderView: View {
         return progressValue > 0 && progressValue  < 100
     }
     
+    func getDownloadsDirectory() -> URL {
+        // find all possible download directories for this user
+        let paths = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)
+
+        // just send back the first one, which ought to be the only one
+        return paths[0]
+    }
+    
+    func save() {
+        if let audioURL {
+            
+            let filename = audioURL.lastPathComponent
+            
+            let destinationUrl = getDownloadsDirectory().appendingPathComponent(filename)
+            
+            do {
+                try FileManager.default.copyItem(at: audioURL, to: destinationUrl)
+            } catch {
+                print("Error while saving file: \(destinationUrl.absoluteString)")
+            }
+        }
+    }
+    
     var body: some View {
        
         VStack(alignment: .leading) {
@@ -81,9 +104,9 @@ struct PodcastRenderView: View {
                 }
                 
                 Button {
-                    print("Clicked save.")
+                    save()
                 } label: {
-                    Text("Save Audio")
+                    Text("Download Audio")
                 }
             }
         }
