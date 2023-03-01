@@ -62,8 +62,12 @@ struct EpisodeEditorView: View {
 
                     .padding()
                     
+                    Divider()
+                    
                     StructureEditorView(chosenEpisodeId: chosenEpisodeId)
+                        .padding()
                         .frame(width:  inspectorIsVisible ? 400 : 0)
+                        //.clipped()
                         .opacity(inspectorIsVisible ? 1 : 0 )
                     
                 }
