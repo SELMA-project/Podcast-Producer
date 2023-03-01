@@ -221,6 +221,7 @@
 		C11A239928F2E0F00022263B /* Obsolete */ = {
 			isa = PBXGroup;
 			children = (
+				C191062C28FEEBAA00B81231 /* EpisodeCreationView.swift */,
 				C1BA7EBD28AA92270090573B /* AudioRenderView.swift */,
 				C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */,
 				C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */,
@@ -352,8 +353,6 @@
 			isa = PBXGroup;
 			children = (
 				C14A102629113213004DBB67 /* Sidebar.swift */,
-				C14B1E6E290C2801000748FA /* TemplateCreationView.swift */,
-				C1C97195290C2E66008DACB3 /* GithubCreationView.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -380,7 +379,6 @@
 			isa = PBXGroup;
 			children = (
 				C1756AB928A1198D00FE9F2B /* EpisodeEditorView.swift */,
-				C191062C28FEEBAA00B81231 /* EpisodeCreationView.swift */,
 				C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */,
 			);
 			path = Episode;
@@ -396,6 +394,15 @@
 				C1491F5A27AD472600A72AEB /* Persistence.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		C1D86DBC29AF5A1000388700 /* EpisodeCreation */ = {
+			isa = PBXGroup;
+			children = (
+				C14B1E6E290C2801000748FA /* TemplateCreationView.swift */,
+				C1C97195290C2E66008DACB3 /* GithubCreationView.swift */,
+			);
+			path = EpisodeCreation;
 			sourceTree = "<group>";
 		};
 		C1D927E629AF3E39006BCF84 /* Rendering */ = {
@@ -422,6 +429,7 @@
 			children = (
 				C1491F5927AD472600A72AEB /* ContentView.swift */,
 				C1BC0A6C299659ED00ABE597 /* Sidebar */,
+				C1D86DBC29AF5A1000388700 /* EpisodeCreation */,
 				C1BC0A6F29965AE900ABE597 /* Episode */,
 				C1BC0A6E29965AB500ABE597 /* Structure */,
 				C1BC0A6D29965A8400ABE597 /* Rendering */,
