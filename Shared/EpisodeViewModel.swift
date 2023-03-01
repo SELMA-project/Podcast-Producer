@@ -134,7 +134,9 @@ class EpisodeViewModel: ObservableObject {
         let storyNumber =  self[chosenEpisodeId].stories.count + 1
         
         // create empty story
-        let story = Story(usedInIntroduction: true, headline: "Headline \(storyNumber)", storyText: "")
+        let headline = "" //"Headline \(storyNumber)"
+        let storyText = ""
+        let story = Story(usedInIntroduction: true, headline: headline, storyText: storyText)
         
         // add  to chosen episode
         self[chosenEpisodeId].stories.append(story)

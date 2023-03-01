@@ -72,7 +72,6 @@
 		C1491F7227AD472700A72AEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1491F5B27AD472700A72AEB /* Assets.xcassets */; };
 		C1495733296D7AFF00C70E40 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1495732296D7AFF00C70E40 /* AudioPlayerView.swift */; };
 		C14A102729113213004DBB67 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14A102629113213004DBB67 /* Sidebar.swift */; };
-		C14B1E6F290C2801000748FA /* TemplateCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B1E6E290C2801000748FA /* TemplateCreationView.swift */; };
 		C14B1E70290C2801000748FA /* TemplateCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B1E6E290C2801000748FA /* TemplateCreationView.swift */; };
 		C14CEA2A28F1948A00B8DFC8 /* StandardSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */; };
 		C14CEA2B28F1948A00B8DFC8 /* StandardSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */; };
@@ -113,6 +112,7 @@
 		C1CF37AF29840C4700134E75 /* TemplateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CF37AE29840C4700134E75 /* TemplateManager.swift */; };
 		C1CF37B029840C4700134E75 /* TemplateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CF37AE29840C4700134E75 /* TemplateManager.swift */; };
 		C1D3F48629ADF51100DC4E1A /* EpisodeEditorStoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D3F48529ADF51100DC4E1A /* EpisodeEditorStoryView.swift */; };
+		C1D86DBF29AF5E6400388700 /* TemplateCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D86DBE29AF5E6400388700 /* TemplateCreationView.swift */; };
 		C1D927E529AF3E32006BCF84 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D927E429AF3E32006BCF84 /* AudioPlayerView.swift */; };
 		C1D946FD29A3A35800B70A83 /* MacTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D946FC29A3A35800B70A83 /* MacTestView.swift */; };
 		C1E4C71A29A4D1350040826F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5927AD472600A72AEB /* ContentView.swift */; };
@@ -184,6 +184,7 @@
 		C1C97195290C2E66008DACB3 /* GithubCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubCreationView.swift; sourceTree = "<group>"; };
 		C1CF37AE29840C4700134E75 /* TemplateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateManager.swift; sourceTree = "<group>"; };
 		C1D3F48529ADF51100DC4E1A /* EpisodeEditorStoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorStoryView.swift; sourceTree = "<group>"; };
+		C1D86DBE29AF5E6400388700 /* TemplateCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCreationView.swift; sourceTree = "<group>"; };
 		C1D927E429AF3E32006BCF84 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		C1D946FC29A3A35800B70A83 /* MacTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacTestView.swift; sourceTree = "<group>"; };
 		C1F5602628D4765900E573E2 /* no-audio.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "no-audio.m4a"; sourceTree = "<group>"; };
@@ -399,8 +400,16 @@
 		C1D86DBC29AF5A1000388700 /* EpisodeCreation */ = {
 			isa = PBXGroup;
 			children = (
-				C14B1E6E290C2801000748FA /* TemplateCreationView.swift */,
+				C1D86DBE29AF5E6400388700 /* TemplateCreationView.swift */,
 				C1C97195290C2E66008DACB3 /* GithubCreationView.swift */,
+			);
+			path = EpisodeCreation;
+			sourceTree = "<group>";
+		};
+		C1D86DBD29AF5E4000388700 /* EpisodeCreation */ = {
+			isa = PBXGroup;
+			children = (
+				C14B1E6E290C2801000748FA /* TemplateCreationView.swift */,
 			);
 			path = EpisodeCreation;
 			sourceTree = "<group>";
@@ -418,8 +427,9 @@
 			isa = PBXGroup;
 			children = (
 				C17E86C229AE0C80004E5750 /* StructureEditorView.swift */,
-				C1D927E629AF3E39006BCF84 /* Rendering */,
+				C1D86DBD29AF5E4000388700 /* EpisodeCreation */,
 				C17E86C129AE0C4E004E5750 /* EpisodeEditor */,
+				C1D927E629AF3E39006BCF84 /* Rendering */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -612,7 +622,7 @@
 				C1491F6D27AD472700A72AEB /* ContentView.swift in Sources */,
 				C1BA7EC828AB82300090573B /* SelmaAPI.swift in Sources */,
 				C11DBB6B28DDEDA2003E426D /* SelmaVoice.swift in Sources */,
-				C14B1E6F290C2801000748FA /* TemplateCreationView.swift in Sources */,
+				C1D86DBF29AF5E6400388700 /* TemplateCreationView.swift in Sources */,
 				C15F6D57296D58D800BA567D /* PodcastRenderView.swift in Sources */,
 				C1A3F60E29A60A77009BA0BE /* View+if.swift in Sources */,
 				C1C97196290C2E66008DACB3 /* GithubCreationView.swift in Sources */,
