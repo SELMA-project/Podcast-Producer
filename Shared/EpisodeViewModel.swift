@@ -131,7 +131,7 @@ class EpisodeViewModel: ObservableObject {
     
     func appendEmptyStoryToChosenEpisode(chosenEpisodeId: UUID?) -> Story.StoryId {
                 
-        let storyNumber =  self[chosenEpisodeId].stories.count + 1
+        // let storyNumber =  self[chosenEpisodeId].stories.count + 1
         
         // create empty story
         let headline = "" //"Headline \(storyNumber)"
