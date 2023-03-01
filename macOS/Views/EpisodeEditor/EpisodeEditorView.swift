@@ -113,7 +113,10 @@ struct EpisodeEditorView: View {
         }
         .sheet(isPresented: $showingSheet) {
             PodcastRenderView(chosenEpisodeId: chosenEpisodeId)
+                .padding()
+                .frame(width: 450)
                 .environmentObject(episodeViewModel)
+
         }
     }
 }

@@ -86,9 +86,10 @@ class EpisodeViewModel: ObservableObject {
             self.availableEpisodes = [Episode]()
         }
         
-        if createPlaceholderEpisode {
-            let newEpisode = Episode.standard
-            availableEpisodes.append(newEpisode)
+        // if there are no episodes -> create an english episode and append it to the list of episodes
+        if createPlaceholderEpisode && self.availableEpisodes.count == 0 {
+            let template = TemplateManager.shared.availableTemplates(forLanguage: .english)[0]
+            addEpisode(basedOnTemplate: template)
         }
     }
     
