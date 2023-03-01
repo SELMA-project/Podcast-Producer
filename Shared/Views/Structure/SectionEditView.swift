@@ -196,9 +196,9 @@ struct SectionEditView_Previews: PreviewProvider {
         let section = EpisodeSection(type: .standard, name: "Introduction")
         let episodeViewModel = EpisodeViewModel()
         
-        if episodeViewModel.availableEpisodes.count > 0 {
-            let firstEpisodeId = episodeViewModel.availableEpisodes[0].id
+        if let firstEpisodeId = episodeViewModel.firstEpisodeId {
             SectionEditView(chosenEpisodeId: firstEpisodeId, section: .constant(section))
+                .environmentObject(episodeViewModel)
         } else {
             Text("No episode to display")
         }

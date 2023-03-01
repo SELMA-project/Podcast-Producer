@@ -82,8 +82,6 @@
 		C1543A0F28A2A69C00427ED0 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1543A0E28A2A69C00427ED0 /* Episode.swift */; };
 		C1543A1028A2A69C00427ED0 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1543A0E28A2A69C00427ED0 /* Episode.swift */; };
 		C15F6D57296D58D800BA567D /* PodcastRenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15F6D56296D58D800BA567D /* PodcastRenderView.swift */; };
-		C170D76829A37A9F00309559 /* SectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C170D76729A37A9F00309559 /* SectionEditView.swift */; };
-		C170D76929A37A9F00309559 /* SectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C170D76729A37A9F00309559 /* SectionEditView.swift */; };
 		C1756ABD28A13D3700FE9F2B /* StoryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */; };
 		C1756ABE28A13D3700FE9F2B /* StoryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */; };
 		C176AB0E28CF7A3B00E2804D /* AudioEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C176AB0D28CF7A3B00E2804D /* AudioEpisode.swift */; };
@@ -113,6 +111,8 @@
 		C1CF37B029840C4700134E75 /* TemplateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CF37AE29840C4700134E75 /* TemplateManager.swift */; };
 		C1D3F48629ADF51100DC4E1A /* EpisodeEditorStoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D3F48529ADF51100DC4E1A /* EpisodeEditorStoryView.swift */; };
 		C1D86DBF29AF5E6400388700 /* TemplateCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D86DBE29AF5E6400388700 /* TemplateCreationView.swift */; };
+		C1D86DC329AF664600388700 /* SectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D86DC229AF664600388700 /* SectionEditView.swift */; };
+		C1D86DC429AF669000388700 /* SectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C170D76729A37A9F00309559 /* SectionEditView.swift */; };
 		C1D927E529AF3E32006BCF84 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D927E429AF3E32006BCF84 /* AudioPlayerView.swift */; };
 		C1D946FD29A3A35800B70A83 /* MacTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D946FC29A3A35800B70A83 /* MacTestView.swift */; };
 		C1E4C71A29A4D1350040826F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5927AD472600A72AEB /* ContentView.swift */; };
@@ -185,6 +185,7 @@
 		C1CF37AE29840C4700134E75 /* TemplateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateManager.swift; sourceTree = "<group>"; };
 		C1D3F48529ADF51100DC4E1A /* EpisodeEditorStoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorStoryView.swift; sourceTree = "<group>"; };
 		C1D86DBE29AF5E6400388700 /* TemplateCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCreationView.swift; sourceTree = "<group>"; };
+		C1D86DC229AF664600388700 /* SectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditView.swift; sourceTree = "<group>"; };
 		C1D927E429AF3E32006BCF84 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		C1D946FC29A3A35800B70A83 /* MacTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacTestView.swift; sourceTree = "<group>"; };
 		C1F5602628D4765900E573E2 /* no-audio.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "no-audio.m4a"; sourceTree = "<group>"; };
@@ -414,6 +415,15 @@
 			path = EpisodeCreation;
 			sourceTree = "<group>";
 		};
+		C1D86DC129AF662800388700 /* Structure */ = {
+			isa = PBXGroup;
+			children = (
+				C17E86C229AE0C80004E5750 /* StructureEditorView.swift */,
+				C1D86DC229AF664600388700 /* SectionEditView.swift */,
+			);
+			path = Structure;
+			sourceTree = "<group>";
+		};
 		C1D927E629AF3E39006BCF84 /* Rendering */ = {
 			isa = PBXGroup;
 			children = (
@@ -426,9 +436,9 @@
 		C1ECCC1F29A3BDE200C1241F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C17E86C229AE0C80004E5750 /* StructureEditorView.swift */,
 				C1D86DBD29AF5E4000388700 /* EpisodeCreation */,
 				C17E86C129AE0C4E004E5750 /* EpisodeEditor */,
+				C1D86DC129AF662800388700 /* Structure */,
 				C1D927E629AF3E39006BCF84 /* Rendering */,
 			);
 			path = Views;
@@ -601,6 +611,7 @@
 				C1BA7EBE28AA92270090573B /* AudioRenderView.swift in Sources */,
 				C1491F6B27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */,
 				C11A239B28F30B300022263B /* EpisodeTemplate.swift in Sources */,
+				C1D86DC429AF669000388700 /* SectionEditView.swift in Sources */,
 				C1CF37AF29840C4700134E75 /* TemplateManager.swift in Sources */,
 				C17E86C429AE0CC5004E5750 /* StructureEditorView.swift in Sources */,
 				C176AB0E28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
@@ -618,7 +629,6 @@
 				C1BA7EC128AA93280090573B /* AudioManager.swift in Sources */,
 				C11021A3290026D1005AA554 /* PodcastVoice.swift in Sources */,
 				C14CEA2A28F1948A00B8DFC8 /* StandardSectionEditView.swift in Sources */,
-				C170D76829A37A9F00309559 /* SectionEditView.swift in Sources */,
 				C1491F6D27AD472700A72AEB /* ContentView.swift in Sources */,
 				C1BA7EC828AB82300090573B /* SelmaAPI.swift in Sources */,
 				C11DBB6B28DDEDA2003E426D /* SelmaVoice.swift in Sources */,
@@ -664,10 +674,10 @@
 				C11013A329A4CD600082D667 /* Sidebar.swift in Sources */,
 				C1E4C71A29A4D1350040826F /* ContentView.swift in Sources */,
 				C1D927E529AF3E32006BCF84 /* AudioPlayerView.swift in Sources */,
-				C170D76929A37A9F00309559 /* SectionEditView.swift in Sources */,
 				C1BA7EC928AB82300090573B /* SelmaAPI.swift in Sources */,
 				C11DBB6C28DDEDA2003E426D /* SelmaVoice.swift in Sources */,
 				C14B1E70290C2801000748FA /* TemplateCreationView.swift in Sources */,
+				C1D86DC329AF664600388700 /* SectionEditView.swift in Sources */,
 				C1A3F61129A60BA9009BA0BE /* EpisodeEditorView.swift in Sources */,
 				C1C97197290C2E66008DACB3 /* GithubCreationView.swift in Sources */,
 				C1262F9028E323DF00F3C725 /* ScriptParser.swift in Sources */,
