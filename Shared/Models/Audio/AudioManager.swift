@@ -51,7 +51,11 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
             
         case .Apple:
             let appleVoiceIdentifier = podcastVoice.identifier
-            success = await SpeechManager.shared.renderAppleSpeech(voiceIdentifier: appleVoiceIdentifier, text: text, toURL: fileURL)
+            success = await AppleSpeechManager.shared.renderAppleSpeech(voiceIdentifier: appleVoiceIdentifier, text: text, toURL: fileURL)
+
+        case .ElevenLabs:
+            let voiceIdentifier = podcastVoice.identifier
+            success = await ElevenLabsVoiceManager.shared.renderSpeech(voiceIdentifier: voiceIdentifier, text: text, toURL: fileURL, stability: 0.4, similarityBoost: 1.0)
             
         default:
             print("I don't know yet how to render speech for \(podcastVoice.speechProvider.displayName)")
@@ -273,7 +277,7 @@ extension AudioManager {
         // prefix audio
         segmentId = audioEpisode.addSegment()
         audioUrl = episodeSection.prefixAudioFile.url
-        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
+        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl, volume: 0.5)
         
         
         // ********* MAIN Segment *********
@@ -336,7 +340,7 @@ extension AudioManager {
         
         // add background audio to the same segment
         audioUrl = episodeSection.mainAudioFile.url
-        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl, delay: 0.0, volume: 0.5, fadeIn: 0.0, fadeOut: 0.0, isLoopingBackgroundTrack: true)
+        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl, delay: 0.0, volume: 0.3, fadeIn: 0.0, fadeOut: 0.0, isLoopingBackgroundTrack: true)
         
         
         // ********* SUFFIX Segment *********
@@ -344,7 +348,7 @@ extension AudioManager {
         // add suffix audio to a new segment
         segmentId = audioEpisode.addSegment()
         audioUrl = episodeSection.suffixAudioFile.url
-        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
+        audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl, volume: 0.5)
         
     }
     

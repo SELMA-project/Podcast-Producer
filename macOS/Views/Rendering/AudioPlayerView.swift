@@ -74,7 +74,7 @@ struct AudioPlayerView: View {
                 }
                 .buttonStyle(.plain)
                 
-                ProgressView(value: 40, total: 100)
+                ProgressView(value: 0, total: 100)
                     //.hidden()
             }.frame(height:30)
         }

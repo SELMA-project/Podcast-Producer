@@ -81,6 +81,17 @@ struct EpisodeEditorView: View {
             }
         }
         .toolbar {
+
+            // Add new story botton
+            ToolbarItem() {
+                Button {
+                    print("Import stories")
+                } label: {
+                    Image(systemName: "square.and.arrow.down.on.square")
+                }
+                .disabled(chosenEpisodeId == nil)
+                .help("Import MONITIO stories")
+            }
             
             // Add new story botton
             ToolbarItem() {
@@ -90,6 +101,7 @@ struct EpisodeEditorView: View {
                     Image(systemName: "square.and.pencil")
                 }
                 .disabled(chosenEpisodeId == nil)
+                .help("Add story")
             }
             
             // Produce Podcast button
@@ -97,9 +109,10 @@ struct EpisodeEditorView: View {
                 Button {
                     showingSheet = true
                 } label: {
-                    //Text("Produce Podcast")
+                    //Text("Create Podcast")
                     Image(systemName: "record.circle")
                 }
+                .help("Create audio podcast")
             }
             
             // Show structure inspector button
@@ -113,6 +126,7 @@ struct EpisodeEditorView: View {
                     Image(systemName: "slider.horizontal.3")
                 }
                 .disabled(chosenEpisodeId == nil)
+                .help("Edit podcast structure")
             }
         }
         .sheet(isPresented: $showingSheet) {

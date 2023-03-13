@@ -10,7 +10,7 @@ import AVFoundation
 
 
 enum SpeechProvider: String, CaseIterable, Codable {
-    case SELMA, Apple, EuroVOX
+    case SELMA, Apple, EuroVOX, ElevenLabs
     
     var displayName: String {
         return rawValue
@@ -25,6 +25,7 @@ class VoiceManager {
     var appleVoices: [PodcastVoice] = []
     var selmaVoices: [PodcastVoice] = []
     var eurovoxVoices: [PodcastVoice] = []
+    var elevenLabsVoices: [PodcastVoice] = []
     
     init() {
         
@@ -37,6 +38,7 @@ class VoiceManager {
         self.appleVoices =  findSuitableAppleVoices()
         self.selmaVoices =  findSuitableSelmaVoices()
         self.eurovoxVoices =  findSuitableEurovoxVoices()
+        self.elevenLabsVoices =  findSuitableElevenLabsVoices()
     }
     
     /// Proposes a voice based on the given locale
@@ -102,11 +104,11 @@ class VoiceManager {
     /// Returns all voices for given language and provider
     func availableVoices(forLanguage language: LanguageManager.Language, forProvider provider: SpeechProvider) -> [PodcastVoice] {
         
-        // all voice sdharing the same speech provider
-        let voiceOfSameProvider = voicesForSpeechProvider(provider)
+        // all voice sharing the same speech provider
+        let voicesOfSameProvider = voicesForSpeechProvider(provider)
         
         // filter to find those voices sharing the same language
-        let relatedVoices = voiceOfSameProvider.filter {$0.languageCode == language.isoCode}
+        let relatedVoices = voicesOfSameProvider.filter {$0.languageCode == language.isoCode}
         
         return relatedVoices
     }
@@ -119,6 +121,7 @@ class VoiceManager {
         case .Apple: return appleVoices
         case .SELMA: return selmaVoices
         case .EuroVOX: return eurovoxVoices
+        case .ElevenLabs: return elevenLabsVoices
         }
         
     }
@@ -126,6 +129,16 @@ class VoiceManager {
     // TODO: Add voices
     private func findSuitableEurovoxVoices()  -> [PodcastVoice] {
         return []
+    }
+
+    private func findSuitableElevenLabsVoices()  -> [PodcastVoice] {
+        // prepare result
+        var returnedVoices = [PodcastVoice]()
+        
+        let andysVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "en-US", identifier: "Andy")
+        returnedVoices.append(andysVoice)
+        
+        return returnedVoices
     }
     
     /// All available SELMA voices
