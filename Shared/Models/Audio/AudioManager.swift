@@ -318,7 +318,7 @@ extension AudioManager {
                 // add separator, except for the last headline
                 if storyIndex < storiesUsedForHeadlines.count - 1 {
                     audioUrl = episodeSection.separatorAudioFile.url
-                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
+                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl, volume: 0.4)
                 }
                 
             }
@@ -332,7 +332,7 @@ extension AudioManager {
                 // add separator, except for the last story
                 if storyIndex < stories.count - 1 {
                     audioUrl = episodeSection.separatorAudioFile.url
-                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl)
+                    audioEpisode.addAudioTrack(toSegmentId: segmentId, url: audioUrl, volume: 0.4)
                 }
                 
             }

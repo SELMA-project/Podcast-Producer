@@ -27,7 +27,8 @@ struct ContentView: View {
                 EpisodeEditorView(chosenEpisodeId: chosenEpisodeId)
 
             }
-        }.onAppear {
+        }
+        .onAppear {
             episodeViewModel.runStartupRoutine()
         }
         
