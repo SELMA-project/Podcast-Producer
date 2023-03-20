@@ -15,7 +15,7 @@ struct EpisodeEditorView: View {
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
     /// Constrols visibility of the inspector
-    @State var inspectorIsVisible: Bool = false
+    @State var showingStructureEditor: Bool = false
     
     /// Showing PodcastRenderViewSheet?
     @State private var showingPodcastRenderView = false
@@ -104,11 +104,11 @@ struct EpisodeEditorView: View {
                 .help("Create audio podcast")
             }
             
-            // Show structure inspector button
+            // Show structure editor button
             ToolbarItem() {
                 Button {
                     withAnimation {
-                        inspectorIsVisible.toggle()
+                        showingStructureEditor.toggle()
                     }
                     
                 } label: {
@@ -125,7 +125,7 @@ struct EpisodeEditorView: View {
                 .environmentObject(episodeViewModel)
 
         }
-        .sheet(isPresented: $inspectorIsVisible) {
+        .sheet(isPresented: $showingStructureEditor) {
             if let chosenEpisodeId  {
                 StructureEditorView(chosenEpisodeId: chosenEpisodeId)
                     .padding()
