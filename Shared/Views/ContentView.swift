@@ -31,9 +31,10 @@ struct ContentView: View {
         .onAppear {
             episodeViewModel.runStartupRoutine()
         }
-        
         .environmentObject(episodeViewModel)
-        
+        #if os(macOS)
+        .frame(minWidth: 1200, minHeight: 600)
+        #endif
     }
 
 }

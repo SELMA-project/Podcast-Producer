@@ -18,7 +18,7 @@ struct EpisodeEditorView: View {
     @State var inspectorIsVisible: Bool = false
     
     /// Showing PodcastRenderViewSheet?
-    @State private var showingSheet = false
+    @State private var showingPodcastRenderView = false
     
     // Which story is chosen?
     @State private var chosenStoryId: Story.StoryId?
@@ -59,17 +59,6 @@ struct EpisodeEditorView: View {
                         }
                             
                     }
-
-                    .padding()
-                    
-                    Divider()
-                    
-                    StructureEditorView(chosenEpisodeId: chosenEpisodeId)
-                        .padding()
-                        .frame(width:  inspectorIsVisible ? 400 : 0)
-                        //.clipped()
-                        .opacity(inspectorIsVisible ? 1 : 0 )
-                    
                 }
                 
             } else {
@@ -107,7 +96,7 @@ struct EpisodeEditorView: View {
             // Produce Podcast button
             ToolbarItem() {
                 Button {
-                    showingSheet = true
+                    showingPodcastRenderView = true
                 } label: {
                     //Text("Create Podcast")
                     Image(systemName: "record.circle")
@@ -129,12 +118,19 @@ struct EpisodeEditorView: View {
                 .help("Edit podcast structure")
             }
         }
-        .sheet(isPresented: $showingSheet) {
+        .sheet(isPresented: $showingPodcastRenderView) {
             PodcastRenderView(chosenEpisodeId: chosenEpisodeId)
                 .padding()
                 .frame(width: 450)
                 .environmentObject(episodeViewModel)
 
+        }
+        .sheet(isPresented: $inspectorIsVisible) {
+            if let chosenEpisodeId  {
+                StructureEditorView(chosenEpisodeId: chosenEpisodeId)
+                    .padding()
+                    .frame(width: 500, height: 500)
+            }
         }
     }
 }

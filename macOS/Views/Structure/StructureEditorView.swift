@@ -11,6 +11,7 @@ struct StructureEditorView: View {
     
     var chosenEpisodeId: UUID
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
+    @Environment(\.dismiss) var dismissAction
     
     var episodeSections: [EpisodeSection] {
         let sections = episodeViewModel[chosenEpisodeId].sections
@@ -19,33 +20,42 @@ struct StructureEditorView: View {
     
     var body: some View {
         
-
-            
-        VStack(alignment: .leading) {
-            
-            Text("Structure").font(.title)
-            
-            ForEach(episodeSections) {section in
-                DisclosureGroup {
-                    // get the section's index
-                    if let sectionIndex = episodeViewModel[chosenEpisodeId].sections.firstIndex(where: {$0.id == section.id}) {
-                        // use it to get a binding to the section
-                        let sectionBinding = $episodeViewModel[chosenEpisodeId].sections[sectionIndex]
-                        
-                        // call SectionEditView
-                        SectionEditView(chosenEpisodeId: chosenEpisodeId, section: sectionBinding)
-                            .padding(.top)
-                    }
-                } label: {
-                    Text(section.name)
-                        .bold()
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(alignment: .leading) {
+                
+                // Title next to a dismiss button
+                HStack {
+                    Text("Structure").font(.title)
+                    Spacer()
+                    Button {
+                        dismissAction()
+                    } label: {
+                        Image(systemName: "x.circle")
+                            .font(.title3)
+                    }.buttonStyle(.borderless)
                 }
+                
+                ForEach(episodeSections) {section in
+                    DisclosureGroup {
+                        // get the section's index
+                        if let sectionIndex = episodeViewModel[chosenEpisodeId].sections.firstIndex(where: {$0.id == section.id}) {
+                            // use it to get a binding to the section
+                            let sectionBinding = $episodeViewModel[chosenEpisodeId].sections[sectionIndex]
+                            
+                            // call SectionEditView
+                            SectionEditView(chosenEpisodeId: chosenEpisodeId, section: sectionBinding)
+                                .padding(.top)
+                        }
+                    } label: {
+                        Text(section.name)
+                            .bold()
+                    }
+                }
+                
+                Spacer()
             }
-            
-            Spacer()
         }
-        // fix ideal size horizontally and vertically
-        //.fixedSize(horizontal: true, vertical: false)
+ 
 
        
     }
