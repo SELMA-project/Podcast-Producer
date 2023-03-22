@@ -58,7 +58,15 @@ struct EpisodeEditorStoriesListView: View {
                 .listStyle(.inset(alternatesRowBackgrounds: true))
                 
             }.padding()
-            
+        }
+        .dropDestination(for: Data.self) { dataArray, _ in
+            Task {
+                if let dwArticle = await DWManager.shared.extractDWArticle(fromDataArray: dataArray) {
+                    let _ = episodeViewModel.appendStory(parsedFromDWArticle: dwArticle, toChosenEpisode: chosenEpisodeId)
+                }
+                
+            }
+            return true
         }
 
     }

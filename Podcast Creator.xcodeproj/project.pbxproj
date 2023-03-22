@@ -117,6 +117,12 @@
 		C1D86DC429AF669000388700 /* SectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C170D76729A37A9F00309559 /* SectionEditView.swift */; };
 		C1D927E529AF3E32006BCF84 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D927E429AF3E32006BCF84 /* AudioPlayerView.swift */; };
 		C1D946FD29A3A35800B70A83 /* MacTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D946FC29A3A35800B70A83 /* MacTestView.swift */; };
+		C1DDB07129CB4800001D1C07 /* DWArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DDB06E29CB4800001D1C07 /* DWArticle.swift */; };
+		C1DDB07229CB4800001D1C07 /* DWArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DDB06E29CB4800001D1C07 /* DWArticle.swift */; };
+		C1DDB07329CB4800001D1C07 /* DWManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DDB06F29CB4800001D1C07 /* DWManager.swift */; };
+		C1DDB07429CB4800001D1C07 /* DWManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DDB06F29CB4800001D1C07 /* DWManager.swift */; };
+		C1DDB07529CB4800001D1C07 /* DWArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DDB07029CB4800001D1C07 /* DWArticleView.swift */; };
+		C1DDB07629CB4800001D1C07 /* DWArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DDB07029CB4800001D1C07 /* DWArticleView.swift */; };
 		C1E4C71A29A4D1350040826F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5927AD472600A72AEB /* ContentView.swift */; };
 		C1F5602728D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
 		C1F5602828D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
@@ -191,6 +197,9 @@
 		C1D86DC229AF664600388700 /* SectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditView.swift; sourceTree = "<group>"; };
 		C1D927E429AF3E32006BCF84 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		C1D946FC29A3A35800B70A83 /* MacTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacTestView.swift; sourceTree = "<group>"; };
+		C1DDB06E29CB4800001D1C07 /* DWArticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DWArticle.swift; sourceTree = "<group>"; };
+		C1DDB06F29CB4800001D1C07 /* DWManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DWManager.swift; sourceTree = "<group>"; };
+		C1DDB07029CB4800001D1C07 /* DWArticleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DWArticleView.swift; sourceTree = "<group>"; };
 		C1F5602628D4765900E573E2 /* no-audio.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "no-audio.m4a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -282,6 +291,7 @@
 				C1F00B9D290BDA3F0031EBAA /* Views */,
 				C1BC0A7029965B4300ABE597 /* Models */,
 				C189696228B371E1005108E7 /* Audio Files */,
+				C1DDB06D29CB4800001D1C07 /* DW */,
 				C1262F6C28E3236400F3C725 /* Github Scripts */,
 				C1A3F60C29A60A42009BA0BE /* Extensions */,
 				C11A239928F2E0F00022263B /* Obsolete */,
@@ -443,6 +453,16 @@
 				C1D927E429AF3E32006BCF84 /* AudioPlayerView.swift */,
 			);
 			path = Rendering;
+			sourceTree = "<group>";
+		};
+		C1DDB06D29CB4800001D1C07 /* DW */ = {
+			isa = PBXGroup;
+			children = (
+				C1DDB06F29CB4800001D1C07 /* DWManager.swift */,
+				C1DDB06E29CB4800001D1C07 /* DWArticle.swift */,
+				C1DDB07029CB4800001D1C07 /* DWArticleView.swift */,
+			);
+			path = DW;
 			sourceTree = "<group>";
 		};
 		C1ECCC1F29A3BDE200C1241F /* Views */ = {
@@ -634,7 +654,10 @@
 				C14CEA3028F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
 				C110219F28FFFD93005AA554 /* AppleSpeechManager.swift in Sources */,
 				C1491F6F27AD472700A72AEB /* Persistence.swift in Sources */,
+				C1DDB07329CB4800001D1C07 /* DWManager.swift in Sources */,
+				C1DDB07129CB4800001D1C07 /* DWArticle.swift in Sources */,
 				C191062D28FEEBAA00B81231 /* EpisodeCreationView.swift in Sources */,
+				C1DDB07529CB4800001D1C07 /* DWArticleView.swift in Sources */,
 				C1A3F60B29A609A8009BA0BE /* EpisodeEditorView.swift in Sources */,
 				C1491F6927AD472700A72AEB /* Podcast_Producer.xcdatamodeld in Sources */,
 				C1543A0C28A2A64300427ED0 /* EpisodeViewModel.swift in Sources */,
@@ -662,6 +685,7 @@
 				C1756ABE28A13D3700FE9F2B /* StoryEditView.swift in Sources */,
 				C17A0A5629BF7E9300053A57 /* ElevenLabsVoiceManager.swift in Sources */,
 				C1B0977B29117CC3004BDEE3 /* VoiceManager.swift in Sources */,
+				C1DDB07229CB4800001D1C07 /* DWArticle.swift in Sources */,
 				C1BA7EBF28AA92270090573B /* AudioRenderView.swift in Sources */,
 				C1062E9329AF37EC0018939F /* PodcastRenderView.swift in Sources */,
 				C1A3F60F29A60A7B009BA0BE /* View+if.swift in Sources */,
@@ -687,7 +711,9 @@
 				C17E86C329AE0C80004E5750 /* StructureEditorView.swift in Sources */,
 				C11013A329A4CD600082D667 /* Sidebar.swift in Sources */,
 				C1E4C71A29A4D1350040826F /* ContentView.swift in Sources */,
+				C1DDB07629CB4800001D1C07 /* DWArticleView.swift in Sources */,
 				C1D927E529AF3E32006BCF84 /* AudioPlayerView.swift in Sources */,
+				C1DDB07429CB4800001D1C07 /* DWManager.swift in Sources */,
 				C1BA7EC928AB82300090573B /* SelmaAPI.swift in Sources */,
 				C11DBB6C28DDEDA2003E426D /* SelmaVoice.swift in Sources */,
 				C14B1E70290C2801000748FA /* TemplateCreationView.swift in Sources */,

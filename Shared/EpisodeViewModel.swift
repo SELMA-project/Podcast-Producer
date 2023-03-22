@@ -129,20 +129,7 @@ class EpisodeViewModel: ObservableObject {
         saveEpisodes()
     }
     
-    func appendEmptyStoryToChosenEpisode(chosenEpisodeId: UUID?) -> Story.StoryId {
-                
-        // let storyNumber =  self[chosenEpisodeId].stories.count + 1
-        
-        // create empty story
-        let headline = "" //"Headline \(storyNumber)"
-        let storyText = ""
-        let story = Story(usedInIntroduction: true, headline: headline, storyText: storyText)
-        
-        // add  to chosen episode
-        self[chosenEpisodeId].stories.append(story)
-        
-        return story.id
-    }
+
         
     /// Save all availableEpisodes to disk as JSON
     func saveEpisodes() {
@@ -254,4 +241,36 @@ class EpisodeViewModel: ObservableObject {
 
 }
 
+// MARK: Extension to add Stories to Episode
+
+extension EpisodeViewModel {
+    
+    func appendStory(parsedFromDWArticle dwArticle: DWArticle, toChosenEpisode chosenEpisodeId: UUID?)  -> Story.StoryId {
+        
+        // create empty story
+        let headline = dwArticle.name
+        let storyText = dwArticle.formattedText
+        let story = Story(usedInIntroduction: true, headline: headline, storyText: storyText)
+        
+        // add  to chosen episode
+        self[chosenEpisodeId].stories.append(story)
+        
+        return story.id
+    }
+    
+    func appendEmptyStoryToChosenEpisode(chosenEpisodeId: UUID?) -> Story.StoryId {
+                
+        // let storyNumber =  self[chosenEpisodeId].stories.count + 1
+        
+        // create empty story
+        let headline = "" //"Headline \(storyNumber)"
+        let storyText = ""
+        let story = Story(usedInIntroduction: true, headline: headline, storyText: storyText)
+        
+        // add  to chosen episode
+        self[chosenEpisodeId].stories.append(story)
+        
+        return story.id
+    }
+}
 
