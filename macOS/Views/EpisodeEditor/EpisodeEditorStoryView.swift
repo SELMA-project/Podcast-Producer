@@ -12,7 +12,12 @@ struct EpisodeEditorStoryView: View {
     @Binding var story: Story
 
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
-        
+    
+    
+    func mockSummarize() {
+        story.storyText = String(story.storyText.split(separator: "\n")[0])
+    }
+    
     var body: some View {
         GroupBox {
 
@@ -27,7 +32,14 @@ struct EpisodeEditorStoryView: View {
                         TextField("Title", text: $story.headline, prompt: Text("Story Headline"), axis: .vertical)
                             .font(.title3)
                     
-                        Text("Text").font(.title2).padding(.top)
+                        HStack {
+                            Text("Text").font(.title2)
+                            Spacer()
+                            Button("Summarize") {
+                                mockSummarize()
+                            }
+                        }.padding(.top)
+                        
                         TextEditor(text: $story.storyText).font(.title3)
                     }
                     .padding()
