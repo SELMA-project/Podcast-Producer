@@ -73,7 +73,7 @@ struct SectionEditView: View {
                 } header: {
                     Text("Configuration")
                 } footer: {
-                    Text("Activate this toggle to include this story's headline into the introduction.")
+                    Text("Activate this toggle to restrict the introduction to include *only* headlines of highlighted stories.")
                 }
             }
             
