@@ -51,7 +51,13 @@ struct EpisodeEditorStoriesListView: View {
                     Button {
                         print("Import stories")
                     } label: {
-                        Image(systemName: "square.and.arrow.down.on.square")
+                        Image("monitio")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(2)
+                            .frame(width: 20)
+                            //Image(systemName: "square.and.arrow.down.on.square")
+
                     }
                     .help("Import MONITIO stories")
                     
