@@ -82,19 +82,19 @@ class TemplateManager {
         
         case .german:
             templateName = "DW Nachrichten"
-            restrictHeadlinesToHighLights = false
+            restrictHeadlinesToHighLights = true
             introText = "Guten Tag, heute ist {date}. Mein Name ist {narrator} hier sind die neusten Nachrichten."
             outroText = "Das waren die Nachrichten."
 
         case .english:
             templateName = "DW News"
-            restrictHeadlinesToHighLights = false
+            restrictHeadlinesToHighLights = true
             introText = "Greetings. It's {date} and this is DW with the latest news. My name is {narrator}."
             outroText = "These were the news. Come back for more."
             
         case .french:
             templateName = "Info Matin"
-            restrictHeadlinesToHighLights = false
+            restrictHeadlinesToHighLights = true
             introText = "DW Info Matin du {date}. Je m'appelle {narrator}. Bonjour."
             outroText = "Excellente journée à toutes et à tous et rendez-vous demain matin pour une nouvelle émission de Info Matin. A demain!"
         }
