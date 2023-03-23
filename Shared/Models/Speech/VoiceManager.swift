@@ -182,8 +182,8 @@ class VoiceManager {
             if excludeVoice {
                 continue
             }
-            
-            let voice = PodcastVoice(speechProvider: .Apple, languageCode: nativeVoice.language, identifier: nativeVoice.identifier)
+
+            let voice = PodcastVoice(speechProvider: .Apple, languageCode: nativeVoice.language, identifier: "\(nativeVoice.identifier)")
             returnedVoices.append(voice)
         }
         

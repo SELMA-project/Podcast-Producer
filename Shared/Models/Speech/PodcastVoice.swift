@@ -45,11 +45,26 @@ struct PodcastVoice: Hashable, Codable {
     
     var name: String {
         
-        var voiceName: String
+        var voiceName: String = "<unknown>"
         
         switch(speechProvider) {
         case .Apple:
-            voiceName = nativeAppleVoice()?.name ?? "<unknown>"
+            if let nativeAppleVoiceName = nativeAppleVoice()?.name, let nativeAppleVoiceQuality = nativeAppleVoice()?.quality {
+                
+                // start with the voice's name
+                voiceName = "\(nativeAppleVoiceName)"
+                
+                // append quality
+                switch nativeAppleVoiceQuality {
+                case .enhanced:
+                    voiceName += " (enhanced)"
+                case .premium:
+                    voiceName += " (premium)"
+                default:
+                    break
+                }
+                
+            }
         case .SELMA:
             voiceName = nativeSelmaVoice()?.shortName ?? "<unknown>"
         case .ElevenLabs:
