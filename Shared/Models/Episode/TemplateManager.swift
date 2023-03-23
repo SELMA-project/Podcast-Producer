@@ -89,7 +89,7 @@ class TemplateManager {
         case .english:
             templateName = "DW News"
             restrictHeadlinesToHighLights = false
-            introText = "Greetings. It's {date} and this is Deutsche Welle with the latest news. My name is {narrator}."
+            introText = "Greetings. It's {date} and this is DW with the latest news. My name is {narrator}."
             outroText = "These were the news. Come back for more."
             
         case .french:
