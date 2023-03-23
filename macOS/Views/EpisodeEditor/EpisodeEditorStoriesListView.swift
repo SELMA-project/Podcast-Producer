@@ -47,7 +47,7 @@ struct EpisodeEditorStoriesListView: View {
                     
                     Spacer()
                     
-                    // import stories
+                    // Import stories button
                     Button {
                         print("Import stories")
                     } label: {
@@ -55,7 +55,7 @@ struct EpisodeEditorStoriesListView: View {
                     }
                     .help("Import MONITIO stories")
                     
-                    // add story
+                    // Add story button
                     Button {
                         chosenStoryId = episodeViewModel.appendEmptyStoryToChosenEpisode(chosenEpisodeId: chosenEpisodeId)
                     } label: {
