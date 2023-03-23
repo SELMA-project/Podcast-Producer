@@ -42,7 +42,27 @@ struct EpisodeEditorStoriesListView: View {
             
             VStack(alignment: .leading) {
 
-                Text("Stories").font(.title2)
+                HStack {
+                    Text("Stories").font(.title2)
+                    
+                    Spacer()
+                    
+                    // import stories
+                    Button {
+                        print("Import stories")
+                    } label: {
+                        Image(systemName: "square.and.arrow.down.on.square")
+                    }
+                    .help("Import MONITIO stories")
+                    
+                    // add story
+                    Button {
+                        chosenStoryId = episodeViewModel.appendEmptyStoryToChosenEpisode(chosenEpisodeId: chosenEpisodeId)
+                    } label: {
+                        Image(systemName: "square.and.pencil")
+                    }
+                    .help("Add story")
+                }
                 
                 List(selection: $chosenStoryId) {
                     ForEach(chosenEpisode.stories) {story in

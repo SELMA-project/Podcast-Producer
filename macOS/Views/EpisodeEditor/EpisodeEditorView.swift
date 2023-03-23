@@ -71,27 +71,27 @@ struct EpisodeEditorView: View {
         }
         .toolbar {
 
-            // Add new story botton
-            ToolbarItem() {
-                Button {
-                    print("Import stories")
-                } label: {
-                    Image(systemName: "square.and.arrow.down.on.square")
-                }
-                .disabled(chosenEpisodeId == nil)
-                .help("Import MONITIO stories")
-            }
+//            // Add new story botton
+//            ToolbarItem() {
+//                Button {
+//                    print("Import stories")
+//                } label: {
+//                    Image(systemName: "square.and.arrow.down.on.square")
+//                }
+//                .disabled(chosenEpisodeId == nil)
+//                .help("Import MONITIO stories")
+//            }
             
-            // Add new story botton
-            ToolbarItem() {
-                Button {
-                    chosenStoryId = episodeViewModel.appendEmptyStoryToChosenEpisode(chosenEpisodeId: chosenEpisodeId)
-                } label: {
-                    Image(systemName: "square.and.pencil")
-                }
-                .disabled(chosenEpisodeId == nil)
-                .help("Add story")
-            }
+//            // Add new story botton
+//            ToolbarItem() {
+//                Button {
+//                    chosenStoryId = episodeViewModel.appendEmptyStoryToChosenEpisode(chosenEpisodeId: chosenEpisodeId)
+//                } label: {
+//                    Image(systemName: "square.and.pencil")
+//                }
+//                .disabled(chosenEpisodeId == nil)
+//                .help("Add story")
+//            }
             
             // Produce Podcast button
             ToolbarItem() {
