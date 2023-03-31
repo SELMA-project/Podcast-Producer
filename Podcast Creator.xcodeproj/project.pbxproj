@@ -94,6 +94,8 @@
 		C191062E28FEEBAA00B81231 /* EpisodeCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C191062C28FEEBAA00B81231 /* EpisodeCreationView.swift */; };
 		C19249A829ADE932007022E5 /* EpisodeEditorSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19249A729ADE932007022E5 /* EpisodeEditorSettingsView.swift */; };
 		C19249AA29ADEA85007022E5 /* EpisodeEditorStoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19249A929ADEA85007022E5 /* EpisodeEditorStoriesListView.swift */; };
+		C19CB18229D7411900452A19 /* DWUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = C19CB18129D7411900452A19 /* DWUtilities */; };
+		C19CB18429D7412500452A19 /* DWUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = C19CB18329D7412500452A19 /* DWUtilities */; };
 		C1A3F60B29A609A8009BA0BE /* EpisodeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756AB928A1198D00FE9F2B /* EpisodeEditorView.swift */; };
 		C1A3F60E29A60A77009BA0BE /* View+if.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A3F60D29A60A77009BA0BE /* View+if.swift */; };
 		C1A3F60F29A60A7B009BA0BE /* View+if.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A3F60D29A60A77009BA0BE /* View+if.swift */; };
@@ -199,6 +201,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C19CB18229D7411900452A19 /* DWUtilities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,6 +209,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C19CB18429D7412500452A19 /* DWUtilities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +275,7 @@
 				C1491F5527AD472600A72AEB /* Shared */,
 				C1491F6727AD472700A72AEB /* macOS */,
 				C1491F6127AD472700A72AEB /* Products */,
+				C19CB18029D7411900452A19 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -335,6 +340,13 @@
 				C1F5602628D4765900E573E2 /* no-audio.m4a */,
 			);
 			path = "Audio Files";
+			sourceTree = "<group>";
+		};
+		C19CB18029D7411900452A19 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C1A3F60C29A60A42009BA0BE /* Extensions */ = {
@@ -495,6 +507,9 @@
 			dependencies = (
 			);
 			name = "Podcast Creator (iOS)";
+			packageProductDependencies = (
+				C19CB18129D7411900452A19 /* DWUtilities */,
+			);
 			productName = "Podcast Producer (iOS)";
 			productReference = C1491F6027AD472700A72AEB /* Podcast Creator.app */;
 			productType = "com.apple.product-type.application";
@@ -512,6 +527,9 @@
 			dependencies = (
 			);
 			name = "Podcast Creator (macOS)";
+			packageProductDependencies = (
+				C19CB18329D7412500452A19 /* DWUtilities */,
+			);
 			productName = "Podcast Producer (macOS)";
 			productReference = C1491F6627AD472700A72AEB /* Podcast Creator.app */;
 			productType = "com.apple.product-type.application";
@@ -543,6 +561,9 @@
 				Base,
 			);
 			mainGroup = C1491F5027AD472500A72AEB;
+			packageReferences = (
+				C19CB17D29D7410500452A19 /* XCRemoteSwiftPackageReference "DWUtilities" */,
+			);
 			productRefGroup = C1491F6127AD472700A72AEB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -970,6 +991,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C19CB17D29D7410500452A19 /* XCRemoteSwiftPackageReference "DWUtilities" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/agiefer/DWUtilities.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C19CB18129D7411900452A19 /* DWUtilities */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C19CB17D29D7410500452A19 /* XCRemoteSwiftPackageReference "DWUtilities" */;
+			productName = DWUtilities;
+		};
+		C19CB18329D7412500452A19 /* DWUtilities */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C19CB17D29D7410500452A19 /* XCRemoteSwiftPackageReference "DWUtilities" */;
+			productName = DWUtilities;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		C1491F5627AD472600A72AEB /* Podcast_Producer.xcdatamodeld */ = {

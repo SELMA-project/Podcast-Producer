@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "dwutilities",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/agiefer/DWUtilities.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "aff96fe91998a82013460ea403875dfaa2b6acae"
+      }
+    }
+  ],
+  "version" : 2
+}
