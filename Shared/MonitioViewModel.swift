@@ -28,7 +28,7 @@ class MonitioViewModel: ObservableObject {
         Task {
             let apiClusters = await monitioManager.getClusters()
             
-            self.statusMessage = "Fetched \(apiClusters.count) storylines"
+            self.statusMessage = "Fetched \(apiClusters.count) storylines."
         }
     }
     
