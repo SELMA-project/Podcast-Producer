@@ -120,6 +120,7 @@
 		C1D927E529AF3E32006BCF84 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D927E429AF3E32006BCF84 /* AudioPlayerView.swift */; };
 		C1D946FD29A3A35800B70A83 /* MacTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D946FC29A3A35800B70A83 /* MacTestView.swift */; };
 		C1E4C71A29A4D1350040826F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5927AD472600A72AEB /* ContentView.swift */; };
+		C1EBDB7A29E81D640032F664 /* MonitioKit in Frameworks */ = {isa = PBXBuildFile; productRef = C1EBDB7929E81D640032F664 /* MonitioKit */; };
 		C1F5602728D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
 		C1F5602828D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
 /* End PBXBuildFile section */
@@ -202,6 +203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C19CB18229D7411900452A19 /* DWUtilities in Frameworks */,
+				C1EBDB7A29E81D640032F664 /* MonitioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +511,7 @@
 			name = "Podcast Creator (iOS)";
 			packageProductDependencies = (
 				C19CB18129D7411900452A19 /* DWUtilities */,
+				C1EBDB7929E81D640032F664 /* MonitioKit */,
 			);
 			productName = "Podcast Producer (iOS)";
 			productReference = C1491F6027AD472700A72AEB /* Podcast Creator.app */;
@@ -563,6 +566,7 @@
 			mainGroup = C1491F5027AD472500A72AEB;
 			packageReferences = (
 				C19CB17D29D7410500452A19 /* XCRemoteSwiftPackageReference "DWUtilities" */,
+				C1EBDB7829E81D640032F664 /* XCRemoteSwiftPackageReference "MonitioKit" */,
 			);
 			productRefGroup = C1491F6127AD472700A72AEB /* Products */;
 			projectDirPath = "";
@@ -1001,6 +1005,14 @@
 				kind = branch;
 			};
 		};
+		C1EBDB7829E81D640032F664 /* XCRemoteSwiftPackageReference "MonitioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/agiefer/MonitioKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1013,6 +1025,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C19CB17D29D7410500452A19 /* XCRemoteSwiftPackageReference "DWUtilities" */;
 			productName = DWUtilities;
+		};
+		C1EBDB7929E81D640032F664 /* MonitioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1EBDB7829E81D640032F664 /* XCRemoteSwiftPackageReference "MonitioKit" */;
+			productName = MonitioKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 
