@@ -16,21 +16,16 @@ struct MonitioImportView: View {
         HStack {
             VStack(alignment: .leading) {
                 
-                HStack(alignment: .bottom) {
-                    Text("MONITIO Importer").font(.title)
-                    
-                    Spacer()
-                    
-                    Button("Cancel") {
-                        dismissAction()
-                    }
-                }
+                Text("MONITIO Importer").font(.title)
+                Text(monitioViewModel.statusMessage)
                 
                 Spacer()
                 
                 HStack {
                     
-                    Text(monitioViewModel.statusMessage)
+                    Button("Cancel") {
+                        dismissAction()
+                    }
                     
                     Spacer()
                     
@@ -41,7 +36,6 @@ struct MonitioImportView: View {
                     
                     Button("Import") {
                         print("Importing Monitio clusters.")
-                        monitioViewModel.fetchClusters()
                     }
                     
                 }
