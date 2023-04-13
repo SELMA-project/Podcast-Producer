@@ -15,8 +15,8 @@ struct EpisodeEditorStoriesListView: View {
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
-    /// Showing PodcastRenderViewSheet?
-    @State private var showingSheet = false
+    /// Showing Monitio Import sheet?
+    @State private var showingMonitioImportSheet = false
     
     /// The episode are we working on
     var chosenEpisode: Episode {
@@ -43,6 +43,7 @@ struct EpisodeEditorStoriesListView: View {
             
             VStack(alignment: .leading) {
 
+                // Header of the group box
                 HStack {
                     Text("Stories").font(.title2)
                     
@@ -51,6 +52,7 @@ struct EpisodeEditorStoriesListView: View {
                     // Import stories button
                     Button {
                         print("Import stories")
+                        showingMonitioImportSheet.toggle()
                     } label: {
                         Image("monitio")
                             .resizable()
@@ -71,6 +73,7 @@ struct EpisodeEditorStoriesListView: View {
                     .help("Add story")
                 }
                 
+                // Story list
                 List(selection: $chosenStoryId) {
                     ForEach(chosenEpisode.stories) {story in
                         Label {
@@ -95,6 +98,11 @@ struct EpisodeEditorStoriesListView: View {
             }
             return true
         }
+        .sheet(isPresented: $showingMonitioImportSheet) {
+            MonitioImportView()
+                .padding()
+        }
+        
 
     }
 }
