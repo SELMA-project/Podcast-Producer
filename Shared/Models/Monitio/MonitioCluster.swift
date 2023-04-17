@@ -11,8 +11,9 @@ import MonitioKit
 struct MonitioCluster : Identifiable {
     var id: String
     var title: String
-    public var availableLanguages: [String]
-    public var selectionFrequency: Int
+    var availableLanguages: [String]
+    var selectionFrequency: Int
+    var isSelected: Bool = false
     
     init(id: String, title: String, availableLanguages: [String], selectionFrequency: Int) {
         self.id = id

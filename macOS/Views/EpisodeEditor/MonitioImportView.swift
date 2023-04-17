@@ -57,8 +57,8 @@ struct MonitioImportView: View {
                 }
                 
                 ScrollView(.vertical) {
-                    ForEach(monitioViewModel.monitioClusters) {cluster in
-                        ClusterLineView(cluster: cluster)
+                    ForEach($monitioViewModel.monitioClusters) {$cluster in
+                        ClusterLineView(cluster: $cluster)
                     }
                 }
                 
@@ -120,12 +120,11 @@ struct MonitioImportView_Previews: PreviewProvider {
 
 struct ClusterLineView:  View {
     
-    var cluster: MonitioCluster
-    @State var isOn: Bool = true
+    @Binding var cluster: MonitioCluster
     
     var body: some View {
         HStack {
-            Toggle(isOn: $isOn) {
+            Toggle(isOn: $cluster.isSelected) {
                 VStack(alignment: .leading) {
                     Text(cluster.title)
                     Text("\(cluster.selectionFrequency) documents. Languages: \(cluster.availableLanguages.joined(separator: ", "))")
