@@ -12,12 +12,64 @@ struct MonitioImportView: View {
     @StateObject var monitioViewModel = MonitioViewModel()
     @Environment(\.dismiss) var dismissAction
     
+    @AppStorage("numberOfImportedStorylines") var numberOfImportedStorylines: Int = 5
+    @AppStorage("numberOfImportedTeasers") var numberOfImportedTeasers: Int = 3
+    @AppStorage("numberOfImportedDocuments") var numberOfImportedDocuments: Int = 3
+    
+    enum ImportMethod {
+        case summary, teasers, documents
+        
+        var description: String {
+            switch self {
+            case .summary:
+                return "Import storyline summary"
+            case .teasers:
+                return "Import document teasers"
+            case .documents:
+                return "Import entire documents"
+            }
+        }
+    }
+    
+    @State var importMethod: ImportMethod = .summary
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 
                 Text("MONITIO Importer").font(.title)
-                Text(monitioViewModel.statusMessage)
+                
+                ZStack {
+                    Text(monitioViewModel.statusMessage)
+                    Text(" ") // empty string to reserve space for status message
+                }
+                
+                HStack {
+                    Stepper("Number of storylines to import:", value: $numberOfImportedStorylines)
+                    Text("\(numberOfImportedStorylines)")
+                }
+                
+                Text("How should a selected storyline be imported?")
+                    .padding(.top, 8)
+                
+                Picker("", selection: $importMethod) {
+                    
+                    // first option: storyline summary
+                    Text(ImportMethod.summary.description).tag(ImportMethod.summary)
+                    
+                    // second option: document teasers
+                    HStack {
+                        Stepper("Import", value: $numberOfImportedTeasers)
+                        Text("\(numberOfImportedTeasers) document teasers")
+                    }.tag(ImportMethod.teasers)
+                    
+                    // second option: entire documents
+                    HStack {
+                        Stepper("Import", value: $numberOfImportedDocuments)
+                        Text("\(numberOfImportedDocuments) documents")
+                    }.tag(ImportMethod.documents)
+                    
+                }.pickerStyle(.radioGroup)
                 
                 Spacer()
                 
