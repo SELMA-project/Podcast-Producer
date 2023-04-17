@@ -12,7 +12,8 @@ import MonitioKit
 class MonitioViewModel: ObservableObject {
     
     @Published var statusMessage: String = ""
-
+    @Published var monitioCLusters: [MonitioCluster] = [.mockup0, .mockup1, .mockup2, .mockup3, .mockup4]
+    
     private var monitioManager: MonitioManager
     
     init() {
@@ -33,3 +34,5 @@ class MonitioViewModel: ObservableObject {
     }
     
 }
+
+
