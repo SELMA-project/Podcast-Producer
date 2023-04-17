@@ -13,7 +13,7 @@ struct MonitioImportView: View {
     @Environment(\.dismiss) var dismissAction
     
     @AppStorage("numberOfImportedStorylines") var numberOfImportedStorylines: Int = 5
-    @AppStorage("numberOfImportedTeasers") var numberOfImportedTeasers: Int = 3
+    @AppStorage("numberOfImportedTeasers") var numberOfImportedTeasers: Int = 4
     @AppStorage("numberOfImportedDocuments") var numberOfImportedDocuments: Int = 3
     
     enum ImportMethod {
@@ -45,8 +45,21 @@ struct MonitioImportView: View {
                 }
                 
                 HStack {
-                    Stepper("Number of storylines to import:", value: $numberOfImportedStorylines)
+                    Stepper("Number of storylines to fetch:", value: $numberOfImportedStorylines)
                     Text("\(numberOfImportedStorylines)")
+                    
+                    Spacer()
+                    
+                    Button("Fetch") {
+                        print("Fetching Monitio clusters.")
+                        monitioViewModel.fetchClusters()
+                    }
+                }
+                
+                ScrollView(.vertical) {
+                    ForEach(monitioViewModel.monitioClusters) {cluster in
+                        ClusterLineView(cluster: cluster)
+                    }
                 }
                 
                 Text("How should a selected storyline be imported?")
@@ -63,7 +76,7 @@ struct MonitioImportView: View {
                         Text("\(numberOfImportedTeasers) document teasers")
                     }.tag(ImportMethod.teasers)
                     
-                    // second option: entire documents
+                    // third option: entire documents
                     HStack {
                         Stepper("Import", value: $numberOfImportedDocuments)
                         Text("\(numberOfImportedDocuments) documents")
@@ -81,10 +94,7 @@ struct MonitioImportView: View {
                     
                     Spacer()
                     
-                    Button("Fetch") {
-                        print("Fetching Monitio clusters.")
-                        monitioViewModel.fetchClusters()
-                    }
+
                     
                     Button("Import") {
                         print("Importing Monitio clusters.")
@@ -96,7 +106,7 @@ struct MonitioImportView: View {
             Spacer()
             
  
-        }.frame(width: 400, height: 200)
+        }.frame(width: 400, height: 400)
     }
 }
 
@@ -104,5 +114,26 @@ struct MonitioImportView_Previews: PreviewProvider {
     static var previews: some View {
         MonitioImportView()
             .padding()
+    }
+}
+
+
+struct ClusterLineView:  View {
+    
+    var cluster: MonitioCluster
+    @State var isOn: Bool = true
+    
+    var body: some View {
+        HStack {
+            Toggle(isOn: $isOn) {
+                VStack(alignment: .leading) {
+                    Text(cluster.title)
+                    Text("\(cluster.selectionFrequency) documents. Languages: \(cluster.availableLanguages.joined(separator: ", "))")
+                        .font(.caption)
+                }
+            }
+            Spacer()
+            
+        }
     }
 }
