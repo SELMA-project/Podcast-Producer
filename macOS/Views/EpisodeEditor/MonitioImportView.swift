@@ -49,6 +49,9 @@ struct MonitioImportView: View {
         monitioViewModel.fetchClusters(numberOfClusters: numberOfImportedStorylines)
     }
     
+    private func importDocuments() {
+    }
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -112,11 +115,10 @@ struct MonitioImportView: View {
                     }
                     
                     Spacer()
-                    
-
-                    
+                                        
                     Button("Import") {
                         print("Importing Monitio clusters.")
+                        importDocuments()
                     }
                     
                 }
