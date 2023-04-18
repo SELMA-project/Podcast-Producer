@@ -46,7 +46,7 @@ struct MonitioImportView: View {
         monitioViewModel.setLanguage(episodeLanguage)
 
         print("Fetching Monitio clusters.")
-        monitioViewModel.fetchClusters()
+        monitioViewModel.fetchClusters(numberOfClusters: numberOfImportedStorylines)
     }
     
     var body: some View {

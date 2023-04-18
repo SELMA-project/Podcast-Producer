@@ -33,14 +33,14 @@ class MonitioViewModel: ObservableObject {
         }
     }
     
-    func fetchClusters() {
+    func fetchClusters(numberOfClusters: Int) {
         self.statusMessage = "Fetching storylines..."
         
         // delete old clusters
         monitioClusters = []
         
         Task {
-            let apiClusters = await monitioManager.getClusters()
+            let apiClusters = await monitioManager.getClusters(numberOfClusters: numberOfClusters)
             
             for apiCluster in apiClusters {
                 let monitioCluster = MonitioCluster(withAPICluster: apiCluster)
