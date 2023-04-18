@@ -43,6 +43,10 @@ class LanguageManager {
             
             return isoCode
         }
+        
+        var monitioCode: String {
+            return String(isoCode.split(separator: "-").first!)
+        }
     }
 
     /// Returns Language based on isoCode

@@ -99,8 +99,9 @@ struct EpisodeEditorStoriesListView: View {
             return true
         }
         .sheet(isPresented: $showingMonitioImportSheet) {
-            MonitioImportView()
+            MonitioImportView(chosenEpisodeId: chosenEpisodeId)
                 .padding()
+                .environmentObject(episodeViewModel)
         }
         
 

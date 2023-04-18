@@ -12,7 +12,7 @@ import MonitioKit
 class MonitioViewModel: ObservableObject {
     
     @Published var statusMessage: String = ""
-    @Published var monitioClusters: [MonitioCluster] = [.mockup0, .mockup1, .mockup2, .mockup3, .mockup4]
+    @Published var monitioClusters: [MonitioCluster] = []//[.mockup0, .mockup1, .mockup2, .mockup3, .mockup4]
     
     private var monitioManager: MonitioManager
     
@@ -20,14 +20,32 @@ class MonitioViewModel: ObservableObject {
         self.monitioManager = MonitioManager()
         monitioManager.setViewId(MonitioManager.dwViewId)
         monitioManager.setDateInterval(forDescriptor: .last24h)
-        monitioManager.setLanguageIds(languageIds: [.pt])
+        //monitioManager.setLanguageIds(languageIds: [.pt])
+    }
+    
+    func setLanguage(_ language: LanguageManager.Language) {
+        
+        // convert to monitioLanguageId
+        if let monitioLanguageId = MonitioLanguageId(rawValue: language.monitioCode) {
+           
+            // set monitioManager accordingly
+            monitioManager.setLanguageIds(languageIds: [monitioLanguageId])
+        }
     }
     
     func fetchClusters() {
         self.statusMessage = "Fetching storylines..."
         
+        // delete old clusters
+        monitioClusters = []
+        
         Task {
             let apiClusters = await monitioManager.getClusters()
+            
+            for apiCluster in apiClusters {
+                let monitioCluster = MonitioCluster(withAPICluster: apiCluster)
+                monitioClusters.append(monitioCluster)
+            }
             
             self.statusMessage = "Fetched \(apiClusters.count) storylines."
         }

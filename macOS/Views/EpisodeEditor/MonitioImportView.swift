@@ -9,7 +9,11 @@ import SwiftUI
 
 struct MonitioImportView: View {
     
+    /// The currently chosen episodeId
+    var chosenEpisodeId: UUID
+    
     @StateObject var monitioViewModel = MonitioViewModel()
+    @EnvironmentObject var episodeViewModel: EpisodeViewModel
     @Environment(\.dismiss) var dismissAction
     
     @AppStorage("numberOfImportedStorylines") var numberOfImportedStorylines: Int = 5
@@ -33,6 +37,18 @@ struct MonitioImportView: View {
     
     @State var importMethod: ImportMethod = .summary
     
+    private func fetchClusters() {
+        
+        // get episode language from episodeViewModel
+        let episodeLanguage = episodeViewModel[chosenEpisodeId].language
+        
+        // set language on monitioViewModel
+        monitioViewModel.setLanguage(episodeLanguage)
+
+        print("Fetching Monitio clusters.")
+        monitioViewModel.fetchClusters()
+    }
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -51,38 +67,41 @@ struct MonitioImportView: View {
                     Spacer()
                     
                     Button("Fetch") {
-                        print("Fetching Monitio clusters.")
-                        monitioViewModel.fetchClusters()
+                        fetchClusters()
                     }
                 }
                 
+                // ScrollView with stories
                 ScrollView(.vertical) {
                     ForEach($monitioViewModel.monitioClusters) {$cluster in
                         ClusterLineView(cluster: $cluster)
                     }
                 }
                 
-                Text("How should a selected storyline be imported?")
-                    .padding(.top, 8)
                 
-                Picker("", selection: $importMethod) {
+                if monitioViewModel.monitioClusters.count > 0 {
+                    Text("How should a selected storyline be imported?")
+                        .padding(.top, 16)
                     
-                    // first option: storyline summary
-                    Text(ImportMethod.summary.description).tag(ImportMethod.summary)
-                    
-                    // second option: document teasers
-                    HStack {
-                        Stepper("Import", value: $numberOfImportedTeasers)
-                        Text("\(numberOfImportedTeasers) document teasers")
-                    }.tag(ImportMethod.teasers)
-                    
-                    // third option: entire documents
-                    HStack {
-                        Stepper("Import", value: $numberOfImportedDocuments)
-                        Text("\(numberOfImportedDocuments) documents")
-                    }.tag(ImportMethod.documents)
-                    
-                }.pickerStyle(.radioGroup)
+                    Picker("", selection: $importMethod) {
+                        
+                        // first option: storyline summary
+                        Text(ImportMethod.summary.description).tag(ImportMethod.summary)
+                        
+                        // second option: document teasers
+                        HStack {
+                            Stepper("Import", value: $numberOfImportedTeasers)
+                            Text("\(numberOfImportedTeasers) document teasers")
+                        }.tag(ImportMethod.teasers)
+                        
+                        // third option: entire documents
+                        HStack {
+                            Stepper("Import", value: $numberOfImportedDocuments)
+                            Text("\(numberOfImportedDocuments) documents")
+                        }.tag(ImportMethod.documents)
+                        
+                    }.pickerStyle(.radioGroup)
+                }
                 
                 Spacer()
                 
@@ -112,8 +131,14 @@ struct MonitioImportView: View {
 
 struct MonitioImportView_Previews: PreviewProvider {
     static var previews: some View {
-        MonitioImportView()
-            .padding()
+        
+        let episodeViewModel = EpisodeViewModel(createPlaceholderEpisode: true)
+        
+        if let firstEpisodeId = episodeViewModel.firstEpisodeId {
+            MonitioImportView(chosenEpisodeId: firstEpisodeId)
+                .padding()
+                .environmentObject(episodeViewModel)
+        }
     }
 }
 
