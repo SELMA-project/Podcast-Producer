@@ -96,6 +96,8 @@
 		C191062E28FEEBAA00B81231 /* EpisodeCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C191062C28FEEBAA00B81231 /* EpisodeCreationView.swift */; };
 		C19249A829ADE932007022E5 /* EpisodeEditorSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19249A729ADE932007022E5 /* EpisodeEditorSettingsView.swift */; };
 		C19249AA29ADEA85007022E5 /* EpisodeEditorStoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19249A929ADEA85007022E5 /* EpisodeEditorStoriesListView.swift */; };
+		C193D28A29F2D05300A1D4ED /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193D28929F2D05300A1D4ED /* Constants.swift */; };
+		C193D28B29F2D05300A1D4ED /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193D28929F2D05300A1D4ED /* Constants.swift */; };
 		C19CB18229D7411900452A19 /* DWUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = C19CB18129D7411900452A19 /* DWUtilities */; };
 		C19CB18429D7412500452A19 /* DWUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = C19CB18329D7412500452A19 /* DWUtilities */; };
 		C1A3F60B29A609A8009BA0BE /* EpisodeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756AB928A1198D00FE9F2B /* EpisodeEditorView.swift */; };
@@ -187,6 +189,7 @@
 		C191062C28FEEBAA00B81231 /* EpisodeCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeCreationView.swift; sourceTree = "<group>"; };
 		C19249A729ADE932007022E5 /* EpisodeEditorSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorSettingsView.swift; sourceTree = "<group>"; };
 		C19249A929ADEA85007022E5 /* EpisodeEditorStoriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorStoriesListView.swift; sourceTree = "<group>"; };
+		C193D28929F2D05300A1D4ED /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C1A3F60D29A60A77009BA0BE /* View+if.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+if.swift"; sourceTree = "<group>"; };
 		C1A3F61029A60BA2009BA0BE /* EpisodeEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorView.swift; sourceTree = "<group>"; };
 		C1B0977929117CC3004BDEE3 /* VoiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceManager.swift; sourceTree = "<group>"; };
@@ -305,6 +308,7 @@
 				C1491F5827AD472600A72AEB /* Podcast_ProducerApp.swift */,
 				C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */,
 				C1EBDB7D29E8216F0032F664 /* MonitioViewModel.swift */,
+				C193D28929F2D05300A1D4ED /* Constants.swift */,
 				C1F00B9D290BDA3F0031EBAA /* Views */,
 				C1BC0A7029965B4300ABE597 /* Models */,
 				C189696228B371E1005108E7 /* Audio Files */,
@@ -699,6 +703,7 @@
 				C1A3F60E29A60A77009BA0BE /* View+if.swift in Sources */,
 				C1C97196290C2E66008DACB3 /* GithubCreationView.swift in Sources */,
 				C1262F8F28E323DF00F3C725 /* ScriptParser.swift in Sources */,
+				C193D28A29F2D05300A1D4ED /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -717,6 +722,7 @@
 				C1A3F60F29A60A7B009BA0BE /* View+if.swift in Sources */,
 				C19249AA29ADEA85007022E5 /* EpisodeEditorStoriesListView.swift in Sources */,
 				C1491F6C27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */,
+				C193D28B29F2D05300A1D4ED /* Constants.swift in Sources */,
 				C11A239C28F30B300022263B /* EpisodeTemplate.swift in Sources */,
 				C1CF37B029840C4700134E75 /* TemplateManager.swift in Sources */,
 				C176AB0F28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,

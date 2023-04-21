@@ -37,7 +37,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     
     func synthesizeSpeech(podcastVoice: PodcastVoice, text: String?, toURL fileURL: URL) async -> Bool {
         
-        // retrun early if there is no text
+        // return early if there is no text
         guard let text else {return false}
         
         // the result will be stored here
@@ -55,7 +55,13 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
 
         case .ElevenLabs:
             let voiceIdentifier = podcastVoice.identifier
-            success = await ElevenLabsVoiceManager.shared.renderSpeech(voiceIdentifier: voiceIdentifier, text: text, toURL: fileURL, stability: 0.4, similarityBoost: 1.0)
+            let apiKey = UserDefaults.standard.string(forKey: Constants.userDefaultsElevenLabsAPIKeyName)
+            
+            // only proceed if we have an apiKey
+            if apiKey?.count ?? 0 > 0 {
+                let voiceManager = ElevenLabsVoiceManager(apiKey: apiKey!)
+                success = await voiceManager.renderSpeech(voiceIdentifier: voiceIdentifier, text: text, toURL: fileURL, stability: 0.4, similarityBoost: 1.0)
+            }
             
         default:
             print("I don't know yet how to render speech for \(podcastVoice.speechProvider.displayName)")

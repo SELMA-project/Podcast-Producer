@@ -31,6 +31,9 @@ class VoiceManager {
         
         // cache filtering of suitable  voices
         findSuitableVoices()
+        
+        // TEMP: store elevenLabs APIKey in User Defaults
+        UserDefaults.standard.set("", forKey: Constants.userDefaultsElevenLabsAPIKeyName)
     }
     
     func findSuitableVoices() {
@@ -91,7 +94,16 @@ class VoiceManager {
         var providersForLanguage = [SpeechProvider]()
         
         for provider in SpeechProvider.allCases {
+
+            // skip to next provider if ElevenLabs is not available
+            if provider == .ElevenLabs && !isElevenLabsVoiceAvailable {
+                continue
+            }
+            
+            // get all provided voice
             let availableVoices = availableVoices(forLanguage: language, forProvider: provider)
+            
+            // if we have at least one voice, this provider is available
             if availableVoices.count > 0 {
                 providersForLanguage.append(provider)
             }
@@ -230,5 +242,20 @@ class VoiceManager {
         }
 
         return podcastVoice
+    }
+}
+
+// MARK: ElevenLabs support
+extension VoiceManager {
+    
+    /// Determines whether the ElvenLabs Voice manager is available for use.
+    var isElevenLabsVoiceAvailable: Bool {
+        let apiKey = UserDefaults.standard.string(forKey: Constants.userDefaultsElevenLabsAPIKeyName)
+        
+        if apiKey?.count ?? 0 > 0 {
+            return true
+        } else {
+            return false
+        }
     }
 }

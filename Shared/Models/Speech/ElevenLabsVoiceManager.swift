@@ -10,14 +10,21 @@ import Foundation
 
 class ElevenLabsVoiceManager {
     
-    let apiKey = "acae10e00ee6ec3f5ecc4f4c740b47cb"
+    let apiKey: String
     let apiVersion = "v1"
     
     /// Cache for all downloaded voices
     private var availableVoices: [Voice] = []
     
+    /// Initializes the ElevenLabs voice manager.
+    /// - Parameters:
+    ///   - apiKey: The API key to use.
+    init(apiKey: String) {
+        self.apiKey = apiKey
+    }
+    
     // singleton
-    static let shared = ElevenLabsVoiceManager()
+    //static let shared = ElevenLabsVoiceManager()
     
     enum EndPoint {
         case voices
