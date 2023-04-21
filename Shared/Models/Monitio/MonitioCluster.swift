@@ -22,9 +22,18 @@ struct MonitioCluster : Identifiable {
         self.selectionFrequency = selectionFrequency
     }
     
-    init(withAPICluster apiCluster: APICluster) {
+    
+    /// Initializes a MonitioCluster with the corresponding API response.
+    ///
+    /// The inititalizer can fail if the API response does not contain sufficient data.
+    /// - Parameter apiCluster: The API Response to use.
+    init?(withAPICluster apiCluster: APICluster) {
+        
+        // do we have sifficient data?
+        guard let clusterTitle = apiCluster.title else {return nil}
+        
         self.id = apiCluster.id
-        self.title = apiCluster.title
+        self.title = clusterTitle
         self.availableLanguages = apiCluster.availableLanguages
         self.selectionFrequency = apiCluster.selectionFrequency
     }

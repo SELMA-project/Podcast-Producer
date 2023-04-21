@@ -187,6 +187,7 @@
 		C191062C28FEEBAA00B81231 /* EpisodeCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeCreationView.swift; sourceTree = "<group>"; };
 		C19249A729ADE932007022E5 /* EpisodeEditorSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorSettingsView.swift; sourceTree = "<group>"; };
 		C19249A929ADEA85007022E5 /* EpisodeEditorStoriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorStoriesListView.swift; sourceTree = "<group>"; };
+		C193D28829F2C88900A1D4ED /* MonitioKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MonitioKit; path = "../00-packages/MonitioKit"; sourceTree = "<group>"; };
 		C1A3F60D29A60A77009BA0BE /* View+if.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+if.swift"; sourceTree = "<group>"; };
 		C1A3F61029A60BA2009BA0BE /* EpisodeEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorView.swift; sourceTree = "<group>"; };
 		C1B0977929117CC3004BDEE3 /* VoiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceManager.swift; sourceTree = "<group>"; };
@@ -292,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				C10D912A2919430300AC94A7 /* Podcast-Creator--iOS--Info.plist */,
+				C193D28829F2C88900A1D4ED /* MonitioKit */,
 				C1491F5527AD472600A72AEB /* Shared */,
 				C1491F6727AD472700A72AEB /* macOS */,
 				C1491F6127AD472700A72AEB /* Products */,
