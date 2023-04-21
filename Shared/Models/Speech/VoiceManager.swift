@@ -31,9 +31,6 @@ class VoiceManager {
         
         // cache filtering of suitable  voices
         findSuitableVoices()
-        
-        // TEMP: store elevenLabs APIKey in User Defaults
-        UserDefaults.standard.set("", forKey: Constants.userDefaultsElevenLabsAPIKeyName)
     }
     
     func findSuitableVoices() {

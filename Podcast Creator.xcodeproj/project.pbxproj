@@ -98,6 +98,7 @@
 		C19249AA29ADEA85007022E5 /* EpisodeEditorStoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19249A929ADEA85007022E5 /* EpisodeEditorStoriesListView.swift */; };
 		C193D28A29F2D05300A1D4ED /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193D28929F2D05300A1D4ED /* Constants.swift */; };
 		C193D28B29F2D05300A1D4ED /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193D28929F2D05300A1D4ED /* Constants.swift */; };
+		C193D28D29F2D5E500A1D4ED /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193D28C29F2D5E500A1D4ED /* SettingsView.swift */; };
 		C19CB18229D7411900452A19 /* DWUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = C19CB18129D7411900452A19 /* DWUtilities */; };
 		C19CB18429D7412500452A19 /* DWUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = C19CB18329D7412500452A19 /* DWUtilities */; };
 		C1A3F60B29A609A8009BA0BE /* EpisodeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756AB928A1198D00FE9F2B /* EpisodeEditorView.swift */; };
@@ -190,6 +191,7 @@
 		C19249A729ADE932007022E5 /* EpisodeEditorSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorSettingsView.swift; sourceTree = "<group>"; };
 		C19249A929ADEA85007022E5 /* EpisodeEditorStoriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorStoriesListView.swift; sourceTree = "<group>"; };
 		C193D28929F2D05300A1D4ED /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C193D28C29F2D5E500A1D4ED /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C1A3F60D29A60A77009BA0BE /* View+if.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+if.swift"; sourceTree = "<group>"; };
 		C1A3F61029A60BA2009BA0BE /* EpisodeEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorView.swift; sourceTree = "<group>"; };
 		C1B0977929117CC3004BDEE3 /* VoiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceManager.swift; sourceTree = "<group>"; };
@@ -487,6 +489,7 @@
 		C1ECCC1F29A3BDE200C1241F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C193D28C29F2D5E500A1D4ED /* SettingsView.swift */,
 				C1D86DBD29AF5E4000388700 /* EpisodeCreation */,
 				C17E86C129AE0C4E004E5750 /* EpisodeEditor */,
 				C1D86DC129AF662800388700 /* Structure */,
@@ -740,6 +743,7 @@
 				C1BA7EC228AA93280090573B /* AudioManager.swift in Sources */,
 				C11021A4290026D1005AA554 /* PodcastVoice.swift in Sources */,
 				C14CEA2B28F1948A00B8DFC8 /* StandardSectionEditView.swift in Sources */,
+				C193D28D29F2D5E500A1D4ED /* SettingsView.swift in Sources */,
 				C17E86C329AE0C80004E5750 /* StructureEditorView.swift in Sources */,
 				C11013A329A4CD600082D667 /* Sidebar.swift in Sources */,
 				C1E4C71A29A4D1350040826F /* ContentView.swift in Sources */,
