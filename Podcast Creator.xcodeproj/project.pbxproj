@@ -162,7 +162,6 @@
 		C13C775D28D8B4FF00C6C61B /* 02-intro-end-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "02-intro-end-trimmed.caf"; sourceTree = "<group>"; };
 		C13C776028D8B52200C6C61B /* 01-intro-middle-trimmed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "01-intro-middle-trimmed.caf"; sourceTree = "<group>"; };
 		C1460AEC29ED4A1000BEDD7D /* MonitioCluster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitioCluster.swift; sourceTree = "<group>"; };
-		C1460AEF29EE4C8000BEDD7D /* MonitioKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MonitioKit; path = ../MonitioKit; sourceTree = "<group>"; };
 		C1491F5727AD472600A72AEB /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		C1491F5827AD472600A72AEB /* Podcast_ProducerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Podcast_ProducerApp.swift; sourceTree = "<group>"; };
 		C1491F5927AD472600A72AEB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -293,7 +292,6 @@
 			isa = PBXGroup;
 			children = (
 				C10D912A2919430300AC94A7 /* Podcast-Creator--iOS--Info.plist */,
-				C1460AEF29EE4C8000BEDD7D /* MonitioKit */,
 				C1491F5527AD472600A72AEB /* Shared */,
 				C1491F6727AD472700A72AEB /* macOS */,
 				C1491F6127AD472700A72AEB /* Products */,
