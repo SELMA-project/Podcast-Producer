@@ -64,6 +64,7 @@ struct MonitioImportView: View {
                 break
             }
             
+            // add each story to the episode's list of stories
             for story in stories {
                 _ = episodeViewModel.appendStory(story: story, toChosenEpisode: chosenEpisodeId)
             }

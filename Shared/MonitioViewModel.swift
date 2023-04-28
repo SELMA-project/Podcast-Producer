@@ -40,15 +40,17 @@ class MonitioViewModel: ObservableObject {
         monitioClusters = []
         
         Task {
+            // get clusters from API
             let apiClusters = await monitioManager.getClusters(numberOfClusters: numberOfClusters)
             
+            // convert API clusters to MonitioClusters
             for apiCluster in apiClusters {
                 if let monitioCluster = MonitioCluster(withAPICluster: apiCluster) {
                     monitioClusters.append(monitioCluster)
                 }
             }
             
-            self.statusMessage = "Fetched \(apiClusters.count) storylines."
+            self.statusMessage = "Fetched \(monitioClusters.count) storylines."
         }
     }
     

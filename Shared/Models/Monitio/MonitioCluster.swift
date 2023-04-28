@@ -30,7 +30,10 @@ struct MonitioCluster : Identifiable {
     init?(withAPICluster apiCluster: APICluster) {
         
         // do we have sifficient data?
-        guard let clusterTitle = apiCluster.title else {return nil}
+        guard let clusterTitle = apiCluster.title else {
+            print("Cluster with id \(apiCluster.id) does not have a title. Ignoring.")
+            return nil
+        }
         
         self.id = apiCluster.id
         self.title = clusterTitle
