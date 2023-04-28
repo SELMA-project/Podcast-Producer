@@ -75,12 +75,13 @@ struct MonitioImportView: View {
                 
                 ZStack {
                     Text(monitioViewModel.statusMessage)
+                        .font(.caption)
                         .lineLimit(1)
                     Text(" ") // empty string to reserve space for status message
                 }
                 
                 HStack {
-                    Stepper("Number of storylines to fetch:", value: $numberOfImportedStorylines)
+                    Stepper("Number of storylines to fetch:", value: $numberOfImportedStorylines, in: 1...20)
                     Text("\(numberOfImportedStorylines)")
                     
                     Spacer()
@@ -88,15 +89,18 @@ struct MonitioImportView: View {
                     Button("Fetch") {
                         fetchClusters()
                     }
-                }
+                }.padding([.top, .bottom], 8)
+
                 
-                // ScrollView with stories
+                
+                
+                // ScrollView with storylines
                 ScrollView(.vertical) {
                     ForEach($monitioViewModel.monitioClusters) {$cluster in
                         ClusterLineView(cluster: $cluster)
                     }
                 }
-                
+                                
                 
                 if monitioViewModel.monitioClusters.count > 0 {
                     Text("How should a selected storyline be imported?")
@@ -110,7 +114,7 @@ struct MonitioImportView: View {
                         // second option: import documents
                         HStack {
                             Stepper("Import", value: $monitioViewModel.numberOfDocumentsToImport, in: 0...monitioViewModel.numberOfAvailableDocuments)
-                            Text("\(monitioViewModel.numberOfDocumentsToImport) documents")
+                            Text("\(monitioViewModel.numberOfDocumentsToImport) DW documents")
                             Spacer()
                             Toggle("Restrict to titles & teasers", isOn: $importTitlesAndTeasersOnly)
                                 .disabled(importMethod == .summary)
@@ -138,12 +142,13 @@ struct MonitioImportView: View {
                     .disabled(monitioViewModel.numberOfDocumentsToImport == 0)
                     
                 }
+                .padding([.top], 8)
             }
             
             Spacer()
             
  
-        }.frame(width: 400, height: 400)
+        }.frame(width: 450, height: 400)
     }
 }
 
