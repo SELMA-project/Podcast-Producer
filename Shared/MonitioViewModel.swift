@@ -46,8 +46,7 @@ class MonitioViewModel: ObservableObject {
     private var monitioManager: MonitioManager
     
     init() {
-        self.monitioManager = MonitioManager()
-        monitioManager.setViewId(MonitioManager.dwViewId)
+        self.monitioManager = MonitioManager(viewId: .dw)
         monitioManager.setDateInterval(forDescriptor: .last24h)
         //monitioManager.setLanguageIds(languageIds: [.pt])
     }
