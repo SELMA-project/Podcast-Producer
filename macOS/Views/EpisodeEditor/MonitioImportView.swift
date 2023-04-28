@@ -9,23 +9,24 @@ import SwiftUI
 
 struct MonitioImportView: View {
     
-    /// The currently chosen episodeId
+    /// The currently chosen episodeId.
     var chosenEpisodeId: UUID
     
-    @StateObject var monitioViewModel = MonitioViewModel()
-    @EnvironmentObject var episodeViewModel: EpisodeViewModel
-    @Environment(\.dismiss) var dismissAction
+    @StateObject private var monitioViewModel = MonitioViewModel()
+    @EnvironmentObject private var episodeViewModel: EpisodeViewModel
+    @Environment(\.dismiss) private var dismissAction
     
-    @AppStorage("numberOfImportedStorylines") var numberOfImportedStorylines: Int = 5
-    @AppStorage("importTitlesAndTeasersOnly") var importTitlesAndTeasersOnly: Bool = true
-    @AppStorage("monitioImportMethod") var importMethod: ImportMethod = .summary
+    @AppStorage("numberOfImportedStorylines") private var numberOfImportedStorylines: Int = 5
+    @AppStorage("importTitlesAndTeasersOnly") private var importTitlesAndTeasersOnly: Bool = true
+    @AppStorage("monitioImportMethod") private var importMethod: ImportMethod = .summary
     
-    enum ImportMethod: String {
+    /// The method to derive stories from the selected MonitioClusters.
+    private enum ImportMethod: String {
         case summary, documents
     }
     
-
     
+    /// Fetches clusters via MonitoViewModel.
     private func fetchClusters() {
         
         Task {
@@ -41,6 +42,8 @@ struct MonitioImportView: View {
         }
     }
     
+    
+    /// Imports documents from selected clusters.
     private func importDocuments() {
         Task {
             

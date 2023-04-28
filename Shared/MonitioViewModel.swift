@@ -12,6 +12,7 @@ import DWUtilities
 @MainActor
 class MonitioViewModel: ObservableObject {
     
+    /// The status message to display in the UI.
     @Published var statusMessage: String = ""
     
     /// An array containing all MonitioClusters that have been fetched via the API.
