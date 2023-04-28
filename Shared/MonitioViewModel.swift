@@ -13,8 +13,29 @@ import DWUtilities
 class MonitioViewModel: ObservableObject {
     
     @Published var statusMessage: String = ""
-    @Published var monitioClusters: [MonitioCluster] = []//[.mockup0, .mockup1, .mockup2, .mockup3, .mockup4]
+    @Published var monitioClusters: [MonitioCluster] = [] {//[.mockup0, .mockup1, .mockup2, .mockup3, .mockup4]
+        didSet {
+            // check whether at least one cluster is selected
+            atLeastOneClusterIsSelected = monitioClusters.reduce(false, {$0 || $1.isSelected})
+            
+            // adjust the number of available documents
+            numberOfAvailableDocuments = monitioClusters.reduce(0) { partialResult, cluster in
+                // only selected clusters are counted
+                if cluster.isSelected {
+                    return partialResult + cluster.selectionFrequency
+                } else {
+                    return partialResult
+                }
+            }
+            
+            // adjust the number of documents to import
+            numberOfDocumentsToImport = numberOfAvailableDocuments //min(numberOfDocumentsToImport, numberOfAvailableDocuments)
+        }
+    }
+    
+    @Published var numberOfDocumentsToImport: Int = 3
     @Published var numberOfAvailableDocuments: Int = 0
+    @Published var atLeastOneClusterIsSelected: Bool = false
     
     private var monitioManager: MonitioManager
     
@@ -35,31 +56,7 @@ class MonitioViewModel: ObservableObject {
         }
     }
     
-    func fetchClusters(numberOfClusters: Int) async {
-        self.statusMessage = "Fetching storylines..."
-        
-        // delete old clusters
-        monitioClusters = []
-        
-        // get clusters from API
-        let apiClusters = await monitioManager.getClusters(numberOfClusters: numberOfClusters)
-        
-        // convert API clusters to MonitioClusters
-        for apiCluster in apiClusters {
-            if let monitioCluster = MonitioCluster(withAPICluster: apiCluster) {
-                monitioClusters.append(monitioCluster)
-            }
-        }
-        
-        // count the number of documents contained in all clusters
-        numberOfAvailableDocuments = monitioClusters.reduce(0) { partialResult, cluster in
-            return partialResult + cluster.selectionFrequency
-        }
-        
-        self.statusMessage = "Fetched \(monitioClusters.count) storylines containing \(numberOfAvailableDocuments) documents."
 
-    }
-    
     
     /// Downloads the details of the selected MonitoClusters and converts them into stories, using the Monitio summaries.
     /// - Returns: An array of Stories
@@ -166,8 +163,34 @@ class MonitioViewModel: ObservableObject {
     
 }
 
-// MARK: Summarising clusters
+// MARK: Fetching clusters and their details
 extension MonitioViewModel {
+    
+    func fetchClusters(numberOfClusters: Int) async {
+        self.statusMessage = "Fetching storylines..."
+        
+        // delete old clusters
+        monitioClusters = []
+        
+        // get clusters from API
+        let apiClusters = await monitioManager.getClusters(numberOfClusters: numberOfClusters)
+        
+        // convert API clusters to MonitioClusters
+        for apiCluster in apiClusters {
+            if let monitioCluster = MonitioCluster(withAPICluster: apiCluster) {
+                
+                // by default, a cluster is selected
+                var selectedCluster = monitioCluster
+                selectedCluster.isSelected = true
+                
+                // append to array
+                monitioClusters.append(selectedCluster)
+            }
+        }
+                
+        self.statusMessage = "Fetched \(monitioClusters.count) storylines containing \(numberOfAvailableDocuments) documents."
+
+    }
     
     /// Fetches the details for the selected MonitioClusters.
     /// - Returns: An Array of cluster details as returned by the Monitio API.

@@ -17,7 +17,7 @@ struct MonitioImportView: View {
     @Environment(\.dismiss) var dismissAction
     
     @AppStorage("numberOfImportedStorylines") var numberOfImportedStorylines: Int = 5
-    @AppStorage("numberOfDocumentsToImport") var numberOfDocumentsToImport: Int = 3
+    //@AppStorage("numberOfDocumentsToImport") var numberOfDocumentsToImport: Int = 3
     @AppStorage("importTeaserOnly") var importTeaserOnly: Bool = true
     @AppStorage("monitioImportMethod") var importMethod: ImportMethod = .summary
     
@@ -26,10 +26,6 @@ struct MonitioImportView: View {
     }
     
 
-
-    
-
-    
     
     private func fetchClusters() {
         
@@ -43,9 +39,6 @@ struct MonitioImportView: View {
             
             print("Fetching Monitio clusters.")
             await monitioViewModel.fetchClusters(numberOfClusters: numberOfImportedStorylines)
-            
-            // adjust number of documents
-            numberOfDocumentsToImport = min(numberOfDocumentsToImport, monitioViewModel.numberOfAvailableDocuments)
         }
     }
     
@@ -59,7 +52,7 @@ struct MonitioImportView: View {
             case .summary:
                 stories = await monitioViewModel.extractStoriesFromMonitioSummaries()
             case .documents:
-                stories = await monitioViewModel.extractStoriesFromMonitioDocuments(numberOfStories: numberOfDocumentsToImport, useTeasersOnly: importTeaserOnly)
+                stories = await monitioViewModel.extractStoriesFromMonitioDocuments(numberOfStories: monitioViewModel.numberOfDocumentsToImport, useTeasersOnly: importTeaserOnly)
             }
             
             // add each story to the episode's list of stories
@@ -114,8 +107,8 @@ struct MonitioImportView: View {
                         
                         // second option: import documents
                         HStack {
-                            Stepper("Import", value: $numberOfDocumentsToImport, in: 1...monitioViewModel.numberOfAvailableDocuments)
-                            Text("\(numberOfDocumentsToImport) documents")
+                            Stepper("Import", value: $monitioViewModel.numberOfDocumentsToImport, in: 0...monitioViewModel.numberOfAvailableDocuments)
+                            Text("\(monitioViewModel.numberOfDocumentsToImport) documents")
                             Spacer()
                             Toggle("Restrict to teasers", isOn: $importTeaserOnly)
                                 .disabled(importMethod == .summary)
