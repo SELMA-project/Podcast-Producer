@@ -14,6 +14,7 @@ class MonitioViewModel: ObservableObject {
     
     @Published var statusMessage: String = ""
     @Published var monitioClusters: [MonitioCluster] = []//[.mockup0, .mockup1, .mockup2, .mockup3, .mockup4]
+    @Published var numberOfAvailableDocuments: Int = 0
     
     private var monitioManager: MonitioManager
     
@@ -34,26 +35,31 @@ class MonitioViewModel: ObservableObject {
         }
     }
     
-    func fetchClusters(numberOfClusters: Int) {
+    func fetchClusters(numberOfClusters: Int) async {
         self.statusMessage = "Fetching storylines..."
         
         // delete old clusters
         monitioClusters = []
         
-        Task {
-            // get clusters from API
-            let apiClusters = await monitioManager.getClusters(numberOfClusters: numberOfClusters)
-            
-            // convert API clusters to MonitioClusters
-            for apiCluster in apiClusters {
-                if let monitioCluster = MonitioCluster(withAPICluster: apiCluster) {
-                    monitioClusters.append(monitioCluster)
-                }
+        // get clusters from API
+        let apiClusters = await monitioManager.getClusters(numberOfClusters: numberOfClusters)
+        
+        // convert API clusters to MonitioClusters
+        for apiCluster in apiClusters {
+            if let monitioCluster = MonitioCluster(withAPICluster: apiCluster) {
+                monitioClusters.append(monitioCluster)
             }
-            
-            self.statusMessage = "Fetched \(monitioClusters.count) storylines."
         }
+        
+        // count the number of documents contained in all clusters
+        numberOfAvailableDocuments = monitioClusters.reduce(0) { partialResult, cluster in
+            return partialResult + cluster.selectionFrequency
+        }
+        
+        self.statusMessage = "Fetched \(monitioClusters.count) storylines containing \(numberOfAvailableDocuments) documents."
+
     }
+    
     
     /// Downloads the details of the selected MonitoClusters and converts them into stories, using the Monitio summaries.
     /// - Returns: An array of Stories

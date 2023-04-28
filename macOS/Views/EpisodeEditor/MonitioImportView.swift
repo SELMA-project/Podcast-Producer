@@ -17,35 +17,36 @@ struct MonitioImportView: View {
     @Environment(\.dismiss) var dismissAction
     
     @AppStorage("numberOfImportedStorylines") var numberOfImportedStorylines: Int = 5
-    @AppStorage("numberOfImportedDocuments") var numberOfImportedDocuments: Int = 3
+    @AppStorage("numberOfDocumentsToImport") var numberOfDocumentsToImport: Int = 3
     @AppStorage("importTeaserOnly") var importTeaserOnly: Bool = true
     @AppStorage("monitioImportMethod") var importMethod: ImportMethod = .summary
     
     enum ImportMethod: String {
         case summary, documents
-        
-//        var description: String {
-//            switch self {
-//            case .summary:
-//                return "Import storyline summary"
-//            case .documents:
-//                return "Import entire documents"
-//            }
-//        }
     }
     
 
+
+    
+
+    
     
     private func fetchClusters() {
         
-        // get episode language from episodeViewModel
-        let episodeLanguage = episodeViewModel[chosenEpisodeId].language
-        
-        // set language on monitioViewModel
-        monitioViewModel.setLanguage(episodeLanguage)
-
-        print("Fetching Monitio clusters.")
-        monitioViewModel.fetchClusters(numberOfClusters: numberOfImportedStorylines)
+        Task {
+            
+            // get episode language from episodeViewModel
+            let episodeLanguage = episodeViewModel[chosenEpisodeId].language
+            
+            // set language on monitioViewModel
+            monitioViewModel.setLanguage(episodeLanguage)
+            
+            print("Fetching Monitio clusters.")
+            await monitioViewModel.fetchClusters(numberOfClusters: numberOfImportedStorylines)
+            
+            // adjust number of documents
+            numberOfDocumentsToImport = min(numberOfDocumentsToImport, monitioViewModel.numberOfAvailableDocuments)
+        }
     }
     
     private func importDocuments() {
@@ -58,7 +59,7 @@ struct MonitioImportView: View {
             case .summary:
                 stories = await monitioViewModel.extractStoriesFromMonitioSummaries()
             case .documents:
-                stories = await monitioViewModel.extractStoriesFromMonitioDocuments(numberOfStories: numberOfImportedDocuments, useTeasersOnly: importTeaserOnly)
+                stories = await monitioViewModel.extractStoriesFromMonitioDocuments(numberOfStories: numberOfDocumentsToImport, useTeasersOnly: importTeaserOnly)
             }
             
             // add each story to the episode's list of stories
@@ -113,14 +114,16 @@ struct MonitioImportView: View {
                         
                         // second option: import documents
                         HStack {
-                            Stepper("Import", value: $numberOfImportedDocuments)
-                            Text("\(numberOfImportedDocuments) documents")
+                            Stepper("Import", value: $numberOfDocumentsToImport, in: 1...monitioViewModel.numberOfAvailableDocuments)
+                            Text("\(numberOfDocumentsToImport) documents")
                             Spacer()
                             Toggle("Restrict to teasers", isOn: $importTeaserOnly)
                                 .disabled(importMethod == .summary)
                         }.tag(ImportMethod.documents)
                         
-                    }.pickerStyle(.radioGroup)
+                    }
+                    .pickerStyle(.radioGroup)
+                    
                 }
                 
                 Spacer()
