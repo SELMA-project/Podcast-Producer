@@ -17,8 +17,7 @@ struct MonitioImportView: View {
     @Environment(\.dismiss) var dismissAction
     
     @AppStorage("numberOfImportedStorylines") var numberOfImportedStorylines: Int = 5
-    //@AppStorage("numberOfDocumentsToImport") var numberOfDocumentsToImport: Int = 3
-    @AppStorage("importTeaserOnly") var importTeaserOnly: Bool = true
+    @AppStorage("importTitlesAndTeasersOnly") var importTitlesAndTeasersOnly: Bool = true
     @AppStorage("monitioImportMethod") var importMethod: ImportMethod = .summary
     
     enum ImportMethod: String {
@@ -52,7 +51,7 @@ struct MonitioImportView: View {
             case .summary:
                 stories = await monitioViewModel.extractStoriesFromMonitioSummaries()
             case .documents:
-                stories = await monitioViewModel.extractStoriesFromMonitioDocuments(numberOfStories: monitioViewModel.numberOfDocumentsToImport, useTeasersOnly: importTeaserOnly)
+                stories = await monitioViewModel.extractStoriesFromMonitioDocuments(numberOfStories: monitioViewModel.numberOfDocumentsToImport, useTitlesAndTeasersOnly: importTitlesAndTeasersOnly)
             }
             
             // add each story to the episode's list of stories
@@ -110,7 +109,7 @@ struct MonitioImportView: View {
                             Stepper("Import", value: $monitioViewModel.numberOfDocumentsToImport, in: 0...monitioViewModel.numberOfAvailableDocuments)
                             Text("\(monitioViewModel.numberOfDocumentsToImport) documents")
                             Spacer()
-                            Toggle("Restrict to teasers", isOn: $importTeaserOnly)
+                            Toggle("Restrict to titles & teasers", isOn: $importTitlesAndTeasersOnly)
                                 .disabled(importMethod == .summary)
                         }.tag(ImportMethod.documents)
                         
@@ -133,6 +132,7 @@ struct MonitioImportView: View {
                         print("Importing Monitio clusters.")
                         importDocuments()
                     }
+                    .disabled(monitioViewModel.numberOfDocumentsToImport == 0)
                     
                 }
             }
