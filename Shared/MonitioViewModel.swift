@@ -7,6 +7,7 @@
 
 import Foundation
 import MonitioKit
+import DWUtilities
 
 @MainActor
 class MonitioViewModel: ObservableObject {
@@ -81,16 +82,82 @@ class MonitioViewModel: ObservableObject {
         return stories
     }
     
-    
-    
-    
-    func extractStories(numberOfDocuments: Int, useTeasersOnly: Bool) async -> [Story] {
+    func extractStoriesFromMonitioDocuments(numberOfStories: Int, useTeasersOnly: Bool) async -> [Story] {
         
-        let stories = [Story]()
+        // prepare result
+        var stories = [Story]()
         
+        // create DWManager to get access to DW arcticles
+        let dwManager = DWManager()
+        
+        // get cluster details from Monitio API
+        let clusterDetails = await fetchClusterDetails()
+        
+        // go through each of clusters
+        for clusterDetail in clusterDetails {
+                        
+            // extract the contained document
+            let documents = clusterDetail.result.documents
+            
+            // the document headlines and texts are extracted into the storyText
+            var storyTextParagraphs = [String]()
+            
+            // go through each document
+            for document in documents {
+                                
+                // if the document references a DW Article...
+                if let dwShortPageURLString = document.header.dwShortPageUrl {
+                    
+                    // ... convert URL string to proper URL
+                    if let dwShortPageURL = URL(string: dwShortPageURLString) {
+                        
+                        // convert to dwItemURL
+                        if let dwItemURL = DWItemURL(url: dwShortPageURL) {
+                            
+                            // ... retrieve the associated article from the DW API
+                            let dwArticle = await dwManager.dwArticle(dwURL: dwItemURL)
+                            
+                            // extract headline and text from article
+                            let articleHeadline = dwArticle?.name
+                            let articleText = useTeasersOnly ? dwArticle?.teaser : dwArticle?.formattedText
+                            
+                            // append article headline to the storyText
+                            if let articleHeadline {
+                                storyTextParagraphs.append(articleHeadline)
+                            }
+                            
+                            // append article text to the storyText
+                            if let articleText {
+                                storyTextParagraphs.append(articleText)
+                            }
+                            
+                        }
+                    }
+                }
+                
+                // check whether we have accumulated enough stories
+                if stories.count == numberOfStories {
+                    break
+                }
+            }
+            
+            // the cluster title becomes the headline of the story
+            let storyHeadline = clusterDetail.cluster.title
+            
+            // join storyTextParagraphs into the storyText
+            let storyText = storyTextParagraphs.joined(separator: "\n\n")
+            
+            // create story
+            let story = Story(usedInIntroduction: false, headline: storyHeadline, storyText: storyText)
+            
+            // append to result
+            stories.append(story)
+        }
+        
+        // return result
         return stories
     }
-
+    
 }
 
 // MARK: Summarising clusters

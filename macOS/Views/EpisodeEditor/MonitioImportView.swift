@@ -59,9 +59,9 @@ struct MonitioImportView: View {
             case .summary:
                 stories = await monitioViewModel.extractStoriesFromMonitioSummaries()
             case .teasers:
-                break
+                stories = await monitioViewModel.extractStoriesFromMonitioDocuments(numberOfStories: numberOfImportedTeasers, useTeasersOnly: true)
             case .documents:
-                break
+                stories = await monitioViewModel.extractStoriesFromMonitioDocuments(numberOfStories: numberOfImportedTeasers, useTeasersOnly: false)
             }
             
             // add each story to the episode's list of stories
@@ -69,6 +69,8 @@ struct MonitioImportView: View {
                 _ = episodeViewModel.appendStory(story: story, toChosenEpisode: chosenEpisodeId)
             }
             
+            // dismiss sheet
+            dismissAction()
         }
     }
     
