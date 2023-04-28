@@ -273,5 +273,13 @@ extension EpisodeViewModel {
         
         return story.id
     }
+    
+    func appendStory(story: Story, toChosenEpisode chosenEpisodeId: UUID?) -> Story.StoryId {
+                        
+        // add  to chosen episode
+        self[chosenEpisodeId].stories.append(story)
+        
+        return story.id
+    }
 }
 

@@ -50,6 +50,25 @@ struct MonitioImportView: View {
     }
     
     private func importDocuments() {
+        Task {
+            
+            var stories: [Story] = []
+            
+            // create stories based on chosen summarisation method
+            switch importMethod {
+            case .summary:
+                stories = await monitioViewModel.extractStoriesFromMonitioSummaries()
+            case .teasers:
+                break
+            case .documents:
+                break
+            }
+            
+            for story in stories {
+                _ = episodeViewModel.appendStory(story: story, toChosenEpisode: chosenEpisodeId)
+            }
+            
+        }
     }
     
     var body: some View {
@@ -60,6 +79,7 @@ struct MonitioImportView: View {
                 
                 ZStack {
                     Text(monitioViewModel.statusMessage)
+                        .lineLimit(1)
                     Text(" ") // empty string to reserve space for status message
                 }
                 
