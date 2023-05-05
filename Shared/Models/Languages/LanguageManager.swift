@@ -44,6 +44,7 @@ class LanguageManager {
             return isoCode
         }
         
+        /// The String code used by Monitio.
         var monitioCode: String {
             return String(isoCode.split(separator: "-").first!)
         }

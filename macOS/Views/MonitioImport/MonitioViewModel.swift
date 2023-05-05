@@ -203,7 +203,7 @@ extension MonitioViewModel {
     ///   - numberOfStories: The maximum number of stories to create.
     ///   - useTitlesAndTeasersOnly: Only use document titles and teasers to create story text.
     /// - Returns: <#description#>
-    func extractStoriesFromMonitioDocuments(numberOfStories: Int, useTitlesAndTeasersOnly: Bool) async -> [Story] {
+    func extractStoriesFromMonitioDocuments(numberOfStories: Int, useTitlesAndTeasersOnly: Bool, restrictToLanguage documentLanguage: LanguageManager.Language?) async -> [Story] {
         
         // prepare result
         var stories = [Story]()
@@ -226,6 +226,21 @@ extension MonitioViewModel {
             // go through each document
             for document in documents {
                                 
+                // check language
+                
+                // if a document language was specified...
+                if let documentLanguage {
+                    
+                    // convert to the language code string used by Monitio
+                    let monitioLanguageCode = documentLanguage.monitioCode
+                    
+                    // skip to next document if the document language and specified code do not match
+                    if document.language != monitioLanguageCode {
+                        print("Skipping: \(document.title) -> \(document.header.dwShortPageUrl ?? "No DW Article")")
+                        continue
+                    }
+                }
+                
                 // if the document references a DW Article...
                 if let dwShortPageURLString = document.header.dwShortPageUrl {
                     
@@ -269,7 +284,12 @@ extension MonitioViewModel {
             let storyHeadline = clusterDetail.cluster.title
             
             // join storyTextParagraphs into the storyText
-            let storyText = storyTextParagraphs.joined(separator: "\n\n")
+            var storyText = storyTextParagraphs.joined(separator: "\n\n")
+            
+            // add default disclaimer if no DW articles were available
+            if storyText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                storyText = "No DW articles are available in the chosen episode language."
+            }
             
             // create story
             let story = Story(usedInIntroduction: false, headline: storyHeadline, storyText: storyText)

@@ -104,8 +104,14 @@ struct MonitioImportView: View {
             case .summary:
                 stories = await monitioViewModel.extractStoriesFromMonitioSummaries()
             case .documents:
+                // get the episode's language
+                let episodeLanguage = episodeViewModel[chosenEpisodeId].language
+                
+                // get all stories matching the episode language
                 stories = await monitioViewModel.extractStoriesFromMonitioDocuments(numberOfStories: monitioViewModel.numberOfDocumentsToImport,
-                                                                                    useTitlesAndTeasersOnly: importTitlesAndTeasersOnly)
+                                                                                    useTitlesAndTeasersOnly: importTitlesAndTeasersOnly,
+                                                                                    restrictToLanguage: episodeLanguage
+                )
             }
             
             // add each story to the episode's list of stories
