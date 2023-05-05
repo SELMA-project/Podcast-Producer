@@ -218,6 +218,9 @@ extension MonitioViewModel {
                                 storyTextParagraphs.append(articleText)
                             }
                             
+                            // separate articles by extra newline
+                            storyTextParagraphs.append("\n")
+                            
                         }
                     }
                 }
