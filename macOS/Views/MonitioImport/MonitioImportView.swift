@@ -125,57 +125,60 @@ struct MonitioImportView: View {
     /// Displays the parameters to confiure the initial fetch of the clusters
     var clusterFetchView: some View {
         
-        HStack(alignment: .bottom) {
-            VStack(alignment: .trailing) {
+        Grid() {
+            GridRow {
+                Text("Collection:")
+                    .gridColumnAlignment(.trailing)
                 
                 // configure Monitio view
-                Picker(selection: $monitioViewID) {
+                Picker("", selection: $monitioViewID) {
                     ForEach(MonitioManager.ViewID.allCases, id: \.self) {viewID in
                         Text(viewID.displayName).tag(viewID)
                     }
-                } label: {
-                    Text("Collection:")
                 }.pickerStyle(.menu)
+            }
+            
+            GridRow {
+                Text("Article langues:")
                 
-
                 // configure the Monitio language
-                Picker(selection: $monitioLanguageSelection) {
+                Picker("", selection: $monitioLanguageSelection) {
                     ForEach(LanguageSelection.allCases, id: \.self) {languageSelection in
                         Text(languageSelection.displayName).tag(languageSelection)
                     }
-                } label: {
-                    Text("Article langues:")
                 }.pickerStyle(.menu)
-                
+            }
+            
+            GridRow {
+                Text("Date Range:")
                 
                 // configure date range
-                Picker(selection: $dateRange) {
+                Picker("", selection: $dateRange) {
                     ForEach(MonitioManager.DateRangeDescriptor.allCases, id: \.self) {range in
                         Text(range.displayName).tag(range)
                     }
-                } label: {
-                    Text("Date Range:")
                 }.pickerStyle(.menu)
-                
-                
-                // configure number of storylines to import
-                HStack {
-                    Stepper(value: $numberOfImportedStorylines, in: 1...20) {
-                        Text("Number of storylines to fetch: \(numberOfImportedStorylines)")
-                    }
-                    
-                    //Spacer()
-                }
-                
-                
             }
             
-            Spacer()
-            Button("Fetch") {
-                fetchClusters()
-            }.disabled(fetchingData == true)
+            GridRow {
+                Text("Fetch:")
+                HStack {
+                    Stepper("", value: $numberOfImportedStorylines, in: 1...20)
+                    Text("\(numberOfImportedStorylines) storylines")
+                    
+                    Spacer()
+                    
+                    Button("Fetch") {
+                        fetchClusters()
+                    }.disabled(fetchingData == true)
+                }
+                
+            }
+
         }.padding([.top, .bottom], 8)
+        
     }
+    
     
     @ViewBuilder
     /// Configures how the selected clusters should be imported
