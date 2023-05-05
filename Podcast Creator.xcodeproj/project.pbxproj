@@ -190,6 +190,7 @@
 		C176AB0D28CF7A3B00E2804D /* AudioEpisode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEpisode.swift; sourceTree = "<group>"; };
 		C17A0A5429BF7E9300053A57 /* ElevenLabsVoiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElevenLabsVoiceManager.swift; sourceTree = "<group>"; };
 		C17E86C229AE0C80004E5750 /* StructureEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureEditorView.swift; sourceTree = "<group>"; };
+		C18C9AD12A04E4B4000E0623 /* MonitioKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MonitioKit; path = "../00-packages/MonitioKit"; sourceTree = "<group>"; };
 		C191062C28FEEBAA00B81231 /* EpisodeCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeCreationView.swift; sourceTree = "<group>"; };
 		C19249A729ADE932007022E5 /* EpisodeEditorSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorSettingsView.swift; sourceTree = "<group>"; };
 		C19249A929ADEA85007022E5 /* EpisodeEditorStoriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorStoriesListView.swift; sourceTree = "<group>"; };
@@ -299,6 +300,7 @@
 		C1491F5027AD472500A72AEB = {
 			isa = PBXGroup;
 			children = (
+				C18C9AD12A04E4B4000E0623 /* MonitioKit */,
 				C10D912A2919430300AC94A7 /* Podcast-Creator--iOS--Info.plist */,
 				C1491F5527AD472600A72AEB /* Shared */,
 				C1491F6727AD472700A72AEB /* macOS */,
@@ -893,6 +895,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Podcast-Creator--iOS--Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -924,6 +927,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Podcast-Creator--iOS--Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

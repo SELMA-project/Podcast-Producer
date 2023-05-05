@@ -8,15 +8,6 @@
         "branch" : "main",
         "revision" : "aff96fe91998a82013460ea403875dfaa2b6acae"
       }
-    },
-    {
-      "identity" : "monitiokit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/agiefer/MonitioKit.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "dbcb3257b281e5d7b5ac550662df6558b5193fe8"
-      }
     }
   ],
   "version" : 2
