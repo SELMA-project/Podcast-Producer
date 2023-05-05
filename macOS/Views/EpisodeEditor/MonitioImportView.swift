@@ -114,7 +114,7 @@ struct MonitioImportView: View {
                         // second option: import documents
                         HStack {
                             Stepper("Import up to", value: $monitioViewModel.numberOfDocumentsToImport, in: 0...monitioViewModel.numberOfAvailableDocuments)
-                            Text("\(monitioViewModel.numberOfDocumentsToImport) DW documents per storyline.")
+                            Text("\(monitioViewModel.numberOfDocumentsToImport) DW articles per storyline.")
                             Spacer()
                             Toggle("Restrict to titles & teasers", isOn: $importTitlesAndTeasersOnly)
                                 .disabled(importMethod == .summary)
