@@ -21,6 +21,7 @@ struct MonitioImportView: View {
     @AppStorage("importTitlesAndTeasersOnly") private var importTitlesAndTeasersOnly: Bool = true
     @AppStorage("monitioImportMethod") private var importMethod: ImportMethod = .summary
     @AppStorage("monitioImportedDateRange") private var dateRange: MonitioManager.DateRangeDescriptor = .last24h
+    @AppStorage("monitioViewID") private var monitioViewID: MonitioManager.ViewID = .dw
     
     /// The method to derive stories from the selected MonitioClusters.
     private enum ImportMethod: String {
@@ -41,6 +42,7 @@ struct MonitioImportView: View {
         }
     }
     
+    /// Configures the Monitio Manager to use all the necessary configued patameters
     private func prepareMonitioImport() {
         
         // get episode language from episodeViewModel
@@ -51,6 +53,9 @@ struct MonitioImportView: View {
         
         // set date range
         monitioViewModel.setDateRange(dateRange)
+
+        // set view ID
+        monitioViewModel.setViewID(monitioViewID)
     }
     
     /// Imports documents from selected clusters.
@@ -80,6 +85,76 @@ struct MonitioImportView: View {
         }
     }
     
+    @ViewBuilder
+    /// Displays the parameters to confiure the initial fetch of the clusters
+    var clusterFetchView: some View {
+        
+        HStack(alignment: .top) {
+            VStack(alignment: .trailing) {
+                
+                // configure Monitio view
+                Picker(selection: $monitioViewID) {
+                    ForEach(MonitioManager.ViewID.allCases, id: \.self) {viewID in
+                        Text(viewID.displayName).tag(viewID)
+                    }
+                } label: {
+                    Text("Collection:")
+                }.pickerStyle(.menu)
+                
+                
+                // configure date range
+                Picker(selection: $dateRange) {
+                    ForEach(MonitioManager.DateRangeDescriptor.allCases, id: \.self) {range in
+                        Text(range.displayName).tag(range)
+                    }
+                } label: {
+                    Text("Date Range:")
+                }.pickerStyle(.menu)
+                
+                
+                // configure number of storylines to import
+                HStack {
+                    Stepper(value: $numberOfImportedStorylines, in: 1...20) {
+                        Text("Number of storylines to fetch: \(numberOfImportedStorylines)")
+                    }
+                    
+                    //Spacer()
+                }
+                
+                
+            }.frame(width: 230)
+            
+            Spacer()
+            Button("Fetch") {
+                fetchClusters()
+            }
+        }.padding([.top, .bottom], 8)
+    }
+    
+    @ViewBuilder
+    /// Configures how the selected clusters should be imported
+    var clusterImportView: some View {
+        Text("How should a selected storyline be imported?")
+            .padding(.top, 16)
+        
+        Picker("", selection: $importMethod) {
+            
+            // first option: storyline summary
+            Text("Import storyline summary").tag(ImportMethod.summary)
+            
+            // second option: import documents
+            HStack {
+                Stepper("Import up to", value: $monitioViewModel.numberOfDocumentsToImport, in: 0...monitioViewModel.numberOfAvailableDocuments)
+                Text("\(monitioViewModel.numberOfDocumentsToImport) DW articles per storyline.")
+                Spacer()
+                Toggle("Restrict to titles & teasers", isOn: $importTitlesAndTeasersOnly)
+                    .disabled(importMethod == .summary)
+            }.tag(ImportMethod.documents)
+            
+        }
+        .pickerStyle(.radioGroup)
+    }
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -93,32 +168,8 @@ struct MonitioImportView: View {
                     Text(" ") // empty string to reserve space for status message
                 }
                 
-                HStack(alignment: .top) {
-                    VStack(alignment: .trailing) {
-                        HStack {
-                            Stepper(value: $numberOfImportedStorylines, in: 1...20) {
-                                Text("Number of storylines to fetch: \(numberOfImportedStorylines)")
-                            }
-                            
-                            //Spacer()
-                        }
-                        
-                        Picker(selection: $dateRange) {
-                            ForEach(MonitioManager.DateRangeDescriptor.allCases, id: \.self) {range in
-                                Text(range.displayName).tag(range)
-                            }
-                        } label: {
-                            Text("Date Range:")
-                        }.pickerStyle(.menu)
-
-                        
-                    }.frame(width: 230)
-                    
-                    Spacer()
-                    Button("Fetch") {
-                        fetchClusters()
-                    }
-                }.padding([.top, .bottom], 8)
+                // view to select import parameters
+                clusterFetchView
 
                 Divider()
                 
@@ -131,31 +182,14 @@ struct MonitioImportView: View {
                 }
                                 
                 
+                // Cluster import
                 if monitioViewModel.monitioClusters.count > 0 {
-                    Text("How should a selected storyline be imported?")
-                        .padding(.top, 16)
-                    
-                    Picker("", selection: $importMethod) {
-                        
-                        // first option: storyline summary
-                        Text("Import storyline summary").tag(ImportMethod.summary)
-                        
-                        // second option: import documents
-                        HStack {
-                            Stepper("Import up to", value: $monitioViewModel.numberOfDocumentsToImport, in: 0...monitioViewModel.numberOfAvailableDocuments)
-                            Text("\(monitioViewModel.numberOfDocumentsToImport) DW articles per storyline.")
-                            Spacer()
-                            Toggle("Restrict to titles & teasers", isOn: $importTitlesAndTeasersOnly)
-                                .disabled(importMethod == .summary)
-                        }.tag(ImportMethod.documents)
-                        
-                    }
-                    .pickerStyle(.radioGroup)
-                    
+                    clusterImportView
                 }
                 
                 Spacer()
                 
+                // Buttons at the bottom
                 HStack {
                     
                     Button("Cancel") {

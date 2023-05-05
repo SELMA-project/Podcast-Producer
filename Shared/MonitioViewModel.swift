@@ -52,6 +52,12 @@ class MonitioViewModel: ObservableObject {
     func setDateRange(_ dateRange: MonitioManager.DateRangeDescriptor) {
         monitioManager.setDateInterval(forDescriptor: dateRange)
     }
+
+    /// Sets the viewID that should be used to import Monitio storylines.
+    /// - Parameter dateRange: The daterange.
+    func setViewID(_ viewID: MonitioManager.ViewID) {
+        monitioManager.setViewId(viewID)
+    }
     
     /// Sets the language to use with the Monitio API.
     func setLanguage(_ language: LanguageManager.Language) {
