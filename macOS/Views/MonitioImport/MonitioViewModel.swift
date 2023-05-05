@@ -60,14 +60,24 @@ class MonitioViewModel: ObservableObject {
     }
     
     /// Sets the language to use with the Monitio API.
-    func setLanguage(_ language: LanguageManager.Language) {
+    ///
+    /// Setting the value to *nil* sets the MonitioManager to allow all languages.
+    func setLanguage(_ language: LanguageManager.Language?) {
         
-        // convert to monitioLanguageId
-        if let monitioLanguageId = MonitioLanguageId(rawValue: language.monitioCode) {
-            
-            // set monitioManager accordingly
-            monitioManager.setLanguageIds(languageIds: [monitioLanguageId])
+        // by default, we allow all languages (= empty array)
+        var monitioLanguageIds = [MonitioLanguageId]()
+        
+        // if a language was set...
+        if let language {
+            // convert to monitioLanguageId
+            if let monitioLanguageId = MonitioLanguageId(rawValue: language.monitioCode) {
+                // store in array of monitioLanguages
+                monitioLanguageIds = [monitioLanguageId]
+            }
         }
+        
+        // set monitioManager accordingly
+        monitioManager.setLanguageIds(languageIds: monitioLanguageIds)
     }
     
     /// Returns the number of documents that are contained in the buggest selected cluster.

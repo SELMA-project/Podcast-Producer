@@ -22,23 +22,42 @@ struct MonitioImportView: View {
     @AppStorage("monitioImportMethod") private var importMethod: ImportMethod = .summary
     @AppStorage("monitioImportedDateRange") private var dateRange: MonitioManager.DateRangeDescriptor = .last24h
     @AppStorage("monitioViewID") private var monitioViewID: MonitioManager.ViewID = .dw
-
-    @State var fetchingClusters = false
+    @AppStorage("monitioViewLanguageSelection") private var monitioLanguageSelection: LanguageSelection = .podcastLanguage
+    
+    @State var fetchingData = false
     
     /// The method to derive stories from the selected MonitioClusters.
     private enum ImportMethod: String {
         case summary, documents
     }
     
+    private enum LanguageSelection: String, CaseIterable {
+        case all, podcastLanguage
+        
+        var displayName: String {
+            switch self {
+            case .all:
+                return "All languages"
+            case .podcastLanguage:
+                return "Podcast language"
+            }
+        }
+    }
 
     /// Configures the Monitio Manager to use all the necessary configued patameters
     private func prepareMonitioImport() {
-        
-        // get episode language from episodeViewModel
-        let episodeLanguage = episodeViewModel[chosenEpisodeId].language
-        
+                
         // set language on monitioViewModel
-        monitioViewModel.setLanguage(episodeLanguage)
+        switch monitioLanguageSelection {
+        case .podcastLanguage:
+            // get episode language from episodeViewModel and set on MonitioManager
+            let episodeLanguage = episodeViewModel[chosenEpisodeId].language
+            monitioViewModel.setLanguage(episodeLanguage)
+        case .all:
+            // all languages allowed
+            monitioViewModel.setLanguage(nil)
+        }
+        
         
         // set date range
         monitioViewModel.setDateRange(dateRange)
@@ -54,7 +73,7 @@ struct MonitioImportView: View {
         Task {
             
             // flag that fetching has begun
-            fetchingClusters = true
+            fetchingData = true
             
             // set all necessary parameters on the Monitio Manager
             prepareMonitioImport()
@@ -63,7 +82,7 @@ struct MonitioImportView: View {
             await monitioViewModel.fetchClusters(numberOfClusters: numberOfImportedStorylines)
             
             // flag that fetching has ended
-            fetchingClusters = false
+            fetchingData = false
         }
     }
     
@@ -71,6 +90,9 @@ struct MonitioImportView: View {
     /// Imports documents from selected clusters.
     private func importDocuments() {
         Task {
+            
+            // flag that fetching has begun
+            fetchingData = true
             
             // set all necessary parameters on the Monitio Manager
             prepareMonitioImport()
@@ -82,13 +104,17 @@ struct MonitioImportView: View {
             case .summary:
                 stories = await monitioViewModel.extractStoriesFromMonitioSummaries()
             case .documents:
-                stories = await monitioViewModel.extractStoriesFromMonitioDocuments(numberOfStories: monitioViewModel.numberOfDocumentsToImport, useTitlesAndTeasersOnly: importTitlesAndTeasersOnly)
+                stories = await monitioViewModel.extractStoriesFromMonitioDocuments(numberOfStories: monitioViewModel.numberOfDocumentsToImport,
+                                                                                    useTitlesAndTeasersOnly: importTitlesAndTeasersOnly)
             }
             
             // add each story to the episode's list of stories
             for story in stories {
                 _ = episodeViewModel.appendStory(story: story, toChosenEpisode: chosenEpisodeId)
             }
+            
+            // flag that fetching has ended
+            fetchingData = false
             
             // dismiss sheet
             dismissAction()
@@ -109,6 +135,16 @@ struct MonitioImportView: View {
                     }
                 } label: {
                     Text("Collection:")
+                }.pickerStyle(.menu)
+                
+
+                // configure the Monitio language
+                Picker(selection: $monitioLanguageSelection) {
+                    ForEach(LanguageSelection.allCases, id: \.self) {languageSelection in
+                        Text(languageSelection.displayName).tag(languageSelection)
+                    }
+                } label: {
+                    Text("Article langues:")
                 }.pickerStyle(.menu)
                 
                 
@@ -132,12 +168,12 @@ struct MonitioImportView: View {
                 }
                 
                 
-            }.frame(width: 230)
+            }
             
             Spacer()
             Button("Fetch") {
                 fetchClusters()
-            }.disabled(fetchingClusters == true)
+            }.disabled(fetchingData == true)
         }.padding([.top, .bottom], 8)
     }
     
@@ -213,6 +249,7 @@ struct MonitioImportView: View {
                         importDocuments()
                     }
                     .disabled(monitioViewModel.numberOfDocumentsToImport == 0)
+                    .disabled(fetchingData == true)
                     
                 }
                 .padding([.top], 8)
