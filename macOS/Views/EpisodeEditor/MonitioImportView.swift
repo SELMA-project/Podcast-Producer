@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MonitioKit
 
 struct MonitioImportView: View {
     
@@ -19,6 +20,7 @@ struct MonitioImportView: View {
     @AppStorage("numberOfImportedStorylines") private var numberOfImportedStorylines: Int = 5
     @AppStorage("importTitlesAndTeasersOnly") private var importTitlesAndTeasersOnly: Bool = true
     @AppStorage("monitioImportMethod") private var importMethod: ImportMethod = .summary
+    @AppStorage("monitioImportedDateRange") private var dateRange: MonitioManager.DateRangeDescriptor = .last24h
     
     /// The method to derive stories from the selected MonitioClusters.
     private enum ImportMethod: String {
@@ -31,21 +33,32 @@ struct MonitioImportView: View {
         
         Task {
             
-            // get episode language from episodeViewModel
-            let episodeLanguage = episodeViewModel[chosenEpisodeId].language
-            
-            // set language on monitioViewModel
-            monitioViewModel.setLanguage(episodeLanguage)
+            // set all necessary parameters on the Monitio Manager
+            prepareMonitioImport()
             
             print("Fetching Monitio clusters.")
             await monitioViewModel.fetchClusters(numberOfClusters: numberOfImportedStorylines)
         }
     }
     
+    private func prepareMonitioImport() {
+        
+        // get episode language from episodeViewModel
+        let episodeLanguage = episodeViewModel[chosenEpisodeId].language
+        
+        // set language on monitioViewModel
+        monitioViewModel.setLanguage(episodeLanguage)
+        
+        // set date range
+        monitioViewModel.setDateRange(dateRange)
+    }
     
     /// Imports documents from selected clusters.
     private func importDocuments() {
         Task {
+            
+            // set all necessary parameters on the Monitio Manager
+            prepareMonitioImport()
             
             var stories: [Story] = []
             
@@ -80,18 +93,34 @@ struct MonitioImportView: View {
                     Text(" ") // empty string to reserve space for status message
                 }
                 
-                HStack {
-                    Stepper("Number of storylines to fetch:", value: $numberOfImportedStorylines, in: 1...20)
-                    Text("\(numberOfImportedStorylines)")
+                HStack(alignment: .top) {
+                    VStack(alignment: .trailing) {
+                        HStack {
+                            Stepper(value: $numberOfImportedStorylines, in: 1...20) {
+                                Text("Number of storylines to fetch: \(numberOfImportedStorylines)")
+                            }
+                            
+                            //Spacer()
+                        }
+                        
+                        Picker(selection: $dateRange) {
+                            ForEach(MonitioManager.DateRangeDescriptor.allCases, id: \.self) {range in
+                                Text(range.displayName).tag(range)
+                            }
+                        } label: {
+                            Text("Date Range:")
+                        }.pickerStyle(.menu)
+
+                        
+                    }.frame(width: 230)
                     
                     Spacer()
-                    
                     Button("Fetch") {
                         fetchClusters()
                     }
                 }.padding([.top, .bottom], 8)
 
-                
+                Divider()
                 
                 
                 // ScrollView with storylines
@@ -148,7 +177,7 @@ struct MonitioImportView: View {
             Spacer()
             
  
-        }.frame(width: 550, height: 400)
+        }.frame(width: 550, height: 500)
     }
 }
 

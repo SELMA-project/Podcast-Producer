@@ -25,16 +25,6 @@ class MonitioViewModel: ObservableObject {
             // adjust the number of documents to import
             numberOfDocumentsToImport = numberOfAvailableDocuments
             
-//            // adjust the number of available documents
-//            numberOfAvailableDocuments = monitioClusters.reduce(0) { partialResult, cluster in
-//                // only selected clusters are counted
-//                if cluster.isSelected {
-//                    return partialResult + cluster.selectionFrequency
-//                } else {
-//                    return partialResult
-//                }
-//            }
-            
             // adjust the number of documents to import
             numberOfDocumentsToImport = numberOfAvailableDocuments
         }
@@ -53,8 +43,14 @@ class MonitioViewModel: ObservableObject {
     
     init() {
         self.monitioManager = MonitioManager(viewId: .dw)
-        monitioManager.setDateInterval(forDescriptor: .last24h)
+        monitioManager.setDateInterval(forDescriptor: .last24h) // is overwritten by view 
         //monitioManager.setLanguageIds(languageIds: [.pt])
+    }
+    
+    /// Sets the data range that should be used to import Monitio storylines.
+    /// - Parameter dateRange: The daterange.
+    func setDateRange(_ dateRange: MonitioManager.DateRangeDescriptor) {
+        monitioManager.setDateInterval(forDescriptor: dateRange)
     }
     
     /// Sets the language to use with the Monitio API.
