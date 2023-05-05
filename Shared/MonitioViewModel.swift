@@ -18,16 +18,22 @@ class MonitioViewModel: ObservableObject {
     /// An array containing all MonitioClusters that have been fetched via the API.
     @Published var monitioClusters: [MonitioCluster] = [] {//[.mockup0, .mockup1, .mockup2, .mockup3, .mockup4]
         didSet {
-                        
+
             // adjust the number of available documents
-            numberOfAvailableDocuments = monitioClusters.reduce(0) { partialResult, cluster in
-                // only selected clusters are counted
-                if cluster.isSelected {
-                    return partialResult + cluster.selectionFrequency
-                } else {
-                    return partialResult
-                }
-            }
+            numberOfAvailableDocuments = calculateNumberOfOfAvailableDocumentsInBiggestSelectedCluster()
+
+            // adjust the number of documents to import
+            numberOfDocumentsToImport = numberOfAvailableDocuments
+            
+//            // adjust the number of available documents
+//            numberOfAvailableDocuments = monitioClusters.reduce(0) { partialResult, cluster in
+//                // only selected clusters are counted
+//                if cluster.isSelected {
+//                    return partialResult + cluster.selectionFrequency
+//                } else {
+//                    return partialResult
+//                }
+//            }
             
             // adjust the number of documents to import
             numberOfDocumentsToImport = numberOfAvailableDocuments
@@ -60,6 +66,22 @@ class MonitioViewModel: ObservableObject {
             // set monitioManager accordingly
             monitioManager.setLanguageIds(languageIds: [monitioLanguageId])
         }
+    }
+    
+    /// Returns the number of documents that are contained in the buggest selected cluster.
+    /// - Returns: The number of documents.
+    private func calculateNumberOfOfAvailableDocumentsInBiggestSelectedCluster() -> Int {
+        
+        // fpcus on selected clusters
+        let selectedClusters = monitioClusters.filter({ $0.isSelected })
+        
+        // sort by numberOfDocuments in descending order
+        let sortedByNumberOfDocuments = selectedClusters.sorted(by: {$0.selectionFrequency > $1.selectionFrequency})
+        
+        // the first cluster has the highest number of documents
+        let numberOfDocuments = sortedByNumberOfDocuments.first?.selectionFrequency ?? 0
+        
+        return numberOfDocuments
     }
     
 }
@@ -164,9 +186,9 @@ extension MonitioViewModel {
     
     /// Downloads the details of the selected MonitoClusters and converts them into stories, using text from DW Articles.
     ///
-    /// Not that for each cluster, only DW Articles contain can be used to derived the story's text.
+    /// Note that for each cluster, only DW Articles contain can be used to derived the story's text.
     /// - Parameters:
-    ///   - numberOfStories: The number of stories to create.
+    ///   - numberOfStories: The maximum number of stories to create.
     ///   - useTitlesAndTeasersOnly: Only use document titles and teasers to create story text.
     /// - Returns: <#description#>
     func extractStoriesFromMonitioDocuments(numberOfStories: Int, useTitlesAndTeasersOnly: Bool) async -> [Story] {

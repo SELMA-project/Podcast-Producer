@@ -113,8 +113,8 @@ struct MonitioImportView: View {
                         
                         // second option: import documents
                         HStack {
-                            Stepper("Import", value: $monitioViewModel.numberOfDocumentsToImport, in: 0...monitioViewModel.numberOfAvailableDocuments)
-                            Text("\(monitioViewModel.numberOfDocumentsToImport) DW documents")
+                            Stepper("Import up to", value: $monitioViewModel.numberOfDocumentsToImport, in: 0...monitioViewModel.numberOfAvailableDocuments)
+                            Text("\(monitioViewModel.numberOfDocumentsToImport) DW documents per storyline.")
                             Spacer()
                             Toggle("Restrict to titles & teasers", isOn: $importTitlesAndTeasersOnly)
                                 .disabled(importMethod == .summary)
@@ -148,7 +148,7 @@ struct MonitioImportView: View {
             Spacer()
             
  
-        }.frame(width: 450, height: 400)
+        }.frame(width: 550, height: 400)
     }
 }
 
