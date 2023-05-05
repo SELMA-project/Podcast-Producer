@@ -108,7 +108,7 @@ struct MonitioImportView: View {
                 let episodeLanguage = episodeViewModel[chosenEpisodeId].language
                 
                 // get all stories matching the episode language
-                stories = await monitioViewModel.extractStoriesFromMonitioDocuments(numberOfStories: monitioViewModel.numberOfDocumentsToImport,
+                stories = await monitioViewModel.extractStoriesFromMonitioDocuments(maximumNumberOfIncludedDocumentsPerStory: monitioViewModel.numberOfDocumentsToImport,
                                                                                     useTitlesAndTeasersOnly: importTitlesAndTeasersOnly,
                                                                                     restrictToLanguage: episodeLanguage
                 )
@@ -186,6 +186,15 @@ struct MonitioImportView: View {
     }
     
     
+    var numberOfArticlesDescriptor: String {
+        
+        let noA = monitioViewModel.numberOfDocumentsToImport
+        let textForOneArticle = "\(noA) DW article per storyline."
+        let textForMultipleArticles = "\(noA) DW articles per storyline."
+        
+        return  noA == 1 ? textForOneArticle : textForMultipleArticles
+    }
+    
     @ViewBuilder
     /// Configures how the selected clusters should be imported
     var clusterImportView: some View {
@@ -200,7 +209,7 @@ struct MonitioImportView: View {
             // second option: import documents
             HStack {
                 Stepper("Import up to", value: $monitioViewModel.numberOfDocumentsToImport, in: 0...monitioViewModel.numberOfAvailableDocuments)
-                Text("\(monitioViewModel.numberOfDocumentsToImport) DW articles per storyline.")
+                Text(numberOfArticlesDescriptor)
                 Spacer()
                 Toggle("Restrict to titles & teasers", isOn: $importTitlesAndTeasersOnly)
                     .disabled(importMethod == .summary)
@@ -257,7 +266,6 @@ struct MonitioImportView: View {
                         print("Importing Monitio clusters.")
                         importDocuments()
                     }
-                    .disabled(monitioViewModel.numberOfDocumentsToImport == 0)
                     .disabled(fetchingData == true)
                     
                 }

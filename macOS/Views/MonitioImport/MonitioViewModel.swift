@@ -23,10 +23,8 @@ class MonitioViewModel: ObservableObject {
             numberOfAvailableDocuments = calculateNumberOfOfAvailableDocumentsInBiggestSelectedCluster()
 
             // adjust the number of documents to import
-            numberOfDocumentsToImport = numberOfAvailableDocuments
+            numberOfDocumentsToImport = 1
             
-            // adjust the number of documents to import
-            numberOfDocumentsToImport = numberOfAvailableDocuments
         }
     }
     
@@ -200,10 +198,11 @@ extension MonitioViewModel {
     ///
     /// Note that for each cluster, only DW Articles contain can be used to derived the story's text.
     /// - Parameters:
-    ///   - numberOfStories: The maximum number of stories to create.
+    ///   - maximumNumberOfDocumentsPerStory: The maximum number of documents to include for every story.
     ///   - useTitlesAndTeasersOnly: Only use document titles and teasers to create story text.
+    ///   - restrictToLanguage: Optionally, only include documents with the specified language. *nil* includes documents regardless of their language.
     /// - Returns: <#description#>
-    func extractStoriesFromMonitioDocuments(numberOfStories: Int, useTitlesAndTeasersOnly: Bool, restrictToLanguage documentLanguage: LanguageManager.Language?) async -> [Story] {
+    func extractStoriesFromMonitioDocuments(maximumNumberOfIncludedDocumentsPerStory: Int, useTitlesAndTeasersOnly: Bool, restrictToLanguage documentLanguage: LanguageManager.Language?) async -> [Story] {
         
         // prepare result
         var stories = [Story]()
@@ -223,9 +222,17 @@ extension MonitioViewModel {
             // the document headlines and texts are extracted into the storyText
             var storyTextParagraphs = [String]()
             
+            // counts how many documents were included
+            var documentCounter = 0
+            
             // go through each document
             for document in documents {
                                 
+                // Do not extract more documents if there are already enough documents in the current story.
+                if documentCounter == maximumNumberOfIncludedDocumentsPerStory {
+                    break
+                }
+                
                 // check language
                 
                 // if a document language was specified...
@@ -270,14 +277,14 @@ extension MonitioViewModel {
                             // separate articles by extra newline
                             storyTextParagraphs.append("\n")
                             
+                            // if have added one more document to the story
+                            documentCounter += 1
+                                                        
                         }
                     }
                 }
                 
-                // check whether we have accumulated enough stories
-                if stories.count == numberOfStories {
-                    break
-                }
+    
             }
             
             // the cluster title becomes the headline of the story
