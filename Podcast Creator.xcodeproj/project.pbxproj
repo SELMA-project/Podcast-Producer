@@ -94,6 +94,7 @@
 		C17A0A5629BF7E9300053A57 /* ElevenLabsVoiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17A0A5429BF7E9300053A57 /* ElevenLabsVoiceManager.swift */; };
 		C17E86C329AE0C80004E5750 /* StructureEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E86C229AE0C80004E5750 /* StructureEditorView.swift */; };
 		C17E86C429AE0CC5004E5750 /* StructureEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100A48C29964AA000713E3B /* StructureEditorView.swift */; };
+		C18C9AD32A05127D000E0623 /* MonitioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EBDB7D29E8216F0032F664 /* MonitioViewModel.swift */; };
 		C191062D28FEEBAA00B81231 /* EpisodeCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C191062C28FEEBAA00B81231 /* EpisodeCreationView.swift */; };
 		C191062E28FEEBAA00B81231 /* EpisodeCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C191062C28FEEBAA00B81231 /* EpisodeCreationView.swift */; };
 		C19249A829ADE932007022E5 /* EpisodeEditorSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19249A729ADE932007022E5 /* EpisodeEditorSettingsView.swift */; };
@@ -129,7 +130,6 @@
 		C1E4C71A29A4D1350040826F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5927AD472600A72AEB /* ContentView.swift */; };
 		C1EBDB7A29E81D640032F664 /* MonitioKit in Frameworks */ = {isa = PBXBuildFile; productRef = C1EBDB7929E81D640032F664 /* MonitioKit */; };
 		C1EBDB7C29E81FB10032F664 /* MonitioImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EBDB7B29E81FB10032F664 /* MonitioImportView.swift */; };
-		C1EBDB7E29E8216F0032F664 /* MonitioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EBDB7D29E8216F0032F664 /* MonitioViewModel.swift */; };
 		C1EBDB7F29E8216F0032F664 /* MonitioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EBDB7D29E8216F0032F664 /* MonitioViewModel.swift */; };
 		C1EBDB8129E821CD0032F664 /* MonitioKit in Frameworks */ = {isa = PBXBuildFile; productRef = C1EBDB8029E821CD0032F664 /* MonitioKit */; };
 		C1F5602728D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
@@ -353,7 +353,6 @@
 				C1A3F61029A60BA2009BA0BE /* EpisodeEditorView.swift */,
 				C19249A729ADE932007022E5 /* EpisodeEditorSettingsView.swift */,
 				C19249A929ADEA85007022E5 /* EpisodeEditorStoriesListView.swift */,
-				C1EBDB7B29E81FB10032F664 /* MonitioImportView.swift */,
 				C1D3F48529ADF51100DC4E1A /* EpisodeEditorStoryView.swift */,
 			);
 			path = EpisodeEditor;
@@ -373,6 +372,14 @@
 				C1F5602628D4765900E573E2 /* no-audio.m4a */,
 			);
 			path = "Audio Files";
+			sourceTree = "<group>";
+		};
+		C18C9AD22A051247000E0623 /* MonitioImport */ = {
+			isa = PBXGroup;
+			children = (
+				C1EBDB7B29E81FB10032F664 /* MonitioImportView.swift */,
+			);
+			path = MonitioImport;
 			sourceTree = "<group>";
 		};
 		C19CB18029D7411900452A19 /* Frameworks */ = {
@@ -497,6 +504,7 @@
 				C193D28C29F2D5E500A1D4ED /* SettingsView.swift */,
 				C1D86DBD29AF5E4000388700 /* EpisodeCreation */,
 				C17E86C129AE0C4E004E5750 /* EpisodeEditor */,
+				C18C9AD22A051247000E0623 /* MonitioImport */,
 				C1D86DC129AF662800388700 /* Structure */,
 				C1D927E629AF3E39006BCF84 /* Rendering */,
 			);
@@ -691,7 +699,6 @@
 				C1495733296D7AFF00C70E40 /* AudioPlayerView.swift in Sources */,
 				C11A239F28F310F20022263B /* LanguageManager.swift in Sources */,
 				C14A102729113213004DBB67 /* Sidebar.swift in Sources */,
-				C1EBDB7E29E8216F0032F664 /* MonitioViewModel.swift in Sources */,
 				C14CEA3028F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
 				C110219F28FFFD93005AA554 /* AppleSpeechManager.swift in Sources */,
 				C1491F6F27AD472700A72AEB /* Persistence.swift in Sources */,
@@ -714,6 +721,7 @@
 				C167D66229FBB07900D8B24A /* Story.swift in Sources */,
 				C1262F8F28E323DF00F3C725 /* ScriptParser.swift in Sources */,
 				C193D28A29F2D05300A1D4ED /* Constants.swift in Sources */,
+				C18C9AD32A05127D000E0623 /* MonitioViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
