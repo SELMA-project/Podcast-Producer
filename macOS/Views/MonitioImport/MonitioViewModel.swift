@@ -227,6 +227,8 @@ extension MonitioViewModel {
             
             // go through each document
             for document in documents {
+                
+                //print(document.header.sourceItemPageUrl)
                                 
                 // Do not extract more documents if there are already enough documents in the current story.
                 if documentCounter == maximumNumberOfIncludedDocumentsPerStory {
@@ -288,7 +290,7 @@ extension MonitioViewModel {
             }
             
             // the cluster title becomes the headline of the story
-            let storyHeadline = clusterDetail.cluster.title
+            let storyHeadline = clusterDetail.cluster.title.trimmingCharacters(in: .whitespacesAndNewlines)
             
             // join storyTextParagraphs into the storyText
             var storyText = storyTextParagraphs.joined(separator: "\n\n")

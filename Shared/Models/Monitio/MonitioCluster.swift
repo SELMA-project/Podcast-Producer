@@ -36,7 +36,7 @@ struct MonitioCluster : Identifiable {
         }
         
         self.id = apiCluster.id
-        self.title = clusterTitle
+        self.title = clusterTitle.trimmingCharacters(in: .whitespacesAndNewlines)
         self.availableLanguages = apiCluster.availableLanguages
         self.selectionFrequency = apiCluster.selectionFrequency
     }

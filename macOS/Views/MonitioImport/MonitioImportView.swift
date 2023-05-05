@@ -267,7 +267,7 @@ struct MonitioImportView: View {
                         importDocuments()
                     }
                     .disabled(fetchingData == true)
-                    
+                    .disabled(monitioViewModel.monitioClusters.count == 0)
                 }
                 .padding([.top], 8)
             }
