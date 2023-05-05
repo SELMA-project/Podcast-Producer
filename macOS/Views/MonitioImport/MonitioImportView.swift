@@ -22,26 +22,15 @@ struct MonitioImportView: View {
     @AppStorage("monitioImportMethod") private var importMethod: ImportMethod = .summary
     @AppStorage("monitioImportedDateRange") private var dateRange: MonitioManager.DateRangeDescriptor = .last24h
     @AppStorage("monitioViewID") private var monitioViewID: MonitioManager.ViewID = .dw
+
+    @State var fetchingClusters = false
     
     /// The method to derive stories from the selected MonitioClusters.
     private enum ImportMethod: String {
         case summary, documents
     }
     
-    
-    /// Fetches clusters via MonitoViewModel.
-    private func fetchClusters() {
-        
-        Task {
-            
-            // set all necessary parameters on the Monitio Manager
-            prepareMonitioImport()
-            
-            print("Fetching Monitio clusters.")
-            await monitioViewModel.fetchClusters(numberOfClusters: numberOfImportedStorylines)
-        }
-    }
-    
+
     /// Configures the Monitio Manager to use all the necessary configued patameters
     private func prepareMonitioImport() {
         
@@ -57,6 +46,27 @@ struct MonitioImportView: View {
         // set view ID
         monitioViewModel.setViewID(monitioViewID)
     }
+    
+    
+    /// Fetches clusters via MonitoViewModel.
+    private func fetchClusters() {
+        
+        Task {
+            
+            // flag that fetching has begun
+            fetchingClusters = true
+            
+            // set all necessary parameters on the Monitio Manager
+            prepareMonitioImport()
+            
+            print("Fetching Monitio clusters.")
+            await monitioViewModel.fetchClusters(numberOfClusters: numberOfImportedStorylines)
+            
+            // flag that fetching has ended
+            fetchingClusters = false
+        }
+    }
+    
     
     /// Imports documents from selected clusters.
     private func importDocuments() {
@@ -89,7 +99,7 @@ struct MonitioImportView: View {
     /// Displays the parameters to confiure the initial fetch of the clusters
     var clusterFetchView: some View {
         
-        HStack(alignment: .top) {
+        HStack(alignment: .bottom) {
             VStack(alignment: .trailing) {
                 
                 // configure Monitio view
@@ -127,7 +137,7 @@ struct MonitioImportView: View {
             Spacer()
             Button("Fetch") {
                 fetchClusters()
-            }
+            }.disabled(fetchingClusters == true)
         }.padding([.top, .bottom], 8)
     }
     
@@ -173,14 +183,14 @@ struct MonitioImportView: View {
 
                 Divider()
                 
-                
                 // ScrollView with storylines
                 ScrollView(.vertical) {
                     ForEach($monitioViewModel.monitioClusters) {$cluster in
                         ClusterLineView(cluster: $cluster)
                     }
-                }
-                                
+                }.padding([.top, .bottom])
+                         
+                Divider()
                 
                 // Cluster import
                 if monitioViewModel.monitioClusters.count > 0 {

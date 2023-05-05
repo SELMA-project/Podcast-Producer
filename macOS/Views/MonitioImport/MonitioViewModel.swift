@@ -115,7 +115,7 @@ extension MonitioViewModel {
             }
         }
                 
-        self.statusMessage = "Fetched \(monitioClusters.count) storylines containing \(numberOfAvailableDocuments) documents."
+        self.statusMessage = "Fetched \(monitioClusters.count) storylines containing up to \(numberOfAvailableDocuments) articles each."
 
     }
     
