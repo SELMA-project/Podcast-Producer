@@ -45,6 +45,11 @@ class TemplateManager {
             let template = template(forLanguage: .french)
             templates.append(template)
         }
+
+        if language == .spanish {
+            let template = template(forLanguage: .spanish)
+            templates.append(template)
+        }
         
         // store result in cache
         cachedTemplates[language] = templates
@@ -97,6 +102,12 @@ class TemplateManager {
             restrictHeadlinesToHighLights = true
             introText = "DW Info Matin du {date}. Je m'appelle {narrator}. Bonjour."
             outroText = "Excellente journée à toutes et à tous et rendez-vous demain matin pour une nouvelle émission de Info Matin. A demain!"
+
+        case .spanish:
+            templateName = "Las noticias en español"
+            restrictHeadlinesToHighLights = true
+            introText = "La noticia del {date}. Mi nombre es {narrator}. Buen día."
+            outroText = "Que tengan un gran día a todos y nos vemos mañana por la mañana para un nuevo espectáculo. ¡Hasta mañana!"
         }
         
         template = createTemplate(name: templateName, forLanguage: language, restrictHeadlinesToHighLights: restrictHeadlinesToHighLights, introText: introText, outroText: outroText)
