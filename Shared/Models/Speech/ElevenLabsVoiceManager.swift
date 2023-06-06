@@ -87,6 +87,18 @@ extension ElevenLabsVoiceManager {
         return success
     }
     
+    /// Downloads an array of available ElevenLabs Voices and returns it.
+    /// - Returns: An array of available ElevenLabs Voices.
+    func nativeVoices() async -> [Voice] {
+        
+        // download the voices if we haven't done so yet
+        if availableVoices.count == 0 {
+            availableVoices = await downloadVoices()
+        }
+        
+        return availableVoices
+    }
+    
     
 }
 

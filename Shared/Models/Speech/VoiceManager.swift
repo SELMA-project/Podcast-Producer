@@ -166,6 +166,29 @@ class VoiceManager {
         return returnedVoices
     }
     
+    /*
+     private func findSuitableElevenLabsVoices() async -> [PodcastVoice] {
+         // prepare result
+         var returnedVoices = [PodcastVoice]()
+         
+         let apiKey = UserDefaults.standard.string(forKey: Constants.userDefaultsElevenLabsAPIKeyName)
+         
+         // only proceed if we have an apiKey
+         if apiKey?.count ?? 0 > 0 {
+             let manager = ElevenLabsVoiceManager(apiKey: apiKey!)
+             let nativeVoices = await manager.nativeVoices()
+             
+             for nativeVoice in nativeVoices {
+                 let podcastVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "en-US", identifier: nativeVoice.name)
+                 returnedVoices.append(podcastVoice)
+             }
+         }
+
+         
+         return returnedVoices
+     }
+     */
+    
     /// All available Apple voices
     private func findSuitableAppleVoices()  -> [PodcastVoice] {
         
