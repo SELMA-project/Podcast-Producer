@@ -278,7 +278,7 @@ extension MonitioViewModel {
                             var articleHeadlineWithFullStop = articleHeadline
                             
                             // add full stop at the end if one is missing
-                            if articleHeadlineWithFullStop.last == "." {
+                            if articleHeadlineWithFullStop.last != "." {
                                 articleHeadlineWithFullStop += "."
                             }
                             
