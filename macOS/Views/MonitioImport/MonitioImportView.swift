@@ -107,10 +107,11 @@ struct MonitioImportView: View {
                 // get the episode's language
                 let episodeLanguage = episodeViewModel[chosenEpisodeId].language
                 
-                // get all stories matching the episode language
+                // get all stories matching the episode language. While queriying, restrict to DW as Feed Provider
                 stories = await monitioViewModel.extractStoriesFromMonitioDocuments(maximumNumberOfIncludedDocumentsPerStory: monitioViewModel.numberOfDocumentsToImport,
                                                                                     useTitlesAndTeasersOnly: importTitlesAndTeasersOnly,
-                                                                                    restrictToLanguage: episodeLanguage
+                                                                                    restrictToLanguage: episodeLanguage,
+                                                                                    restrictToFeed: "DW"
                 )
             }
             

@@ -181,6 +181,7 @@
 		C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineSectionEditView.swift; sourceTree = "<group>"; };
 		C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewModel.swift; sourceTree = "<group>"; };
 		C1543A0E28A2A69C00427ED0 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
+		C15648612A2E03A800F6D3FB /* MonitioKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MonitioKit; path = "../00-packages/MonitioKit"; sourceTree = "<group>"; };
 		C15F6D56296D58D800BA567D /* PodcastRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastRenderView.swift; sourceTree = "<group>"; };
 		C167D66129FBB07900D8B24A /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		C170D76729A37A9F00309559 /* SectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditView.swift; sourceTree = "<group>"; };
@@ -299,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				C10D912A2919430300AC94A7 /* Podcast-Creator--iOS--Info.plist */,
+				C15648612A2E03A800F6D3FB /* MonitioKit */,
 				C1491F5527AD472600A72AEB /* Shared */,
 				C1491F6727AD472700A72AEB /* macOS */,
 				C1491F6127AD472700A72AEB /* Products */,
@@ -910,7 +912,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lab-dw.Podcast-Producer";
 				PRODUCT_NAME = "Podcast Creator";
 				SDKROOT = iphoneos;
@@ -942,7 +944,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lab-dw.Podcast-Producer";
 				PRODUCT_NAME = "Podcast Creator";
 				SDKROOT = iphoneos;
@@ -976,7 +978,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lab-dw.Podcast-Producer";
 				PRODUCT_NAME = "Podcast Creator";
 				SDKROOT = macosx;
@@ -1008,7 +1010,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lab-dw.Podcast-Producer";
 				PRODUCT_NAME = "Podcast Creator";
 				SDKROOT = macosx;
