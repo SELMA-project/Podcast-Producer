@@ -21,7 +21,8 @@ struct EpisodeEditorStoryView: View {
         
         // use the first two non-empty paragraphs
         // these are the headline and the teaser text
-        story.storyText = String(paragraphs[0..<2].joined(separator: "\n\n"))
+        let numberOfParagraphs = min(2, paragraphs.count)
+        story.storyText = String(paragraphs[0..<numberOfParagraphs].joined(separator: "\n\n"))
         
         //story.storyText = String(story.storyText.split(separator: "\n")[0])
     }

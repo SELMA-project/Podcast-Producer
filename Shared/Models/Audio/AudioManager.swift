@@ -389,11 +389,11 @@ extension AudioManager {
             // replace tokens
             let textToRender = episode.replaceTokens(inText: rawText)
             
-            // render audio if it does not yet exist
+            // render audio
             var success = true
-            if !FileManager.default.fileExists(atPath: audioURL.path) {
-                success = await synthesizeSpeech(podcastVoice: podcastVoice, text: textToRender, toURL: audioURL)
-            }
+            //if !FileManager.default.fileExists(atPath: audioURL.path) {
+            success = await synthesizeSpeech(podcastVoice: podcastVoice, text: textToRender, toURL: audioURL)
+            //}
             
             if success {
                 returnedURL = audioURL
