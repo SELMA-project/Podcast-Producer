@@ -275,7 +275,14 @@ extension MonitioViewModel {
                         
                         // append article headline to the storyText
                         if let articleHeadline {
-                            storyTextParagraphs.append(articleHeadline)
+                            var articleHeadlineWithFullStop = articleHeadline
+                            
+                            // add full stop at the end if one is missing
+                            if articleHeadlineWithFullStop.last == "." {
+                                articleHeadlineWithFullStop += "."
+                            }
+                            
+                            storyTextParagraphs.append(articleHeadlineWithFullStop)
                         }
                         
                         // append article text to the storyText
