@@ -10,7 +10,7 @@ import Foundation
 struct EpisodeTemplate: Hashable, Identifiable {
     
     enum Edition: String {
-        case morning, evening
+        case morning, evening, standard
     }
     
     var id: String {return name}
