@@ -382,7 +382,7 @@ struct AudioEpisode {
         
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         //let outputURL = documentsURL.appendingPathComponent("\(outputfileName).m4a")
-        let outputURL = documentsURL.appendingPathComponent("\(outputfileName).caf")
+        let outputURL = documentsURL.appendingPathComponent("\(outputfileName).wav")
 
         // Audio File settings
         let settings = [
