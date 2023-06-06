@@ -303,7 +303,8 @@ struct ClusterLineView:  View {
             Toggle(isOn: $cluster.isSelected) {
                 VStack(alignment: .leading) {
                     Text(cluster.title)
-                    Text("\(cluster.selectionFrequency) documents. Languages: \(cluster.availableLanguages.joined(separator: ", "))")
+                    //Text("\(cluster.selectionFrequency) documents. Languages: \(cluster.availableLanguages.joined(separator: ", "))")
+                    Text("\(cluster.selectionFrequency) documents.")
                         .font(.caption)
                 }
             }
