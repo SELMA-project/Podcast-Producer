@@ -15,7 +15,15 @@ struct EpisodeEditorStoryView: View {
     
     
     func mockSummarize() {
-        story.storyText = String(story.storyText.split(separator: "\n")[0])
+        
+        // split into paragraphs
+        let paragraphs = story.storyText.split(separator: "\n")
+        
+        // use the first two non-empty paragraphs
+        // these are the headline and the teaser text
+        story.storyText = String(paragraphs[0..<2].joined(separator: "\n\n"))
+        
+        //story.storyText = String(story.storyText.split(separator: "\n")[0])
     }
     
     var body: some View {
