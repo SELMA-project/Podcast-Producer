@@ -56,7 +56,7 @@ struct Sidebar: View {
             
             // show this instruction if we don't have any episodes
             if episodeViewModel.availableEpisodes.count == 0 {
-                Text("Please tap '+' to add a new episode.")
+                Text("Please tap '+' to add a new episode.").padding()
             }
         }
         .listStyle(.sidebar)
