@@ -318,8 +318,12 @@ struct AudioEpisode {
                 
                 // schedule player's playback
                 let startAudioTime = startTimeOfTrack(withId: track.id, inSegmentWithId: segment.id)
-                //playerNode.scheduleBuffer(track.inputBuffer, at: startAudioTime)
-                playerNode.scheduleSegment(track.sourceFile, startingFrame: 0, frameCount: track.numberOfAudioSamples, at: startAudioTime)
+                let numberOfAudioSamples = track.numberOfAudioSamples
+                
+                // render only if we have samples to render. This was a bug.
+                if numberOfAudioSamples > 0 {
+                    playerNode.scheduleSegment(track.sourceFile, startingFrame: 0, frameCount: track.numberOfAudioSamples, at: startAudioTime)
+                }
             }
         }
         
