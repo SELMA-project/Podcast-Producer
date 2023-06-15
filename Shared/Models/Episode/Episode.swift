@@ -216,7 +216,7 @@ extension Episode {
     static func buildFromScript(_ scriptFilename: String) -> Episode {
         
         // use this template
-        let episodeTemplate = TemplateManager.shared.template(forLanguage: .brazilian, edition: .morning)
+        let episodeTemplate = TemplateManager.shared.availableTemplates(forLanguage: .brazilian)[0]
         
         let parser = ScriptParser(name: scriptFilename)
         
