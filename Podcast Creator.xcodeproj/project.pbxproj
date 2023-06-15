@@ -184,7 +184,6 @@
 		C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewModel.swift; sourceTree = "<group>"; };
 		C1543A0E28A2A69C00427ED0 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		C15F6D56296D58D800BA567D /* PodcastRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastRenderView.swift; sourceTree = "<group>"; };
-		C16505F52A3B39D000734BAC /* SelmaKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SelmaKit; path = "../00-packages/SelmaKit"; sourceTree = "<group>"; };
 		C167D66129FBB07900D8B24A /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		C170D76729A37A9F00309559 /* SectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditView.swift; sourceTree = "<group>"; };
 		C1756AB928A1198D00FE9F2B /* EpisodeEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorView.swift; sourceTree = "<group>"; };
@@ -304,7 +303,6 @@
 			isa = PBXGroup;
 			children = (
 				C10D912A2919430300AC94A7 /* Podcast-Creator--iOS--Info.plist */,
-				C16505F52A3B39D000734BAC /* SelmaKit */,
 				C1491F5527AD472600A72AEB /* Shared */,
 				C1491F6727AD472700A72AEB /* macOS */,
 				C1491F6127AD472700A72AEB /* Products */,
