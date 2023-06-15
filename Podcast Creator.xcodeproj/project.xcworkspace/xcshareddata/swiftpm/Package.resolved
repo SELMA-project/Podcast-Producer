@@ -17,6 +17,15 @@
         "branch" : "main",
         "revision" : "5df0cf929329ae7d949d55b64ae581fce3a56201"
       }
+    },
+    {
+      "identity" : "selmakit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/agiefer/SelmaKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "6082b4e98ab3f82cb0c5166ad6b6614622d9c509"
+      }
     }
   ],
   "version" : 2

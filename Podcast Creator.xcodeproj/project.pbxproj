@@ -84,8 +84,8 @@
 		C1543A0F28A2A69C00427ED0 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1543A0E28A2A69C00427ED0 /* Episode.swift */; };
 		C1543A1028A2A69C00427ED0 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1543A0E28A2A69C00427ED0 /* Episode.swift */; };
 		C15F6D57296D58D800BA567D /* PodcastRenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15F6D56296D58D800BA567D /* PodcastRenderView.swift */; };
-		C16505EB2A3B343800734BAC /* SelmaKit in Frameworks */ = {isa = PBXBuildFile; productRef = C16505EA2A3B343800734BAC /* SelmaKit */; };
-		C16505ED2A3B345D00734BAC /* SelmaKit in Frameworks */ = {isa = PBXBuildFile; productRef = C16505EC2A3B345D00734BAC /* SelmaKit */; };
+		C16505F22A3B393A00734BAC /* SelmaKit in Frameworks */ = {isa = PBXBuildFile; productRef = C16505F12A3B393A00734BAC /* SelmaKit */; };
+		C16505F42A3B394100734BAC /* SelmaKit in Frameworks */ = {isa = PBXBuildFile; productRef = C16505F32A3B394100734BAC /* SelmaKit */; };
 		C167D66229FBB07900D8B24A /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167D66129FBB07900D8B24A /* Story.swift */; };
 		C167D66329FBB07900D8B24A /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167D66129FBB07900D8B24A /* Story.swift */; };
 		C1756ABD28A13D3700FE9F2B /* StoryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */; };
@@ -184,7 +184,6 @@
 		C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewModel.swift; sourceTree = "<group>"; };
 		C1543A0E28A2A69C00427ED0 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		C15F6D56296D58D800BA567D /* PodcastRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastRenderView.swift; sourceTree = "<group>"; };
-		C16505E92A3B32C700734BAC /* SelmaKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SelmaKit; path = "../00-packages/SelmaKit"; sourceTree = "<group>"; };
 		C167D66129FBB07900D8B24A /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		C170D76729A37A9F00309559 /* SectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditView.swift; sourceTree = "<group>"; };
 		C1756AB928A1198D00FE9F2B /* EpisodeEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorView.swift; sourceTree = "<group>"; };
@@ -222,7 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C19CB18229D7411900452A19 /* DWUtilities in Frameworks */,
-				C16505ED2A3B345D00734BAC /* SelmaKit in Frameworks */,
+				C16505F22A3B393A00734BAC /* SelmaKit in Frameworks */,
 				C1EBDB7A29E81D640032F664 /* MonitioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,7 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C19CB18429D7412500452A19 /* DWUtilities in Frameworks */,
-				C16505EB2A3B343800734BAC /* SelmaKit in Frameworks */,
+				C16505F42A3B394100734BAC /* SelmaKit in Frameworks */,
 				C1EBDB8129E821CD0032F664 /* MonitioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,7 +302,6 @@
 		C1491F5027AD472500A72AEB = {
 			isa = PBXGroup;
 			children = (
-				C16505E92A3B32C700734BAC /* SelmaKit */,
 				C10D912A2919430300AC94A7 /* Podcast-Creator--iOS--Info.plist */,
 				C1491F5527AD472600A72AEB /* Shared */,
 				C1491F6727AD472700A72AEB /* macOS */,
@@ -557,7 +555,7 @@
 			packageProductDependencies = (
 				C19CB18129D7411900452A19 /* DWUtilities */,
 				C1EBDB7929E81D640032F664 /* MonitioKit */,
-				C16505EC2A3B345D00734BAC /* SelmaKit */,
+				C16505F12A3B393A00734BAC /* SelmaKit */,
 			);
 			productName = "Podcast Producer (iOS)";
 			productReference = C1491F6027AD472700A72AEB /* Podcast Creator.app */;
@@ -579,7 +577,7 @@
 			packageProductDependencies = (
 				C19CB18329D7412500452A19 /* DWUtilities */,
 				C1EBDB8029E821CD0032F664 /* MonitioKit */,
-				C16505EA2A3B343800734BAC /* SelmaKit */,
+				C16505F32A3B394100734BAC /* SelmaKit */,
 			);
 			productName = "Podcast Producer (macOS)";
 			productReference = C1491F6627AD472700A72AEB /* Podcast Creator.app */;
@@ -615,6 +613,7 @@
 			packageReferences = (
 				C19CB17D29D7410500452A19 /* XCRemoteSwiftPackageReference "DWUtilities" */,
 				C1EBDB7829E81D640032F664 /* XCRemoteSwiftPackageReference "MonitioKit" */,
+				C16505EE2A3B38CF00734BAC /* XCRemoteSwiftPackageReference "SelmaKit" */,
 			);
 			productRefGroup = C1491F6127AD472700A72AEB /* Products */;
 			projectDirPath = "";
@@ -1058,6 +1057,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C16505EE2A3B38CF00734BAC /* XCRemoteSwiftPackageReference "SelmaKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/agiefer/SelmaKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		C19CB17D29D7410500452A19 /* XCRemoteSwiftPackageReference "DWUtilities" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/agiefer/DWUtilities.git";
@@ -1077,12 +1084,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C16505EA2A3B343800734BAC /* SelmaKit */ = {
+		C16505F12A3B393A00734BAC /* SelmaKit */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = C16505EE2A3B38CF00734BAC /* XCRemoteSwiftPackageReference "SelmaKit" */;
 			productName = SelmaKit;
 		};
-		C16505EC2A3B345D00734BAC /* SelmaKit */ = {
+		C16505F32A3B394100734BAC /* SelmaKit */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = C16505EE2A3B38CF00734BAC /* XCRemoteSwiftPackageReference "SelmaKit" */;
 			productName = SelmaKit;
 		};
 		C19CB18129D7411900452A19 /* DWUtilities */ = {
