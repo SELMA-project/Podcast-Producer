@@ -16,6 +16,11 @@ struct PodcastRenderView: View {
     
     @State private var progressText = "Press button to render."
     @State private var progressValue = 0.0
+    @State private var muteBackgroundAudio = false {
+        didSet {
+            audioURL = nil
+        }
+    }
 
     @State private var audioURL: URL? = nil
     
@@ -116,48 +121,53 @@ struct PodcastRenderView: View {
             Divider()//.padding([.top, .bottom])
 
             
-            HStack {
+            VStack(alignment: .leading) {
                 
+                Toggle("Mute background audio", isOn: $muteBackgroundAudio)
                 
-                Button {
-                    Task {
-                        
-                        progressValue = 50
-                        progressText = "Synthesizing speech..."
-                        audioURL = await episodeViewModel.renderEpisode(chosenEpisodeId: chosenEpisodeId)
-                        
-                        progressValue = 100
-                        progressText = "Ready for sharing."
+                HStack {
+                    
+                    
+                    Button {
+                        Task {
+                            
+                            progressValue = 50
+                            progressText = "Synthesizing speech..."
+                            audioURL = await episodeViewModel.renderEpisode(chosenEpisodeId: chosenEpisodeId, muteBackgroundAudio: muteBackgroundAudio)
+                            
+                            progressValue = 100
+                            progressText = "Ready for sharing."
+                        }
+                    } label: {
+                        Text("Build")
+                            .frame(maxWidth: .infinity)
                     }
-                } label: {
-                    Text("Build")
-                        .frame(maxWidth: .infinity)
-                }
-                .disabled(audioURL != nil)
-                .buttonStyle(.borderedProminent)
-                .frame(maxWidth: 100)
-                
-                ProgressView(progressText, value: progressValue, total: 100)
-                    .opacity(renderProgressIsVisible ? 1 : 0)
- 
-                Spacer()
-  
-                Button {
-                    dismissAction()
-                } label: {
-                    Text("Cancel")
-                }
-                
-                Button {
-                    if let destionationURL = showSavePanel() {
-                        save(toURL: destionationURL)
+                    .disabled(audioURL != nil)
+                    .buttonStyle(.borderedProminent)
+                    .frame(maxWidth: 100)
+                    
+                    ProgressView(progressText, value: progressValue, total: 100)
+                        .opacity(renderProgressIsVisible ? 1 : 0)
+                    
+                    Spacer()
+                    
+                    Button {
+                        dismissAction()
+                    } label: {
+                        Text("Cancel")
                     }
                     
-                    dismissAction()
-                    
-                } label: {
-                    Text("Save Audio")
-                }.disabled(audioURL == nil)
+                    Button {
+                        if let destionationURL = showSavePanel() {
+                            save(toURL: destionationURL)
+                        }
+                        
+                        dismissAction()
+                        
+                    } label: {
+                        Text("Save Audio")
+                    }.disabled(audioURL == nil)
+                }
             }
         }
     }

@@ -201,9 +201,16 @@ class EpisodeViewModel: ObservableObject {
     }
     
     /// Called by the PodcastRenderView to render the entire episode
-    func renderEpisode(chosenEpisodeId: UUID?) async -> URL {
+    func renderEpisode(chosenEpisodeId: UUID?, muteBackgroundAudio: Bool = false) async -> URL {
         
-        let chosenEpisode = self[chosenEpisodeId]
+        var chosenEpisode = self[chosenEpisodeId]
+        
+        // mute backgroundAudio if requested
+        if muteBackgroundAudio {
+            chosenEpisode.muteBackgroundAudio()
+        }
+        
+        // render episode as audio file
         let episodeUrl = await AudioManager.shared.createAudioEpisodeBasedOnEpisode(chosenEpisode, selectedSectionIndex: nil)
         print("Audio file saved here: \(String(describing: episodeUrl))")
         

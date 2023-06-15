@@ -162,8 +162,32 @@ struct Episode: Identifiable, Hashable, Codable {
 }
 
 
-
-
+// Adds function to mute backgroundAudio in all sections
+extension Episode {
+    
+    mutating func muteBackgroundAudio() {
+        
+        var updatedSections = [EpisodeSection]()
+        
+        // set all background audio files to None
+        for section in sections {
+            
+            // copy for modification
+            var sectionCopy = section
+            
+            sectionCopy.prefixAudioFile = AudioManager.audioFileForDisplayName("None")
+            sectionCopy.mainAudioFile = AudioManager.audioFileForDisplayName("None")
+            sectionCopy.suffixAudioFile = AudioManager.audioFileForDisplayName("None")
+            sectionCopy.separatorAudioFile = AudioManager.audioFileForDisplayName("None")
+            
+            updatedSections.append(sectionCopy)
+        }
+        
+        // update the episode's sections
+        self.sections = updatedSections
+    }
+    
+}
 
 
 extension Episode {
