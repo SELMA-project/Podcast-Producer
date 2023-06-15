@@ -23,24 +23,23 @@ class TemplateManager {
         var templates = [EpisodeTemplate]()
         
         if language == .brazilian {
-            
-            let standardTemplate = template(forLanguage: .brazilian, edition: .standard)
-            templates.append(standardTemplate)
-            
+                        
             let morningTemplate = template(forLanguage: .brazilian, edition: .morning)
             templates.append(morningTemplate)
             
             let eveningTemplate = template(forLanguage: .brazilian, edition: .evening)
             templates.append(eveningTemplate)
 
+            let speechOnlyTemplate = template(forLanguage: .brazilian, edition: .speechOnly)
+            templates.append(speechOnlyTemplate)
             
         } else { // all other languages
-        
-            let standardTemplate = template(forLanguage: language, edition: .standard)
-            templates.append(standardTemplate)
-            
-            let newsTemplate = template(forLanguage: language)
+                    
+            let newsTemplate = template(forLanguage: language, edition: .news)
             templates.append(newsTemplate)
+            
+            let speechOnlyTemplate = template(forLanguage: language, edition: .speechOnly)
+            templates.append(speechOnlyTemplate)
         }
         
         // store result in cache
@@ -50,12 +49,12 @@ class TemplateManager {
         return templates
     }
     
-    func template(forLanguage language: LanguageManager.Language, edition: EpisodeTemplate.Edition? = nil) -> EpisodeTemplate {
+    func template(forLanguage language: LanguageManager.Language, edition: EpisodeTemplate.Edition) -> EpisodeTemplate {
         
         let template: EpisodeTemplate
         
         // default values for standard template
-        var templateName: String = "Standard"
+        var templateName: String = "Speech only"
         let restrictHeadlinesToHighLights: Bool = true
         var introText: String = ""
         var outroText: String = ""
@@ -65,8 +64,8 @@ class TemplateManager {
         case .brazilian:
             
             switch edition {
-            case .standard, .none:
-                templateName = "Standard"
+            case .speechOnly:
+                templateName = "Speech only"
                 introText = "Olá, hoje é {date}. Eu sou {narrator}."
                 outroText = ""
                 
@@ -79,74 +78,97 @@ class TemplateManager {
                 templateName = "DW Brasil (pm)"
                 introText = "Olá, hoje é {date}. Eu sou {narrator} e esta é a segunda edição do Boletim de Notícias da DW Brasil. Confira nesta edição:"
                 outroText = "Mais informações, confira no nosso site: dw.com/brasil"
-            }
             
+            default:
+                break
+            }
+        
             
         case .german:
             
             switch edition {
-            case .standard, .none:
-                templateName = "Standard"
+            case .speechOnly:
+                templateName = "Speech only"
                 introText = "Guten Tag, heute ist {date}. Mein Name ist {narrator}."
                 outroText = ""
                 
-            default:
+            case .news:
                 templateName = "DW Nachrichten"
                 introText = "Guten Tag, heute ist {date}. Mein Name ist {narrator} hier sind die neusten Nachrichten."
                 outroText = "Das waren die Nachrichten."
+                
+            default:
+                break
             }
             
         case .english:
             switch edition {
-            case .standard, .none:
-                templateName = "Standard"
+            case .speechOnly:
+                templateName = "Speech only"
                 introText = "Greetings. It's {date}. My name is {narrator}."
                 outroText = ""
                 
-            default:
+            case .news:
                 templateName = "DW News"
                 introText = "Greetings. It's {date} and this is DW with the latest news. My name is {narrator}."
                 outroText = "These were the news. Come back for more."
+                
+            default:
+                break
             }
             
         case .french:
             switch edition {
-            case .standard, .none:
-                templateName = "Standard"
+            case .speechOnly:
+                templateName = "Speech only"
                 introText = "Bonjour, il est {date}. Je m'appelle {narrator}."
                 outroText = ""
                 
-            default:
+            case .news:
                 templateName = "Info Matin"
                 introText = "DW Info Matin du {date}. Je m'appelle {narrator}. Bonjour."
                 outroText = "Excellente journée à toutes et à tous et rendez-vous demain matin pour une nouvelle émission de Info Matin. A demain!"
+                
+            default:
+                break
             }
             
         case .spanish:
             switch edition {
-            case .standard, .none:
-                templateName = "Standard"
+            case .speechOnly:
+                templateName = "Speech only"
                 introText = "La noticia del {date}. Mi nombre es {narrator}. Buen día."
                 outroText = ""
                 
-            default:
+            case .news:
                 templateName = "Las noticias en español"
                 introText = "La noticia del {date}. Mi nombre es {narrator}. Buen día."
                 outroText = "Que tengan un gran día a todos y nos vemos mañana por la mañana para un nuevo espectáculo. ¡Hasta mañana!"
+                
+            default:
+                break
             }
         
         case .hindi:
             switch edition {
-            default:
+            case .speechOnly:
+                templateName = "Speech only"
+                introText = "Bonjour, il est {date}. Je m'appelle {narrator}."
+                outroText = ""
+                
+            case .news:
                 templateName = "Standard"
                 introText = "अभिवादन।"
                 outroText = ""
+                
+            default:
+                break
             }
             
         }
         
         // Create template. Use audio only if this is not the standard template
-        template = createTemplate(name: templateName, forLanguage: language, restrictHeadlinesToHighLights: restrictHeadlinesToHighLights, introText: introText, outroText: outroText, useAudio: edition != .standard)
+        template = createTemplate(name: templateName, forLanguage: language, restrictHeadlinesToHighLights: restrictHeadlinesToHighLights, introText: introText, outroText: outroText, useAudio: edition != .speechOnly)
         
         return template
         
