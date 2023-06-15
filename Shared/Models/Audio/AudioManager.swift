@@ -46,7 +46,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
         switch podcastVoice.speechProvider {
         case .SELMA:
             if let voiceApiName = podcastVoice.nativeSelmaVoice()?.apiName {
-                success = await selmaAPI.renderAudio(voiceApiName: voiceApiName, text: text, toURL: fileURL)
+                success = await selmaAPI.renderSpeech(voiceApiName: voiceApiName, text: text, toURL: fileURL)
             }
             
         case .Apple:
