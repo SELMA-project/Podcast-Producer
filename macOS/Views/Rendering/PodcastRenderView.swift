@@ -16,11 +16,7 @@ struct PodcastRenderView: View {
     
     @State private var progressText = "Press button to render."
     @State private var progressValue = 0.0
-    @State private var muteBackgroundAudio = false {
-        didSet {
-            audioURL = nil
-        }
-    }
+    @State private var muteBackgroundAudio = false
 
     @State private var audioURL: URL? = nil
     
@@ -124,9 +120,12 @@ struct PodcastRenderView: View {
             VStack(alignment: .leading) {
                 
                 Toggle("Mute background audio", isOn: $muteBackgroundAudio)
+                    .onChange(of: muteBackgroundAudio) { newValue in
+                        // a hcnge of this toggle invalidates the audioURL, so the Build button is active again
+                        audioURL = nil
+                    }
                 
                 HStack {
-                    
                     
                     Button {
                         Task {

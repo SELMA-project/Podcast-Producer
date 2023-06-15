@@ -185,6 +185,10 @@ class EpisodeViewModel: ObservableObject {
 
     
     /// Called when play button is sectionEditView is pressed
+    /// - Parameters:
+    ///   - chosenEpisodeId: The ID of the episode to render.
+    ///   - sectionId: The ID of the section that needs to be rendered.
+    /// - Returns: The URL of the rendered audio.
     func renderEpisodeSection(chosenEpisodeId: UUID?, sectionId: EpisodeSection.SectionId) async -> URL? {
     
         var sectionAudioUrl: URL?
@@ -200,7 +204,11 @@ class EpisodeViewModel: ObservableObject {
         return sectionAudioUrl
     }
     
-    /// Called by the PodcastRenderView to render the entire episode
+    /// Called by the PodcastRenderView to render the entire episode.
+    /// - Parameters:
+    ///   - chosenEpisodeId: The ID of the episode to render.
+    ///   - muteBackgroundAudio: Instructs the renderer to nute the backgournd audio.
+    /// - Returns: The URL of the rendered audio.
     func renderEpisode(chosenEpisodeId: UUID?, muteBackgroundAudio: Bool = false) async -> URL {
         
         var chosenEpisode = self[chosenEpisodeId]
