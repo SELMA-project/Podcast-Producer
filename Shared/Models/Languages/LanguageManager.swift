@@ -12,7 +12,7 @@ class LanguageManager {
     static var shared = LanguageManager()
     
     enum Language: String, CaseIterable, Codable {
-        case brazilian, english, german, french, spanish, hindi
+        case brazilian, english, german, french, spanish, hindi, urdu
         
         var displayName: String {
             
@@ -42,6 +42,8 @@ class LanguageManager {
                 isoCode = "es-ES"
             case .hindi:
                 isoCode = "hi-IN"
+            case .urdu:
+                isoCode = "ur-PK"
             }
         
             

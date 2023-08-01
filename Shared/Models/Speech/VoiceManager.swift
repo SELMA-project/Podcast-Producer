@@ -52,6 +52,9 @@ class VoiceManager {
         
         // all other locales: use Apple Voices
         
+        // we don't have a voice for Urdu yet, so let's use Hidi instead
+        let appleLanguageCode = languageCode != "ur-PK" ? languageCode : "hi-IN"
+            
         // the proposed PodcastVoice is stored here
         var proposedPodcastVoice: PodcastVoice?
         
@@ -65,7 +68,7 @@ class VoiceManager {
             if let nativeAppleVoice = applePodcastVoice.nativeAppleVoice() {
                 
                 // do we have the right language?
-                if nativeAppleVoice.language == languageCode {
+                if nativeAppleVoice.language == appleLanguageCode {
                                         
                     // only use voice that have associated audioFile setings
                     proposedPodcastVoice = applePodcastVoice

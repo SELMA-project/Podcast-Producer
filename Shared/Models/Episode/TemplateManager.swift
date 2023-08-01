@@ -20,6 +20,7 @@ class TemplateManager {
         allTemplates.append(contentsOf: frenchTemplates())
         allTemplates.append(contentsOf: spanishTemplates())
         allTemplates.append(contentsOf: hindiTemplates())
+        allTemplates.append(contentsOf: urduTemplates())
     }
     
     /// Returns all available templates for the given language.
@@ -176,8 +177,8 @@ extension TemplateManager {
         // News
         templateName = "DW News"
         restrictHeadlinesToHighLights = true
-        introText = "Greetings. It's {date} and this is DW with the latest news. My name is {narrator}."
-        outroText = "These were the news. Come back for more."
+        introText = "Hallo, today is {date}. Welcome to the daily news podcast from DW English. My name is {narrator}."
+        outroText = "This podcast was produced using a synthetic voice. We welcome feedback sent to info@dw.com. See you next time."
         useAudio = true
         template = createTemplate(name: templateName, forLanguage: language, restrictHeadlinesToHighLights: restrictHeadlinesToHighLights, introText: introText, outroText: outroText, useAudio: useAudio)
         templates.append(template)
@@ -272,6 +273,36 @@ extension TemplateManager {
         restrictHeadlinesToHighLights = true
         introText = "हलो, आज है {date}. DW Hindi के आज के न्यूज पॉडकास्ट में आपका स्वागत है. आपके लिए खबरों के चुनाव किया है {narrator} ने."
         outroText = "इस न्यूज पॉडकास्ट को सिंथेटिक वॉयस की मदद से तैयार किया गया है. अपनी प्रतिक्रियाएं हमें hindi@dw.com पर भेजें. अगली बार फिर मिलेंगे."
+        useAudio = true
+        template = createTemplate(name: templateName, forLanguage: language, restrictHeadlinesToHighLights: restrictHeadlinesToHighLights, introText: introText, outroText: outroText, useAudio: useAudio)
+        templates.append(template)
+                
+        return templates
+    }
+}
+
+// MARK: Urdu
+extension TemplateManager {
+    
+    private func urduTemplates() -> [EpisodeTemplate] {
+        
+        var templates = [EpisodeTemplate]()
+
+        let language: LanguageManager.Language = .urdu
+        
+        var templateName: String
+        var restrictHeadlinesToHighLights: Bool
+        var introText: String
+        var outroText: String
+        var useAudio: Bool
+
+        var template: EpisodeTemplate
+        
+        // News
+        templateName = "Urdu News"
+        restrictHeadlinesToHighLights = true
+        introText = "ہیلو آج یکم اگست دو ہزار تئیس ہے۔ ڈی ڈبلیو کی ڈیلی نیوز پوڈ کاسٹ میں خوش آمدید۔ میں ہوں ۔۔۔۔۔"
+        outroText = "This podcast was produced using a synthetic voice. We welcome feedback sent to urdu@dw.com. See you next time."
         useAudio = true
         template = createTemplate(name: templateName, forLanguage: language, restrictHeadlinesToHighLights: restrictHeadlinesToHighLights, introText: introText, outroText: outroText, useAudio: useAudio)
         templates.append(template)
