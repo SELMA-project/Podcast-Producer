@@ -184,8 +184,8 @@ class EpisodeViewModel: ObservableObject {
         let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let cachesDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
         
-        print("Documents are in: \(documentsDir)")
-        print("Caches are in: \(cachesDir)")
+        //print("Documents are in: \(documentsDir)")
+        //print("Caches are in: \(cachesDir)")
                 
         //AudioManager.shared.deleteCachedFiles()
     }

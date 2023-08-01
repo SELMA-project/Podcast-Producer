@@ -13,6 +13,7 @@ struct ContentView: View {
     @StateObject var episodeViewModel = EpisodeViewModel(createPlaceholderEpisode: true)
     @State private var chosenEpisodeId: UUID?
 
+
     var body: some View {
         
         NavigationSplitView {
@@ -30,6 +31,9 @@ struct ContentView: View {
         }
         .onAppear {
             episodeViewModel.runStartupRoutine()
+            
+            // select the latest episode in the sidebar
+            self.chosenEpisodeId = episodeViewModel.lastEpisodeId
         }
         .environmentObject(episodeViewModel)
         #if os(macOS)
