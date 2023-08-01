@@ -23,6 +23,7 @@ struct EpisodeEditorStoryView: View {
         guard let selectedEngineString = UserDefaults.standard.string(forKey: Constants.userDefaultsSelectedEngine) else {return}
         guard let selectedEngine = SummarisationEngine(rawValue: selectedEngineString) else {return}
         
+        
         // read maxNumberOfTokens defaults
         let maxNumberOfTokens = UserDefaults.standard.integer(forKey: Constants.userDefaultsMaxNumberOfTokens)
 
@@ -41,8 +42,30 @@ struct EpisodeEditorStoryView: View {
         case .alpaca:
             summarizeWithAlpaca(storyText, prompt: summarizationPrompt, maxNumberOfTokens: maxNumberOfTokens)
         case .openAI:
-            break
+            summarizeWithOpenAI(storyText, prompt: summarizationPrompt, maxNumberOfTokens: maxNumberOfTokens, temperature: temperature)
         }
+    }
+    
+    func summarizeWithOpenAI(_ incomingText: String, prompt promptText: String, maxNumberOfTokens: Int, temperature: Double)   {
+        
+        Task {
+            let key = UserDefaults.standard.string(forKey: Constants.userDefaultsOpenAIAPIKeyName)
+            let openAI = CleverBirdManager(key: key)
+            
+            // signal to ProgressView
+            engineIsProcessing = true
+            
+            // send request to OpenAI
+            if let receivedText = await openAI.summarize(prompt: promptText, context: incomingText, temperature: temperature, maxTokens: maxNumberOfTokens) {
+                
+                // separate sentences by newlines
+                story.storyText = receivedText.split(separator: ". ").joined(separator: ".\n\n")
+            }
+            
+            // signal to ProgressView
+            engineIsProcessing = false
+        }
+        
     }
     
     func summarizeWithAlpaca(_ incomingText: String, prompt promptText: String, maxNumberOfTokens: Int) {

@@ -1,12 +1,30 @@
 {
   "pins" : [
     {
+      "identity" : "cleverbird",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/btfranklin/CleverBird.git",
+      "state" : {
+        "revision" : "f370820eb03441b110e0ca89cfd534d88ead6e80",
+        "version" : "3.1.1"
+      }
+    },
+    {
       "identity" : "dwutilities",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/agiefer/DWUtilities.git",
       "state" : {
         "branch" : "main",
         "revision" : "aff96fe91998a82013460ea403875dfaa2b6acae"
+      }
+    },
+    {
+      "identity" : "get",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kean/Get",
+      "state" : {
+        "revision" : "12830cc64f31789ae6f4352d2d51d03a25fc3741",
+        "version" : "2.1.6"
       }
     },
     {

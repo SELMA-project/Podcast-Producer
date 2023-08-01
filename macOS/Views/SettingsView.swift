@@ -13,9 +13,9 @@ struct SettingsView: View {
     @AppStorage(Constants.userDefaultsOpenAIAPIKeyName) var openAIAPIKey = ""
     @AppStorage(Constants.userDefaultsSummarizationPrompt) var summarizationPrompt = "You are a radio presenter for Deutsche Welle. Summarize the text in 2 sentences."
     
-    @AppStorage("temperature") var temperature: Double = 0.5
-    @AppStorage("maxNumberOfTokens") var maxNumberOfTokens: Int = 400
-    @AppStorage("selectedEngine") var selectedEngine: SummarisationEngine = .openAI
+    @AppStorage(Constants.userDefaultsChatTemperature) var temperature: Double = 0.5
+    @AppStorage(Constants.userDefaultsMaxNumberOfTokens) var maxNumberOfTokens: Int = 400
+    @AppStorage(Constants.userDefaultsSelectedEngine) var selectedEngine: SummarisationEngine = .openAI
     
     let tokenNumberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()

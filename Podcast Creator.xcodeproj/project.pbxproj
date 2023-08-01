@@ -89,6 +89,9 @@
 		C167D66229FBB07900D8B24A /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167D66129FBB07900D8B24A /* Story.swift */; };
 		C167D66329FBB07900D8B24A /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167D66129FBB07900D8B24A /* Story.swift */; };
 		C1734C6E2A790432002B4A03 /* SummarizationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1734C6D2A790432002B4A03 /* SummarizationEngine.swift */; };
+		C1734C712A790B9D002B4A03 /* CleverBird in Frameworks */ = {isa = PBXBuildFile; productRef = C1734C702A790B9D002B4A03 /* CleverBird */; };
+		C1734C742A790C25002B4A03 /* OpenAI+CleverBird.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1734C732A790C25002B4A03 /* OpenAI+CleverBird.swift */; };
+		C1734C762A790C7E002B4A03 /* CleverBird in Frameworks */ = {isa = PBXBuildFile; productRef = C1734C752A790C7E002B4A03 /* CleverBird */; };
 		C1756ABD28A13D3700FE9F2B /* StoryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */; };
 		C1756ABE28A13D3700FE9F2B /* StoryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */; };
 		C176AB0E28CF7A3B00E2804D /* AudioEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C176AB0D28CF7A3B00E2804D /* AudioEpisode.swift */; };
@@ -188,6 +191,7 @@
 		C167D66129FBB07900D8B24A /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		C170D76729A37A9F00309559 /* SectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditView.swift; sourceTree = "<group>"; };
 		C1734C6D2A790432002B4A03 /* SummarizationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummarizationEngine.swift; sourceTree = "<group>"; };
+		C1734C732A790C25002B4A03 /* OpenAI+CleverBird.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OpenAI+CleverBird.swift"; sourceTree = "<group>"; };
 		C1756AB928A1198D00FE9F2B /* EpisodeEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeEditorView.swift; sourceTree = "<group>"; };
 		C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryEditView.swift; sourceTree = "<group>"; };
 		C176AB0D28CF7A3B00E2804D /* AudioEpisode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEpisode.swift; sourceTree = "<group>"; };
@@ -222,6 +226,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1734C712A790B9D002B4A03 /* CleverBird in Frameworks */,
 				C19CB18229D7411900452A19 /* DWUtilities in Frameworks */,
 				C16505F22A3B393A00734BAC /* SelmaKit in Frameworks */,
 				C1EBDB7A29E81D640032F664 /* MonitioKit in Frameworks */,
@@ -232,6 +237,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1734C762A790C7E002B4A03 /* CleverBird in Frameworks */,
 				C19CB18429D7412500452A19 /* DWUtilities in Frameworks */,
 				C16505F42A3B394100734BAC /* SelmaKit in Frameworks */,
 				C1EBDB8129E821CD0032F664 /* MonitioKit in Frameworks */,
@@ -347,6 +353,15 @@
 				C1ECCC1F29A3BDE200C1241F /* Views */,
 			);
 			path = macOS;
+			sourceTree = "<group>";
+		};
+		C1734C722A790C0C002B4A03 /* Summarization */ = {
+			isa = PBXGroup;
+			children = (
+				C1734C732A790C25002B4A03 /* OpenAI+CleverBird.swift */,
+				C1734C6D2A790432002B4A03 /* SummarizationEngine.swift */,
+			);
+			path = Summarization;
 			sourceTree = "<group>";
 		};
 		C17E86C129AE0C4E004E5750 /* EpisodeEditor */ = {
@@ -505,9 +520,9 @@
 			isa = PBXGroup;
 			children = (
 				C193D28C29F2D5E500A1D4ED /* SettingsView.swift */,
-				C1734C6D2A790432002B4A03 /* SummarizationEngine.swift */,
 				C1D86DBD29AF5E4000388700 /* EpisodeCreation */,
 				C17E86C129AE0C4E004E5750 /* EpisodeEditor */,
+				C1734C722A790C0C002B4A03 /* Summarization */,
 				C18C9AD22A051247000E0623 /* MonitioImport */,
 				C1D86DC129AF662800388700 /* Structure */,
 				C1D927E629AF3E39006BCF84 /* Rendering */,
@@ -559,6 +574,7 @@
 				C19CB18129D7411900452A19 /* DWUtilities */,
 				C1EBDB7929E81D640032F664 /* MonitioKit */,
 				C16505F12A3B393A00734BAC /* SelmaKit */,
+				C1734C702A790B9D002B4A03 /* CleverBird */,
 			);
 			productName = "Podcast Producer (iOS)";
 			productReference = C1491F6027AD472700A72AEB /* Podcast Creator.app */;
@@ -581,6 +597,7 @@
 				C19CB18329D7412500452A19 /* DWUtilities */,
 				C1EBDB8029E821CD0032F664 /* MonitioKit */,
 				C16505F32A3B394100734BAC /* SelmaKit */,
+				C1734C752A790C7E002B4A03 /* CleverBird */,
 			);
 			productName = "Podcast Producer (macOS)";
 			productReference = C1491F6627AD472700A72AEB /* Podcast Creator.app */;
@@ -617,6 +634,7 @@
 				C19CB17D29D7410500452A19 /* XCRemoteSwiftPackageReference "DWUtilities" */,
 				C1EBDB7829E81D640032F664 /* XCRemoteSwiftPackageReference "MonitioKit" */,
 				C16505EE2A3B38CF00734BAC /* XCRemoteSwiftPackageReference "SelmaKit" */,
+				C1734C6F2A790B9D002B4A03 /* XCRemoteSwiftPackageReference "CleverBird" */,
 			);
 			productRefGroup = C1491F6127AD472700A72AEB /* Products */;
 			projectDirPath = "";
@@ -750,6 +768,7 @@
 				C193D28B29F2D05300A1D4ED /* Constants.swift in Sources */,
 				C11A239C28F30B300022263B /* EpisodeTemplate.swift in Sources */,
 				C1CF37B029840C4700134E75 /* TemplateManager.swift in Sources */,
+				C1734C742A790C25002B4A03 /* OpenAI+CleverBird.swift in Sources */,
 				C176AB0F28CF7A3B00E2804D /* AudioEpisode.swift in Sources */,
 				C11A23A028F310F20022263B /* LanguageManager.swift in Sources */,
 				C14CEA3128F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */,
@@ -1069,6 +1088,14 @@
 				kind = branch;
 			};
 		};
+		C1734C6F2A790B9D002B4A03 /* XCRemoteSwiftPackageReference "CleverBird" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/btfranklin/CleverBird.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		C19CB17D29D7410500452A19 /* XCRemoteSwiftPackageReference "DWUtilities" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/agiefer/DWUtilities.git";
@@ -1097,6 +1124,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C16505EE2A3B38CF00734BAC /* XCRemoteSwiftPackageReference "SelmaKit" */;
 			productName = SelmaKit;
+		};
+		C1734C702A790B9D002B4A03 /* CleverBird */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1734C6F2A790B9D002B4A03 /* XCRemoteSwiftPackageReference "CleverBird" */;
+			productName = CleverBird;
+		};
+		C1734C752A790C7E002B4A03 /* CleverBird */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1734C6F2A790B9D002B4A03 /* XCRemoteSwiftPackageReference "CleverBird" */;
+			productName = CleverBird;
 		};
 		C19CB18129D7411900452A19 /* DWUtilities */ = {
 			isa = XCSwiftPackageProductDependency;
