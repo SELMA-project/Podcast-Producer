@@ -181,8 +181,8 @@ class EpisodeViewModel: ObservableObject {
     
     /// Called when ContentView appears
     func runStartupRoutine() {
-        let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let cachesDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        //let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        //let cachesDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
         
         //print("Documents are in: \(documentsDir)")
         //print("Caches are in: \(cachesDir)")
