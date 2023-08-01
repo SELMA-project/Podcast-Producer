@@ -15,7 +15,7 @@ struct SettingsView: View {
     
     @AppStorage("temperature") var temperature: Double = 0.5
     @AppStorage("maxNumberOfTokens") var maxNumberOfTokens: Int = 400
-    @AppStorage("selectedEngine") var selectedEngine: Engine = .openAI
+    @AppStorage("selectedEngine") var selectedEngine: SummarisationEngine = .openAI
     
     let tokenNumberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -24,24 +24,7 @@ struct SettingsView: View {
         return formatter
     }()
     
-    enum Engine: String, CaseIterable, Identifiable {
-        case openAI, alpaca, llama
-        
-        var id: String {
-            return displayName
-        }
-        
-        var displayName: String {
-            switch self {
-            case .alpaca:
-                return "Alpaca"
-            case .openAI:
-                return "OpenAI"
-            case .llama:
-                return "LLaMA"
-            }
-        }
-    }
+
     
     var body: some View {
         
@@ -57,7 +40,7 @@ struct SettingsView: View {
                 
                 // Engine
                 Picker("Summarization Engine:", selection: $selectedEngine) {
-                    ForEach(Engine.allCases) { engine in
+                    ForEach(SummarisationEngine.allCases) { engine in
                         Text(engine.displayName).tag(engine)
                     }
                 }

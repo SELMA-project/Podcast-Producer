@@ -13,8 +13,34 @@ struct EpisodeEditorStoryView: View {
 
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
     
+    /// Gets called when 'Summarize button is pressed.
+    private func summarize() {
+        
+        // read select engine from user defaults
+        guard let selectedEngineString = UserDefaults.standard.string(forKey: Constants.userDefaultsSelectedEngine) else {return}
+        guard let selectedEngine = SummarisationEngine(rawValue: selectedEngineString) else {return}
+        
+        // read maxNumberOfTokens defaults
+        let maxNumberOfTokens = UserDefaults.standard.integer(forKey: Constants.userDefaultsMaxNumberOfTokens)
+
+        // read temperature defaults
+        let temperature = UserDefaults.standard.double(forKey: Constants.userDefaultsChatTemperature)
+
+        // read temperature defaults
+        guard let summarizationPrompt = UserDefaults.standard.string(forKey: Constants.userDefaultsSummarizationPrompt) else {return}
+        
+        switch selectedEngine {
+        case .titleAndTeaser:
+            summarizeUsingTitleAndTeaser()
+        case .alpaca:
+            break
+        case .openAI:
+            break
+        }
+    }
     
-    func mockSummarize() {
+    /// Summarizes the story by reducing it to the first two paragraphs.
+    private func summarizeUsingTitleAndTeaser() {
         
         // split into paragraphs
         let paragraphs = story.storyText.split(separator: "\n")
@@ -23,8 +49,6 @@ struct EpisodeEditorStoryView: View {
         // these are the headline and the teaser text
         let numberOfParagraphs = min(2, paragraphs.count)
         story.storyText = String(paragraphs[0..<numberOfParagraphs].joined(separator: "\n\n"))
-        
-        //story.storyText = String(story.storyText.split(separator: "\n")[0])
     }
     
     var body: some View {
@@ -45,7 +69,7 @@ struct EpisodeEditorStoryView: View {
                             Text("Text").font(.title2)
                             Spacer()
                             Button("Summarize") {
-                                mockSummarize()
+                                summarize()
                             }
                         }.padding(.top)
                         
