@@ -301,8 +301,8 @@ extension TemplateManager {
         // News
         templateName = "Urdu News"
         restrictHeadlinesToHighLights = true
-        introText = "ہیلو آج یکم اگست دو ہزار تئیس ہے۔ ڈی ڈبلیو کی ڈیلی نیوز پوڈ کاسٹ میں خوش آمدید۔ میں ہوں ۔۔۔۔۔"
-        outroText = "This podcast was produced using a synthetic voice. We welcome feedback sent to urdu@dw.com. See you next time."
+        introText = "ہیلو آج {date} ہے۔ ڈی ڈبلیو کی ڈیلی نیوز پوڈ کاسٹ میں خوش آمدید۔ میں ہوں {narrator}"
+        outroText = "اس پوڈکاسٹ کے لیے ایک سنتھیٹک وائس استعمال کی گئی ہے۔ urdu@dw.com پر ہمیں آپ کے فیڈ بیک کا انتظار رہے گا۔ جلد ہی دوبارہ ملاقات ہوتی ہے۔"
         useAudio = true
         template = createTemplate(name: templateName, forLanguage: language, restrictHeadlinesToHighLights: restrictHeadlinesToHighLights, introText: introText, outroText: outroText, useAudio: useAudio)
         templates.append(template)
