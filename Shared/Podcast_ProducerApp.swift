@@ -18,7 +18,7 @@ struct Podcast_ProducerApp: App {
 
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .preferredColorScheme(.dark)
+                //.preferredColorScheme(.dark)
         }
         
 #if os(macOS)

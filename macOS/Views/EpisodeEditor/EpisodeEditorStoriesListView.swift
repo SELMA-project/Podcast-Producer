@@ -57,7 +57,8 @@ struct EpisodeEditorStoriesListView: View {
                         Image("monitio")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .padding(2)
+                            .colorMultiply(.blue)
+                            .padding(1)
                             .frame(width: 20)
                             //Image(systemName: "square.and.arrow.down.on.square")
 

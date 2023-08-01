@@ -13,6 +13,36 @@ struct SettingsView: View {
     @AppStorage(Constants.userDefaultsOpenAIAPIKeyName) var openAIAPIKey = ""
     @AppStorage(Constants.userDefaultsSummarizationPrompt) var summarizationPrompt = "You are a radio presenter for Deutsche Welle. Summarize the text in 2 sentences."
     
+    @AppStorage("temperature") var temperature: Double = 0.5
+    @AppStorage("maxNumberOfTokens") var maxNumberOfTokens: Int = 400
+    @AppStorage("selectedEngine") var selectedEngine: Engine = .openAI
+    
+    let tokenNumberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 0
+        return formatter
+    }()
+    
+    enum Engine: String, CaseIterable, Identifiable {
+        case openAI, alpaca, llama
+        
+        var id: String {
+            return displayName
+        }
+        
+        var displayName: String {
+            switch self {
+            case .alpaca:
+                return "Alpaca"
+            case .openAI:
+                return "OpenAI"
+            case .llama:
+                return "LLaMA"
+            }
+        }
+    }
+    
     var body: some View {
         
         VStack(alignment: .leading) {
@@ -22,6 +52,32 @@ struct SettingsView: View {
                 TextField("ElevenLabs API Key:", text: $elevenLabsAPIKey)
                 
                 TextField("OpenAI API Key:", text: $openAIAPIKey)
+                    .padding(.bottom, 16)
+                
+                
+                // Engine
+                Picker("Summarization Engine:", selection: $selectedEngine) {
+                    ForEach(Engine.allCases) { engine in
+                        Text(engine.displayName).tag(engine)
+                    }
+                }
+                
+                TextField("Maximum number of Tokens:", value: $maxNumberOfTokens, formatter: tokenNumberFormatter)
+
+
+                LabeledContent {
+                    //Slider(value: $temperature, in: 0...1, step: 0.1)
+                    Slider(value: $temperature, in: 0...1, step: 0.1) {
+                        
+                    } minimumValueLabel: {
+                        Text("0.0")
+                    } maximumValueLabel: {
+                        Text("1.0")
+                    }
+
+                } label: {
+                    Text("Temperature:")
+                }
                 
                 TextField("Summarization Prompt:", text: $summarizationPrompt, axis: .vertical)
                     .lineLimit(4)
@@ -33,7 +89,7 @@ struct SettingsView: View {
             
         }
         .padding(EdgeInsets(top: 40, leading: 80, bottom: 40, trailing: 40))
-        .frame(width: 700, height: 200)
+        .frame(width: 700, height: 400)
     }
 }
 
