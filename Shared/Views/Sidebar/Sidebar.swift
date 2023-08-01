@@ -71,7 +71,7 @@ struct Sidebar: View {
             })
         }
         .sheet(isPresented: $showingSheet) {
-            TemplateCreationView()
+            TemplateCreationView(chosenEpisodeId: $chosenEpisodeId)
                 .environmentObject(episodeViewModel)
         }
         

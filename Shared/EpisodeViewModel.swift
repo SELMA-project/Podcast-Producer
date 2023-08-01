@@ -73,6 +73,15 @@ class EpisodeViewModel: ObservableObject {
         return firstEpisodeId
     }
     
+    /// The id of the last episode
+    var lastEpisodeId: UUID? {
+        
+        var lastEpisodeId: UUID? = nil
+        if availableEpisodes.count > 0 {
+            lastEpisodeId = availableEpisodes.last?.id
+        }
+        return lastEpisodeId
+    }
         
     init(createPlaceholderEpisode: Bool = false) {
         

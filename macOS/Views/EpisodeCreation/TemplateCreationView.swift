@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TemplateCreationView: View {
     
+    @Binding var chosenEpisodeId: UUID?
+    
     @State var language: LanguageManager.Language = .english
     @State var templateIndex: Int = 0
     
@@ -69,6 +71,11 @@ struct TemplateCreationView: View {
                     // create episode based on currently selected template
                     let template = templates[templateIndex]
                     episodeViewModel.addEpisode(basedOnTemplate: template)
+                    
+                    // select to newly created episode
+                    let lastEpisodeId = episodeViewModel.lastEpisodeId
+                    self.chosenEpisodeId = lastEpisodeId
+                    
                     dismissAction()
                 }
             }
@@ -84,7 +91,7 @@ struct TemplateCreationView: View {
 
 struct TemplateCreationView_Previews: PreviewProvider {
     static var previews: some View {
-        TemplateCreationView()
+        TemplateCreationView(chosenEpisodeId: .constant(nil))
             .environmentObject(EpisodeViewModel())
     }
 }
