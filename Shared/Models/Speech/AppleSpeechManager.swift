@@ -32,10 +32,12 @@ class AppleSpeechManager {
             
             // create utterance
             let utterance = AVSpeechUtterance(string: text)
-            //utterance.rate = 0.50
+            //utterance.rate = 0.45
             
             // associate voice
             let voice = AVSpeechSynthesisVoice(identifier: voiceIdentifier)
+
+            
             utterance.voice = voice
 
 //            if let voice {

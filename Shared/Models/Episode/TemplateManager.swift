@@ -271,8 +271,8 @@ extension TemplateManager {
         // News
         templateName = "Hindi News"
         restrictHeadlinesToHighLights = true
-        introText = "हलो, आज है {date}. DW Hindi के आज के न्यूज पॉडकास्ट में आपका स्वागत है. आपके लिए खबरों के चुनाव किया है {narrator} ने."
-        outroText = "इस न्यूज पॉडकास्ट को सिंथेटिक वॉयस की मदद से तैयार किया गया है. अपनी प्रतिक्रियाएं हमें hindi@dw.com पर भेजें. अगली बार फिर मिलेंगे."
+        introText = "हलो, आज है {date}। डी-डब्ल्यू Hindi के आज के न्यूज़ पॉडकास्ट में आपका स्वागत है। आपके लिए खबरों का चुनाव किया है {narrator} ने।"
+        outroText = "इस न्यूज़ पॉडकास्ट को सिंथेटिक वॉइस की मदद से तैयार किया गया है। अपनी प्रतिक्रियाएं हमें hindi@dw.com पर भेजें। अगली बार फिर मिलेंगे।"
         useAudio = true
         template = createTemplate(name: templateName, forLanguage: language, restrictHeadlinesToHighLights: restrictHeadlinesToHighLights, introText: introText, outroText: outroText, useAudio: useAudio)
         templates.append(template)
