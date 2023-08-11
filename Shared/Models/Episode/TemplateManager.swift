@@ -209,7 +209,7 @@ extension TemplateManager {
         templateName = "Info Matin"
         restrictHeadlinesToHighLights = true
         introText = "DW Info Matin du {date}. Je m'appelle {narrator}. Bonjour."
-        outroText = "Excellente journée à toutes et à tous et rendez-vous demain matin pour une nouvelle émission de Info Matin. A demain!"
+        outroText = "Excellente journée à toutes et à tous et rendez-vous demain matin pour une nouvelle émission d'Info Matin. A demain!"
         useAudio = true
         template = createTemplate(name: templateName, forLanguage: language, restrictHeadlinesToHighLights: restrictHeadlinesToHighLights, introText: introText, outroText: outroText, useAudio: useAudio)
         templates.append(template)

@@ -54,13 +54,13 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
             success = await AppleSpeechManager.shared.renderAppleSpeech(voiceIdentifier: appleVoiceIdentifier, text: text, toURL: fileURL)
 
         case .ElevenLabs:
-            let voiceIdentifier = podcastVoice.identifier
+            let voiceName = podcastVoice.identifier
             let apiKey = UserDefaults.standard.string(forKey: Constants.userDefaultsElevenLabsAPIKeyName)
             
             // only proceed if we have an apiKey
             if apiKey?.count ?? 0 > 0 {
-                let voiceManager = ElevenLabsVoiceManager(apiKey: apiKey!)
-                success = await voiceManager.renderSpeech(voiceIdentifier: voiceIdentifier, text: text, toURL: fileURL, stability: 0.4, similarityBoost: 1.0)
+                let voiceManager = ElevenLabsVoiceManager(apiKey: apiKey!, elevenLabsModelId: .multilingualV1)
+                success = await voiceManager.renderSpeech(voiceName: voiceName, text: text, toURL: fileURL, stability: 0.5, similarityBoost: 0.5)
             }
             
         default:

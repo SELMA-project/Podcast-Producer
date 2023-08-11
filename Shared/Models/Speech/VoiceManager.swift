@@ -147,8 +147,21 @@ class VoiceManager {
         // prepare result
         var returnedVoices = [PodcastVoice]()
         
-        let andysVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "en-US", identifier: "Andy")
-        returnedVoices.append(andysVoice)
+        let usVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "en-US", identifier: "Andy")
+        let ukVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "en-UK", identifier: "Andy")
+        let auVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "en-AU", identifier: "Andy")
+        let caVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "en-CA", identifier: "Andy")
+        let deVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "de-DE", identifier: "Andy")
+        let plVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "pl-PL", identifier: "Andy")
+        let esVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "es-ES", identifier: "Andy")
+        let mxVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "es-MX", identifier: "Andy")
+        let itVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "it-IT", identifier: "Andy")
+        let frVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "fr-FR", identifier: "Andy")
+        let ptVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "pt-PT", identifier: "Andy")
+        let brVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "pt-BR", identifier: "Andy")
+        let hiVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "hi-IN", identifier: "Andy")
+        
+        returnedVoices = [usVoice, ukVoice, auVoice, caVoice, deVoice, plVoice, esVoice, mxVoice, itVoice, frVoice, ptVoice, brVoice, hiVoice]
         
         return returnedVoices
     }
