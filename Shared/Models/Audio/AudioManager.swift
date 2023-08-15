@@ -60,7 +60,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
             // only proceed if we have an apiKey
             if apiKey?.count ?? 0 > 0 {
                 let voiceManager = ElevenLabsVoiceManager(apiKey: apiKey!, elevenLabsModelId: .multilingualV1)
-                success = await voiceManager.renderSpeech(voiceName: voiceName, text: text, toURL: fileURL, stability: 0.9, similarityBoost: 0.5c)
+                success = await voiceManager.renderSpeech(voiceName: voiceName, text: text, toURL: fileURL, stability: 0.9, similarityBoost: 0.5)
             }
             
         default:
