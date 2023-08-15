@@ -144,6 +144,7 @@
 /* Begin PBXFileReference section */
 		C100A48C29964AA000713E3B /* StructureEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureEditorView.swift; sourceTree = "<group>"; };
 		C1062E9229AF37EC0018939F /* PodcastRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastRenderView.swift; sourceTree = "<group>"; };
+		C10687102A86620500ED796D /* Podcast-Creator--macOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Podcast-Creator--macOS--Info.plist"; sourceTree = "<group>"; };
 		C10D912A2919430300AC94A7 /* Podcast-Creator--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Podcast-Creator--iOS--Info.plist"; sourceTree = "<group>"; };
 		C110219E28FFFD93005AA554 /* AppleSpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSpeechManager.swift; sourceTree = "<group>"; };
 		C11021A2290026D1005AA554 /* PodcastVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastVoice.swift; sourceTree = "<group>"; };
@@ -310,6 +311,7 @@
 		C1491F5027AD472500A72AEB = {
 			isa = PBXGroup;
 			children = (
+				C10687102A86620500ED796D /* Podcast-Creator--macOS--Info.plist */,
 				C10D912A2919430300AC94A7 /* Podcast-Creator--iOS--Info.plist */,
 				C1491F5527AD472600A72AEB /* Shared */,
 				C1491F6727AD472700A72AEB /* macOS */,
@@ -924,7 +926,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 82DH72DY44;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -956,7 +958,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 82DH72DY44;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -999,6 +1001,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Podcast-Creator--macOS--Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1031,6 +1034,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Podcast-Creator--macOS--Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
