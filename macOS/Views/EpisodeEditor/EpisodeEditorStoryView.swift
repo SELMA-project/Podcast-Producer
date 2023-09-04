@@ -43,6 +43,8 @@ struct EpisodeEditorStoryView: View {
             summarizeWithAlpaca(storyText, prompt: summarizationPrompt, maxNumberOfTokens: maxNumberOfTokens)
         case .openAI:
             summarizeWithOpenAI(storyText, prompt: summarizationPrompt, maxNumberOfTokens: maxNumberOfTokens, temperature: temperature)
+        case .priberam:
+            summarizeWithPriberam(storyText, maxNumberOfTokens: maxNumberOfTokens, temperature: temperature)
         }
     }
     
@@ -108,6 +110,27 @@ struct EpisodeEditorStoryView: View {
         let numberOfParagraphs = min(2, paragraphs.count)
         story.storyText = String(paragraphs[0..<numberOfParagraphs].joined(separator: "\n\n"))
     }
+    
+    func summarizeWithPriberam(_ incomingText: String, maxNumberOfTokens: Int, temperature: Double) {
+        
+        Task {
+            
+            // signal to ProgressView
+            engineIsProcessing = true
+            
+            // summarize
+            let summerizer = PriberamSummerizer()
+            if let summary = await summerizer.summarizeUsingExtractiveEBR(text: incomingText, minimumCharacterLength: maxNumberOfTokens-100, maximumCharacterLength: maxNumberOfTokens, diversityWeight: temperature) {
+                story.storyText = summary.split(separator: ". ").joined(separator: ".\n\n")
+            } else {
+                print("Did not receive a valid result from PriberamSummerizer.")
+            }
+            
+            // signal to ProgressView
+            engineIsProcessing = false
+        }
+    }
+    
     
     var body: some View {
         GroupBox {

@@ -62,8 +62,12 @@ struct SettingsView: View {
                     Text("Temperature:")
                 }
                 
-                TextField("Summarization Prompt:", text: $summarizationPrompt, axis: .vertical)
-                    .lineLimit(4)
+                
+                if selectedEngine != .priberam {
+                    
+                    TextField("Summarization Prompt:", text: $summarizationPrompt, axis: .vertical)
+                        .lineLimit(4)
+                }
                 
             }
             

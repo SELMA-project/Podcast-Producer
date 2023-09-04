@@ -8,7 +8,7 @@
 import Foundation
 
 enum SummarisationEngine: String, CaseIterable, Identifiable {
-    case openAI, alpaca, titleAndTeaser
+    case openAI, alpaca, priberam, titleAndTeaser
     
     var id: String {
         return displayName
@@ -20,6 +20,8 @@ enum SummarisationEngine: String, CaseIterable, Identifiable {
             return "Alpaca"
         case .openAI:
             return "OpenAI"
+        case .priberam:
+            return "Priberam"
         case .titleAndTeaser:
             return "Title and Teaser"
         }
