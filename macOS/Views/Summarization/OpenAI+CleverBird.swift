@@ -16,10 +16,10 @@ class CleverBirdManager {
     init(key: String?) {
         
         // is key, with fallback from environment if no key is provided
-        let keyToUse = key ?? ProcessInfo.processInfo.environment["OPENAI_API_KEY"]
+        //let keyToUse = key ?? ProcessInfo.processInfo.environment["OPENAI_API_KEY"]
         
-        if let keyToUse {
-            openAIAPIConnection = OpenAIAPIConnection(apiKey: keyToUse) // <OPENAI_API_KEY>
+        if let key {
+            openAIAPIConnection = OpenAIAPIConnection(apiKey: key) // <OPENAI_API_KEY>
         }
     }
     
