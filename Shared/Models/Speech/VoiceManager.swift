@@ -147,19 +147,32 @@ class VoiceManager {
         // prepare result
         var returnedVoices = [PodcastVoice]()
         
-        let usVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "en-US", identifier: "Andy")
-        let ukVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "en-UK", identifier: "Andy")
-        let auVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "en-AU", identifier: "Andy")
-        let caVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "en-CA", identifier: "Andy")
-        let deVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "de-DE", identifier: "Andy")
-        let plVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "pl-PL", identifier: "Andy")
-        let esVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "es-ES", identifier: "Andy")
-        let mxVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "es-MX", identifier: "Andy")
-        let itVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "it-IT", identifier: "Andy")
-        let frVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "fr-FR", identifier: "Andy")
-        let ptVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "pt-PT", identifier: "Andy")
-        let brVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "pt-BR", identifier: "Andy")
-        let hiVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "hi-IN", identifier: "Andy")
+        let andysVoices = getAllVoicesFor(identifier: "Andy")
+        //let leilasVoices = getAllVoicesFor(identifier: "Leila")
+        
+        returnedVoices.append(contentsOf: andysVoices)
+        //returnedVoices.append(contentsOf: leilasVoices)
+        
+        return returnedVoices
+    }
+    
+    private func getAllVoicesFor(identifier: String) -> [PodcastVoice] {
+        // prepare result
+        var returnedVoices = [PodcastVoice]()
+        
+        let usVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "en-US", identifier: identifier)
+        let ukVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "en-UK", identifier: identifier)
+        let auVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "en-AU", identifier: identifier)
+        let caVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "en-CA", identifier: identifier)
+        let deVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "de-DE", identifier: identifier)
+        let plVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "pl-PL", identifier: identifier)
+        let esVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "es-ES", identifier: identifier)
+        let mxVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "es-MX", identifier: identifier)
+        let itVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "it-IT", identifier: identifier)
+        let frVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "fr-FR", identifier: identifier)
+        let ptVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "pt-PT", identifier: identifier)
+        let brVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "pt-BR", identifier: identifier)
+        let hiVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "hi-IN", identifier: identifier)
         
         returnedVoices = [usVoice, ukVoice, auVoice, caVoice, deVoice, plVoice, esVoice, mxVoice, itVoice, frVoice, ptVoice, brVoice, hiVoice]
         
@@ -182,28 +195,6 @@ class VoiceManager {
         return returnedVoices
     }
     
-    /*
-     private func findSuitableElevenLabsVoices() async -> [PodcastVoice] {
-         // prepare result
-         var returnedVoices = [PodcastVoice]()
-         
-         let apiKey = UserDefaults.standard.string(forKey: Constants.userDefaultsElevenLabsAPIKeyName)
-         
-         // only proceed if we have an apiKey
-         if apiKey?.count ?? 0 > 0 {
-             let manager = ElevenLabsVoiceManager(apiKey: apiKey!)
-             let nativeVoices = await manager.nativeVoices()
-             
-             for nativeVoice in nativeVoices {
-                 let podcastVoice = PodcastVoice(speechProvider: .ElevenLabs, languageCode: "en-US", identifier: nativeVoice.name)
-                 returnedVoices.append(podcastVoice)
-             }
-         }
-
-         
-         return returnedVoices
-     }
-     */
     
     /// All available Apple voices
     private func findSuitableAppleVoices()  -> [PodcastVoice] {
