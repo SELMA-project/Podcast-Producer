@@ -43,6 +43,7 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
 #endif
     }
     
+    /// Called to convert text to speech.
     func synthesizeSpeech(text: String?, toURL fileURL: URL) async -> Bool {
 
         var success = false

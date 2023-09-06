@@ -41,7 +41,7 @@ struct Episode: Identifiable, Hashable, Codable {
     var language: LanguageManager.Language
     var narrator: String
     
-    var podcastVoice: PodcastVoice
+    //var podcastVoice: PodcastVoice
     
     var creationDate: Date
     var restrictHeadlinesToHighLights: Bool
@@ -62,8 +62,8 @@ struct Episode: Identifiable, Hashable, Codable {
     }
        
     static var standard: Episode {
-        let podcastVoice = VoiceManager.shared.proposedVoice(forLanguageCode: "en-US")
-        var episode = Episode(language: .english, narrator: "<no narrator>", podcastVoice: podcastVoice, creationDate: Date(), restrictHeadlinesToHighLights: true)
+        //let podcastVoice = VoiceManager.shared.proposedVoice(forLanguageCode: "en-US")
+        var episode = Episode(language: .english, narrator: "<no narrator>", creationDate: Date(), restrictHeadlinesToHighLights: true)
         
         let story0 = Story(usedInIntroduction: true,
                            headline: "Kyiv denies Russian forces have captured Yahidne",
@@ -143,7 +143,7 @@ struct Episode: Identifiable, Hashable, Codable {
         let documentsDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
 
         // voice identifier
-        let voiceIdentifier = podcastVoice.identifier
+        let voiceIdentifier = ""//podcastVoice.identifier
 
         // mix type and text into hash
         let textToBeHashed = "\(sectionType.rawValue)-\(voiceIdentifier)-\(textContent)"
@@ -197,12 +197,12 @@ extension Episode {
         
         // prepare parameters for episode
         let language = episodeTemplate.language
-        let podcastVoice = VoiceManager.shared.proposedVoice(forLanguageCode: language.isoCode)
+        //let podcastVoice = VoiceManager.shared.proposedVoice(forLanguageCode: language.isoCode)
         let creationDate = Date()
         let restrictHeadlinesToHighLights = episodeTemplate.restrictHeadlinesToHighLights
                 
         // create episode
-        var episode = Episode(language: language, narrator: narrator, podcastVoice: podcastVoice, creationDate: creationDate, restrictHeadlinesToHighLights: restrictHeadlinesToHighLights)
+        var episode = Episode(language: language, narrator: narrator, creationDate: creationDate, restrictHeadlinesToHighLights: restrictHeadlinesToHighLights)
         
         // add introduction & headlines
         var introductionSection = episodeTemplate.episodeSections[0]
@@ -256,8 +256,8 @@ extension Episode {
         
         // start from here
         //var episode = Episode(language: .brazilian, creationDate: scriptDate, restrictHeadlinesToHighLights: true)
-        let podcastVoice = VoiceManager.shared.voiceForSelmaNarrator(narrator) ?? VoiceManager.shared.voiceForSelmaNarrator("Leila Endruweit")!
-        var episode = Episode(language: .brazilian, narrator: narrator, podcastVoice: podcastVoice, creationDate: scriptDate, restrictHeadlinesToHighLights: true)
+        //let podcastVoice = VoiceManager.shared.voiceForSelmaNarrator(narrator) ?? VoiceManager.shared.voiceForSelmaNarrator("Leila Endruweit")!
+        var episode = Episode(language: .brazilian, narrator: narrator, creationDate: scriptDate, restrictHeadlinesToHighLights: true)
         
         // add introduction & headlines
         var introductionSection = episodeTemplate.episodeSections[0]
