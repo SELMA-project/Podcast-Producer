@@ -131,8 +131,35 @@ struct PlayButtonRow: View {
     
     @State var playButtonState: PlayButtonState = .waitingForStart
     @EnvironmentObject var viewModel: EpisodeViewModel
+    @EnvironmentObject var voiceViewModel: VoiceViewModel
     
     var sectionId: EpisodeSection.SectionId
+    
+//    func buttonPressedOld() {
+//        
+//        Task {
+//            
+//            if playButtonState == .waitingForStart {
+//                
+//                // render audio
+//                playButtonState = .rendering
+//                let audioURL = await viewModel.renderEpisodeSection(chosenEpisodeId: chosenEpisodeId, sectionId: sectionId)
+//                playButtonState = .waitingForStart
+//                
+//                // if successful, start playback
+//                if let audioURL {
+//                    playButtonState = .waitingForStop
+//                    await viewModel.playAudioAtURL(audioURL)
+//                    playButtonState = .waitingForStart
+//                }
+//            }
+//            
+//            if playButtonState == .waitingForStop {
+//                viewModel.stopAudioPlayback()
+//                playButtonState = .waitingForStart
+//            }
+//        }
+//    }
     
     func buttonPressed() {
         
@@ -142,7 +169,12 @@ struct PlayButtonRow: View {
                 
                 // render audio
                 playButtonState = .rendering
-                let audioURL = await viewModel.renderEpisodeSection(chosenEpisodeId: chosenEpisodeId, sectionId: sectionId)
+                
+                let chosenEpisode = viewModel[chosenEpisodeId]
+                let episodeSectionIndex = viewModel.indexOfEpisodeSection(chosenEpisodeId: chosenEpisodeId, relevantId: sectionId)
+                let audioURL = await voiceViewModel.renderEpisodeSection(chosenEpisode: chosenEpisode, episodeSectionIndex: episodeSectionIndex)
+                
+                //let audioURL = await viewModel.renderEpisodeSection(chosenEpisodeId: chosenEpisodeId, sectionId: sectionId)
                 playButtonState = .waitingForStart
                 
                 // if successful, start playback
@@ -159,7 +191,7 @@ struct PlayButtonRow: View {
             }
         }
     }
-    
+        
     
     var body: some View {
         

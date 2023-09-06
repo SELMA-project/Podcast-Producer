@@ -246,7 +246,7 @@ class EpisodeViewModel: ObservableObject {
     }
     
     /// Returns the index of the given section within the current chosenEpisode
-    private func indexOfEpisodeSection(chosenEpisodeId: UUID?, relevantId: EpisodeSection.SectionId) -> Int? {
+    func indexOfEpisodeSection(chosenEpisodeId: UUID?, relevantId: EpisodeSection.SectionId) -> Int? {
         
         guard let chosenEpisodeId else {return nil}
         

@@ -13,6 +13,7 @@ struct EpisodeEditorView: View {
     var chosenEpisodeId: UUID?
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
+    @EnvironmentObject var voiceViewModel: VoiceViewModel
     
     /// Constrols visibility of the inspector
     @State var showingStructureEditor: Bool = false
@@ -98,6 +99,7 @@ struct EpisodeEditorView: View {
         }
         .sheet(isPresented: $showingPodcastRenderView) {
             PodcastRenderView(chosenEpisodeId: chosenEpisodeId)
+                .environmentObject(voiceViewModel)
                 .padding()
                 .frame(width: 450)
                 .environmentObject(episodeViewModel)
@@ -106,6 +108,7 @@ struct EpisodeEditorView: View {
         .sheet(isPresented: $showingStructureEditor) {
             if let chosenEpisodeId  {
                 StructureEditorView(chosenEpisodeId: chosenEpisodeId)
+                    .environmentObject(voiceViewModel)
                     .padding()
                     .frame(width: 500, height: 500)
             }

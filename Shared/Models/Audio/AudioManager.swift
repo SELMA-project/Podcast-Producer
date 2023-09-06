@@ -9,6 +9,11 @@ import Foundation
 
 import AVFoundation
 import SelmaKit
+import DWSpeakerKit
+
+protocol AudioManagerDelegate {
+    func synthesizeSpeech(text: String?, toURL fileURL: URL) async -> Bool
+}
 
 class AudioManager: NSObject, AVAudioPlayerDelegate {
     
@@ -20,6 +25,9 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
     
     var audioPlayer: AVAudioPlayer?
     var audioEngine: AVAudioEngine?
+    
+    // The delegate to convert text to speech.
+    var textToSpeechDelegate: AudioManagerDelegate?
     
     override init() {
         super.init()
@@ -35,39 +43,14 @@ class AudioManager: NSObject, AVAudioPlayerDelegate {
 #endif
     }
     
-    func synthesizeSpeech(podcastVoice: PodcastVoice, text: String?, toURL fileURL: URL) async -> Bool {
-        
-        // return early if there is no text
-        guard let text else {return false}
-        
-        // the result will be stored here
+    func synthesizeSpeech(text: String?, toURL fileURL: URL) async -> Bool {
+
         var success = false
         
-        switch podcastVoice.speechProvider {
-        case .SELMA:
-            if let voiceApiName = podcastVoice.nativeSelmaVoice()?.apiName {
-                success = await selmaAPI.renderSpeech(voiceApiName: voiceApiName, text: text, toURL: fileURL)
-            }
-            
-        case .Apple:
-            let appleVoiceIdentifier = podcastVoice.identifier
-            success = await AppleSpeechManager.shared.renderAppleSpeech(voiceIdentifier: appleVoiceIdentifier, text: text, toURL: fileURL)
-
-        case .ElevenLabs:
-            let voiceName = podcastVoice.identifier
-            let apiKey = UserDefaults.standard.string(forKey: Constants.userDefaultsElevenLabsAPIKeyName)
-            
-            // only proceed if we have an apiKey
-            if apiKey?.count ?? 0 > 0 {
-                let voiceManager = ElevenLabsVoiceManager(apiKey: apiKey!, elevenLabsModelId: .multilingualV1)
-                success = await voiceManager.renderSpeech(voiceName: voiceName, text: text, toURL: fileURL, stability: 0.9, similarityBoost: 0.5)
-            }
-            
-        default:
-            print("I don't know yet how to render speech for \(podcastVoice.speechProvider.displayName)")
-            break
+        if let textToSpeechDelegate {
+            success = await textToSpeechDelegate.synthesizeSpeech(text: text, toURL: fileURL)
         }
-     
+        
         return success
     }
     
@@ -361,7 +344,7 @@ extension AudioManager {
     private func renderText(inEpisode episode: Episode, section episodeSection: EpisodeSection, story: Story? = nil, useHeadline: Bool = true) async -> URL? {
         
         // the speaker identifier
-        let podcastVoice = episode.podcastVoice
+        //let podcastVoice = episode.podcastVoice
         
         // where is the audio stored?
         
@@ -392,7 +375,7 @@ extension AudioManager {
             // render audio
             var success = true
             //if !FileManager.default.fileExists(atPath: audioURL.path) {
-            success = await synthesizeSpeech(podcastVoice: podcastVoice, text: textToRender, toURL: audioURL)
+            success = await synthesizeSpeech(text: textToRender, toURL: audioURL)
             //}
             
             if success {

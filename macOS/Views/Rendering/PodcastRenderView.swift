@@ -13,6 +13,7 @@ struct PodcastRenderView: View {
     
     @Environment(\.dismiss) var dismissAction
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
+    @EnvironmentObject var voiceViewModel: VoiceViewModel
     
     @State private var progressText = "Press button to render."
     @State private var progressValue = 0.0
@@ -132,7 +133,10 @@ struct PodcastRenderView: View {
                             
                             progressValue = 50
                             progressText = "Synthesizing speech..."
-                            audioURL = await episodeViewModel.renderEpisode(chosenEpisodeId: chosenEpisodeId, muteBackgroundAudio: muteBackgroundAudio)
+                            
+                            let chosenEpisode = episodeViewModel[chosenEpisodeId]
+                            
+                            audioURL = await voiceViewModel.renderEpisode(chosenEpisode, muteBackgroundAudio: muteBackgroundAudio)
                             
                             progressValue = 100
                             progressText = "Ready for sharing."
