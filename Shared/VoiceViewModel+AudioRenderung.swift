@@ -58,7 +58,7 @@ extension VoiceViewModel {
 /// VoiceViewModel becomes the AudioManager's delegate to do TTS
 extension VoiceViewModel: AudioManagerDelegate {
 
-    /// Delegate function called by the AudioManager for TTS
+    /// Delegate function called by the AudioManager for TTS.
     func synthesizeSpeech(text: String?, toURL fileURL: URL) async -> Bool {
         
         // default result
@@ -69,8 +69,6 @@ extension VoiceViewModel: AudioManagerDelegate {
         
         // early exit if we don't have a voice
         guard let selectedVoice = await selectedProvider?.voice(forId: selectedVoiceId) else {return false}
-        
-        playerStatus = .rendering
         
         // synthesize to temporary URL
         if let tempURL = await voiceController.synthesizeText(text, usingVoice: selectedVoice, settings: voiceSettings) {
@@ -86,8 +84,6 @@ extension VoiceViewModel: AudioManagerDelegate {
             }
 
         }
-        
-        playerStatus = .idle
         
         return success
     }

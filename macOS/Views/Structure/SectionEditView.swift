@@ -125,69 +125,45 @@ struct PlayButtonRow: View {
     
     var chosenEpisodeId: UUID?
     
-    enum PlayButtonState {
-        case waitingForStart, rendering, waitingForStop
-    }
-    
-    @State var playButtonState: PlayButtonState = .waitingForStart
+//    enum PlayButtonState {
+//        case waitingForStart, rendering, waitingForStop
+//    }
+//
+//    @State var playButtonState: PlayButtonState = .waitingForStart
     @EnvironmentObject var viewModel: EpisodeViewModel
     @EnvironmentObject var voiceViewModel: VoiceViewModel
     
     var sectionId: EpisodeSection.SectionId
-    
-//    func buttonPressedOld() {
-//        
-//        Task {
-//            
-//            if playButtonState == .waitingForStart {
-//                
-//                // render audio
-//                playButtonState = .rendering
-//                let audioURL = await viewModel.renderEpisodeSection(chosenEpisodeId: chosenEpisodeId, sectionId: sectionId)
-//                playButtonState = .waitingForStart
-//                
-//                // if successful, start playback
-//                if let audioURL {
-//                    playButtonState = .waitingForStop
-//                    await viewModel.playAudioAtURL(audioURL)
-//                    playButtonState = .waitingForStart
-//                }
-//            }
-//            
-//            if playButtonState == .waitingForStop {
-//                viewModel.stopAudioPlayback()
-//                playButtonState = .waitingForStart
-//            }
-//        }
-//    }
+
     
     func buttonPressed() {
         
         Task {
             
-            if playButtonState == .waitingForStart {
+            if voiceViewModel.playerStatus == .idle {
                 
                 // render audio
-                playButtonState = .rendering
+                voiceViewModel.playerStatus = .rendering
                 
                 let chosenEpisode = viewModel[chosenEpisodeId]
                 let episodeSectionIndex = viewModel.indexOfEpisodeSection(chosenEpisodeId: chosenEpisodeId, relevantId: sectionId)
                 let audioURL = await voiceViewModel.renderEpisodeSection(chosenEpisode: chosenEpisode, episodeSectionIndex: episodeSectionIndex)
                 
                 //let audioURL = await viewModel.renderEpisodeSection(chosenEpisodeId: chosenEpisodeId, sectionId: sectionId)
-                playButtonState = .waitingForStart
                 
                 // if successful, start playback
                 if let audioURL {
-                    playButtonState = .waitingForStop
-                    await viewModel.playAudioAtURL(audioURL)
-                    playButtonState = .waitingForStart
+                    voiceViewModel.playerStatus = .playing
+                    await voiceViewModel.playAudioAtURL(audioURL)
+                    voiceViewModel.playerStatus = .idle
+                } else {
+                    voiceViewModel.playerStatus = .idle
                 }
             }
             
-            if playButtonState == .waitingForStop {
-                viewModel.stopAudioPlayback()
-                playButtonState = .waitingForStart
+            if voiceViewModel.playerStatus == .playing {
+                voiceViewModel.stopAudioPlayback()
+                voiceViewModel.playerStatus = .idle
             }
         }
     }
@@ -198,14 +174,14 @@ struct PlayButtonRow: View {
         HStack {
 
             // replace audio button with spinner while rendering audio
-            if playButtonState == .rendering {
+            if voiceViewModel.playerStatus == .rendering {
                 ProgressView()
             } else {
         
                 Button {
                     buttonPressed()
                 } label: {
-                    Image(systemName: playButtonState == .waitingForStart ? "play.circle" : "pause.circle")
+                    Image(systemName: voiceViewModel.playerStatus != .playing ? "play.circle" : "pause.circle")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 25, height: 25)
