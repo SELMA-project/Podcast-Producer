@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import DWSpeakerKit
 
 struct EpisodeEditorSettingsView: View {
     
     var chosenEpisodeId: UUID
     
     @EnvironmentObject var episodeViewModel: EpisodeViewModel
-    //@State var providerName: String = "SELMA"
+    @EnvironmentObject var voiceViewModel: VoiceViewModel
     
     /// Showing PodcastRenderViewSheet?
     @State private var showingSheet = false
@@ -27,20 +28,36 @@ struct EpisodeEditorSettingsView: View {
         return $episodeViewModel[chosenEpisodeId]
     }
                 
-    /// All voices that share the same provider and language
-    var availableVoices: [PodcastVoice] {
-        let episodeLanguage = chosenEpisode.language
-        let voiceProvider = chosenEpisode.podcastVoice.speechProvider
-        let availableVoices = VoiceManager.shared.availableVoices(forLanguage: episodeLanguage, forProvider: voiceProvider)
-        return availableVoices
-    }
-    
-    /// All Voice providers
-    var availableProviders: [SpeechProvider] {
-        let episodeLanguage = chosenEpisode.language
-        let availableProviders = VoiceManager.shared.availableProviders(forLanguage: episodeLanguage)
-        return availableProviders
-    }
+//    /// All voices that share the same provider and language
+//    var availableVoices: [PodcastVoice] {
+//        let episodeLanguage = chosenEpisode.language
+////        let voiceProvider = chosenEpisode.podcastVoice.speechProvider
+////        let availableVoices = VoiceManager.shared.availableVoices(forLanguage: episodeLanguage, forProvider: voiceProvider)
+////        return availableVoices
+//        
+//        // current locale
+//        let localeId = chosenEpisode.language.isoCode
+//        
+//        // set on voiceViewModel
+//        voiceViewModel.selectedLocaleId = localeId
+//        
+//        //let episodeLocale = Locale(identifier: localeId)
+//        
+//    }
+//    
+//    /// All Voice providers
+//    var availableProviders: [VoiceProvider] {
+//
+//        // set language on voiceViewModel
+//        let episodeLanguage = chosenEpisode.language
+//        let localeId = chosenEpisode.language.isoCode
+//        voiceViewModel.selectedLocaleId = localeId
+//        
+//        let availableProviders = voiceViewModel.selectableProviders
+//        
+//        //let availableProviders = VoiceManager.shared.availableProviders(forLanguage: episodeLanguage)
+//        return availableProviders
+//    }
     
     var body: some View {
         GroupBox {
@@ -57,16 +74,17 @@ struct EpisodeEditorSettingsView: View {
                     }
                     
                     TextField("Narrator:", text: chosenEpisodeBinding.narrator, prompt: Text("Narrator"))
-                    
-                    Picker("Voice Provider:", selection: chosenEpisodeBinding.podcastVoice.speechProvider) {
-                        ForEach(availableProviders, id: \.self) {provider in
-                            Text(provider.displayName)
+                                        
+                    Picker("Voice Provider:", selection: $voiceViewModel.selectedProviderId) {
+                        ForEach(voiceViewModel.selectableProviders, id: \.id) { provider in
+                            Text(provider.displayName).tag(provider.id)
                         }
                     }
                     
-                    Picker("Synthetic Voice Identifier:", selection: chosenEpisodeBinding.podcastVoice) {
-                        ForEach(availableVoices, id: \.self) {voice in
-                            Text(voice.name)
+                    
+                    Picker("Synthetic Voice Identifier:", selection: $voiceViewModel.selectedVoiceId) {
+                        ForEach(voiceViewModel.selectableVoices, id: \.id) { voice in
+                            Text(voice.displayName).tag(voice.id)
                         }
                     }
                     

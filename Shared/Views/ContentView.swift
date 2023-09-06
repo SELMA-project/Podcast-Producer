@@ -12,7 +12,7 @@ struct ContentView: View {
     
     @StateObject var episodeViewModel = EpisodeViewModel(createPlaceholderEpisode: true)
     @State private var chosenEpisodeId: UUID?
-
+    @StateObject var voiceViewModel = VoiceViewModel()
 
     var body: some View {
         
@@ -35,7 +35,15 @@ struct ContentView: View {
             // select the latest episode in the sidebar
             self.chosenEpisodeId = episodeViewModel.lastEpisodeId
         }
+        // this is where the episdeViewModel informs the voiceViewModel of the selected episode and therefore of the selected locale
+        .onChange(of: chosenEpisodeId, perform: { newValue in
+            let chosenEpisode = episodeViewModel[newValue]
+            let episodeLanguage = chosenEpisode.language
+            let localeId = chosenEpisode.language.isoCode
+            voiceViewModel.selectedLocaleId = localeId
+        })
         .environmentObject(episodeViewModel)
+        .environmentObject(voiceViewModel)
         #if os(macOS)
         .frame(minWidth: 1200, minHeight: 600)
         #endif

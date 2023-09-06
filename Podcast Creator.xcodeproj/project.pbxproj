@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		C1062E9329AF37EC0018939F /* PodcastRenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1062E9229AF37EC0018939F /* PodcastRenderView.swift */; };
+		C10C88B12AA8753C00ECFC42 /* DWSpeakerKit in Frameworks */ = {isa = PBXBuildFile; productRef = C10C88B02AA8753C00ECFC42 /* DWSpeakerKit */; };
+		C10C88B32AA8755600ECFC42 /* DWSpeakerKit in Frameworks */ = {isa = PBXBuildFile; productRef = C10C88B22AA8755600ECFC42 /* DWSpeakerKit */; };
+		C10C88B52AA8776B00ECFC42 /* VoiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C88B42AA8776B00ECFC42 /* VoiceViewModel.swift */; };
+		C10C88B62AA8776B00ECFC42 /* VoiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C88B42AA8776B00ECFC42 /* VoiceViewModel.swift */; };
 		C11013A329A4CD600082D667 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14A102629113213004DBB67 /* Sidebar.swift */; };
 		C110219F28FFFD93005AA554 /* AppleSpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110219E28FFFD93005AA554 /* AppleSpeechManager.swift */; };
 		C11021A028FFFD93005AA554 /* AppleSpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110219E28FFFD93005AA554 /* AppleSpeechManager.swift */; };
@@ -145,6 +149,7 @@
 		C100A48C29964AA000713E3B /* StructureEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureEditorView.swift; sourceTree = "<group>"; };
 		C1062E9229AF37EC0018939F /* PodcastRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastRenderView.swift; sourceTree = "<group>"; };
 		C10687102A86620500ED796D /* Podcast-Creator--macOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Podcast-Creator--macOS--Info.plist"; sourceTree = "<group>"; };
+		C10C88B42AA8776B00ECFC42 /* VoiceViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceViewModel.swift; sourceTree = "<group>"; };
 		C10D912A2919430300AC94A7 /* Podcast-Creator--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Podcast-Creator--iOS--Info.plist"; sourceTree = "<group>"; };
 		C110219E28FFFD93005AA554 /* AppleSpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSpeechManager.swift; sourceTree = "<group>"; };
 		C11021A2290026D1005AA554 /* PodcastVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastVoice.swift; sourceTree = "<group>"; };
@@ -230,6 +235,7 @@
 				C1734C712A790B9D002B4A03 /* CleverBird in Frameworks */,
 				C19CB18229D7411900452A19 /* DWUtilities in Frameworks */,
 				C16505F22A3B393A00734BAC /* SelmaKit in Frameworks */,
+				C10C88B12AA8753C00ECFC42 /* DWSpeakerKit in Frameworks */,
 				C1EBDB7A29E81D640032F664 /* MonitioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,6 +247,7 @@
 				C1734C762A790C7E002B4A03 /* CleverBird in Frameworks */,
 				C19CB18429D7412500452A19 /* DWUtilities in Frameworks */,
 				C16505F42A3B394100734BAC /* SelmaKit in Frameworks */,
+				C10C88B32AA8755600ECFC42 /* DWSpeakerKit in Frameworks */,
 				C1EBDB8129E821CD0032F664 /* MonitioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,6 +332,7 @@
 			children = (
 				C1491F5827AD472600A72AEB /* Podcast_ProducerApp.swift */,
 				C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */,
+				C10C88B42AA8776B00ECFC42 /* VoiceViewModel.swift */,
 				C193D28929F2D05300A1D4ED /* Constants.swift */,
 				C1F00B9D290BDA3F0031EBAA /* Views */,
 				C1BC0A7029965B4300ABE597 /* Models */,
@@ -577,6 +585,7 @@
 				C1EBDB7929E81D640032F664 /* MonitioKit */,
 				C16505F12A3B393A00734BAC /* SelmaKit */,
 				C1734C702A790B9D002B4A03 /* CleverBird */,
+				C10C88B02AA8753C00ECFC42 /* DWSpeakerKit */,
 			);
 			productName = "Podcast Producer (iOS)";
 			productReference = C1491F6027AD472700A72AEB /* Podcast Creator.app */;
@@ -600,6 +609,7 @@
 				C1EBDB8029E821CD0032F664 /* MonitioKit */,
 				C16505F32A3B394100734BAC /* SelmaKit */,
 				C1734C752A790C7E002B4A03 /* CleverBird */,
+				C10C88B22AA8755600ECFC42 /* DWSpeakerKit */,
 			);
 			productName = "Podcast Producer (macOS)";
 			productReference = C1491F6627AD472700A72AEB /* Podcast Creator.app */;
@@ -637,6 +647,7 @@
 				C1EBDB7829E81D640032F664 /* XCRemoteSwiftPackageReference "MonitioKit" */,
 				C16505EE2A3B38CF00734BAC /* XCRemoteSwiftPackageReference "SelmaKit" */,
 				C1734C6F2A790B9D002B4A03 /* XCRemoteSwiftPackageReference "CleverBird" */,
+				C10C88AF2AA8753C00ECFC42 /* XCRemoteSwiftPackageReference "DWSpeakerKit" */,
 			);
 			productRefGroup = C1491F6127AD472700A72AEB /* Products */;
 			projectDirPath = "";
@@ -745,6 +756,7 @@
 				C15F6D57296D58D800BA567D /* PodcastRenderView.swift in Sources */,
 				C1A3F60E29A60A77009BA0BE /* View+if.swift in Sources */,
 				C1C97196290C2E66008DACB3 /* GithubCreationView.swift in Sources */,
+				C10C88B52AA8776B00ECFC42 /* VoiceViewModel.swift in Sources */,
 				C167D66229FBB07900D8B24A /* Story.swift in Sources */,
 				C1262F8F28E323DF00F3C725 /* ScriptParser.swift in Sources */,
 				C193D28A29F2D05300A1D4ED /* Constants.swift in Sources */,
@@ -757,6 +769,7 @@
 			files = (
 				C1734C6E2A790432002B4A03 /* SummarizationEngine.swift in Sources */,
 				C1D946FD29A3A35800B70A83 /* MacTestView.swift in Sources */,
+				C10C88B62AA8776B00ECFC42 /* VoiceViewModel.swift in Sources */,
 				C1262F9328E3259F00F3C725 /* ScriptView.swift in Sources */,
 				C1756ABE28A13D3700FE9F2B /* StoryEditView.swift in Sources */,
 				C17A0A5629BF7E9300053A57 /* ElevenLabsVoiceManager.swift in Sources */,
@@ -1084,6 +1097,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C10C88AF2AA8753C00ECFC42 /* XCRemoteSwiftPackageReference "DWSpeakerKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dw-innovation/DWSpeakerKit";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		C16505EE2A3B38CF00734BAC /* XCRemoteSwiftPackageReference "SelmaKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/agiefer/SelmaKit.git";
@@ -1119,6 +1140,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C10C88B02AA8753C00ECFC42 /* DWSpeakerKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C10C88AF2AA8753C00ECFC42 /* XCRemoteSwiftPackageReference "DWSpeakerKit" */;
+			productName = DWSpeakerKit;
+		};
+		C10C88B22AA8755600ECFC42 /* DWSpeakerKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C10C88AF2AA8753C00ECFC42 /* XCRemoteSwiftPackageReference "DWSpeakerKit" */;
+			productName = DWSpeakerKit;
+		};
 		C16505F12A3B393A00734BAC /* SelmaKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C16505EE2A3B38CF00734BAC /* XCRemoteSwiftPackageReference "SelmaKit" */;
