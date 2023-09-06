@@ -38,7 +38,6 @@ struct ContentView: View {
         // this is where the episdeViewModel informs the voiceViewModel of the selected episode and therefore of the selected locale
         .onChange(of: chosenEpisodeId, perform: { newValue in
             let chosenEpisode = episodeViewModel[newValue]
-            let episodeLanguage = chosenEpisode.language
             let localeId = chosenEpisode.language.isoCode
             voiceViewModel.selectedLocaleId = localeId
         })

@@ -28,37 +28,6 @@ struct EpisodeEditorSettingsView: View {
         return $episodeViewModel[chosenEpisodeId]
     }
                 
-//    /// All voices that share the same provider and language
-//    var availableVoices: [PodcastVoice] {
-//        let episodeLanguage = chosenEpisode.language
-////        let voiceProvider = chosenEpisode.podcastVoice.speechProvider
-////        let availableVoices = VoiceManager.shared.availableVoices(forLanguage: episodeLanguage, forProvider: voiceProvider)
-////        return availableVoices
-//        
-//        // current locale
-//        let localeId = chosenEpisode.language.isoCode
-//        
-//        // set on voiceViewModel
-//        voiceViewModel.selectedLocaleId = localeId
-//        
-//        //let episodeLocale = Locale(identifier: localeId)
-//        
-//    }
-//    
-//    /// All Voice providers
-//    var availableProviders: [VoiceProvider] {
-//
-//        // set language on voiceViewModel
-//        let episodeLanguage = chosenEpisode.language
-//        let localeId = chosenEpisode.language.isoCode
-//        voiceViewModel.selectedLocaleId = localeId
-//        
-//        let availableProviders = voiceViewModel.selectableProviders
-//        
-//        //let availableProviders = VoiceManager.shared.availableProviders(forLanguage: episodeLanguage)
-//        return availableProviders
-//    }
-    
     var body: some View {
         GroupBox {
             
