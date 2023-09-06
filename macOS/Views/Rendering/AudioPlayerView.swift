@@ -9,12 +9,13 @@ import SwiftUI
 
 struct AudioPlayerView: View {
  
-    enum PlayButtonState {
-        case waitingForStart, waitingForStop
-    }
+//    enum PlayButtonState {
+//        case waitingForStart, waitingForStop
+//    }
     
-    @State var playButtonState: PlayButtonState = .waitingForStart
-    @EnvironmentObject var viewModel: EpisodeViewModel
+    //@State var playButtonState: PlayButtonState = .waitingForStart
+    //@EnvironmentObject var viewModel: EpisodeViewModel
+    @EnvironmentObject var voiceViewModel: VoiceViewModel
     
     var audioURL: URL?
     
@@ -22,19 +23,19 @@ struct AudioPlayerView: View {
         
         Task {
             
-            if playButtonState == .waitingForStart {
+            if voiceViewModel.playerStatus == .idle {
                 
                 // start playback
-                playButtonState = .waitingForStop
+                voiceViewModel.playerStatus = .playing
                 if let audioURL {
-                    await viewModel.playAudioAtURL(audioURL)
+                    await voiceViewModel.playAudioAtURL(audioURL)
                 }
-                playButtonState = .waitingForStart
+                voiceViewModel.playerStatus = .idle
             }
             
-            if playButtonState == .waitingForStop {
-                viewModel.stopAudioPlayback()
-                playButtonState = .waitingForStart
+            if voiceViewModel.playerStatus == .playing {
+                voiceViewModel.stopAudioPlayback()
+                voiceViewModel.playerStatus = .idle
             }
         }
     }
@@ -59,7 +60,7 @@ struct AudioPlayerView: View {
                 Button {
                     buttonPressed()
                 } label: {
-                    Image(systemName: playButtonState == .waitingForStart ? "play.circle" : "pause.circle")
+                    Image(systemName: voiceViewModel.playerStatus != .playing ? "play.circle" : "pause.circle")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                 }
@@ -81,7 +82,7 @@ struct AudioPlayerView: View {
         .disabled(audioURL == nil)
         .onDisappear {
             // if we are leaving the view, stop the audio
-            viewModel.stopAudioPlayback()
+            voiceViewModel.stopAudioPlayback()
         }
     }
 }

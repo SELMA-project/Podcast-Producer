@@ -122,7 +122,7 @@ struct PodcastRenderView: View {
                 
                 Toggle("Mute background audio", isOn: $muteBackgroundAudio)
                     .onChange(of: muteBackgroundAudio) { newValue in
-                        // a hcnge of this toggle invalidates the audioURL, so the Build button is active again
+                        // a change of this toggle invalidates the audioURL, so the Build button is active again
                         audioURL = nil
                     }
                 

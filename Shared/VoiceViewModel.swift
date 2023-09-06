@@ -233,9 +233,18 @@ extension VoiceViewModel {
         }
     }
     
+    /// Play audio at the given URL
+    func playAudioAtURL(_ audioURL: URL) async {
+        playerStatus = .playing
+        await audioPlayerController.playAudio(audioUrl: audioURL)
+        playerStatus = .idle
+    }
+        
+    
     /// Stops audio playback.
-    func stopSpeaking() {
+    func stopAudioPlayback() {
         audioPlayerController.stopAudio()
+        playerStatus = .idle
     }
     
     /// Converts given text to speech and stores in in the given `destinationURL`.
