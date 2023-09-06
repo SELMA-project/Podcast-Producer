@@ -15,7 +15,7 @@ class EpisodeViewModel: ObservableObject {
     
     @Published var navigationPath = NavigationPath()
     @Published var availableEpisodes: [Episode] = []
-
+    
     subscript(episodeId: UUID?) -> Episode {
         get {
             if let episodeId {
@@ -54,7 +54,7 @@ class EpisodeViewModel: ObservableObject {
             //chosenEpisode.narrator = narratorName
         }
     }
-     
+    
     /// The URL under which the all Episode data is stored
     private var episodeDataURL: URL {
         let fileName = "episodeData.json"
@@ -82,12 +82,12 @@ class EpisodeViewModel: ObservableObject {
         }
         return lastEpisodeId
     }
-        
+    
     init(createPlaceholderEpisode: Bool = false) {
         
         // restore UserDefaults
         newTemplateNarratorName = UserDefaults.standard.string(forKey: "newTemplateNarratorName") ?? ""
-                
+        
         // load episode data - if there is any
         if let episodesFromDisk = loadEpisodes() {
             self.availableEpisodes = episodesFromDisk
@@ -121,10 +121,10 @@ class EpisodeViewModel: ObservableObject {
         
         // parse
         let newEpisode = Episode.buildFromScript(scriptName)
-                
+        
         // does an episode with the same creation Date already exist
         let matchingEpisodeIndex = availableEpisodes.firstIndex {$0.creationDate == newEpisode.creationDate}
-                
+        
         // if we have a matching episode, replace it
         if let matchingEpisodeIndex {
             availableEpisodes[matchingEpisodeIndex] = newEpisode
@@ -139,8 +139,8 @@ class EpisodeViewModel: ObservableObject {
         saveEpisodes()
     }
     
-
-        
+    
+    
     /// Save all availableEpisodes to disk as JSON
     func saveEpisodes() {
         
@@ -181,17 +181,13 @@ class EpisodeViewModel: ObservableObject {
     
     /// Called when ContentView appears
     func runStartupRoutine() {
-        //let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        //let cachesDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-        
-        //print("Documents are in: \(documentsDir)")
-        //print("Caches are in: \(cachesDir)")
-                
-        //AudioManager.shared.deleteCachedFiles()
     }
     
- 
+}
 
+// MARK: Audio Rendering and playback.
+// Is still used by the iPhone target
+extension EpisodeViewModel {
     
     /// Called when play button is sectionEditView is pressed
     /// - Parameters:
@@ -218,21 +214,21 @@ class EpisodeViewModel: ObservableObject {
     ///   - chosenEpisodeId: The ID of the episode to render.
     ///   - muteBackgroundAudio: Instructs the renderer to nute the backgournd audio.
     /// - Returns: The URL of the rendered audio.
-    func renderEpisode(chosenEpisodeId: UUID?, muteBackgroundAudio: Bool = false) async -> URL {
-        
-        var chosenEpisode = self[chosenEpisodeId]
-        
-        // mute backgroundAudio if requested
-        if muteBackgroundAudio {
-            chosenEpisode.muteBackgroundAudio()
-        }
-        
-        // render episode as audio file
-        let episodeUrl = await AudioManager.shared.createAudioEpisodeBasedOnEpisode(chosenEpisode, selectedSectionIndex: nil)
-        print("Audio file saved here: \(String(describing: episodeUrl))")
-        
-        return episodeUrl
-    }
+//    func renderEpisode(chosenEpisodeId: UUID?, muteBackgroundAudio: Bool = false) async -> URL {
+//
+//        var chosenEpisode = self[chosenEpisodeId]
+//
+//        // mute backgroundAudio if requested
+//        if muteBackgroundAudio {
+//            chosenEpisode.muteBackgroundAudio()
+//        }
+//
+//        // render episode as audio file
+//        let episodeUrl = await AudioManager.shared.createAudioEpisodeBasedOnEpisode(chosenEpisode, selectedSectionIndex: nil)
+//        print("Audio file saved here: \(String(describing: episodeUrl))")
+//
+//        return episodeUrl
+//    }
     
     /// Play audio at the given URL
     func playAudioAtURL(_ audioURL: URL) async {

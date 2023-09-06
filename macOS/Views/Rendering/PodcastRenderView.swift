@@ -80,36 +80,6 @@ struct PodcastRenderView: View {
             
             Text("Render the podcast to convert the text in each section into synthesized speech while adding additional audio elements.")
                 .font(.caption)
-            
-
-            
-            HStack {
-                                
-//                Button {
-//                    Task {
-//
-//                        progressValue = 50
-//                        progressText = "Synthesizing speech..."
-//                        audioURL = await episodeViewModel.renderEpisode(chosenEpisodeId: chosenEpisodeId)
-//
-//                        progressValue = 100
-//                        progressText = "Ready for sharing."
-//                    }
-//                } label: {
-//                    Text("Build")
-//                        .frame(maxWidth: .infinity)
-//                }
-//                .disabled(audioURL != nil)
-//                .buttonStyle(.borderedProminent)
-//                .frame(maxWidth: 100)
-//
-//                ProgressView(progressText, value: progressValue, total: 100)
-//                    .opacity(renderProgressIsVisible ? 1 : 0)
-//
-
-            }
-            
-
 
             // display audio player if we have an audio URL
             AudioPlayerView(audioURL: audioURL)

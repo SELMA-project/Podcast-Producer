@@ -12,6 +12,7 @@ import SelmaKit
 import DWSpeakerKit
 
 protocol AudioManagerDelegate {
+    /// Function called to convert text into speech.
     func synthesizeSpeech(text: String?, toURL fileURL: URL) async -> Bool
 }
 
