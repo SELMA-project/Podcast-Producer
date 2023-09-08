@@ -10,7 +10,7 @@ import CoreData
 
 struct ContentView: View {
     
-    @StateObject var episodeViewModel = EpisodeViewModel(createPlaceholderEpisode: true)
+    @EnvironmentObject var episodeViewModel: EpisodeViewModel
     @State private var chosenEpisodeId: UUID?
     @StateObject var voiceViewModel = VoiceViewModel()
 

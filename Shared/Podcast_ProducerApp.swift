@@ -9,23 +9,16 @@ import SwiftUI
 
 @main
 struct Podcast_ProducerApp: App {
-    let persistenceController = PersistenceController.shared
-    
     var body: some Scene {
+        
+        @StateObject var episodeViewModel = EpisodeViewModel(createPlaceholderEpisode: true)
         
         WindowGroup {
             //ScriptView()
 
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                //.preferredColorScheme(.dark)
+                .environmentObject(episodeViewModel)
+
         }
-        
-#if os(macOS)
-        Settings {
-            SettingsView()
-        }
-#endif
-        
     }
 }

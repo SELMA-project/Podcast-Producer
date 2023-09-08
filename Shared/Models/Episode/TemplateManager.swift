@@ -35,7 +35,7 @@ class TemplateManager {
 // MARK: Template Creation
 extension TemplateManager {
     
-    private func createTemplate(name templateName: String, forLanguage templateLanguage: LanguageManager.Language, restrictHeadlinesToHighLights: Bool, introText: String, outroText: String, useAudio: Bool) -> EpisodeTemplate {
+    func createTemplate(name templateName: String, forLanguage templateLanguage: LanguageManager.Language, restrictHeadlinesToHighLights: Bool, introText: String, outroText: String, useAudio: Bool) -> EpisodeTemplate {
         
         var prefixAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
         var mainAudioFile: AudioManager.AudioFile = AudioManager.audioFileForDisplayName("None")
@@ -310,3 +310,6 @@ extension TemplateManager {
         return templates
     }
 }
+
+
+

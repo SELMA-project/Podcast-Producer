@@ -72,7 +72,6 @@
 		C1491F6927AD472700A72AEB /* Podcast_Producer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5627AD472600A72AEB /* Podcast_Producer.xcdatamodeld */; };
 		C1491F6A27AD472700A72AEB /* Podcast_Producer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5627AD472600A72AEB /* Podcast_Producer.xcdatamodeld */; };
 		C1491F6B27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5827AD472600A72AEB /* Podcast_ProducerApp.swift */; };
-		C1491F6C27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5827AD472600A72AEB /* Podcast_ProducerApp.swift */; };
 		C1491F6D27AD472700A72AEB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5927AD472600A72AEB /* ContentView.swift */; };
 		C1491F6F27AD472700A72AEB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5A27AD472600A72AEB /* Persistence.swift */; };
 		C1491F7027AD472700A72AEB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1491F5A27AD472600A72AEB /* Persistence.swift */; };
@@ -85,6 +84,9 @@
 		C14CEA2B28F1948A00B8DFC8 /* StandardSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */; };
 		C14CEA3028F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */; };
 		C14CEA3128F1E41D00B8DFC8 /* HeadlineSectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */; };
+		C14F7AC12AAB444C00118299 /* WDRKit in Frameworks */ = {isa = PBXBuildFile; productRef = C14F7AC02AAB444C00118299 /* WDRKit */; };
+		C14F7AC32AAB4C9500118299 /* Podcast_ProducerApp_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14F7AC22AAB4C9500118299 /* Podcast_ProducerApp_macOS.swift */; };
+		C14F7AC52AAB57FA00118299 /* EpisodeViewModel+WDR.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14F7AC42AAB57FA00118299 /* EpisodeViewModel+WDR.swift */; };
 		C1543A0C28A2A64300427ED0 /* EpisodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */; };
 		C1543A0D28A2A64300427ED0 /* EpisodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */; };
 		C1543A0F28A2A69C00427ED0 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1543A0E28A2A69C00427ED0 /* Episode.swift */; };
@@ -194,6 +196,9 @@
 		C14B1E6E290C2801000748FA /* TemplateCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCreationView.swift; sourceTree = "<group>"; };
 		C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardSectionEditView.swift; sourceTree = "<group>"; };
 		C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineSectionEditView.swift; sourceTree = "<group>"; };
+		C14F7ABF2AAB43F100118299 /* WDRKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WDRKit; path = "../00-packages/WDRKit"; sourceTree = "<group>"; };
+		C14F7AC22AAB4C9500118299 /* Podcast_ProducerApp_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Podcast_ProducerApp_macOS.swift; sourceTree = "<group>"; };
+		C14F7AC42AAB57FA00118299 /* EpisodeViewModel+WDR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EpisodeViewModel+WDR.swift"; sourceTree = "<group>"; };
 		C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewModel.swift; sourceTree = "<group>"; };
 		C1543A0E28A2A69C00427ED0 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		C15F6D56296D58D800BA567D /* PodcastRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastRenderView.swift; sourceTree = "<group>"; };
@@ -250,6 +255,7 @@
 				C1734C762A790C7E002B4A03 /* CleverBird in Frameworks */,
 				C19CB18429D7412500452A19 /* DWUtilities in Frameworks */,
 				C16505F42A3B394100734BAC /* SelmaKit in Frameworks */,
+				C14F7AC12AAB444C00118299 /* WDRKit in Frameworks */,
 				C10C88B32AA8755600ECFC42 /* DWSpeakerKit in Frameworks */,
 				C1EBDB8129E821CD0032F664 /* MonitioKit in Frameworks */,
 			);
@@ -321,6 +327,7 @@
 		C1491F5027AD472500A72AEB = {
 			isa = PBXGroup;
 			children = (
+				C14F7ABF2AAB43F100118299 /* WDRKit */,
 				C10687102A86620500ED796D /* Podcast-Creator--macOS--Info.plist */,
 				C10D912A2919430300AC94A7 /* Podcast-Creator--iOS--Info.plist */,
 				C1491F5527AD472600A72AEB /* Shared */,
@@ -335,6 +342,7 @@
 			children = (
 				C1491F5827AD472600A72AEB /* Podcast_ProducerApp.swift */,
 				C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */,
+				C14F7AC42AAB57FA00118299 /* EpisodeViewModel+WDR.swift */,
 				C10C88B72AA8A39300ECFC42 /* VoiceViewModel+AudioRenderung.swift */,
 				C10C88B42AA8776B00ECFC42 /* VoiceViewModel.swift */,
 				C193D28929F2D05300A1D4ED /* Constants.swift */,
@@ -363,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				C1491F6827AD472700A72AEB /* macOS.entitlements */,
+				C14F7AC22AAB4C9500118299 /* Podcast_ProducerApp_macOS.swift */,
 				C1D946FC29A3A35800B70A83 /* MacTestView.swift */,
 				C1ECCC1F29A3BDE200C1241F /* Views */,
 			);
@@ -614,6 +623,7 @@
 				C16505F32A3B394100734BAC /* SelmaKit */,
 				C1734C752A790C7E002B4A03 /* CleverBird */,
 				C10C88B22AA8755600ECFC42 /* DWSpeakerKit */,
+				C14F7AC02AAB444C00118299 /* WDRKit */,
 			);
 			productName = "Podcast Producer (macOS)";
 			productReference = C1491F6627AD472700A72AEB /* Podcast Creator.app */;
@@ -784,9 +794,9 @@
 				C1062E9329AF37EC0018939F /* PodcastRenderView.swift in Sources */,
 				C1A3F60F29A60A7B009BA0BE /* View+if.swift in Sources */,
 				C19249AA29ADEA85007022E5 /* EpisodeEditorStoriesListView.swift in Sources */,
-				C1491F6C27AD472700A72AEB /* Podcast_ProducerApp.swift in Sources */,
 				C193D28B29F2D05300A1D4ED /* Constants.swift in Sources */,
 				C11A239C28F30B300022263B /* EpisodeTemplate.swift in Sources */,
+				C14F7AC32AAB4C9500118299 /* Podcast_ProducerApp_macOS.swift in Sources */,
 				C10C88B92AA8A39300ECFC42 /* VoiceViewModel+AudioRenderung.swift in Sources */,
 				C1CF37B029840C4700134E75 /* TemplateManager.swift in Sources */,
 				C1734C742A790C25002B4A03 /* OpenAI+CleverBird.swift in Sources */,
@@ -807,6 +817,7 @@
 				C14CEA2B28F1948A00B8DFC8 /* StandardSectionEditView.swift in Sources */,
 				C193D28D29F2D5E500A1D4ED /* SettingsView.swift in Sources */,
 				C17E86C329AE0C80004E5750 /* StructureEditorView.swift in Sources */,
+				C14F7AC52AAB57FA00118299 /* EpisodeViewModel+WDR.swift in Sources */,
 				C11013A329A4CD600082D667 /* Sidebar.swift in Sources */,
 				C1E4C71A29A4D1350040826F /* ContentView.swift in Sources */,
 				C1D927E529AF3E32006BCF84 /* AudioPlayerView.swift in Sources */,
@@ -1155,6 +1166,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C10C88AF2AA8753C00ECFC42 /* XCRemoteSwiftPackageReference "DWSpeakerKit" */;
 			productName = DWSpeakerKit;
+		};
+		C14F7AC02AAB444C00118299 /* WDRKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WDRKit;
 		};
 		C16505F12A3B393A00734BAC /* SelmaKit */ = {
 			isa = XCSwiftPackageProductDependency;
