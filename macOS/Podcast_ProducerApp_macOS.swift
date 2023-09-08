@@ -23,7 +23,8 @@ struct Podcast_ProducerApp: App {
         .commands {
             CommandGroup(after: .newItem) {
                 Button("Import Pressespiegel") {
-                    episodeViewModel.openPresseSpiegel()
+                    // Calling this menu triggers a notification which will be received by ContentView
+                    NotificationCenter.default.post(name: .importPresseSpiegel, object: nil)
                 }.keyboardShortcut("I")
             }
             
@@ -35,4 +36,9 @@ struct Podcast_ProducerApp: App {
         }
                 
     }
+}
+
+// The name of the notification sent when importing the WDR PRessespiegel
+extension Notification.Name {
+    static let importPresseSpiegel = Notification.Name("importPresseSpiegel")
 }

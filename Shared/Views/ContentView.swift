@@ -45,6 +45,13 @@ struct ContentView: View {
         .environmentObject(voiceViewModel)
         #if os(macOS)
         .frame(minWidth: 1200, minHeight: 600)
+        
+        // when importing a WDR pressespiegel, we receive a notification here.
+        .onReceive(NotificationCenter.default.publisher(for: .importPresseSpiegel)) {_ in
+            
+            // a new episode is created, the id of which is returned. This will switch the selected episode in the sidebar.
+            chosenEpisodeId = episodeViewModel.openPresseSpiegel()
+        }
         #endif
     }
 

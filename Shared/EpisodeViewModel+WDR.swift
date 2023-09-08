@@ -13,7 +13,8 @@ import SwiftUI
 
 extension EpisodeViewModel {
     
-    func openPresseSpiegel() {
+    /// Selected a file to import. The id of the created episode is passed back.
+    func openPresseSpiegel() -> UUID? {
         
         let dialog = NSOpenPanel();
 
@@ -27,19 +28,20 @@ extension EpisodeViewModel {
         if (dialog.runModal() ==  NSApplication.ModalResponse.OK) {
             if let fileURL = dialog.url {// Pathname of the file
 
-                creatWDRPresseSpiegelEpisode(basedOnfileURL: fileURL)
-                
-                // path contains the file path e.g
-                // /Users/ourcodeworld/Desktop/file.txt
+                let newEpisodeId = createWDRPresseSpiegelEpisode(basedOnfileURL: fileURL)
+                return newEpisodeId
             }
             
         } else {
             // User clicked on "Cancel"
-            return
+            return nil
         }
+        
+        return nil
     }
     
-    func creatWDRPresseSpiegelEpisode(basedOnfileURL fileURL: URL) {
+    /// Creates a new episode containing the Pressespiegel stories contained in fileURL. The id of the newly created episode is passed back.
+    private func createWDRPresseSpiegelEpisode(basedOnfileURL fileURL: URL) -> UUID? {
         
         // new template
         let template = TemplateManager.shared.wdrTemplates()[0]
@@ -56,6 +58,8 @@ extension EpisodeViewModel {
             // parse data contained in dropped file
             let presseSpiegel = await wdrImporter.getPresseSpiegel(fileURL: fileURL)
             
+            var counter = 0
+            
             for artikel in presseSpiegel.artikelArray {
                 
                 // copy metadata
@@ -68,8 +72,16 @@ extension EpisodeViewModel {
                 
                 // add  to chosen episode
                 self[chosenEpisodeId].stories.append(story)
+                
+                counter += 1
+                
+                if counter == 3 {
+                    break
+                }
             }
         }
+        
+        return chosenEpisodeId
     }
 }
 
