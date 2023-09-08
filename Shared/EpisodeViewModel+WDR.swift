@@ -40,7 +40,7 @@ extension EpisodeViewModel {
         return nil
     }
     
-    /// Creates a new episode containing the Pressespiegel stories contained in fileURL. The id of the newly created episode is passed back.
+    /// Creates a new episode containing the Pressespiegel stories
     private func createWDRPresseSpiegelEpisode(basedOnfileURL fileURL: URL) -> UUID? {
         
         // new template
