@@ -196,7 +196,6 @@
 		C14B1E6E290C2801000748FA /* TemplateCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCreationView.swift; sourceTree = "<group>"; };
 		C14CEA2928F1948A00B8DFC8 /* StandardSectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardSectionEditView.swift; sourceTree = "<group>"; };
 		C14CEA2F28F1E41D00B8DFC8 /* HeadlineSectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineSectionEditView.swift; sourceTree = "<group>"; };
-		C14F7ABF2AAB43F100118299 /* WDRKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WDRKit; path = "../00-packages/WDRKit"; sourceTree = "<group>"; };
 		C14F7AC22AAB4C9500118299 /* Podcast_ProducerApp_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Podcast_ProducerApp_macOS.swift; sourceTree = "<group>"; };
 		C14F7AC42AAB57FA00118299 /* EpisodeViewModel+WDR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EpisodeViewModel+WDR.swift"; sourceTree = "<group>"; };
 		C1543A0B28A2A64300427ED0 /* EpisodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewModel.swift; sourceTree = "<group>"; };
@@ -327,7 +326,6 @@
 		C1491F5027AD472500A72AEB = {
 			isa = PBXGroup;
 			children = (
-				C14F7ABF2AAB43F100118299 /* WDRKit */,
 				C10687102A86620500ED796D /* Podcast-Creator--macOS--Info.plist */,
 				C10D912A2919430300AC94A7 /* Podcast-Creator--iOS--Info.plist */,
 				C1491F5527AD472600A72AEB /* Shared */,
@@ -662,6 +660,7 @@
 				C16505EE2A3B38CF00734BAC /* XCRemoteSwiftPackageReference "SelmaKit" */,
 				C1734C6F2A790B9D002B4A03 /* XCRemoteSwiftPackageReference "CleverBird" */,
 				C10C88AF2AA8753C00ECFC42 /* XCRemoteSwiftPackageReference "DWSpeakerKit" */,
+				C1820D582AB82ECE00EE0065 /* XCRemoteSwiftPackageReference "WDRKit" */,
 			);
 			productRefGroup = C1491F6127AD472700A72AEB /* Products */;
 			projectDirPath = "";
@@ -1136,6 +1135,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 3.0.0;
+			};
+		};
+		C1820D582AB82ECE00EE0065 /* XCRemoteSwiftPackageReference "WDRKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/agiefer/WDRKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 		C19CB17D29D7410500452A19 /* XCRemoteSwiftPackageReference "DWUtilities" */ = {

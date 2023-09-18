@@ -53,6 +53,15 @@
         "branch" : "main",
         "revision" : "4b416105d448a2c602eb51eccee482c60505b5f3"
       }
+    },
+    {
+      "identity" : "wdrkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/agiefer/WDRKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "7536e4f4ec0493e96b2a7b671d0ce798d6fe4e55"
+      }
     }
   ],
   "version" : 2
