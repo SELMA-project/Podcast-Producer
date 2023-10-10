@@ -180,8 +180,8 @@ extension VoiceViewModel {
         
         // derive ids
         let defaultProviderId = defaultProvider.id
-        let defaultVoiceId = await defaultProvider.preferedVoiceForLocale(locale: Locale(identifier: defaultLocaleId))!.id
-        
+        let defaultVoiceId = "com.apple.voice.premium.en-US.Zoe" //await defaultProvider.preferedVoiceForLocale(locale: Locale(identifier: defaultLocaleId))!.id
+ 
         // register defaults
         UserDefaults.standard.register(defaults: [
             UserDefaultKeys.selectedLocaleIdName : defaultLocaleId,

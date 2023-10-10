@@ -186,8 +186,8 @@ extension ElevenLabsVoiceManager {
             
             do {
                 
-//                let jsonString = String(data: data, encoding: .utf8)
-//                print(jsonString ?? "")
+                let jsonString = String(data: data, encoding: .utf8)
+                print(jsonString ?? "")
                 
                 // decode JSON
                 let models = try JSONDecoder().decode([ModelQueryReply].self, from: data)
