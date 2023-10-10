@@ -231,7 +231,6 @@
 		C1EBDB7B29E81FB10032F664 /* MonitioImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitioImportView.swift; sourceTree = "<group>"; };
 		C1EBDB7D29E8216F0032F664 /* MonitioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitioViewModel.swift; sourceTree = "<group>"; };
 		C1F5602628D4765900E573E2 /* no-audio.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "no-audio.m4a"; sourceTree = "<group>"; };
-		F7BB59D12AD5390B006D3B8F /* DWSpeakerKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DWSpeakerKit; path = ../00_packages/DWSpeakerKit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -325,7 +324,6 @@
 		C1491F5027AD472500A72AEB = {
 			isa = PBXGroup;
 			children = (
-				F7BB59D12AD5390B006D3B8F /* DWSpeakerKit */,
 				C10687102A86620500ED796D /* Podcast-Creator--macOS--Info.plist */,
 				C10D912A2919430300AC94A7 /* Podcast-Creator--iOS--Info.plist */,
 				C1491F5527AD472600A72AEB /* Shared */,
@@ -1024,10 +1022,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 82DH72DY44;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1041,7 +1039,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lab-dw.Podcast-Producer";
 				PRODUCT_NAME = "Podcast Creator";
 				SDKROOT = macosx;
@@ -1057,10 +1055,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 82DH72DY44;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1074,7 +1072,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lab-dw.Podcast-Producer";
 				PRODUCT_NAME = "Podcast Creator";
 				SDKROOT = macosx;

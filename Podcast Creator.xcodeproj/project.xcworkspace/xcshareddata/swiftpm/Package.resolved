@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "dwspeakerkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dw-innovation/DWSpeakerKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "e6cd36a6d889960f787404e5f95a445332d82f99"
+      }
+    },
+    {
       "identity" : "dwutilities",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/agiefer/DWUtilities.git",
