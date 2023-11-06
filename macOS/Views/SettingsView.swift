@@ -46,7 +46,11 @@ struct SettingsView: View {
                 TextField("Priberam API Key:", text: $priberamAPIKey)
                 Text("Required to use Google and Azure voices.")
                     .font(.caption)
-                    .padding(.bottom, 16)
+                    .padding(.bottom, 8)
+
+                
+                Text("Please restart the app after settings the API Key.")
+                    .padding(.bottom, 20)
                 
                 // Engine
                 Picker("Summarization Engine:", selection: $selectedEngine) {
