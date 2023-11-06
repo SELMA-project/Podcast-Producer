@@ -11,6 +11,8 @@ struct SettingsView: View {
     
     @AppStorage(Constants.userDefaultsElevenLabsAPIKeyName) var elevenLabsAPIKey = ""
     @AppStorage(Constants.userDefaultsOpenAIAPIKeyName) var openAIAPIKey = ""
+    @AppStorage(Constants.userDefaultsPriberamAPIKeyName) var priberamAPIKey = ""
+
     @AppStorage(Constants.userDefaultsSummarizationPrompt) var summarizationPrompt = "You are a radio presenter for Deutsche Welle. Summarize the text in 2 sentences."
     
     @AppStorage(Constants.userDefaultsChatTemperature) var temperature: Double = 0.5
@@ -33,10 +35,18 @@ struct SettingsView: View {
             Form {
                 
                 TextField("ElevenLabs API Key:", text: $elevenLabsAPIKey)
+                Text("Required to use ElevenLabs voices.")
+                    .font(.caption)
                 
                 TextField("OpenAI API Key:", text: $openAIAPIKey)
-                    .padding(.bottom, 16)
+                Text("Required to use ChatGPT summarization.")
+                    .font(.caption)
                 
+                
+                TextField("Priberam API Key:", text: $priberamAPIKey)
+                Text("Required to use Google and Azure voices.")
+                    .font(.caption)
+                    .padding(.bottom, 16)
                 
                 // Engine
                 Picker("Summarization Engine:", selection: $selectedEngine) {

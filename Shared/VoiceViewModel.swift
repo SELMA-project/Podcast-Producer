@@ -111,8 +111,11 @@ class VoiceViewModel: ObservableObject {
     
     init() {
         
+        // get priberamAPIKey from UserDefault
+        let priberamAPIKey = UserDefaults.standard.string(forKey: Constants.userDefaultsPriberamAPIKeyName)
+        
         /// Access to voice functionalitites
-        self.voiceController = VoiceController(userDefaultsElevenLabsAPIKeyName: Constants.userDefaultsElevenLabsAPIKeyName)
+        self.voiceController = VoiceController(userDefaultsElevenLabsAPIKeyName: Constants.userDefaultsElevenLabsAPIKeyName, priberamAPIKey: priberamAPIKey)
         
         /// Access to audio player functionalitites
         self.audioPlayerController = AudioPlayerController()
