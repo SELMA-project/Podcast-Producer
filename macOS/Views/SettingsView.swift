@@ -49,7 +49,7 @@ struct SettingsView: View {
                     .padding(.bottom, 8)
 
                 
-                Text("Please restart the app after settings the API Key.")
+                Text("Please restart the app after setting the API Keys.")
                     .padding(.bottom, 20)
                 
                 // Engine
