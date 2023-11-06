@@ -145,6 +145,7 @@
 		C1EBDB8129E821CD0032F664 /* MonitioKit in Frameworks */ = {isa = PBXBuildFile; productRef = C1EBDB8029E821CD0032F664 /* MonitioKit */; };
 		C1F5602728D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
 		C1F5602828D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
+		F722065F2AF919F100E2C879 /* DWSpeakerKit in Frameworks */ = {isa = PBXBuildFile; productRef = F722065E2AF919F100E2C879 /* DWSpeakerKit */; };
 		F7BB59D02AD43D6A006D3B8F /* DWSpeakerKit in Frameworks */ = {isa = PBXBuildFile; productRef = F7BB59CF2AD43D6A006D3B8F /* DWSpeakerKit */; };
 /* End PBXBuildFile section */
 
@@ -241,6 +242,7 @@
 				C1734C712A790B9D002B4A03 /* CleverBird in Frameworks */,
 				C19CB18229D7411900452A19 /* DWUtilities in Frameworks */,
 				C16505F22A3B393A00734BAC /* SelmaKit in Frameworks */,
+				F722065F2AF919F100E2C879 /* DWSpeakerKit in Frameworks */,
 				C1EBDB7A29E81D640032F664 /* MonitioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -594,6 +596,7 @@
 				C1EBDB7929E81D640032F664 /* MonitioKit */,
 				C16505F12A3B393A00734BAC /* SelmaKit */,
 				C1734C702A790B9D002B4A03 /* CleverBird */,
+				F722065E2AF919F100E2C879 /* DWSpeakerKit */,
 			);
 			productName = "Podcast Producer (iOS)";
 			productReference = C1491F6027AD472700A72AEB /* Podcast Creator.app */;
@@ -1208,6 +1211,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C1EBDB7829E81D640032F664 /* XCRemoteSwiftPackageReference "MonitioKit" */;
 			productName = MonitioKit;
+		};
+		F722065E2AF919F100E2C879 /* DWSpeakerKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F7BB59CE2AD43D6A006D3B8F /* XCRemoteSwiftPackageReference "DWSpeakerKit" */;
+			productName = DWSpeakerKit;
 		};
 		F7BB59CF2AD43D6A006D3B8F /* DWSpeakerKit */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -3,4 +3,22 @@
    uuid = "268D3B4D-765D-41DA-856A-95E23337C9B0"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "486134BF-6CFD-43A8-A368-EF2A409270A3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Library/Developer/Xcode/DerivedData/Podcast_Creator-cftrgkxuwuszwrarwjwhpcjcbqhd/SourcePackages/checkouts/DWSpeakerKit/Sources/DWSpeakerKit/VoiceController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "getAvailableProviders()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
