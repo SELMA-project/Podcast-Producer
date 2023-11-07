@@ -19,10 +19,9 @@ struct EpisodeEditorStoryView: View {
     /// Gets called when 'Summarize button is pressed.
     private func summarize() {
         
-        // read select engine from user defaults
+        // read selected engine from user defaults
         guard let selectedEngineString = UserDefaults.standard.string(forKey: Constants.userDefaultsSelectedEngine) else {return}
         guard let selectedEngine = SummarisationEngine(rawValue: selectedEngineString) else {return}
-        
         
         // read maxNumberOfTokens defaults
         let maxNumberOfTokens = UserDefaults.standard.integer(forKey: Constants.userDefaultsMaxNumberOfTokens)

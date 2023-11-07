@@ -95,9 +95,7 @@
 		C167D66229FBB07900D8B24A /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167D66129FBB07900D8B24A /* Story.swift */; };
 		C167D66329FBB07900D8B24A /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167D66129FBB07900D8B24A /* Story.swift */; };
 		C1734C6E2A790432002B4A03 /* SummarizationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1734C6D2A790432002B4A03 /* SummarizationEngine.swift */; };
-		C1734C712A790B9D002B4A03 /* CleverBird in Frameworks */ = {isa = PBXBuildFile; productRef = C1734C702A790B9D002B4A03 /* CleverBird */; };
 		C1734C742A790C25002B4A03 /* OpenAI+CleverBird.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1734C732A790C25002B4A03 /* OpenAI+CleverBird.swift */; };
-		C1734C762A790C7E002B4A03 /* CleverBird in Frameworks */ = {isa = PBXBuildFile; productRef = C1734C752A790C7E002B4A03 /* CleverBird */; };
 		C1756ABD28A13D3700FE9F2B /* StoryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */; };
 		C1756ABE28A13D3700FE9F2B /* StoryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1756ABC28A13D3700FE9F2B /* StoryEditView.swift */; };
 		C176AB0E28CF7A3B00E2804D /* AudioEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C176AB0D28CF7A3B00E2804D /* AudioEpisode.swift */; };
@@ -146,6 +144,7 @@
 		C1F5602728D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
 		C1F5602828D4765900E573E2 /* no-audio.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C1F5602628D4765900E573E2 /* no-audio.m4a */; };
 		F722065F2AF919F100E2C879 /* DWSpeakerKit in Frameworks */ = {isa = PBXBuildFile; productRef = F722065E2AF919F100E2C879 /* DWSpeakerKit */; };
+		F77D7E0B2AFA409700CFF134 /* CleverBird in Frameworks */ = {isa = PBXBuildFile; productRef = F77D7E0A2AFA409700CFF134 /* CleverBird */; };
 		F7BB59D02AD43D6A006D3B8F /* DWSpeakerKit in Frameworks */ = {isa = PBXBuildFile; productRef = F7BB59CF2AD43D6A006D3B8F /* DWSpeakerKit */; };
 /* End PBXBuildFile section */
 
@@ -240,7 +239,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1734C712A790B9D002B4A03 /* CleverBird in Frameworks */,
 				C19CB18229D7411900452A19 /* DWUtilities in Frameworks */,
 				C16505F22A3B393A00734BAC /* SelmaKit in Frameworks */,
 				F722065F2AF919F100E2C879 /* DWSpeakerKit in Frameworks */,
@@ -252,7 +250,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1734C762A790C7E002B4A03 /* CleverBird in Frameworks */,
+				F77D7E0B2AFA409700CFF134 /* CleverBird in Frameworks */,
 				C19CB18429D7412500452A19 /* DWUtilities in Frameworks */,
 				C16505F42A3B394100734BAC /* SelmaKit in Frameworks */,
 				C14F7AC12AAB444C00118299 /* WDRKit in Frameworks */,
@@ -597,7 +595,6 @@
 				C19CB18129D7411900452A19 /* DWUtilities */,
 				C1EBDB7929E81D640032F664 /* MonitioKit */,
 				C16505F12A3B393A00734BAC /* SelmaKit */,
-				C1734C702A790B9D002B4A03 /* CleverBird */,
 				F722065E2AF919F100E2C879 /* DWSpeakerKit */,
 			);
 			productName = "Podcast Producer (iOS)";
@@ -621,9 +618,9 @@
 				C19CB18329D7412500452A19 /* DWUtilities */,
 				C1EBDB8029E821CD0032F664 /* MonitioKit */,
 				C16505F32A3B394100734BAC /* SelmaKit */,
-				C1734C752A790C7E002B4A03 /* CleverBird */,
 				C14F7AC02AAB444C00118299 /* WDRKit */,
 				F7BB59CF2AD43D6A006D3B8F /* DWSpeakerKit */,
+				F77D7E0A2AFA409700CFF134 /* CleverBird */,
 			);
 			productName = "Podcast Producer (macOS)";
 			productReference = C1491F6627AD472700A72AEB /* Podcast Creator.app */;
@@ -660,9 +657,9 @@
 				C19CB17D29D7410500452A19 /* XCRemoteSwiftPackageReference "DWUtilities" */,
 				C1EBDB7829E81D640032F664 /* XCRemoteSwiftPackageReference "MonitioKit" */,
 				C16505EE2A3B38CF00734BAC /* XCRemoteSwiftPackageReference "SelmaKit" */,
-				C1734C6F2A790B9D002B4A03 /* XCRemoteSwiftPackageReference "CleverBird" */,
 				C1820D582AB82ECE00EE0065 /* XCRemoteSwiftPackageReference "WDRKit" */,
 				F7BB59CE2AD43D6A006D3B8F /* XCRemoteSwiftPackageReference "DWSpeakerKit" */,
+				F77D7E092AFA409700CFF134 /* XCRemoteSwiftPackageReference "CleverBird" */,
 			);
 			productRefGroup = C1491F6127AD472700A72AEB /* Products */;
 			projectDirPath = "";
@@ -1127,14 +1124,6 @@
 				kind = branch;
 			};
 		};
-		C1734C6F2A790B9D002B4A03 /* XCRemoteSwiftPackageReference "CleverBird" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/btfranklin/CleverBird.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
 		C1820D582AB82ECE00EE0065 /* XCRemoteSwiftPackageReference "WDRKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/agiefer/WDRKit.git";
@@ -1157,6 +1146,14 @@
 			requirement = {
 				branch = main;
 				kind = branch;
+			};
+		};
+		F77D7E092AFA409700CFF134 /* XCRemoteSwiftPackageReference "CleverBird" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/btfranklin/CleverBird.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
 			};
 		};
 		F7BB59CE2AD43D6A006D3B8F /* XCRemoteSwiftPackageReference "DWSpeakerKit" */ = {
@@ -1184,16 +1181,6 @@
 			package = C16505EE2A3B38CF00734BAC /* XCRemoteSwiftPackageReference "SelmaKit" */;
 			productName = SelmaKit;
 		};
-		C1734C702A790B9D002B4A03 /* CleverBird */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C1734C6F2A790B9D002B4A03 /* XCRemoteSwiftPackageReference "CleverBird" */;
-			productName = CleverBird;
-		};
-		C1734C752A790C7E002B4A03 /* CleverBird */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C1734C6F2A790B9D002B4A03 /* XCRemoteSwiftPackageReference "CleverBird" */;
-			productName = CleverBird;
-		};
 		C19CB18129D7411900452A19 /* DWUtilities */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C19CB17D29D7410500452A19 /* XCRemoteSwiftPackageReference "DWUtilities" */;
@@ -1218,6 +1205,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F7BB59CE2AD43D6A006D3B8F /* XCRemoteSwiftPackageReference "DWSpeakerKit" */;
 			productName = DWSpeakerKit;
+		};
+		F77D7E0A2AFA409700CFF134 /* CleverBird */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F77D7E092AFA409700CFF134 /* XCRemoteSwiftPackageReference "CleverBird" */;
+			productName = CleverBird;
 		};
 		F7BB59CF2AD43D6A006D3B8F /* DWSpeakerKit */ = {
 			isa = XCSwiftPackageProductDependency;

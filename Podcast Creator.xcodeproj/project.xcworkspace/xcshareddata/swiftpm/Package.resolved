@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/btfranklin/CleverBird.git",
       "state" : {
-        "revision" : "f370820eb03441b110e0ca89cfd534d88ead6e80",
-        "version" : "3.1.1"
+        "revision" : "e60ff23eb01fcd3bc7e4067685e680a63529088f",
+        "version" : "4.0.1"
       }
     },
     {
@@ -15,7 +15,7 @@
       "location" : "https://github.com/agiefer/DWUtilities.git",
       "state" : {
         "branch" : "main",
-        "revision" : "aff96fe91998a82013460ea403875dfaa2b6acae"
+        "revision" : "bdb074c172ffa321888c9ab7f3dce0e15cb5ddf0"
       }
     },
     {
@@ -33,7 +33,7 @@
       "location" : "https://github.com/agiefer/MonitioKit.git",
       "state" : {
         "branch" : "main",
-        "revision" : "5df0cf929329ae7d949d55b64ae581fce3a56201"
+        "revision" : "019e81aad825d61d6d9bf9e7aa0b1424c79d77c0"
       }
     },
     {
@@ -42,7 +42,7 @@
       "location" : "https://github.com/agiefer/SelmaKit.git",
       "state" : {
         "branch" : "main",
-        "revision" : "4b416105d448a2c602eb51eccee482c60505b5f3"
+        "revision" : "50344730a7c398f596db20f7e8c97494804b7f78"
       }
     },
     {
