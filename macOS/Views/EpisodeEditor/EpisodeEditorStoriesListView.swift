@@ -82,11 +82,31 @@ struct EpisodeEditorStoriesListView: View {
                         } icon: {
                             Image(systemName: story.usedInIntroduction ? "star.fill" : "star")
                         }
+                        .contextMenu(ContextMenu(menuItems: {
+                            Button {
+                                if let idx = chosenEpisode.stories.firstIndex(where: {$0.id == story.id}) {
+                                    let indexSet = IndexSet(integer: idx)
+                                    onDelete(offsets: indexSet)
+                                }
+                            } label: {
+                                Text("Delete")
+                            }
+
+                        }))
                     }
                     .onDelete(perform: onDelete)
                     .onMove(perform: onMove)
+
                 }
                 .listStyle(.inset(alternatesRowBackgrounds: true))
+                .onDeleteCommand(perform: {
+                    if let storyId = chosenStoryId {
+                        if let idx = chosenEpisode.stories.firstIndex(where: {$0.id == storyId}) {
+                            let indexSet = IndexSet(integer: idx)
+                            onDelete(offsets: indexSet)
+                        }
+                    }
+                })
                 
             }.padding()
         }
