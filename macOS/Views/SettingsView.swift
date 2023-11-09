@@ -90,7 +90,7 @@ struct SettingsView: View {
             
         }
         .padding(EdgeInsets(top: 40, leading: 80, bottom: 40, trailing: 40))
-        .frame(width: 700, height: 400)
+        .frame(width: 700, height: 450)
     }
 }
 
