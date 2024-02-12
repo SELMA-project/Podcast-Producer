@@ -231,7 +231,6 @@
 		C1EBDB7B29E81FB10032F664 /* MonitioImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitioImportView.swift; sourceTree = "<group>"; };
 		C1EBDB7D29E8216F0032F664 /* MonitioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitioViewModel.swift; sourceTree = "<group>"; };
 		C1F5602628D4765900E573E2 /* no-audio.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "no-audio.m4a"; sourceTree = "<group>"; };
-		F72206602AF91F3F00E2C879 /* DWSpeakerKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DWSpeakerKit; path = ../00_packages/DWSpeakerKit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,7 +326,6 @@
 			children = (
 				C10687102A86620500ED796D /* Podcast-Creator--macOS--Info.plist */,
 				C10D912A2919430300AC94A7 /* Podcast-Creator--iOS--Info.plist */,
-				F72206602AF91F3F00E2C879 /* DWSpeakerKit */,
 				C1491F5527AD472600A72AEB /* Shared */,
 				C1491F6727AD472700A72AEB /* macOS */,
 				C1491F6127AD472700A72AEB /* Products */,
@@ -958,7 +956,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = 82DH72DY44;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -974,7 +972,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.2;
+				MARKETING_VERSION = 1.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lab-dw.Podcast-Producer";
 				PRODUCT_NAME = "Podcast Creator";
 				SDKROOT = iphoneos;
@@ -990,7 +988,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = 82DH72DY44;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1006,7 +1004,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.2;
+				MARKETING_VERSION = 1.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lab-dw.Podcast-Producer";
 				PRODUCT_NAME = "Podcast Creator";
 				SDKROOT = iphoneos;
@@ -1027,7 +1025,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 82DH72DY44;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1041,7 +1039,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.9.5;
+				MARKETING_VERSION = 1.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lab-dw.Podcast-Producer";
 				PRODUCT_NAME = "Podcast Creator";
 				SDKROOT = macosx;
@@ -1060,7 +1058,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 82DH72DY44;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1074,7 +1072,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.9.5;
+				MARKETING_VERSION = 1.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lab-dw.Podcast-Producer";
 				PRODUCT_NAME = "Podcast Creator";
 				SDKROOT = macosx;
