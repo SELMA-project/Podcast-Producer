@@ -30,13 +30,14 @@ class CleverBirdManager {
         // early exit if no connection exists
         if let openAIAPIConnection = self.openAIAPIConnection {
             
-            let chatThread = ChatThread(connection: openAIAPIConnection)
+            let chatThread = ChatThread()
                 .addSystemMessage(prompt)
                 .addUserMessage(context)
             
             do {
                 
                 let completion = try await chatThread.complete(
+                    using: openAIAPIConnection,
                     model: .gpt35Turbo,
                     temperature: Percentage(floatLiteral: temperature),
                     maxTokens: maxTokens
