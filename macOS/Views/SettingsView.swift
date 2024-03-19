@@ -12,7 +12,8 @@ struct SettingsView: View {
     @AppStorage(Constants.userDefaultsElevenLabsAPIKeyName) var elevenLabsAPIKey = ""
     @AppStorage(Constants.userDefaultsOpenAIAPIKeyName) var openAIAPIKey = ""
     @AppStorage(Constants.userDefaultsPriberamAPIKeyName) var priberamAPIKey = ""
-
+    @AppStorage(Constants.userDefaultsAllowClonedVoicesKeyName) var allowsClonedVoices = false
+    
     @AppStorage(Constants.userDefaultsSummarizationPrompt) var summarizationPrompt = "You are a radio presenter for Deutsche Welle. Summarize the text in 2 sentences."
     
     @AppStorage(Constants.userDefaultsChatTemperature) var temperature: Double = 0.5
@@ -81,6 +82,10 @@ struct SettingsView: View {
                     
                     TextField("Summarization Prompt:", text: $summarizationPrompt, axis: .vertical)
                         .lineLimit(4)
+                }
+                
+                Toggle(isOn: $allowsClonedVoices) {
+                    Text("Allow the use of cloned voices")
                 }
                 
             }

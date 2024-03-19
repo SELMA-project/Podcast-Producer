@@ -15,4 +15,5 @@ class Constants {
     static let userDefaultsChatTemperature = "chatTemperature"
     static let userDefaultsMaxNumberOfTokens = "maxNumberOfTokens"
     static let userDefaultsSelectedEngine = "selectedEngine"
+    static let userDefaultsAllowClonedVoicesKeyName = "allowsClonedVoices"
 }
